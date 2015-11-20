@@ -124,16 +124,6 @@ var theOptions = {
 };
 ```
 
-**theOptions.singleHandTarget** - String  
-*Default: 'minutes'*  
-By default when working with a single hand watch, the single hand replicates the rotation logic of a traditional minute hand. However, the single hand can target the hour hand logic by passing that into theOtions.
-```javascript
-var theOptions = {
-  singleHandTarget: "hours",
-  ...
-};
-```
-
 **theOptions.startSecondsAtZero** - Boolean  
 *Default: false*  
 Determine whether the seconds hand should start at 0 or with the current time.
