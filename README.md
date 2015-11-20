@@ -302,4 +302,4 @@ var theOptions = {
 ```
 
 ## Contact
-[@Yuschick](http://www.twitter.com/Yuschick)
+[@Yuschick on Twitter](http://www.twitter.com/Yuschick)
