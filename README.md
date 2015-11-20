@@ -3,6 +3,12 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 
 This library includes and relies heavily upon a couple libraries from [Zachary Johnson](www.zachstronaut.com). Thanks, Zach!
 
+## Examples
+[Demo on CodePen](http://codepen.io/Yuschick/pen/gayLQp)  
+[Sarpaneva Northern Lights](http://codepen.io/Yuschick/pen/gbJgde)  
+[Speake-Marin Velsheda](http://codepen.io/Yuschick/pen/ZYLdmQ)  
+[A Lange & Sohne Zeitwerk](http://codepen.io/Yuschick/pen/yYeRPm)
+
 ## Get Started
 Download TickTock and include it in your project after jQuery. Once included, call the library for use:
 ```javascript
