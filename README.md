@@ -16,6 +16,8 @@ ticktock.init();
 ## Documentation
 **Note:** Transform origin points of components should be set via CSS. There is currently no support for automatic detection or passing the values into ticktock.
 
+**Note:** If using the Single Hand feature, set the single hand element as theHourHand.
+
 **theSVGContainer** - $(jQuery Object)  
 The ID or identifying class of the parent SVG element that is to be animated.
 ```javascript
