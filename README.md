@@ -3,6 +3,12 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 
 This library includes and relies heavily upon a couple libraries from [Zachary Johnson](www.zachstronaut.com). Thanks, Zach!
 
+## Examples
+[Demo on CodePen](http://codepen.io/Yuschick/pen/gayLQp)  
+[Sarpaneva Northern Lights](http://codepen.io/Yuschick/pen/gbJgde)  
+[Speake-Marin Velsheda](http://codepen.io/Yuschick/pen/ZYLdmQ)  
+[A Lange & Sohne Zeitwerk](http://codepen.io/Yuschick/pen/yYeRPm)
+
 ## Get Started
 Download TickTock and include it in your project after jQuery. Once included, call the library for use:
 ```javascript
@@ -15,6 +21,8 @@ ticktock.init();
 
 ## Documentation
 **Note:** Transform origin points of components should be set via CSS. There is currently no support for automatic detection or passing the values into ticktock.
+
+**Note:** If using the Single Hand feature, set the single hand element as theHourHand.
 
 **theSVGContainer** - $(jQuery Object)  
 The ID or identifying class of the parent SVG element that is to be animated.
