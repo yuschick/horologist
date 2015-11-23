@@ -162,7 +162,7 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
     $theHourHand = $theSVGContainer.find(theComponents.theHourHand) || null,
     $theCrown = $theSVGContainer.find(theComponents.theCrown) || null,
     $theResetButton = $theSVGContainer.find(theComponents.theResetButton) || null;
-
+  
   var theOptions = theOptions || {
       singleHand: null,
       singleHandTarget: null,
@@ -183,7 +183,7 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
       onSet: null
     },
     sweep = sweepObj.all === false ? sweepObj.all : true,
-    sweepOnSet = sweepObj.onSet || sweep,
+    sweepOnSet = sweepObj.onSet === false ? sweepObj.onSet : sweep,
     sweepSeconds = sweepObj.seconds || sweep,
     sweepMinutes = sweepObj.minutes || sweep,
     sweepHours = sweepObj.hours || sweep,
@@ -436,6 +436,11 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
         }
 
         if (singleHand) {
+          if ($theSecondsHand && !startSecondsAtZero && $theSecondsHand && !singleHand && !initialTimeSet) {
+            HANDLOGIC.secondsHand(theTimeValues.seconds);
+          } else {
+            HANDLOGIC.secondsHand();
+          }
           HANDLOGIC.hourHand(theTimeValues.hours, theTimeValues.minutes);
         } else {
           if (!startSecondsAtZero && $theSecondsHand && !singleHand && !initialTimeSet) {
