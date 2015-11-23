@@ -14,7 +14,7 @@ Download TickTock and include it in your project after jQuery. Once included, ca
 ```javascript
 var ticktock = ticktock(theSVGContainer, theComponents, theOptions);
 ```
-Then call then init() function to start the time.
+Then call the init() function to start the time.
 ```javascript
 ticktock.init();
 ```
