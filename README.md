@@ -114,7 +114,7 @@ var theOptions = {
 
 **theOptions.gmtOffset** - Number  
 *Default: null*  
-Pass a number, negative or positive, to serve as a GMT offset when determining the time. For example, to show the time in New York the GMT offset would be -5.
+Pass a number, negative or positive, to serve as a GMT offset when determining the time. For example, to show the time in New York the GMT offset would be -5. Currently, only full hour values are supported.
 ```javascript
 var theOptions = {
   gmtOffset: -5,

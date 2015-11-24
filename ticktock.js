@@ -209,7 +209,10 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
     isManualTime = false,
     theCrownCounter = 0,
     theCurrentCrownState,
-    initialTimeSet = false;
+    initialTimeSet = false,
+    initialSecondsSet = false,
+    initialMinutesSet = false,
+    initialHoursSet = false;
 
   var init = function() {
     TIME.setCurrentTime();
@@ -259,28 +262,11 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
         var theSweepDuration = theSweepDuration || sweepDuration;
 
         if (doSweep) {
-          if (!initialTimeSet) {
-            $theHand.animate({
-              rotate: theRotateValue
-            }, theSweepDuration, "linear", function() {
-              if (!startSecondsAtZero) {
-                INTERVAL.SET.seconds();
-              }
-            });
-            initialTimeSet = true;
-          } else {
             $theHand.stop().animate({
               rotate: theRotateValue
             }, theSweepDuration, "linear");
-          }
         } else {
-          if (!initialTimeSet) {
             $theHand.rotate(theRotateValue);
-            initialTimeSet = true;
-            INTERVAL.SET.seconds();
-          } else {
-            $theHand.rotate(theRotateValue);
-          }
         }
       }
     },
@@ -291,7 +277,7 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
           theDefinedLogic = (((theSeconds * theSecondsRotateValue) * 100) / 100) + "deg",
           theIncrementLogic = "+=" + theSecondsRotateValue + "deg";
 
-        if (!initialTimeSet) {
+        if (!initialSecondsSet) {
           if (!startSecondsAtZero) {
             if (sweepOnSet) {
               ROTATE.hand($theSecondsHand, theDefinedLogic, true);
@@ -299,6 +285,8 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
               ROTATE.hand($theSecondsHand, theDefinedLogic);
             }
           }
+          initialSecondsSet = true;
+          INTERVAL.SET.seconds();
         } else {
           if (sweepSeconds || sweep) {
             if (theSeconds) {
@@ -331,12 +319,13 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
 
           ROTATE.hand($theMinuteHand, theManualLogic, true, 1);
         } else {
-          if (!initialTimeSet) {
+          if (!initialMinutesSet) {
             if (sweepOnSet) {
               ROTATE.hand($theMinuteHand, theDefinedLogic, true);
             } else {
               ROTATE.hand($theMinuteHand, theDefinedLogic);
             }
+            initialMinutesSet = true;
           } else {
             if (sweepMinutes || sweep) {
               if (isManualTime) {
@@ -372,12 +361,13 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
 
           ROTATE.hand($theHourHand, theManualLogic, true, 1);
         } else {
-          if (!initialTimeSet) {
+          if (!initialHoursSet) {
             if (sweepOnSet) {
               ROTATE.hand($theHourHand, theDefinedLogic, true);
             } else {
               ROTATE.hand($theHourHand, theDefinedLogic);
             }
+            initialHoursSet = true;
           } else {
             if (sweepHours || sweep) {
               if (isManualTime) {
