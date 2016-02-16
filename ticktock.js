@@ -161,7 +161,7 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
     $theMinuteHand = $theSVGContainer.find(theComponents.theMinuteHand) || null,
     $theHourHand = $theSVGContainer.find(theComponents.theHourHand) || null,
     $theCrown = $theSVGContainer.find(theComponents.theCrown) || null,
-    $theResetButton = $theSVGContainer.find(theComponents.theResetButton) || null;
+    $theResetButton = theComponents.theResetButton || null;
   
   var theOptions = theOptions || {
       singleHand: null,
@@ -508,12 +508,14 @@ function ticktock(theSVGContainer, theComponents, theOptions) {
           }
 
           $theCrown.attr("class", "");
-          $theCrownFill.each(function() {
-            theCurrentCrownState = $(this).attr("class");
-            for (var i = 0; i < theCrownFillClassesLength; i++) {
-              $(this).attr("class", theCurrentCrownState.replace(" " + theCrownFillClasses[i], ""));
-            }
-          });
+          if ($theCrownFill) {
+            $theCrownFill.each(function() {
+              theCurrentCrownState = $(this).attr("class");
+              for (var i = 0; i < theCrownFillClassesLength; i++) {
+                $(this).attr("class", theCurrentCrownState.replace(" " + theCrownFillClasses[i], ""));
+              }
+            });
+          }
           isCrownActive = false;
           INTERVAL.SET.seconds();
           INTERVAL.SET.minute();
