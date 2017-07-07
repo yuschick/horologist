@@ -94,5 +94,12 @@ let VoutilainenGMR = new Watch(settings);
 - **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 
+## ToDo
+- [ ] Add a date component
+- [ ] Add a day/night indicator
+- [ ] Provide annual calendar support
+- [ ] Provide perpetual calendar support
+- [ ] Provide minute repeater support
+
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
