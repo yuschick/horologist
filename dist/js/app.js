@@ -52,14 +52,14 @@
 	  var Watch = __webpack_require__(1);
 	  var settings = {
 	    dials: [{
-	      id: 'local-time',
+	      name: 'local-time',
 	      hands: {
 	        hour: 'primary-hours-hand',
 	        minute: 'primary-minutes-hand'
 	      },
 	      offset: '+3'
 	    }, {
-	      id: 'home-time',
+	      name: 'home-time',
 	      hands: {
 	        hour: 'secondary-hours-hand',
 	        second: 'secondary-minutes-hand'
@@ -283,7 +283,7 @@
 	      console.error(errorMsg);
 	      return;
 	    }
-	    this.id = settings.id;
+	    this.name = settings.name;
 	    this.hands = {};
 	    if (settings.hands.hour) this.hands.hour = document.getElementById(settings.hands.hour);
 	    if (settings.hands.minute) this.hands.minute = document.getElementById(settings.hands.minute);

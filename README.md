@@ -30,14 +30,14 @@ Run `yarn build` to compile all files
 const settings = {
   dials: [
     {
-      id: 'local-time',
+      name: 'local-time',
       hands: {
         hour: 'primary-hours-hand',
         minute: 'primary-minutes-hand'
       },
       offset: '+3'
     }, {
-      id: 'home-time',
+      name: 'home-time',
       hands: {
         hour: 'secondary-hours-hand',
         second: 'secondary-minutes-hand'
@@ -81,7 +81,7 @@ let VoutilainenGMR = new Watch(settings);
 ```
 
 #### dials [Array]  
-- **id** (*String*): A name to identify the specific dial
+- **name** (*String*): A name to identify the specific dial
 - **hands** (*Object*):
   - **hour** (*String*): The id of the hour hand SVG element
   - **minute** (*String*): The id of the minute hand SVG element

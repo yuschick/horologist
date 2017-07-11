@@ -5,14 +5,14 @@
   const settings = {
     dials: [
       {
-        id: 'local-time',
+        name: 'local-time',
         hands: {
           hour: 'primary-hours-hand',
           minute: 'primary-minutes-hand'
         },
         offset: '+3'
       }, {
-        id: 'home-time',
+        name: 'home-time',
         hands: {
           hour: 'secondary-hours-hand',
           second: 'secondary-minutes-hand'

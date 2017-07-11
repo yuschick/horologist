@@ -10,7 +10,7 @@ class Dial {
       console.error(errorMsg);
       return;
     }
-    this.id = settings.id;
+    this.name = settings.name;
     this.hands = {};
     if (settings.hands.hour)
       this.hands.hour = document.getElementById(settings.hands.hour);
