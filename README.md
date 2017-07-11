@@ -113,10 +113,14 @@ let VoutilainenGMR = new Watch(settings);
 
 
 ## ToDo
-- [ ] Add a date component
 - [ ] Add a day/night indicator
-- [ ] Provide annual calendar support
 - [ ] Provide perpetual calendar support
+  - [ ] Day indicator
+  - [ ] Date indicator
+  - [ ] Month indicator
+  - [ ] Year indicator
+- [ ] Provide basic chronograph support
+  - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
 - [x] Provide minute repeater support
 
