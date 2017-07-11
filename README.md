@@ -113,6 +113,8 @@ let VoutilainenGMR = new Watch(settings);
 
 
 ## ToDo
+- [ ] Create a more simplistic (design) demo to showcase the library and its components
+- [ ] Create a TickTock site to host proper documentation and demos
 - [ ] Add a day/night indicator
 - [ ] Provide perpetual calendar support
   - [ ] Day indicator
