@@ -123,6 +123,21 @@ img {
 p {
   margin: 1rem 0; }
 
+#repeater-btn {
+  background: #bf3934;
+  background: -webkit-gradient(linear, left top, left bottom, from(#bf3934), to(#bc332f));
+  background: -o-linear-gradient(top, #bf3934 0%, #bc332f 100%);
+  background: linear-gradient(to bottom, #bf3934 0%, #bc332f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#bf3934', endColorstr='#bc332f',GradientType=0 );
+  border: 1px solid #222;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%; }
+
 .hand {
   -webkit-transform-origin: bottom center;
       -ms-transform-origin: bottom center;
@@ -167,7 +182,7 @@ p {
             transform: translateX(4px); }
 
 .faded {
-  opacity: .1;
+  opacity: 0.1;
   -webkit-transition: opacity 0.5s ease;
   -o-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease; }

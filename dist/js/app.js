@@ -80,6 +80,14 @@
 	        selector: '.main_dial',
 	        className: 'faded'
 	      }]
+	    },
+	    repeater: {
+	      id: 'repeater-btn',
+	      chimes: {
+	        hour: './dist/sounds/chime-01.mp4',
+	        fiveMinute: './dist/sounds/chime-02.mp4',
+	        minute: './dist/sounds/chime-03.mp4'
+	      }
 	    }
 	  };
 
@@ -117,6 +125,7 @@
 	var Crown = __webpack_require__(4);
 	var PowerReserve = __webpack_require__(5);
 	var MoonPhase = __webpack_require__(6);
+	var MinuteRepeater = __webpack_require__(7);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -143,6 +152,11 @@
 
 	    if (settings.moonphase) {
 	      this.moonphase = new MoonPhase(settings.moonphase, this);
+	    }
+
+	    if (settings.repeater) {
+	      this.repeaterDial = settings.repeater.dial || 0;
+	      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater);
 	    }
 
 	    this.init();
@@ -229,6 +243,10 @@
 	    value: function stopInterval() {
 	      clearInterval(this.globalInterval);
 	      this.globalInterval = null;
+
+	      if (this.repeater) {
+	        this.repeater.stopAll();
+	      }
 	    }
 	  }, {
 	    key: 'init',
@@ -273,7 +291,7 @@
 
 	    this.parent = parentWatch;
 
-	    this.format = settings.formnat ? settings.format : 12;
+	    this.format = settings.format ? settings.format : 12;
 	    this.gmtOffset = settings.offset ? settings.offset.toString() : null;
 
 	    this.rightNow = this.parent.rightNow;
@@ -698,6 +716,166 @@
 	}();
 
 	module.exports = MoonPhase;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var util = __webpack_require__(3);
+
+	var MinuteRepeater = function () {
+	  function MinuteRepeater(dial, repeater) {
+	    _classCallCheck(this, MinuteRepeater);
+
+	    this.hands = dial.hands;
+
+	    this.hourAngle = 0;
+	    this.hourChimes = 0;
+	    this.hourElement = null;
+	    this.hourDivisor = dial.format === 12 ? 30 : 15;
+
+	    this.allMinutes = 0;
+	    this.minuteAngle = 0;
+	    this.fiveMinuteChimes = 0;
+	    this.fiveMinuteElement = null;
+	    this.minuteChimes = 0;
+	    this.minuteElement = null;
+
+	    this.trigger = document.getElementById(repeater.id);
+	    this.chimes = repeater.chimes;
+	    this.counter = 1;
+	    this.isPlaying = false;
+	    this.init();
+	  }
+
+	  _createClass(MinuteRepeater, [{
+	    key: 'convertAngleToIncrements',
+	    value: function convertAngleToIncrements() {
+	      this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+	      this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor);
+
+	      try {
+	        if (!this.hands.minute) throw "The minute repeater, like, by definition, requires a dial which supports a minute hand.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+	      this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
+	      this.allMinutes = Math.floor(this.minuteAngle / 6);
+	      this.fiveMinuteChimes = Math.floor(this.allMinutes / 5);
+	      this.minuteChimes = Math.floor(this.allMinutes - this.fiveMinuteChimes * 5);
+	    }
+	  }, {
+	    key: 'bindEvents',
+	    value: function bindEvents() {
+	      var _this = this;
+
+	      this.trigger.addEventListener('click', function () {
+	        _this.togglePlaying();
+	      });
+
+	      this.hourElement.addEventListener('ended', function () {
+	        _this.playHours();
+	      });
+
+	      this.fiveMinuteElement.addEventListener('ended', function () {
+	        _this.playFiveMinutes();
+	      });
+
+	      this.minuteElement.addEventListener('ended', function () {
+	        _this.playMinutes();
+	      });
+	    }
+	  }, {
+	    key: 'stopAll',
+	    value: function stopAll() {
+	      this.hourElement.pause();
+	      this.hourElement.currentTime = 0;
+	      this.fiveMinuteElement.pause();
+	      this.fiveMinuteElementcurrentTime = 0;
+	      this.minuteElement.pause();
+	      this.minuteElementcurrentTime = 0;
+
+	      this.counter = 1;
+	      this.isPlaying = false;
+	    }
+	  }, {
+	    key: 'togglePlaying',
+	    value: function togglePlaying() {
+	      this.isPlaying = !this.isPlaying;
+
+	      if (this.isPlaying) {
+	        this.convertAngleToIncrements();
+	        this.playHours();
+	      } else {
+	        this.stopAll();
+	      }
+	    }
+	  }, {
+	    key: 'playHours',
+	    value: function playHours() {
+	      if (this.counter <= this.hourChimes) {
+	        this.hourElement.play();
+	        this.counter++;
+	      } else if (this.counter === this.hourChimes + 1) {
+	        this.counter = 1;
+	        this.playFiveMinutes();
+	      }
+	    }
+	  }, {
+	    key: 'playFiveMinutes',
+	    value: function playFiveMinutes() {
+	      if (this.counter <= this.fiveMinuteChimes) {
+	        this.fiveMinuteElement.play();
+	        this.counter++;
+	      } else if (this.counter === this.fiveMinuteChimes + 1) {
+	        this.counter = 1;
+	        this.playMinutes();
+	      }
+	    }
+	  }, {
+	    key: 'playMinutes',
+	    value: function playMinutes() {
+	      if (this.counter <= this.minuteChimes) {
+	        this.minuteElement.play();
+	        this.counter++;
+	      } else if (this.counter === this.minuteChimes + 1) {
+	        this.counter = 1;
+	      }
+	    }
+	  }, {
+	    key: 'buildAudioElements',
+	    value: function buildAudioElements() {
+	      this.hourElement = document.createElement('audio');
+	      this.hourElement.src = this.chimes.hour;
+	      document.body.appendChild(this.hourElement);
+
+	      this.fiveMinuteElement = document.createElement('audio');
+	      this.fiveMinuteElement.src = this.chimes.fiveMinute;
+	      document.body.appendChild(this.fiveMinuteElement);
+
+	      this.minuteElement = document.createElement('audio');
+	      this.minuteElement.src = this.chimes.minute;
+	      document.body.appendChild(this.minuteElement);
+	    }
+	  }, {
+	    key: 'init',
+	    value: function init() {
+	      this.buildAudioElements();
+	      this.bindEvents();
+	    }
+	  }]);
+
+	  return MinuteRepeater;
+	}();
+
+	module.exports = MinuteRepeater;
 
 /***/ })
 /******/ ]);

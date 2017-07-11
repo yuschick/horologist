@@ -21,7 +21,7 @@ class Dial {
 
     this.parent = parentWatch;
 
-    this.format = settings.formnat
+    this.format = settings.format
       ? settings.format
       : 12;
     this.gmtOffset = settings.offset

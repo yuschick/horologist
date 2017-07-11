@@ -2,6 +2,7 @@ const Dial = require('./Dial');
 const Crown = require('./Crown');
 const PowerReserve = require('./PowerReserve');
 const MoonPhase = require('./MoonPhase');
+const MinuteRepeater = require('./MinuteRepeater');
 
 class Watch {
   constructor(settings) {
@@ -24,6 +25,11 @@ class Watch {
 
     if (settings.moonphase) {
       this.moonphase = new MoonPhase(settings.moonphase, this);
+    }
+
+    if (settings.repeater) {
+      this.repeaterDial = settings.repeater.dial || 0;
+      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater);
     }
 
     this.init();
@@ -108,6 +114,10 @@ class Watch {
   stopInterval() {
     clearInterval(this.globalInterval);
     this.globalInterval = null;
+
+    if (this.repeater) {
+      this.repeater.stopAll();
+    }
   }
 
   init() {

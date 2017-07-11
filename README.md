@@ -93,13 +93,22 @@ let VoutilainenGMR = new Watch(settings);
 - **id** (*String*): The id of the moonphase dial SVG element
 - **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
+#### repeater {Object}
+- **id** (*String*): The id of the element that is to trigger playing the minute repeater on click. Clicking this element a second time will toggle the repeater off. The repeater will play back the time of the first dial passed into the dials array.
+- **chimes** {*Object*}:
+ - **hour** (*String*): File path to the audio file to be played for every hour
+ - **fiveMinute** (*String*): File path to the audio file to be played for every five minute increment
+ - **minute** (*String*): File path to the audio file to be played for every remaining minute
+- **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read and played by the repeater.
+
 
 ## ToDo
 - [ ] Add a date component
 - [ ] Add a day/night indicator
 - [ ] Provide annual calendar support
 - [ ] Provide perpetual calendar support
-- [ ] Provide minute repeater support
+- [ ] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
+- [x] Provide minute repeater support
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)

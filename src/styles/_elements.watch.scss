@@ -1,3 +1,19 @@
+#repeater-btn {
+  background: #bf3934;
+  background: -moz-linear-gradient(top, #bf3934 0%, #bc332f 100%);
+  background: -webkit-linear-gradient(top, #bf3934 0%,#bc332f 100%);
+  background: linear-gradient(to bottom, #bf3934 0%,#bc332f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#bf3934', endColorstr='#bc332f',GradientType=0 );
+  border: 1px solid #222;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
 .hand {
   transform-origin: bottom center;
   transition: transform 0.15s linear;
