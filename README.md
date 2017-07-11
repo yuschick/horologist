@@ -5,6 +5,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Power Reserve
 - Crown and Manual Time Functionality
 - Moonphase
+- Minute Repeater
 
 ## Examples
 [Voutilainen GMR](https://yuschick.github.io/voutilainen-gmr/)
@@ -82,9 +83,9 @@ let VoutilainenGMR = new Watch(settings);
 #### dials [Array]  
 - **id** (*String*): A name to identify the specific dial
 - **hands** (*Object*):
- - **hour** (*String*): The id of the hour hand SVG element
- - **minute** (*String*): The id of the minute hand SVG element
- - **second** (*String*): The id of the second hand SVG element
+  - **hour** (*String*): The id of the hour hand SVG element
+  - **minute** (*String*): The id of the minute hand SVG element
+  - **second** (*String*): The id of the second hand SVG element
 - **offset** (*String*): *Default: 0* Use the offset value to define a GMT timezone (eg: '+2', '-4.5')
 - **format** (*Number*): *Default: 12* Specify `12` or `24` to define if the dial should run as 12 or 24 hour time
 
@@ -105,9 +106,9 @@ let VoutilainenGMR = new Watch(settings);
 #### repeater {Object}
 - **id** (*String*): The id of the element that is to trigger playing the minute repeater on click. Clicking this element a second time will toggle the repeater off. The repeater will play back the time of the first dial passed into the dials array.
 - **chimes** {*Object*}:
- - **hour** (*String*): File path to the audio file to be played for every hour
- - **fiveMinute** (*String*): File path to the audio file to be played for every five minute increment
- - **minute** (*String*): File path to the audio file to be played for every remaining minute
+  - **hour** (*String*): File path to the audio file to be played for every hour
+  - **fiveMinute** (*String*): File path to the audio file to be played for every five minute increment
+  - **minute** (*String*): File path to the audio file to be played for every remaining minute
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read and played by the repeater.
 
 
