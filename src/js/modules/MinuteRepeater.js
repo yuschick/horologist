@@ -27,6 +27,9 @@ class MinuteRepeater {
 
   convertAngleToIncrements() {
     this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+    if (this.hourAngle > 360) {
+      this.hourAngle -= 360;
+    }
     this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor);
 
     try {
@@ -38,6 +41,11 @@ class MinuteRepeater {
       return;
     }
     this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
+    console.log(this.minuteAngle);
+    if (this.minuteAngle > 360) {
+      this.minuteAngle %= 360;
+      console.log(this.minuteAngle);
+    }
     this.allMinutes = Math.floor(this.minuteAngle / 6);
     this.fiveMinuteChimes = Math.floor(this.allMinutes / 5);
     this.minuteChimes = Math.floor(this.allMinutes - (this.fiveMinuteChimes * 5));
