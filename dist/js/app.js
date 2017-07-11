@@ -156,7 +156,7 @@
 
 	    if (settings.repeater) {
 	      this.repeaterDial = settings.repeater.dial || 0;
-	      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater);
+	      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater, this);
 	    }
 
 	    this.init();
@@ -730,7 +730,7 @@
 	var util = __webpack_require__(3);
 
 	var MinuteRepeater = function () {
-	  function MinuteRepeater(dial, repeater) {
+	  function MinuteRepeater(dial, repeater, parentWatch) {
 	    _classCallCheck(this, MinuteRepeater);
 
 	    this.hands = dial.hands;
@@ -751,6 +751,7 @@
 	    this.chimes = repeater.chimes;
 	    this.counter = 1;
 	    this.isPlaying = false;
+	    this.parent = parentWatch;
 	    this.init();
 	  }
 
@@ -816,13 +817,15 @@
 	  }, {
 	    key: 'togglePlaying',
 	    value: function togglePlaying() {
-	      this.isPlaying = !this.isPlaying;
+	      if (this.parent.globalInterval) {
+	        this.isPlaying = !this.isPlaying;
 
-	      if (this.isPlaying) {
-	        this.convertAngleToIncrements();
-	        this.playHours();
-	      } else {
-	        this.stopAll();
+	        if (this.isPlaying) {
+	          this.convertAngleToIncrements();
+	          this.playHours();
+	        } else {
+	          this.stopAll();
+	        }
 	      }
 	    }
 	  }, {

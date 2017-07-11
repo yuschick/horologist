@@ -104,7 +104,7 @@
 
     <span class="hljs-keyword">if</span> (settings.repeater) {
       <span class="hljs-keyword">this</span>.repeaterDial = settings.repeater.dial || <span class="hljs-number">0</span>;
-      <span class="hljs-keyword">this</span>.repeater = <span class="hljs-keyword">new</span> MinuteRepeater(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.repeaterDial], settings.repeater);
+      <span class="hljs-keyword">this</span>.repeater = <span class="hljs-keyword">new</span> MinuteRepeater(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.repeaterDial], settings.repeater, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">this</span>.init();

@@ -29,7 +29,7 @@ class Watch {
 
     if (settings.repeater) {
       this.repeaterDial = settings.repeater.dial || 0;
-      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater);
+      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater, this);
     }
 
     this.init();

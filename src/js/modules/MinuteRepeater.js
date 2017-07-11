@@ -1,7 +1,7 @@
 const util = require('../util');
 
 class MinuteRepeater {
-  constructor(dial, repeater) {
+  constructor(dial, repeater, parentWatch) {
     this.hands = dial.hands;
 
     this.hourAngle = 0;
@@ -22,6 +22,7 @@ class MinuteRepeater {
     this.chimes = repeater.chimes;
     this.counter = 1;
     this.isPlaying = false;
+    this.parent = parentWatch;
     this.init();
   }
 
@@ -82,13 +83,15 @@ class MinuteRepeater {
   }
 
   togglePlaying() {
-    this.isPlaying = !this.isPlaying;
+    if (this.parent.globalInterval) {
+      this.isPlaying = !this.isPlaying;
 
-    if (this.isPlaying) {
-      this.convertAngleToIncrements();
-      this.playHours();
-    } else {
-      this.stopAll();
+      if (this.isPlaying) {
+        this.convertAngleToIncrements();
+        this.playHours();
+      } else {
+        this.stopAll();
+      }
     }
   }
 

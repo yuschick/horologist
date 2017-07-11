@@ -76,7 +76,7 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../util'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinuteRepeater</span> </span>{
-  <span class="hljs-keyword">constructor</span>(dial, repeater) {
+  <span class="hljs-keyword">constructor</span>(dial, repeater, parentWatch) {
     <span class="hljs-keyword">this</span>.hands = dial.hands;
 
     <span class="hljs-keyword">this</span>.hourAngle = <span class="hljs-number">0</span>;
@@ -97,6 +97,7 @@
     <span class="hljs-keyword">this</span>.chimes = repeater.chimes;
     <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
     <span class="hljs-keyword">this</span>.isPlaying = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">this</span>.parent = parentWatch;
     <span class="hljs-keyword">this</span>.init();
   }
 
@@ -157,13 +158,15 @@
   }
 
   togglePlaying() {
-    <span class="hljs-keyword">this</span>.isPlaying = !<span class="hljs-keyword">this</span>.isPlaying;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.parent.globalInterval) {
+      <span class="hljs-keyword">this</span>.isPlaying = !<span class="hljs-keyword">this</span>.isPlaying;
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isPlaying) {
-      <span class="hljs-keyword">this</span>.convertAngleToIncrements();
-      <span class="hljs-keyword">this</span>.playHours();
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">this</span>.stopAll();
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isPlaying) {
+        <span class="hljs-keyword">this</span>.convertAngleToIncrements();
+        <span class="hljs-keyword">this</span>.playHours();
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.stopAll();
+      }
     }
   }
 
