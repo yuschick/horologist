@@ -8,9 +8,9 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Minute Repeater
 
 ## Examples
-[Voutilainen GMR](https://yuschick.github.io/voutilainen-gmr/)
+[Voutilainen GMR](http://yuschick.github.io/TickTock/)
 
-[![Voutilainen GMR Screenshot](https://raw.githubusercontent.com/yuschick/voutilainen-gmr/master/screenshot.jpg)](https://yuschick.github.io/voutilainen-gmr/)
+[![Voutilainen GMR Screenshot](https://raw.githubusercontent.com/yuschick/voutilainen-gmr/master/screenshot.jpg)](http://yuschick.github.io/TickTock/)
 
 ## Get Started
 Clone the repository and run `yarn` to install the package file.
