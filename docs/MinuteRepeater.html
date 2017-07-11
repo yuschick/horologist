@@ -106,7 +106,8 @@
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hourAngle &gt; <span class="hljs-number">360</span>) {
       <span class="hljs-keyword">this</span>.hourAngle -= <span class="hljs-number">360</span>;
     }
-    <span class="hljs-keyword">this</span>.hourChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.hourAngle / <span class="hljs-keyword">this</span>.hourDivisor);
+    <span class="hljs-keyword">this</span>.hourChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.hourAngle / <span class="hljs-keyword">this</span>.hourDivisor) || <span class="hljs-number">12</span>;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.hourAngle, <span class="hljs-keyword">this</span>.hourChimes);
 
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.hands.minute)
@@ -117,7 +118,6 @@
       <span class="hljs-keyword">return</span>;
     }
     <span class="hljs-keyword">this</span>.minuteAngle = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.minuteAngle);
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minuteAngle &gt; <span class="hljs-number">360</span>) {
       <span class="hljs-keyword">this</span>.minuteAngle %= <span class="hljs-number">360</span>;
       <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.minuteAngle);

@@ -31,7 +31,8 @@ class MinuteRepeater {
     if (this.hourAngle > 360) {
       this.hourAngle -= 360;
     }
-    this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor);
+    this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor) || 12;
+    console.log(this.hourAngle, this.hourChimes);
 
     try {
       if (!this.hands.minute)
@@ -42,7 +43,6 @@ class MinuteRepeater {
       return;
     }
     this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
-    console.log(this.minuteAngle);
     if (this.minuteAngle > 360) {
       this.minuteAngle %= 360;
       console.log(this.minuteAngle);

@@ -47,7 +47,7 @@ class Dial {
     this.manualTime = false;
     this.settingTime = false;
     this.setSecondary = false;
-    this.transition = null;
+    this.transition = {};
 
     this.init();
   }
@@ -119,6 +119,13 @@ class Dial {
         rotateVal = (this.currentTime.hours * this.rotateValues.hoursRotateVal) + (this.currentTime.minutes * this.rotateValues.hoursRotateValOffset);
       }
 
+      if (rotateVal === 0) {
+        this.transition.hour = this.hands.hour.style.transition;
+        this.hands.hour.style.transition = 'none';
+      } else if (rotateVal > 0 && this.hands.hour.style.transition === 'none') {
+        this.hands.hour.style.transition = this.transition.hour;
+      }
+
       this.hands.hour.style.transform = `rotate(${rotateVal}deg)`;
     }
 
@@ -138,6 +145,13 @@ class Dial {
         rotateVal = this.currentTime.minutes * this.rotateValues.minutesRotateVal;
       }
 
+      if (rotateVal === 0) {
+        this.transition.minute = this.hands.minute.style.transition;
+        this.hands.minute.style.transition = 'none';
+      } else if (rotateVal > 0 && this.hands.minute.style.transition === 'none') {
+        this.hands.minute.style.transition = this.transition.minute;
+      }
+
       this.hands.minute.style.transform = `rotate(${rotateVal}deg)`;
     }
 
@@ -145,10 +159,10 @@ class Dial {
       rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
 
       if (rotateVal === 0) {
-        this.transition = this.hands.second.style.transition;
+        this.transition.second = this.hands.second.style.transition;
         this.hands.second.style.transition = 'none';
       } else if (rotateVal > 0 && this.hands.second.style.transition === 'none') {
-        this.hands.second.style.transition = this.transition;
+        this.hands.second.style.transition = this.transition.second;
       }
 
       this.hands.second.style.transform = `rotate(${rotateVal}deg)`;

@@ -309,7 +309,7 @@
 	    this.manualTime = false;
 	    this.settingTime = false;
 	    this.setSecondary = false;
-	    this.transition = null;
+	    this.transition = {};
 
 	    this.init();
 	  }
@@ -392,6 +392,13 @@
 	          rotateVal = this.currentTime.hours * this.rotateValues.hoursRotateVal + this.currentTime.minutes * this.rotateValues.hoursRotateValOffset;
 	        }
 
+	        if (rotateVal === 0) {
+	          this.transition.hour = this.hands.hour.style.transition;
+	          this.hands.hour.style.transition = 'none';
+	        } else if (rotateVal > 0 && this.hands.hour.style.transition === 'none') {
+	          this.hands.hour.style.transition = this.transition.hour;
+	        }
+
 	        this.hands.hour.style.transform = 'rotate(' + rotateVal + 'deg)';
 	      }
 
@@ -411,6 +418,13 @@
 	          rotateVal = this.currentTime.minutes * this.rotateValues.minutesRotateVal;
 	        }
 
+	        if (rotateVal === 0) {
+	          this.transition.minute = this.hands.minute.style.transition;
+	          this.hands.minute.style.transition = 'none';
+	        } else if (rotateVal > 0 && this.hands.minute.style.transition === 'none') {
+	          this.hands.minute.style.transition = this.transition.minute;
+	        }
+
 	        this.hands.minute.style.transform = 'rotate(' + rotateVal + 'deg)';
 	      }
 
@@ -418,10 +432,10 @@
 	        rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
 
 	        if (rotateVal === 0) {
-	          this.transition = this.hands.second.style.transition;
+	          this.transition.second = this.hands.second.style.transition;
 	          this.hands.second.style.transition = 'none';
 	        } else if (rotateVal > 0 && this.hands.second.style.transition === 'none') {
-	          this.hands.second.style.transition = this.transition;
+	          this.hands.second.style.transition = this.transition.second;
 	        }
 
 	        this.hands.second.style.transform = 'rotate(' + rotateVal + 'deg)';
@@ -762,7 +776,8 @@
 	      if (this.hourAngle > 360) {
 	        this.hourAngle -= 360;
 	      }
-	      this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor);
+	      this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor) || 12;
+	      console.log(this.hourAngle, this.hourChimes);
 
 	      try {
 	        if (!this.hands.minute) throw "The minute repeater, like, by definition, requires a dial which supports a minute hand.";
@@ -771,7 +786,6 @@
 	        return;
 	      }
 	      this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
-	      console.log(this.minuteAngle);
 	      if (this.minuteAngle > 360) {
 	        this.minuteAngle %= 360;
 	        console.log(this.minuteAngle);
