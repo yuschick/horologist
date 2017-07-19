@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
                 <a class="source" href="Dial.html">
                   Dial.js
                 </a>
@@ -77,6 +82,16 @@
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PowerReserve</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!settings.id)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The PowerReserve class requires that an ID of the power reserve element be provided."</span>;
+      }
+    <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
     <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
     <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.parent = parentWatch;

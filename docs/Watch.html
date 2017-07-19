@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
                 <a class="source" href="Dial.html">
                   Dial.js
                 </a>
@@ -78,9 +83,20 @@
 <span class="hljs-keyword">const</span> PowerReserve = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./PowerReserve'</span>);
 <span class="hljs-keyword">const</span> MoonPhase = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MoonPhase'</span>);
 <span class="hljs-keyword">const</span> MinuteRepeater = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MinuteRepeater'</span>);
+<span class="hljs-keyword">const</span> DayNightIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayNightIndicator'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Watch</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings) {
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!settings.dials)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"At least one dial is required for the Watch class."</span>;
+      }
+    <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
     <span class="hljs-keyword">this</span>.dialInstances = [];
     <span class="hljs-keyword">this</span>.globalInterval = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
@@ -105,6 +121,11 @@
     <span class="hljs-keyword">if</span> (settings.repeater) {
       <span class="hljs-keyword">this</span>.repeaterDial = settings.repeater.dial || <span class="hljs-number">0</span>;
       <span class="hljs-keyword">this</span>.repeater = <span class="hljs-keyword">new</span> MinuteRepeater(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.repeaterDial], settings.repeater, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (settings.dayNightIndicator) {
+      <span class="hljs-keyword">this</span>.dayNightIndicatorDial = settings.dayNightIndicator.dial || <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>.dayNightIndicator = <span class="hljs-keyword">new</span> DayNightIndicator(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.dayNightIndicatorDial], settings.dayNightIndicator, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">this</span>.init();

@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
                 <a class="source" href="Dial.html">
                   Dial.js
                 </a>
@@ -172,6 +177,10 @@
     <span class="hljs-keyword">this</span>.currentTime = currentTime;
   }
 
+  checkForDayNightUpdates() {
+    <span class="hljs-keyword">this</span>.parent.dayNightIndicator.convertAngleToHours(<span class="hljs-keyword">this</span>.name);
+  }
+
   rotateHands(dir = <span class="hljs-literal">null</span>) {
     <span class="hljs-keyword">let</span> rotateVal;
 
@@ -194,11 +203,15 @@
         rotateVal = (<span class="hljs-keyword">this</span>.currentTime.hours * <span class="hljs-keyword">this</span>.rotateValues.hoursRotateVal) + (<span class="hljs-keyword">this</span>.currentTime.minutes * <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset);
       }
 
-      <span class="hljs-keyword">if</span> (rotateVal === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">if</span> (rotateVal === <span class="hljs-number">0</span> || rotateVal &gt;= <span class="hljs-number">360</span>) {
         <span class="hljs-keyword">this</span>.transition.hour = <span class="hljs-keyword">this</span>.hands.hour.style.transition;
         <span class="hljs-keyword">this</span>.hands.hour.style.transition = <span class="hljs-string">'none'</span>;
       } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rotateVal &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">this</span>.hands.hour.style.transition === <span class="hljs-string">'none'</span>) {
         <span class="hljs-keyword">this</span>.hands.hour.style.transition = <span class="hljs-keyword">this</span>.transition.hour;
+      }
+
+      <span class="hljs-keyword">if</span> (rotateVal &gt; <span class="hljs-number">360</span>) {
+        rotateVal -= <span class="hljs-number">360</span>;
       }
 
       <span class="hljs-keyword">this</span>.hands.hour.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${rotateVal}</span>deg)`</span>;
@@ -242,6 +255,8 @@
 
       <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${rotateVal}</span>deg)`</span>;
     }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.parent.dayNightIndicator) <span class="hljs-keyword">this</span>.checkForDayNightUpdates();
   }
 
   init() {

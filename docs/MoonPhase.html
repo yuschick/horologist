@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
                 <a class="source" href="Dial.html">
                   Dial.js
                 </a>
@@ -75,6 +80,16 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoonPhase</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!settings.id)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MoonPhase class requires that an ID of the moonphase element be provided."</span>;
+      }
+    <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
     <span class="hljs-keyword">this</span>.parent = parentWatch;
     <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
     <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
@@ -139,7 +154,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
+          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
+        }
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:</pre></div></div>
             
@@ -207,7 +226,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
+          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
+        }
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:</pre></div></div>
             

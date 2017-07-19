@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
                 <a class="source" href="Dial.html">
                   Dial.js
                 </a>
@@ -77,6 +82,16 @@
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinuteRepeater</span> </span>{
   <span class="hljs-keyword">constructor</span>(dial, repeater, parentWatch) {
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!repeater)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MinuteRepeater class requires that an ID of the repeater element be provided."</span>;
+      }
+    <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
     <span class="hljs-keyword">this</span>.hands = dial.hands;
 
     <span class="hljs-keyword">this</span>.hourAngle = <span class="hljs-number">0</span>;
@@ -107,7 +122,6 @@
       <span class="hljs-keyword">this</span>.hourAngle -= <span class="hljs-number">360</span>;
     }
     <span class="hljs-keyword">this</span>.hourChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.hourAngle / <span class="hljs-keyword">this</span>.hourDivisor) || <span class="hljs-number">12</span>;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.hourAngle, <span class="hljs-keyword">this</span>.hourChimes);
 
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.hands.minute)
@@ -120,7 +134,6 @@
     <span class="hljs-keyword">this</span>.minuteAngle = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minuteAngle &gt; <span class="hljs-number">360</span>) {
       <span class="hljs-keyword">this</span>.minuteAngle %= <span class="hljs-number">360</span>;
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.minuteAngle);
     }
     <span class="hljs-keyword">this</span>.allMinutes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.minuteAngle / <span class="hljs-number">6</span>);
     <span class="hljs-keyword">this</span>.fiveMinuteChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.allMinutes / <span class="hljs-number">5</span>);
