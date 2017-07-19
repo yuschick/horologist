@@ -1,5 +1,15 @@
 class MoonPhase {
   constructor(settings, parentWatch) {
+
+    try {
+      if (!settings.id)
+        throw "The MoonPhase class requires that an ID of the moonphase element be provided.";
+      }
+    catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
+
     this.parent = parentWatch;
     this.element = document.getElementById(settings.id);
     this.invert = settings.invert || false;
@@ -51,7 +61,11 @@ class MoonPhase {
     switch (b) {
       case 0:
         // New Moon
-        this.rotateDisc(180);
+        if (this.invert) {
+          this.rotateDisc(0);
+        } else {
+          this.rotateDisc(180);
+        }
         break;
       case 1:
         // Waxing Crescent
@@ -67,7 +81,11 @@ class MoonPhase {
         break;
       case 4:
         // Full
-        this.rotateDisc(0);
+        if (this.invert) {
+          this.rotateDisc(180);
+        } else {
+          this.rotateDisc(0);
+        }
         break;
       case 5:
         // Waning Gibbous

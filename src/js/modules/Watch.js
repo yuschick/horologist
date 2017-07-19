@@ -3,9 +3,20 @@ const Crown = require('./Crown');
 const PowerReserve = require('./PowerReserve');
 const MoonPhase = require('./MoonPhase');
 const MinuteRepeater = require('./MinuteRepeater');
+const DayNightIndicator = require('./DayNightIndicator');
 
 class Watch {
   constructor(settings) {
+
+    try {
+      if (!settings.dials)
+        throw "At least one dial is required for the Watch class.";
+      }
+    catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
+
     this.dialInstances = [];
     this.globalInterval = null;
     this.rightNow = new Date();
@@ -30,6 +41,11 @@ class Watch {
     if (settings.repeater) {
       this.repeaterDial = settings.repeater.dial || 0;
       this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater, this);
+    }
+
+    if (settings.dayNightIndicator) {
+      this.dayNightIndicatorDial = settings.dayNightIndicator.dial || 0;
+      this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
     }
 
     this.init();

@@ -2,6 +2,16 @@ const util = require('../util');
 
 class PowerReserve {
   constructor(settings, parentWatch) {
+
+    try {
+      if (!settings.id)
+        throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
+      }
+    catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
+
     this.element = document.getElementById(settings.id);
     this.interval = null;
     this.parent = parentWatch;

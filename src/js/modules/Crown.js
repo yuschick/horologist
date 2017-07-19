@@ -1,5 +1,15 @@
 class Crown {
   constructor(settings, parentWatch) {
+
+    try {
+      if (!settings.id)
+        throw "The Crown class requires that an ID of the crown element be provided.";
+      }
+    catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
+
     this.crown = document.getElementById(settings.id);
     this.blackoutElements = settings.blackout;
     this.parent = parentWatch;

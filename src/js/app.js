@@ -44,7 +44,11 @@
         fiveMinute: './dist/sounds/chime-02.mp4',
         minute: './dist/sounds/chime-03.mp4'
       }
-    }
+    },
+    // dayNightIndicator: {
+    //   id: 'power-reserve-hand',
+    //   invert: true
+    // }
   };
 
   let VoutilainenGMR = new Watch(settings);

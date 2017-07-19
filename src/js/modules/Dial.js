@@ -97,6 +97,10 @@ class Dial {
     this.currentTime = currentTime;
   }
 
+  checkForDayNightUpdates() {
+    this.parent.dayNightIndicator.convertAngleToHours(this.name);
+  }
+
   rotateHands(dir = null) {
     let rotateVal;
 
@@ -119,11 +123,15 @@ class Dial {
         rotateVal = (this.currentTime.hours * this.rotateValues.hoursRotateVal) + (this.currentTime.minutes * this.rotateValues.hoursRotateValOffset);
       }
 
-      if (rotateVal === 0) {
+      if (rotateVal === 0 || rotateVal >= 360) {
         this.transition.hour = this.hands.hour.style.transition;
         this.hands.hour.style.transition = 'none';
       } else if (rotateVal > 0 && this.hands.hour.style.transition === 'none') {
         this.hands.hour.style.transition = this.transition.hour;
+      }
+
+      if (rotateVal > 360) {
+        rotateVal -= 360;
       }
 
       this.hands.hour.style.transform = `rotate(${rotateVal}deg)`;
@@ -167,6 +175,8 @@ class Dial {
 
       this.hands.second.style.transform = `rotate(${rotateVal}deg)`;
     }
+
+    if (this.parent.dayNightIndicator) this.checkForDayNightUpdates();
   }
 
   init() {

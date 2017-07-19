@@ -6,6 +6,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Crown and Manual Time Functionality
 - Moonphase
 - Minute Repeater
+- Day/Night Indicator
 
 ## Examples
 [Voutilainen GMR](http://yuschick.github.io/TickTock/)
@@ -74,6 +75,11 @@ const settings = {
       minute: './dist/sounds/chime-03.mp4'
     },
     dial: 1
+  },
+  dayNightIndicator: {
+    id: 'day-night-disc',
+    invert: true,
+    dial: 1
   }
 };
 
@@ -111,11 +117,15 @@ let VoutilainenGMR = new Watch(settings);
   - **minute** (*String*): File path to the audio file to be played for every remaining minute
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read and played by the repeater.
 
+#### dayNightIndicator {Object}
+- **id** (*String*): The id of the day night indicator dial SVG element
+- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
+- **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read by the indicator.
+
 
 ## ToDo
 - [ ] Create a more simplistic (design) demo to showcase the library and its components
 - [ ] Create a TickTock site to host proper documentation and demos
-- [ ] Add a day/night indicator
 - [ ] Provide perpetual calendar support
   - [ ] Day indicator
   - [ ] Date indicator
@@ -124,6 +134,7 @@ let VoutilainenGMR = new Watch(settings);
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
+- [x] Add a day/night indicator
 - [x] Provide minute repeater support
 
 ## Contact
