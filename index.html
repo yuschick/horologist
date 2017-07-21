@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
+  <link rel="stylesheet" href="./dist/styles/app.css">
+  <!--
+  Update CSS and JS to .min upon build
+  /-->
+  <title>TickTock - Making Digital Time Mechanical</title>
+</head>
+<body>
+  <div class='container'>
+    <header class='flex-container is-spread'>
+      <h2 class='is-'>TickTock <span>JS</span></h2>
+      <nav class='primary-nav'>
+        <ul class='flex-container'>
+          <li class='active'>
+            Home
+          </li>
+          <li>
+            Docs
+          </li>
+          <li>
+            Guides
+          </li>
+          <li>
+            Demos
+          </li>
+          <li>
+            Github
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class='panel flex-container-column center-content has-gears'>
+        <div>
+          clock container
+        </div>
+        <h1>TickTock <span>JS</span></h1>
+        <h3 class='has-spacer'>making digital time mechanical</h3>
+        <p class='is-capped is-centered'>
+          Bring your favorite watches and clocks to the digital world with TickTock.js, a library geared toward animating elements to replicate mechanical complications.
+        </p>
+        <section class='panel install-container center-content'>
+          <div class='code-block-container'>
+            <code>yarn add ticktock --save-dev</code>
+          </div>
+          <div class='code-block-container'>
+            <code>npm install ticktock --save-dev</code>
+          </div>
+        </section>
+      </section>
+      <section class='panel is-shaded'>
+        <h4 class='is-light'>Complications</h4>
+        <nav class='secondary-nav'>
+          <ul class='flex-container'>
+            <li>
+              Dials
+            </li>
+            <li>
+              Day/Night Indicator
+            </li>
+            <li>
+              Manual Time
+            </li>
+            <li>
+              Minute Repeater
+            </li>
+            <li class='active'>
+              Moonphase
+            </li>
+            <li>
+              Power Reserve
+            </li>
+          </ul>
+        </nav>
+      </section>
+      <section class='panel'>
+        <h4>About</h4>
+        <p>
+          TickTock originated out of my love for the art of watchmaking. Recreating numerous pieces had provided design and development challenges which have culminated into this library. It should be noted though that TickTock is heavily dependent upon the design
+          of the elements being animated.
+        </p>
+        <p>
+          Many complications in physical watches and clocks consist of rotating discs. Whether that be moonphases or date indicators, TickTock expects many of its components to be designed as a disc that will rotate from its center point. Transform origin points
+          may need to be manually set in the CSS when rotating other elements, such as hands, for the time being.
+        </p>
+        <p>
+          Understandably, this is a very niche library but I found myself wanting to re-use many of these components so why not open it up for others. I welcome contributions from others who also admire watchmaking.
+        </p>
+      </section>
+    </main>
+    <footer class='flex-container is-spread'>
+      <div>
+        <span>github.com/yuschick | twitter.com/yuschick</span>
+      </div>
+      <div>
+        <span class='tertiary-text'>&copy; 2017 TickTock</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./dist/js/app.js"></script>
+</body>
+</html>

@@ -2,3 +2,4 @@ node_modules/
 *.map
 *.lock
 .DS_Store
+materials/

@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+}
+
+.flex-container {
+  display: flex;
+
+  &.at-end {
+    justify-content: flex-end;
+  }
+
+  &.is-spread {
+    justify-content: space-between;
+  }
+}
+
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+
+  &.is-centered {
+    align-content: center;
+    justify-content: center;
+  }
+}
+
+header {
+  align-items: center;
+  background: $secondaryColor;
+  border-bottom: 3px solid $primaryColor;
+  padding: 0 $hspace;
+}

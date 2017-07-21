@@ -1,0 +1,12 @@
+.code-block-container {
+  background: $primaryColor;
+  color: $tertiaryColor;
+  margin: 0 auto 1rem;
+  max-width: 500px;
+  padding: $vspace/2 $hspace;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

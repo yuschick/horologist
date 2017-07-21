@@ -1,0 +1,14 @@
+.panel {
+  display: block;
+  padding: $vspace*3 $hspace;
+  position: relative;
+  width: 100%;
+}
+
+.panel + .panel {
+  padding: $vspace $hspace;
+}
+
+.panel .panel {
+  padding-bottom: 0;
+}

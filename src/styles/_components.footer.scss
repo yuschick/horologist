@@ -1,0 +1,14 @@
+footer {
+  background: $primaryColor;
+  color: $tertiaryColor;
+  font-size: 1rem;
+  padding: $vspace $hspace;
+
+  div {
+    flex: 1 0 auto;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
