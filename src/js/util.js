@@ -13,5 +13,10 @@ module.exports = {
       localStorage.removeItem(prop);
       console.log(`${prop} cleared from localStorage.`);
     }
+  },
+  getCurrentRotateValue(el) {
+    let val = el.style.transform;
+    let num = val.replace('rotate(', '').replace('deg)', '');
+    return Number(num);
   }
 }

@@ -24,9 +24,39 @@
   }
 }
 
+.flex-one {
+  flex: 1;
+}
+
+.flex-two {
+  flex: 2;
+}
+
+.flex-three {
+  flex: 3;
+}
+
+.flex-four {
+  flex: 4;
+}
+
+.flex-five {
+  flex: 5;
+}
+
 header {
   align-items: center;
   background: $secondaryColor;
   border-bottom: 3px solid $primaryColor;
   padding: 0 $hspace;
+}
+
+.header-watch-container {
+  height: 250px;
+  margin: 0 auto $vspace/2;
+  width: 250px;
+}
+
+.complication-container {
+  color: $tertiaryColor;
 }

@@ -6,7 +6,7 @@
 }
 
 .panel + .panel {
-  padding: $vspace $hspace;
+  padding: $vspace*2 $hspace;
 }
 
 .panel .panel {

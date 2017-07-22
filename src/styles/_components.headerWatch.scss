@@ -1,0 +1,9 @@
+#hour-hand,
+#minute-hand,
+#second-hand {
+  transform-origin: bottom center;
+}
+
+#second-hand {
+  transition: transform 1s linear;
+}
