@@ -11,8 +11,7 @@ class Watch {
     try {
       if (!settings.dials)
         throw "At least one dial is required for the Watch class.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -49,6 +48,12 @@ class Watch {
     }
 
     this.init();
+  }
+
+  getCurrentRotateValue(el) {
+    let val = el.style.transform;
+    let num = val.replace('rotate(', '').replace('deg)', '');
+    return Number(num);
   }
 
   keyBindings() {

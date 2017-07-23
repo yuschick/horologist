@@ -1,12 +1,9 @@
-const util = require('../util');
-
 class Dial {
   constructor(settings, parentWatch) {
     try {
       if (!settings.hands)
         throw "The Dial class needs an object containing the HTML elements for the hands.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -21,23 +18,21 @@ class Dial {
 
     this.parent = parentWatch;
 
-    this.format = settings.format
-      ? settings.format
-      : 12;
-    this.gmtOffset = settings.offset
-      ? settings.offset.toString()
-      : null;
+    this.format = settings.format ?
+      settings.format :
+      12;
+    this.gmtOffset = settings.offset ?
+      settings.offset.toString() :
+      null;
 
     this.rightNow = this.parent.rightNow;
     this.currentTime = {};
 
     this.rotateValues = {
-      hoursRotateVal: this.format === 12
-        ? 30
-        : 15,
-      hoursRotateValOffset: this.format === 12
-        ? 0.5
-        : 0.25,
+      hoursRotateVal: this.format === 12 ?
+        30 : 15,
+      hoursRotateValOffset: this.format === 12 ?
+        0.5 : 0.25,
       hourJump: 30,
       minutesRotateVal: 6
     };
@@ -105,10 +100,10 @@ class Dial {
     let rotateVal;
 
     if (this.hands.hour) {
-      let hourOffset = this.setSecondary
-        ? this.rotateValues.hourJump
-        : this.rotateValues.hoursRotateValOffset;
-      rotateVal = util.getCurrentRotateValue(this.hands.hour);
+      let hourOffset = this.setSecondary ?
+        this.rotateValues.hourJump :
+        this.rotateValues.hoursRotateValOffset;
+      rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
       if (this.settingTime) {
         if (dir) {
           rotateVal -= hourOffset;
@@ -117,7 +112,7 @@ class Dial {
         }
       } else if (this.manualTime) {
         if (this.currentTime.seconds === 0) {
-          rotateVal = util.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
+          rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
         }
       } else {
         rotateVal = (this.currentTime.hours * this.rotateValues.hoursRotateVal) + (this.currentTime.minutes * this.rotateValues.hoursRotateValOffset);
@@ -138,7 +133,7 @@ class Dial {
     }
 
     if (this.hands.minute) {
-      rotateVal = util.getCurrentRotateValue(this.hands.minute);
+      rotateVal = this.parent.getCurrentRotateValue(this.hands.minute);
       if (this.settingTime) {
         if (dir) {
           rotateVal -= this.rotateValues.minutesRotateVal;

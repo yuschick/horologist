@@ -1,4 +1,5 @@
 node_modules/
+materials/
 *.map
 *.lock
 .DS_Store

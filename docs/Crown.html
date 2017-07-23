@@ -84,8 +84,7 @@
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.id)
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Crown class requires that an ID of the crown element be provided."</span>;
-      }
-    <span class="hljs-keyword">catch</span> (errorMsg) {
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
@@ -112,8 +111,7 @@
         instance.toggleActiveCrown();
       <span class="hljs-keyword">if</span> (instance.setSecondary)
         instance.toggleSecondaryTime();
-      }
-    );
+    });
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crownActive) {
       <span class="hljs-keyword">this</span>.parent.stopInterval();
@@ -121,8 +119,7 @@
       <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
         <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
           instance.toggleSettingTime();
-        }
-      );
+      });
     } <span class="hljs-keyword">else</span> {
       <span class="hljs-keyword">this</span>.parent.startInterval();
       <span class="hljs-keyword">this</span>.crown.classList.remove(<span class="hljs-string">'active'</span>);
@@ -134,8 +131,7 @@
           instance.toggleSettingTime();
         <span class="hljs-keyword">if</span> (instance.updateToManualTime)
           instance.updateToManualTime();
-        }
-      );
+      });
     }
   }
 

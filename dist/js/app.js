@@ -126,11 +126,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Dial = __webpack_require__(2);
-	var Crown = __webpack_require__(4);
-	var PowerReserve = __webpack_require__(5);
-	var MoonPhase = __webpack_require__(6);
-	var MinuteRepeater = __webpack_require__(7);
-	var DayNightIndicator = __webpack_require__(8);
+	var Crown = __webpack_require__(3);
+	var PowerReserve = __webpack_require__(4);
+	var MoonPhase = __webpack_require__(5);
+	var MinuteRepeater = __webpack_require__(6);
+	var DayNightIndicator = __webpack_require__(7);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -180,6 +180,13 @@
 	  }
 
 	  _createClass(Watch, [{
+	    key: 'getCurrentRotateValue',
+	    value: function getCurrentRotateValue(el) {
+	      var val = el.style.transform;
+	      var num = val.replace('rotate(', '').replace('deg)', '');
+	      return Number(num);
+	    }
+	  }, {
 	    key: 'keyBindings',
 	    value: function keyBindings() {
 	      var _this2 = this;
@@ -280,15 +287,13 @@
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(3);
 
 	var Dial = function () {
 	  function Dial(settings, parentWatch) {
@@ -399,7 +404,7 @@
 
 	      if (this.hands.hour) {
 	        var hourOffset = this.setSecondary ? this.rotateValues.hourJump : this.rotateValues.hoursRotateValOffset;
-	        rotateVal = util.getCurrentRotateValue(this.hands.hour);
+	        rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
 	        if (this.settingTime) {
 	          if (dir) {
 	            rotateVal -= hourOffset;
@@ -408,7 +413,7 @@
 	          }
 	        } else if (this.manualTime) {
 	          if (this.currentTime.seconds === 0) {
-	            rotateVal = util.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
+	            rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
 	          }
 	        } else {
 	          rotateVal = this.currentTime.hours * this.rotateValues.hoursRotateVal + this.currentTime.minutes * this.rotateValues.hoursRotateValOffset;
@@ -429,7 +434,7 @@
 	      }
 
 	      if (this.hands.minute) {
-	        rotateVal = util.getCurrentRotateValue(this.hands.minute);
+	        rotateVal = this.parent.getCurrentRotateValue(this.hands.minute);
 	        if (this.settingTime) {
 	          if (dir) {
 	            rotateVal -= this.rotateValues.minutesRotateVal;
@@ -488,20 +493,6 @@
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	module.exports = {
-	  getCurrentRotateValue: function getCurrentRotateValue(el) {
-	    var val = el.style.transform;
-	    var num = val.replace('rotate(', '').replace('deg)', '');
-	    return Number(num);
-	  }
-	};
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -581,16 +572,14 @@
 	module.exports = Crown;
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 4 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(3);
 
 	var PowerReserve = function () {
 	  function PowerReserve(settings, parentWatch) {
@@ -615,7 +604,7 @@
 	  _createClass(PowerReserve, [{
 	    key: "decrementReserve",
 	    value: function decrementReserve() {
-	      var currentRotate = util.getCurrentRotateValue(this.element);
+	      var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
 	      if (currentRotate <= this.minAngle) {
 	        this.parent.stopInterval();
@@ -627,7 +616,7 @@
 	  }, {
 	    key: "incrementReserve",
 	    value: function incrementReserve() {
-	      var currentRotate = util.getCurrentRotateValue(this.element);
+	      var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
 	      if (currentRotate <= this.maxAngle - this.increment && currentRotate >= this.minAngle) {
 	        var newRotate = Number(currentRotate) + this.increment;
@@ -662,7 +651,7 @@
 	module.exports = PowerReserve;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -789,16 +778,14 @@
 	module.exports = MoonPhase;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 6 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(3);
 
 	var MinuteRepeater = function () {
 	  function MinuteRepeater(dial, repeater, parentWatch) {
@@ -836,7 +823,7 @@
 	  _createClass(MinuteRepeater, [{
 	    key: "convertAngleToIncrements",
 	    value: function convertAngleToIncrements() {
-	      this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+	      this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
 	      if (this.hourAngle > 360) {
 	        this.hourAngle -= 360;
 	      }
@@ -848,7 +835,7 @@
 	        console.error(errorMsg);
 	        return;
 	      }
-	      this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
+	      this.minuteAngle = this.parent.getCurrentRotateValue(this.hands.minute);
 	      if (this.minuteAngle > 360) {
 	        this.minuteAngle %= 360;
 	      }
@@ -965,16 +952,14 @@
 	module.exports = MinuteRepeater;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 7 */
+/***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(3);
 
 	var DayNightIndicator = function () {
 	  function DayNightIndicator(dial, settings, parentWatch) {
@@ -1003,17 +988,17 @@
 	  }
 
 	  _createClass(DayNightIndicator, [{
-	    key: 'toggleAMPM',
+	    key: "toggleAMPM",
 	    value: function toggleAMPM() {
 	      this.isAM = !this.isAM;
 	    }
 	  }, {
-	    key: 'removeTransitionDuration',
+	    key: "removeTransitionDuration",
 	    value: function removeTransitionDuration() {
 	      this.element.style.transition = 'none';
 	    }
 	  }, {
-	    key: 'rotateIndicator',
+	    key: "rotateIndicator",
 	    value: function rotateIndicator() {
 	      var rotateValue = 0;
 
@@ -1029,15 +1014,15 @@
 
 	      if (this.invert) rotateValue = rotateValue * -1;
 
-	      this.element.style.transform = 'rotate(' + rotateValue + 'deg)';
+	      this.element.style.transform = "rotate(" + rotateValue + "deg)";
 	    }
 	  }, {
-	    key: 'getHourHandAngle',
+	    key: "getHourHandAngle",
 	    value: function getHourHandAngle() {
-	      this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+	      this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
 	    }
 	  }, {
-	    key: 'convertAngleToHours',
+	    key: "convertAngleToHours",
 	    value: function convertAngleToHours(name) {
 	      if (name !== this.dial.name) return;
 
@@ -1054,7 +1039,7 @@
 	      this.rotateIndicator();
 	    }
 	  }, {
-	    key: 'init',
+	    key: "init",
 	    value: function init() {
 	      this.removeTransitionDuration();
 	      this.rotateIndicator();

@@ -126,6 +126,7 @@ let VoutilainenGMR = new Watch(settings);
 ## ToDo
 - [ ] Create a more simplistic (design) demo to showcase the library and its components
 - [ ] Create a TickTock site to host proper documentation and demos
+- [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
 - [ ] Provide perpetual calendar support
   - [ ] Day indicator
   - [ ] Date indicator
