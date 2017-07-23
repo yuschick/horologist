@@ -78,16 +78,13 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../util'</span>);
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DayNightIndicator</span> </span>{
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DayNightIndicator</span> </span>{
   <span class="hljs-keyword">constructor</span>(dial, settings, parentWatch) {
 
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.id)
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"The DayNightIndicator class requires that an ID of the indiciator element be provided."</span>;
-      }
-    <span class="hljs-keyword">catch</span> (errorMsg) {
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
@@ -102,9 +99,9 @@
     <span class="hljs-keyword">this</span>.isAM = <span class="hljs-keyword">this</span>.hours &lt; <span class="hljs-number">12</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>;
 
     <span class="hljs-keyword">this</span>.hourAngle = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">this</span>.hourDivisor = dial.format === <span class="hljs-number">12</span>
-      ? <span class="hljs-number">30</span>
-      : <span class="hljs-number">15</span>;
+    <span class="hljs-keyword">this</span>.hourDivisor = dial.format === <span class="hljs-number">12</span> ?
+      <span class="hljs-number">30</span> :
+      <span class="hljs-number">15</span>;
 
     <span class="hljs-keyword">this</span>.init();
   }
@@ -136,7 +133,7 @@
   }
 
   getHourHandAngle() {
-    <span class="hljs-keyword">this</span>.hourAngle = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour);
+    <span class="hljs-keyword">this</span>.hourAngle = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour);
   }
 
   convertAngleToHours(name) {

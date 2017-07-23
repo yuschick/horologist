@@ -1,13 +1,10 @@
-const util = require('../util');
-
 class MinuteRepeater {
   constructor(dial, repeater, parentWatch) {
 
     try {
       if (!repeater)
         throw "The MinuteRepeater class requires that an ID of the repeater element be provided.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -17,9 +14,9 @@ class MinuteRepeater {
     this.hourAngle = 0;
     this.hourChimes = 0;
     this.hourElement = null;
-    this.hourDivisor = dial.format === 12
-      ? 30
-      : 15;
+    this.hourDivisor = dial.format === 12 ?
+      30 :
+      15;
 
     this.allMinutes = 0;
     this.minuteAngle = 0;
@@ -37,7 +34,7 @@ class MinuteRepeater {
   }
 
   convertAngleToIncrements() {
-    this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+    this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
     if (this.hourAngle > 360) {
       this.hourAngle -= 360;
     }
@@ -46,12 +43,11 @@ class MinuteRepeater {
     try {
       if (!this.hands.minute)
         throw "The minute repeater, like, by definition, requires a dial which supports a minute hand.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
-    this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
+    this.minuteAngle = this.parent.getCurrentRotateValue(this.hands.minute);
     if (this.minuteAngle > 360) {
       this.minuteAngle %= 360;
     }

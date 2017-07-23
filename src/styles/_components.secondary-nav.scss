@@ -1,14 +1,10 @@
 .secondary-nav {
   background: $primaryColor;
-  margin: $vspace/2 -#{$hspace};
+  margin: $vspace/2 0;
 
   li {
     color: $tertiaryColor;
     padding: $vspace/2 $hspace;
-
-    &:last-child {
-      padding-right: 0;
-    }
 
     &.active {
       background: $tertiaryColor;

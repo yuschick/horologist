@@ -78,15 +78,12 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../util'</span>);
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dial</span> </span>{
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dial</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.hands)
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Dial class needs an object containing the HTML elements for the hands."</span>;
-      }
-    <span class="hljs-keyword">catch</span> (errorMsg) {
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
@@ -101,23 +98,21 @@
 
     <span class="hljs-keyword">this</span>.parent = parentWatch;
 
-    <span class="hljs-keyword">this</span>.format = settings.format
-      ? settings.format
-      : <span class="hljs-number">12</span>;
-    <span class="hljs-keyword">this</span>.gmtOffset = settings.offset
-      ? settings.offset.toString()
-      : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.format = settings.format ?
+      settings.format :
+      <span class="hljs-number">12</span>;
+    <span class="hljs-keyword">this</span>.gmtOffset = settings.offset ?
+      settings.offset.toString() :
+      <span class="hljs-literal">null</span>;
 
     <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">this</span>.parent.rightNow;
     <span class="hljs-keyword">this</span>.currentTime = {};
 
     <span class="hljs-keyword">this</span>.rotateValues = {
-      <span class="hljs-attr">hoursRotateVal</span>: <span class="hljs-keyword">this</span>.format === <span class="hljs-number">12</span>
-        ? <span class="hljs-number">30</span>
-        : <span class="hljs-number">15</span>,
-      <span class="hljs-attr">hoursRotateValOffset</span>: <span class="hljs-keyword">this</span>.format === <span class="hljs-number">12</span>
-        ? <span class="hljs-number">0.5</span>
-        : <span class="hljs-number">0.25</span>,
+      <span class="hljs-attr">hoursRotateVal</span>: <span class="hljs-keyword">this</span>.format === <span class="hljs-number">12</span> ?
+        <span class="hljs-number">30</span> : <span class="hljs-number">15</span>,
+      <span class="hljs-attr">hoursRotateValOffset</span>: <span class="hljs-keyword">this</span>.format === <span class="hljs-number">12</span> ?
+        <span class="hljs-number">0.5</span> : <span class="hljs-number">0.25</span>,
       <span class="hljs-attr">hourJump</span>: <span class="hljs-number">30</span>,
       <span class="hljs-attr">minutesRotateVal</span>: <span class="hljs-number">6</span>
     };
@@ -185,10 +180,10 @@
     <span class="hljs-keyword">let</span> rotateVal;
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) {
-      <span class="hljs-keyword">let</span> hourOffset = <span class="hljs-keyword">this</span>.setSecondary
-        ? <span class="hljs-keyword">this</span>.rotateValues.hourJump
-        : <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
-      rotateVal = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour);
+      <span class="hljs-keyword">let</span> hourOffset = <span class="hljs-keyword">this</span>.setSecondary ?
+        <span class="hljs-keyword">this</span>.rotateValues.hourJump :
+        <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
+      rotateVal = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour);
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.settingTime) {
         <span class="hljs-keyword">if</span> (dir) {
           rotateVal -= hourOffset;
@@ -197,7 +192,7 @@
         }
       } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.manualTime) {
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.currentTime.seconds === <span class="hljs-number">0</span>) {
-          rotateVal = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour) + <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
+          rotateVal = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour) + <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
         }
       } <span class="hljs-keyword">else</span> {
         rotateVal = (<span class="hljs-keyword">this</span>.currentTime.hours * <span class="hljs-keyword">this</span>.rotateValues.hoursRotateVal) + (<span class="hljs-keyword">this</span>.currentTime.minutes * <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset);
@@ -218,7 +213,7 @@
     }
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.minute) {
-      rotateVal = util.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
+      rotateVal = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.settingTime) {
         <span class="hljs-keyword">if</span> (dir) {
           rotateVal -= <span class="hljs-keyword">this</span>.rotateValues.minutesRotateVal;

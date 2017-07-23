@@ -125,7 +125,10 @@ img {
           box-sizing: border-box; }
 
 .container {
-  position: relative; }
+  margin: 0 auto;
+  max-width: 1280px;
+  position: relative;
+  width: 100%; }
 
 .flex-container {
   display: -webkit-box;
@@ -181,12 +184,13 @@ img {
           flex: 5; }
 
 header {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background: #007486;
   border-bottom: 3px solid #272727;
   padding: 0 1rem; }
+  header .flex-container {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
 
 .header-watch-container {
   height: 250px;
@@ -231,9 +235,36 @@ h4 {
     background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: linear-gradient(to bottom, #474747 0%, #272727 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#272727',GradientType=0 ); }
+    .btn.primary:hover {
+      background: #474747;
+      background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#070707));
+      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
+      background: linear-gradient(to bottom, #474747 0%, #070707 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#070707',GradientType=0 ); }
+
+a,
+a:active,
+a:visited {
+  color: #EFF1F3; }
+
+a:hover {
+  color: #fefefe; }
+
+h2 a,
+h2 a:active,
+h2 a:hover,
+h2 a:visited {
+  color: inherit;
+  text-decoration: none; }
+
+nav a,
+nav a:active,
+nav a:hover,
+nav a:visited {
+  color: inherit;
+  text-decoration: none; }
 
 /*
-@import "elements.links";
 @import "objects.grid";
 @import "components.site-nav";
 */
@@ -263,12 +294,12 @@ h4 {
 
 .panel {
   display: block;
-  padding: 3rem 1rem;
+  padding: 3rem 0;
   position: relative;
   width: 100%; }
 
 .panel + .panel {
-  padding: 2rem 1rem; }
+  padding: 2rem 0; }
 
 .panel .panel {
   padding-bottom: 0; }
@@ -284,12 +315,10 @@ h4 {
 
 .secondary-nav {
   background: #272727;
-  margin: 0.5rem -1rem; }
+  margin: 0.5rem 0; }
   .secondary-nav li {
     color: #EFF1F3;
     padding: 0.5rem 1rem; }
-    .secondary-nav li:last-child {
-      padding-right: 0; }
     .secondary-nav li.active {
       background: #EFF1F3;
       color: #272727; }
@@ -297,7 +326,7 @@ h4 {
 footer {
   background: #272727;
   color: #EFF1F3;
-  font-size: 1rem;
+  font-size: 0.85rem;
   padding: 1rem 1rem; }
   footer div {
     -webkit-box-flex: 1;

@@ -1,13 +1,10 @@
-const util = require('../util');
-
 class PowerReserve {
   constructor(settings, parentWatch) {
 
     try {
       if (!settings.id)
         throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -22,7 +19,7 @@ class PowerReserve {
   }
 
   decrementReserve() {
-    let currentRotate = util.getCurrentRotateValue(this.element);
+    let currentRotate = this.parent.getCurrentRotateValue(this.element);
 
     if (currentRotate <= this.minAngle) {
       this.parent.stopInterval();
@@ -33,7 +30,7 @@ class PowerReserve {
   }
 
   incrementReserve() {
-    let currentRotate = util.getCurrentRotateValue(this.element);
+    let currentRotate = this.parent.getCurrentRotateValue(this.element);
 
     if (currentRotate <= (this.maxAngle - this.increment) && currentRotate >= this.minAngle) {
       let newRotate = Number(currentRotate) + this.increment;

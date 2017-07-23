@@ -64,13 +64,54 @@
 	  };
 
 	  var headerWatch = new Watch(settings);
+
+	  function findSpecificDemo(type) {
+	    var comp = void 0;
+	    complicationDemos.forEach(function (demo) {
+	      comp = demo.attributes['data-comp'].value;
+	      if (comp === type) {
+	        demo.classList.remove('is-hidden');
+	        return;
+	      }
+	    });
+	  }
+
+	  function toggleVisibleDemo(type) {
+	    complicationDemos.forEach(function (demo) {
+	      if (!demo.classList.contains('is-hidden')) {
+	        demo.classList.add('is-hidden');
+	      }
+	    });
+
+	    findSpecificDemo(type);
+	  }
+
+	  function toggleActiveCompNav(el) {
+	    complicationNavItems.forEach(function (item) {
+	      item.classList.remove('active');
+	    });
+	    el.parentElement.classList.add('active');
+	  }
+
+	  var complications = document.querySelectorAll('.complication-link');
+	  var complicationDemos = document.querySelectorAll('.complication-container');
+	  var complicationNavItems = document.querySelectorAll('.secondary-nav li');
+
+	  complications.forEach(function (comp) {
+	    comp.addEventListener('click', function () {
+	      event.preventDefault();
+	      var type = this.attributes['data-comp'].value;
+	      toggleVisibleDemo(type);
+	      toggleActiveCompNav(this);
+	    });
+	  });
 	})();
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = {
 	  localStorage: {
@@ -83,13 +124,8 @@
 	    },
 	    clear: function clear(prop) {
 	      localStorage.removeItem(prop);
-	      console.log(prop + ' cleared from localStorage.');
+	      console.log(prop + " cleared from localStorage.");
 	    }
-	  },
-	  getCurrentRotateValue: function getCurrentRotateValue(el) {
-	    var val = el.style.transform;
-	    var num = val.replace('rotate(', '').replace('deg)', '');
-	    return Number(num);
 	  }
 	};
 
@@ -158,6 +194,13 @@
 	  }
 
 	  _createClass(Watch, [{
+	    key: 'getCurrentRotateValue',
+	    value: function getCurrentRotateValue(el) {
+	      var val = el.style.transform;
+	      var num = val.replace('rotate(', '').replace('deg)', '');
+	      return Number(num);
+	    }
+	  }, {
 	    key: 'keyBindings',
 	    value: function keyBindings() {
 	      var _this2 = this;
@@ -258,15 +301,13 @@
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(1);
 
 	var Dial = function () {
 	  function Dial(settings, parentWatch) {
@@ -377,7 +418,7 @@
 
 	      if (this.hands.hour) {
 	        var hourOffset = this.setSecondary ? this.rotateValues.hourJump : this.rotateValues.hoursRotateValOffset;
-	        rotateVal = util.getCurrentRotateValue(this.hands.hour);
+	        rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
 	        if (this.settingTime) {
 	          if (dir) {
 	            rotateVal -= hourOffset;
@@ -386,7 +427,7 @@
 	          }
 	        } else if (this.manualTime) {
 	          if (this.currentTime.seconds === 0) {
-	            rotateVal = util.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
+	            rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
 	          }
 	        } else {
 	          rotateVal = this.currentTime.hours * this.rotateValues.hoursRotateVal + this.currentTime.minutes * this.rotateValues.hoursRotateValOffset;
@@ -407,7 +448,7 @@
 	      }
 
 	      if (this.hands.minute) {
-	        rotateVal = util.getCurrentRotateValue(this.hands.minute);
+	        rotateVal = this.parent.getCurrentRotateValue(this.hands.minute);
 	        if (this.settingTime) {
 	          if (dir) {
 	            rotateVal -= this.rotateValues.minutesRotateVal;
@@ -546,15 +587,13 @@
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(1);
 
 	var PowerReserve = function () {
 	  function PowerReserve(settings, parentWatch) {
@@ -579,7 +618,7 @@
 	  _createClass(PowerReserve, [{
 	    key: "decrementReserve",
 	    value: function decrementReserve() {
-	      var currentRotate = util.getCurrentRotateValue(this.element);
+	      var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
 	      if (currentRotate <= this.minAngle) {
 	        this.parent.stopInterval();
@@ -591,7 +630,7 @@
 	  }, {
 	    key: "incrementReserve",
 	    value: function incrementReserve() {
-	      var currentRotate = util.getCurrentRotateValue(this.element);
+	      var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
 	      if (currentRotate <= this.maxAngle - this.increment && currentRotate >= this.minAngle) {
 	        var newRotate = Number(currentRotate) + this.increment;
@@ -754,15 +793,13 @@
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(1);
 
 	var MinuteRepeater = function () {
 	  function MinuteRepeater(dial, repeater, parentWatch) {
@@ -800,7 +837,7 @@
 	  _createClass(MinuteRepeater, [{
 	    key: "convertAngleToIncrements",
 	    value: function convertAngleToIncrements() {
-	      this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+	      this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
 	      if (this.hourAngle > 360) {
 	        this.hourAngle -= 360;
 	      }
@@ -812,7 +849,7 @@
 	        console.error(errorMsg);
 	        return;
 	      }
-	      this.minuteAngle = util.getCurrentRotateValue(this.hands.minute);
+	      this.minuteAngle = this.parent.getCurrentRotateValue(this.hands.minute);
 	      if (this.minuteAngle > 360) {
 	        this.minuteAngle %= 360;
 	      }
@@ -930,15 +967,13 @@
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var util = __webpack_require__(1);
 
 	var DayNightIndicator = function () {
 	  function DayNightIndicator(dial, settings, parentWatch) {
@@ -967,17 +1002,17 @@
 	  }
 
 	  _createClass(DayNightIndicator, [{
-	    key: 'toggleAMPM',
+	    key: "toggleAMPM",
 	    value: function toggleAMPM() {
 	      this.isAM = !this.isAM;
 	    }
 	  }, {
-	    key: 'removeTransitionDuration',
+	    key: "removeTransitionDuration",
 	    value: function removeTransitionDuration() {
 	      this.element.style.transition = 'none';
 	    }
 	  }, {
-	    key: 'rotateIndicator',
+	    key: "rotateIndicator",
 	    value: function rotateIndicator() {
 	      var rotateValue = 0;
 
@@ -993,15 +1028,15 @@
 
 	      if (this.invert) rotateValue = rotateValue * -1;
 
-	      this.element.style.transform = 'rotate(' + rotateValue + 'deg)';
+	      this.element.style.transform = "rotate(" + rotateValue + "deg)";
 	    }
 	  }, {
-	    key: 'getHourHandAngle',
+	    key: "getHourHandAngle",
 	    value: function getHourHandAngle() {
-	      this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+	      this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
 	    }
 	  }, {
-	    key: 'convertAngleToHours',
+	    key: "convertAngleToHours",
 	    value: function convertAngleToHours(name) {
 	      if (name !== this.dial.name) return;
 
@@ -1018,7 +1053,7 @@
 	      this.rotateIndicator();
 	    }
 	  }, {
-	    key: 'init',
+	    key: "init",
 	    value: function init() {
 	      this.removeTransitionDuration();
 	      this.rotateIndicator();

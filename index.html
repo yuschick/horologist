@@ -12,31 +12,30 @@
   <title>TickTock - Making Digital Time Mechanical</title>
 </head>
 <body>
-  <div class='container'>
-    <header class='flex-container is-spread'>
-      <h2 class='is-'>TickTock <span>JS</span></h2>
+  <header>
+    <div class='container flex-container is-spread'>
+      <h2 class='is-'><a href='/'>TickTock <span>JS</span></a></h2>
       <nav class='primary-nav'>
         <ul class='flex-container'>
-          <li class='active'>
-            Home
+          <li>
+            <a href='./docs.html'>Docs</a>
           </li>
           <li>
-            Docs
+            <a href='./guides.html'>Guides</a>
           </li>
           <li>
-            Guides
+            <a href='./demos.html'>Demos</a>
           </li>
           <li>
-            Demos
-          </li>
-          <li>
-            Github
+            <a href='https://github.com/yuschick/TickTock'>Github</a>
           </li>
         </ul>
       </nav>
-    </header>
-    <main>
-      <section class='panel flex-container-column center-content has-gears'>
+    </div>
+  </header>
+  <main>
+    <section class='panel flex-container-column center-content has-gears'>
+      <div class='container'>
         <div class='header-watch-container'>
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
             <style type="text/css">
@@ -85,32 +84,34 @@
             <code>npm install ticktock --save-dev</code>
           </div>
         </section>
-      </section>
-      <section class='panel is-shaded'>
+      </div>
+    </section>
+    <section class='panel is-shaded'>
+      <div class='container'>
         <h4 class='is-light'>Complications</h4>
         <nav class='secondary-nav'>
           <ul class='flex-container'>
             <li>
-              Dials
+              <a class='complication-link' href='#' data-comp='dials'>Dials</a>
             </li>
             <li>
-              Day/Night Indicator
+              <a class='complication-link' href='#' data-comp='day-night-indicator'>Day/Night Indicator</a>
             </li>
             <li>
-              Manual Time
+              <a class='complication-link' href='#' data-comp='manual-time'>Manual Time</a>
             </li>
             <li>
-              Minute Repeater
+              <a class='complication-link' href='#' data-comp='minute-repeater'>Minute Repeater</a>
             </li>
             <li class='active'>
-              Moonphase
+              <a class='complication-link' href='#' data-comp='moonphase'>Moonphase</a>
             </li>
             <li>
-              Power Reserve
+              <a class='complication-link' href='#' data-comp='power-reserve'>Power Reserve</a>
             </li>
           </ul>
         </nav>
-        <section class='complication-container flex-container is-spread'>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='dials'>
           <div class='flex-one'>
             <p>
               Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
@@ -122,35 +123,109 @@
             </div>
           </div>
           <div class='complication-demo flex-two'>
-            Complication Demo
+            Dials Demo
           </div>
         </section>
-      </section>
-      <section class='panel'>
-        <h4>About</h4>
-        <p>
-          TickTock originated out of my love for the art of watchmaking. Recreating numerous pieces had provided design and development challenges which have culminated into this library. It should be noted though that TickTock is heavily dependent upon the design
-          of the elements being animated.
-        </p>
-        <p>
-          Many complications in physical watches and clocks consist of rotating discs. Whether that be moonphases or date indicators, TickTock expects many of its components to be designed as a disc that will rotate from its center point. Transform origin points
-          may need to be manually set in the CSS when rotating other elements, such as hands, for the time being.
-        </p>
-        <p>
-          Understandably, this is a very niche library but I found myself wanting to re-use many of these components so why not open it up for others. I welcome contributions from others who also admire watchmaking.
-        </p>
-      </section>
-    </main>
-    <footer class='flex-container is-spread'>
-      <div>
-        <span>github.com/yuschick | twitter.com/yuschick</span>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='day-night-indicator'>
+          <div class='flex-one'>
+            <p>
+              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
+              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+            </p>
+            <div class='flex-container'>
+              <a href='#' class='btn primary'>View Docs</a>
+              <a href='#' class='btn primary'>View Code</a>
+            </div>
+          </div>
+          <div class='complication-demo flex-two'>
+            Day Night Indicator Demo
+          </div>
+        </section>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='manual-time'>
+          <div class='flex-one'>
+            <p>
+              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
+              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+            </p>
+            <div class='flex-container'>
+              <a href='#' class='btn primary'>View Docs</a>
+              <a href='#' class='btn primary'>View Code</a>
+            </div>
+          </div>
+          <div class='complication-demo flex-two'>
+            Manual Time Demo
+          </div>
+        </section>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='minute-repeater'>
+          <div class='flex-one'>
+            <p>
+              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
+              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+            </p>
+            <div class='flex-container'>
+              <a href='#' class='btn primary'>View Docs</a>
+              <a href='#' class='btn primary'>View Code</a>
+            </div>
+          </div>
+          <div class='complication-demo flex-two'>
+            Minute Repeater Demo
+          </div>
+        </section>
+        <section class='complication-container flex-container is-spread' data-comp='moonphase'>
+          <div class='flex-one'>
+            <p>
+              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
+              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+            </p>
+            <div class='flex-container'>
+              <a href='#' class='btn primary'>View Docs</a>
+              <a href='#' class='btn primary'>View Code</a>
+            </div>
+          </div>
+          <div class='complication-demo flex-two'>
+            Moonphase Demo
+          </div>
+        </section>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='power-reserve'>
+          <div class='flex-one'>
+            <p>
+              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
+              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+            </p>
+            <div class='flex-container'>
+              <a href='#' class='btn primary'>View Docs</a>
+              <a href='#' class='btn primary'>View Code</a>
+            </div>
+          </div>
+          <div class='complication-demo flex-two'>
+            Power Reserve Demo
+          </div>
+        </section>
       </div>
-      <div>
-        <span class='tertiary-text'>&copy;2017 TickTock</span>
-      </div>
-    </footer>
-  </div>
-
+    </section>
+    <section class='panel container'>
+      <h4>About</h4>
+      <p>
+        TickTock originated out of my love for the art of watchmaking. Recreating numerous pieces had provided design and development challenges which have culminated into this library. It should be noted though that TickTock is heavily dependent upon the design
+        of the elements being animated.
+      </p>
+      <p>
+        Many complications in physical watches and clocks consist of rotating discs. Whether that be moonphases or date indicators, TickTock expects many of its components to be designed as a disc that will rotate from its center point. Transform origin points
+        may need to be manually set in the CSS when rotating other elements, such as hands, for the time being.
+      </p>
+      <p>
+        Understandably, this is a very niche library but I found myself wanting to re-use many of these components so why not open it up for others. I welcome contributions from others who also admire watchmaking.
+      </p>
+    </section>
+  </main>
+  <footer class='flex-container is-spread'>
+    <div>
+      <a href='https://www.github.com/yuschick' target='new'>github.com/yuschick</a> | <a href='https://www.twitter.com/yuschick' target='new'>twitter.com/yuschick</a></span>
+    </div>
+    <div>
+      <span class='tertiary-text'>&copy;2017 TickTock</span>
+    </div>
+  </footer>
   <script src="./dist/js/app.js"></script>
 </body>
 </html>

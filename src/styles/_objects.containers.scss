@@ -1,5 +1,8 @@
 .container {
+  margin: 0 auto;
+  max-width: 1280px;
   position: relative;
+  width: 100%;
 }
 
 .flex-container {
@@ -45,10 +48,13 @@
 }
 
 header {
-  align-items: center;
   background: $secondaryColor;
   border-bottom: 3px solid $primaryColor;
   padding: 0 $hspace;
+
+  .flex-container {
+    align-items: center;
+  }
 }
 
 .header-watch-container {

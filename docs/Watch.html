@@ -91,8 +91,7 @@
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.dials)
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"At least one dial is required for the Watch class."</span>;
-      }
-    <span class="hljs-keyword">catch</span> (errorMsg) {
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
@@ -129,6 +128,12 @@
     }
 
     <span class="hljs-keyword">this</span>.init();
+  }
+
+  getCurrentRotateValue(el) {
+    <span class="hljs-keyword">let</span> val = el.style.transform;
+    <span class="hljs-keyword">let</span> num = val.replace(<span class="hljs-string">'rotate('</span>, <span class="hljs-string">''</span>).replace(<span class="hljs-string">'deg)'</span>, <span class="hljs-string">''</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(num);
   }
 
   keyBindings() {

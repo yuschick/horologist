@@ -1,13 +1,10 @@
-const util = require('../util');
-
 class DayNightIndicator {
   constructor(dial, settings, parentWatch) {
 
     try {
       if (!settings.id)
         throw "The DayNightIndicator class requires that an ID of the indiciator element be provided.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -22,9 +19,9 @@ class DayNightIndicator {
     this.isAM = this.hours < 12 ? true : false;
 
     this.hourAngle = 0;
-    this.hourDivisor = dial.format === 12
-      ? 30
-      : 15;
+    this.hourDivisor = dial.format === 12 ?
+      30 :
+      15;
 
     this.init();
   }
@@ -56,7 +53,7 @@ class DayNightIndicator {
   }
 
   getHourHandAngle() {
-    this.hourAngle = util.getCurrentRotateValue(this.hands.hour);
+    this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
   }
 
   convertAngleToHours(name) {
