@@ -65,7 +65,8 @@
 	        second: 'secondary-minutes-hand'
 	      },
 	      offset: '-4',
-	      format: 24
+	      format: 24,
+	      sweep: true
 	    }],
 	    reserve: {
 	      id: 'power-reserve-hand',
@@ -316,6 +317,8 @@
 	    this.format = settings.format ? settings.format : 12;
 	    this.gmtOffset = settings.offset ? settings.offset.toString() : null;
 
+	    this.sweepingSeconds = settings.sweep || false;
+
 	    this.rightNow = this.parent.rightNow;
 	    this.currentTime = {};
 
@@ -371,6 +374,11 @@
 	    value: function stopInterval() {
 	      clearInterval(this.interval);
 	      this.interval = null;
+	    }
+	  }, {
+	    key: 'applySweepingTransition',
+	    value: function applySweepingTransition() {
+	      this.hands.second.style.transition = 'transform 1s linear';
 	    }
 	  }, {
 	    key: 'getCurrentTime',
@@ -482,6 +490,12 @@
 	      setTimeout(function () {
 	        _this2.getCurrentTime();
 	        _this2.rotateHands();
+
+	        setTimeout(function () {
+	          if (_this2.hands.second && _this2.sweepingSeconds) {
+	            _this2.applySweepingTransition();
+	          }
+	        }, 100);
 	      }, 350);
 	    }
 	  }]);

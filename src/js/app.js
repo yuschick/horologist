@@ -3,39 +3,36 @@
 
   const Watch = require('./modules/Watch');
   const settings = {
-    dials: [
-      {
-        name: 'local-time',
-        hands: {
-          hour: 'primary-hours-hand',
-          minute: 'primary-minutes-hand'
-        },
-        offset: '+3'
-      }, {
-        name: 'home-time',
-        hands: {
-          hour: 'secondary-hours-hand',
-          second: 'secondary-minutes-hand'
-        },
-        offset: '-4',
-        format: 24
-      }
-    ],
+    dials: [{
+      name: 'local-time',
+      hands: {
+        hour: 'primary-hours-hand',
+        minute: 'primary-minutes-hand'
+      },
+      offset: '+3'
+    }, {
+      name: 'home-time',
+      hands: {
+        hour: 'secondary-hours-hand',
+        second: 'secondary-minutes-hand'
+      },
+      offset: '-4',
+      format: 24,
+      sweep: true
+    }],
     reserve: {
       id: 'power-reserve-hand',
       range: [-90, 90]
     },
     crown: {
       id: 'crown',
-      blackout: [
-        {
-          selector: '.blackout',
-          className: 'active'
-        }, {
-          selector: '.main_dial',
-          className: 'faded'
-        }
-      ]
+      blackout: [{
+        selector: '.blackout',
+        className: 'active'
+      }, {
+        selector: '.main_dial',
+        className: 'faded'
+      }]
     },
     repeater: {
       id: 'repeater-btn',
