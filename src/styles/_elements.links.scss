@@ -1,11 +1,19 @@
 a,
 a:active,
 a:visited {
-  color: $tertiaryColor;
+  color: $secondaryColor;
+
+  &.invert {
+    color: $tertiaryColor;
+  }
 }
 
 a:hover {
-  color: lighten($tertiaryColor, 5%);
+  color: lighten($secondaryColor, 5%);
+
+  &.invert {
+    color: lighten($tertiaryColor, 5%);
+  }
 }
 
 h2 {

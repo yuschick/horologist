@@ -4,8 +4,7 @@ class Crown {
     try {
       if (!settings.id)
         throw "The Crown class requires that an ID of the crown element be provided.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -32,8 +31,7 @@ class Crown {
         instance.toggleActiveCrown();
       if (instance.setSecondary)
         instance.toggleSecondaryTime();
-      }
-    );
+    });
 
     if (this.crownActive) {
       this.parent.stopInterval();
@@ -41,8 +39,7 @@ class Crown {
       this.parent.dialInstances.forEach((instance) => {
         if (instance.toggleSettingTime)
           instance.toggleSettingTime();
-        }
-      );
+      });
     } else {
       this.parent.startInterval();
       this.crown.classList.remove('active');
@@ -54,12 +51,16 @@ class Crown {
           instance.toggleSettingTime();
         if (instance.updateToManualTime)
           instance.updateToManualTime();
-        }
-      );
+      });
     }
   }
 
+  updateCursorForTrigger() {
+    this.crown.style.cursor = 'pointer';
+  }
+
   init() {
+    this.updateCursorForTrigger();
     this.crown.addEventListener('click', () => {
       this.toggleCrown();
     });

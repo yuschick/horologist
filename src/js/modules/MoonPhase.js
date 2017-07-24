@@ -4,8 +4,7 @@ class MoonPhase {
     try {
       if (!settings.id)
         throw "The MoonPhase class requires that an ID of the moonphase element be provided.";
-      }
-    catch (errorMsg) {
+    } catch (errorMsg) {
       console.error(errorMsg);
       return;
     }
@@ -18,9 +17,9 @@ class MoonPhase {
   }
 
   rotateDisc(val) {
-    val = this.invert
-      ? val * -1
-      : val;
+    val = this.invert ?
+      val * -1 :
+      val;
     this.element.style.transform = `rotate(${val}deg)`;
   }
 
@@ -69,15 +68,15 @@ class MoonPhase {
         break;
       case 1:
         // Waxing Crescent
-        this.rotateDisc(22.5);
+        this.rotateDisc(83);
         break;
       case 2:
         // First Quarter
-        this.rotateDisc(45);
+        this.rotateDisc(60);
         break;
       case 3:
         // Waxing Gibbous
-        this.rotateDisc(67.5);
+        this.rotateDisc(37);
         break;
       case 4:
         // Full
@@ -89,15 +88,15 @@ class MoonPhase {
         break;
       case 5:
         // Waning Gibbous
-        this.rotateDisc(-22.5);
+        this.rotateDisc(-37);
         break;
       case 6:
         // Third quarter
-        this.rotateDisc(-45);
+        this.rotateDisc(-60);
         break;
       case 7:
         // Waning Crescent
-        this.rotateDisc(-67.5);
+        this.rotateDisc(-83);
         break;
       default:
         console.log('Error');

@@ -100,6 +100,88 @@ const util = require('./util');
         };
 
         break;
+
+      case 'moonphase':
+        demoWatchSettings = {
+          dials: [{
+            hands: {
+              hour: 'moonphase-hour-hand',
+              minute: 'moonphase-minute-hand',
+              second: 'moonphase-second-hand'
+            }
+          }],
+          moonphase: {
+            id: 'moonphase-dial'
+          }
+        };
+        break;
+
+      case 'minute-repeater':
+        demoWatchSettings = {
+          dials: [{
+            hands: {
+              hour: 'repeater-hour-hand',
+              minute: 'repeater-minute-hand',
+              second: 'repeater-second-hand'
+            }
+          }],
+          repeater: {
+            id: 'play-repeater',
+            chimes: {
+              hour: './dist/sounds/chime-01.mp4',
+              quarter: './dist/sounds/chime-02.mp4',
+              minute: './dist/sounds/chime-03.mp4'
+            }
+          }
+        };
+        break;
+
+      case 'power-reserve':
+        demoWatchSettings = {
+          dials: [{
+            hands: {
+              hour: 'reserve-hour-hand',
+              minute: 'reserve-minute-hand',
+              second: 'reserve-second-hand'
+            }
+          }],
+          reserve: {
+            id: 'reserve-hand',
+            range: [-90, 90]
+          }
+        };
+        break;
+
+      case 'manual-time':
+        demoWatchSettings = {
+          dials: [{
+              name: 'primary',
+              hands: {
+                hour: 'crown-primary-hour-hand',
+                minute: 'crown-primary-minute-hand',
+                second: 'crown-primary-second-hand'
+              }
+            },
+            {
+              name: 'secondary',
+              hands: {
+                hour: 'crown-secondary-hour-hand',
+                minute: 'crown-secondary-minute-hand',
+                second: 'crown-secondary-second-hand'
+              },
+              offset: '+6',
+              sweep: true
+            }
+          ],
+          crown: {
+            id: 'the-crown',
+            blackout: [{
+              selector: '#blackout',
+              className: 'active'
+            }]
+          }
+        };
+        break;
     }
 
     demoWatch = new Watch(demoWatchSettings);

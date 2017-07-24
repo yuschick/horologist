@@ -11,4 +11,11 @@ footer {
       text-align: right;
     }
   }
+
+  a,
+  a:active,
+  a:hover,
+  a:visited {
+    color: $tertiaryColor;
+  }
 }

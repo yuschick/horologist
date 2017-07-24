@@ -3,12 +3,17 @@
   margin: $vspace/2 0;
 
   li {
+    border-right: 1px solid #000;
     color: $tertiaryColor;
     padding: $vspace/2 $hspace;
 
     &.active {
       background: $tertiaryColor;
       color: $primaryColor;
+    }
+
+    &:last-child {
+      border: 0;
     }
   }
 }

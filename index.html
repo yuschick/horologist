@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="./dist/styles/app.css">
   <!--
   Update CSS and JS to .min upon build
+
+  UPDATE: Crown, MinuteRepeater, and Moonphase classes on master!!!!!!!!!
+  
   /-->
   <title>TickTock - Making Digital Time Mechanical</title>
 </head>
@@ -63,11 +66,11 @@
             <line class="st1" x1="77.1" y1="42.1" x2="62.6" y2="17"/>
             <path class="st3" d="M125 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.1 210.8 125 210.8z"/>
             <path class="st2" d="M125 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.2 149.2 125 149.2M125 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.4 148.2 125 148.2L125 148.2z"/>
-            <g class='origin-bc' id="second-hand">
+            <g class='secondary-center' id="second-hand">
               <line class="st4" x1="125.4" y1="179.8" x2="125.4" y2="148.8"/>
             </g>
-            <rect class='origin-bc' id="minute-hand" x="123" y="15.2" class="st2" width="4" height="110"/>
-            <rect class='origin-bc' id="hour-hand" x="121.5" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250 171.5)" width="7" height="79"/>
+            <rect class='primary-center' id="minute-hand" x="123" y="15.2" class="st2" width="4" height="110"/>
+            <rect class='primary-center' id="hour-hand" x="121.5" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250 171.5)" width="7" height="79"/>
           </svg>
 
         </div>
@@ -187,12 +190,12 @@ let demo = new Watch(settings);
               <line class="st6" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
               <path class="st9" d="M125.3 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.4 210.8 125.3 210.8z"/>
               <path class="st8" d="M125.3 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.5 149.2 125.3 149.2M125.3 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.7 148.2 125.3 148.2L125.3 148.2z"/>
-              <line class="st10 origin-bc" id="dial-secondary-second-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
-              <line class="st10 origin-bc" id="dial-secondary-minute-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
-              <line class="st11 origin-bc" id="dial-secondary-hour-hand" x1="125.3" y1="179.8" x2="125.3" y2="155.5"/>
-              <rect class='origin-bc st7' id="dial-primary-second-hand" x="123.3" y="15.2" width="2" height="110"/>
-              <rect class='origin-bc st8' id="dial-primary-minute-hand" x="123.3" y="15.2" width="4" height="110"/>
-              <rect class='origin-bc' id="dial-primary-hour-hand" x="121.8" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+              <line class="st10 secondary-center" id="dial-secondary-second-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+              <line class="st10 secondary-center" id="dial-secondary-minute-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+              <line class="st11 secondary-center" id="dial-secondary-hour-hand" x1="125.3" y1="179.8" x2="125.3" y2="155.5"/>
+              <rect class='primary-center st7' id="dial-primary-second-hand" x="123.3" y="15.2" width="2" height="110"/>
+              <rect class='primary-center st8' id="dial-primary-minute-hand" x="123.3" y="15.2" width="4" height="110"/>
+              <rect class='primary-center' id="dial-primary-hour-hand" x="121.8" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
             </svg>
 
           </div>
@@ -201,8 +204,7 @@ let demo = new Watch(settings);
           <div class='flex-one'>
             <p>A day/night indicator shows which half of the day corresponds to, typically, a 12-hour time display. In the demo this works by rotating the indicator disc underneath a mask to only display the appropriate half. In TickTock this indicator defaults
               to represent the time of the first dial in the dials array. However, the indicator can also be adjusted to work off of a secondary dial.</p>
-            <p>Many simple day/night indicators are a two-color disc. In TickTock it begins to "show" the next segment during the day or night: It shows "day" only from midnight to 6 AM and "night" only from noon to 6 PM, with a half-day or half-night display
-              the rest of the time.</p>
+            <p>Many simple day/night indicators are a two-color disc that show "day" only from midnight to 6 AM and "night" only from noon to 6 PM, with a half-day or half-night display the rest of the time. TickTock follows this convention.</p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
               <a href='#' class='btn primary view-code-btn' data-type='day-night-indicator-demo'>View Code</a>
@@ -256,7 +258,7 @@ let demo = new Watch(settings);
               <line class="day-night-st1" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
               <line class="day-night-st1" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
               <line class="day-night-st1" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
-              <g id="day-night-dial" class='origin-center' style='transform-origin: 126px 180px'>
+              <g id="day-night-dial" class='secondary-center'>
                 <path class="day-night-st4" d="M156.8 180.8c0-17.4-14.1-31.5-31.5-31.5s-31.5 14.1-31.5 31.5"/>
                 <path class="day-night-st5" d="M156.8 180.2c0 17.4-14.1 31.5-31.5 31.5s-31.5-14.1-31.5-31.5"/>
                 <circle class="day-night-st6" cx="139.6" cy="197" r="1"/>
@@ -272,70 +274,321 @@ let demo = new Watch(settings);
                 <circle class="day-night-st6" cx="130.6" cy="183" r="1"/>
               </g>
               <path class="day-night-st7" d="M93.8 180.2c0 17.4 14.1 31.5 31.5 31.5s31.5-14.1 31.5-31.5"/>
-              <path id="day-night-second-hand" class="day-night-st2 origin-bc" d="M125.3 125V9.5"/>
-              <rect id="day-night-minute-hand" x="123.3" y="15.2" class="day-night-st3 origin-bc" width="4" height="110"/>
-              <rect id="day-night-hour-hand" x="121.8" y="46.2" class='origin-bc' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+              <path id="day-night-second-hand" class="day-night-st2 primary-center" d="M125.3 125V9.5"/>
+              <rect id="day-night-minute-hand" x="123.3" y="15.2" class="day-night-st3 primary-center" width="4" height="110"/>
+              <rect id="day-night-hour-hand" x="121.8" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
             </svg>
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='manual-time'>
           <div class='flex-one'>
+            <p>The manul time complication allows a user to click the crown of the watch to temporarily pause its running. In this state, referred to as the set state, they're able to use the arrow keys to manually adjust the time. Upon clicking the dial
+              again, TickTock will resume telling the time from the manually set position. To account for visual cues, on click, the crown will toggle an 'active' class.</p>
             <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+              Additionally, if a secondary dial is being used, while in the set state, the right arrow key will allow a user to target the secondary dial to set its time in hour increments.
+            </p>
+            <p>
+              When the focus is on the secondary dial, TickTock supports an array of selectors and classes to toggle. For example, in the demo, this feature is used to create a blackout effect to draw focus to the secondary dial.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
               <a href='#' class='btn primary view-code-btn'>View Code</a>
             </div>
           </div>
-          <div class='complication-demo flex-two'>
-            Manual Time Demo
+          <div class='complication-demo flex-one'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+            	.crown-st0{fill:#2D2D2D;}
+            	.crown-st1{fill:#020200;}
+            	.crown-st2{fill:#FFFFFF;}
+            	.crown-st3{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+            	.crown-st4{fill:none;stroke:#007486;stroke-miterlimit:10;}
+            	.crown-st5{fill:#272727;}
+            	.crown-st6{fill:#EFF1F3;}
+            	.crown-st7{fill:none;stroke:#272727;stroke-miterlimit:10;}
+            	.crown-st8{fill:none;stroke:#272727;stroke-width:3;stroke-miterlimit:10;}
+
+              </style>
+              <g id="the-crown">
+                <path class="crown-st0" d="M172 226l16 17c0 0 20 1 28-20l-16-18L172 226z"/>
+                <path class="crown-st1" d="M190 239c1.1-1.8 2.6-3.3 4.1-4.8 1.5-1.5 3.2-2.8 4.9-4 1.7-1.2 3.5-2.4 5.3-3.4 0.9-0.5 1.9-1 2.8-1.5 1-0.4 1.9-0.9 2.9-1.3l-5.3 3.5c-1.7 1.2-3.5 2.3-5.1 3.6 -1.7 1.2-3.3 2.5-5 3.8 -0.8 0.7-1.6 1.3-2.4 2C191.5 237.5 190.7 238.2 190 239z"/>
+              </g>
+              <path class="crown-st2" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+              <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+              <line class="crown-st3" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+              <line class="crown-st3" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+              <line class="crown-st3" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+              <line class="crown-st3" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+              <line class="crown-st3" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+              <line class="crown-st3" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+              <line class="crown-st3" x1="250.1" y1="125" x2="221.1" y2="125"/>
+              <line class="crown-st3" x1="29.6" y1="125" x2="0.6" y2="125"/>
+              <line class="crown-st3" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+              <line class="crown-st3" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+              <line class="crown-st3" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+              <line class="crown-st3" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+              <path class="crown-st6" d="M125.3 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.4 210.8 125.3 210.8z"/>
+              <path class="crown-st5" d="M125.3 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.5 149.2 125.3 149.2M125.3 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.7 148.2 125.3 148.2L125.3 148.2z"/>
+                <line id="crown-secondary-minute-hand" class="crown-st7 secondary-center" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+                <line id="crown-secondary-hour-hand" class="crown-st8 secondary-center" x1="125.3" y1="179.8" x2="125.3" y2="155.5"/>
+              <path id="crown-primary-second-hand" class="crown-st4 primary-center" d="M125.3 125V9.5"/>
+              <rect id="crown-primary-minute-hand" x="123.3" y="15.2" class="crown-st5 primary-center" width="4" height="110"/>
+              <rect id="crown-primary-hour-hand" x="121.8" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+              <path id='blackout' d="M125.5 4C58.4 4 4 58.4 4 125.5S58.4 247 125.5 247 247 192.6 247 125.5 192.6 4 125.5 4zM125.3 211.2c-17.4 0-31.5-14.1-31.5-31.5s14.1-31.5 31.5-31.5 31.5 14.1 31.5 31.5S142.7 211.2 125.3 211.2z"/>
+            </svg>
+
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='minute-repeater'>
           <div class='flex-one'>
+            <p>A repeater is a complication that audibly chimes the hours and often minutes at the press of a button. There are many types of repeater but the minute repeater chimes the time down to the minute, using separate tones for hours, quarter hours,
+              and minutes.</p>
             <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+              TickTock follows the convention of chiming for every hour, quarter hour, and single minute. It defaults to indicating the time of the first dial passed into the dials array but can be set to read a secondary dial as well. And the trigger for the repeater
+              can be any element (SVG or otherwise) so long as its ID is passed into the settings.
+            </p>
+            <p>
+              Shouts to the <a href='https://freesound.org/' target='new' class='invert'>Free Sound Project</a> for the provided chimes.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='minute-repeater-demo'>View Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='minute-repeater-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+settings = {
+  dials: [{
+    hands: {
+      hour: 'repeater-hour-hand',
+      minute: 'repeater-minute-hand',
+      second: 'repeater-second-hand'
+    }
+  }],
+  repeater: {
+    id: 'play-repeater',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    }
+  }
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
-          <div class='complication-demo flex-two'>
-            Minute Repeater Demo
+          <div class='complication-demo flex-one'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+              .repeater-st0{fill:#FFFFFF;}
+              .repeater-st1{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+              .repeater-st2{fill:none;stroke:#007486;stroke-miterlimit:10;}
+              .repeater-st3{fill:#272727;}
+              .repeater-st4{fill:#CECECE;}
+
+              </style>
+              <path class="repeater-st0" d="M125.2 245c-66.2 0-120-53.8-120-120S59.1 5 125.2 5s120 53.8 120 120S191.4 245 125.2 245z"/>
+              <path d="M125.2 10c30.7 0 59.6 12 81.3 33.7s33.7 50.6 33.7 81.3 -12 59.6-33.7 81.3S155.9 240 125.2 240s-59.6-12-81.3-33.7S10.2 155.7 10.2 125s12-59.6 33.7-81.3S94.5 10 125.2 10M125.2 0c-69 0-125 56-125 125s56 125 125 125 125-56 125-125S194.3 0 125.2 0L125.2 0z"/>
+              <line class="repeater-st1" x1="125.6" y1="0.2" x2="125.6" y2="29.2"/>
+              <line class="repeater-st1" x1="125.6" y1="220.8" x2="125.6" y2="249.8"/>
+              <line class="repeater-st1" x1="187.9" y1="17" x2="173.4" y2="42.1"/>
+              <line class="repeater-st1" x1="77.7" y1="207.9" x2="63.2" y2="233"/>
+              <line class="repeater-st1" x1="233.6" y1="62.6" x2="208.5" y2="77.1"/>
+              <line class="repeater-st1" x1="42.6" y1="172.9" x2="17.5" y2="187.4"/>
+              <line class="repeater-st1" x1="250.3" y1="125" x2="221.3" y2="125"/>
+              <line class="repeater-st1" x1="29.8" y1="125" x2="0.8" y2="125"/>
+              <line class="repeater-st1" x1="233.6" y1="187.4" x2="208.5" y2="172.9"/>
+              <line class="repeater-st1" x1="42.6" y1="77.1" x2="17.5" y2="62.6"/>
+              <line class="repeater-st1" x1="187.9" y1="233" x2="173.4" y2="207.9"/>
+              <line class="repeater-st1" x1="77.7" y1="42.1" x2="63.2" y2="17"/>
+              <path id="repeater-second-hand" class="repeater-st2 primary-center" d="M125.5 125V9.5"/>
+              <rect id="repeater-minute-hand" x="123.5" y="15.2" class="repeater-st3 primary-center" width="4" height="110"/>
+              <rect id="repeater-hour-hand" x="122" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 251.0994 171.5)" width="7" height="79"/>
+              <g id="play-repeater">
+                <rect x="1.8" y="219.7" class="repeater-st4" width="28.3" height="28.3"/>
+                <polygon points="9.8 225.6 9.8 242.1 22.1 233.6 "/>
+              </g>
+            </svg>
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='moonphase'>
           <div class='flex-one'>
+            <p>A moon-phase indication is a rotating disc, shown in a dial section, that indicates the position of the moon - usually the way it presents itself at the observation of the Northern Hemisphere.</p>
             <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+              TickTock will rotate the moonphase disc from new moon to waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, three quarter, and waning crescent. It will also default to rotating the disc clockwise beginning from the full moon position
+              which can be reversed with the 'invert' property.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='moonphase-demo'>View Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='moonphase-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+settings = {
+  dials: [{
+    hands: {
+      hour: 'moonphase-hour-hand',
+      minute: 'moonphase-minute-hand',
+      second: 'moonphase-second-hand'
+    }
+  }],
+  moonphase: {
+    id: 'moonphase-dial'
+  }
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
-          <div class='complication-demo flex-two'>
-            Moonphase Demo
+
+          <div class='complication-demo flex-one'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+            	.moonphase-st0{fill:#FFFFFF;}
+            	.moonphase-st1{fill:#0F2E47;}
+            	.moonphase-st2{fill:#E2D752;}
+            	.moonphase-st3{fill:#D6D6D4;stroke:#000000;stroke-miterlimit:10;}
+            	.moonphase-st4{fill:#3D3D3D;}
+            	.moonphase-st5{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+            	.moonphase-st6{fill:none;stroke:#007486;stroke-miterlimit:10;}
+            	.moonphase-st7{fill:#272727;}
+            	.moonphase-st8{fill:none;stroke:#000000;stroke-miterlimit:10;}
+
+              </style>
+              <path class="moonphase-st0" d="M125.2 245c-66.2 0-120-53.8-120-120S59.1 5 125.2 5s120 53.8 120 120S191.4 245 125.2 245z"/>
+              <path d="M125.2 10c30.7 0 59.6 12 81.3 33.7s33.7 50.6 33.7 81.3 -12 59.6-33.7 81.3S155.9 240 125.2 240s-59.6-12-81.3-33.7S10.2 155.7 10.2 125s12-59.6 33.7-81.3S94.5 10 125.2 10M125.2 0c-69 0-125 56-125 125s56 125 125 125 125-56 125-125S194.3 0 125.2 0L125.2 0z"/>
+              <g id="moonphase-dial" class='primary-center'>
+                <path class="moonphase-st1" d="M210.1 120.8c-2.4-46.7-42.1-82.6-88.8-80.2s-82.6 42.1-80.2 88.8"/>
+                <path class="moonphase-st1" d="M210 119.5c2.4 46.7-33.6 86.4-80.2 88.8C83.1 210.6 43.4 174.7 41 128"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.197 8.609)" class="moonphase-st2" cx="166.5" cy="166.7" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.318 5.2212)" class="moonphase-st2" cx="99.3" cy="167.4" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.2892 7.393)" class="moonphase-st2" cx="142.3" cy="167.9" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -7.0407 5.9396)" class="moonphase-st2" cx="114.2" cy="142.5" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -6.9504 8.9221)" class="moonphase-st2" cx="173.3" cy="142.2" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -9.2228 5.8333)" class="moonphase-st2" cx="111" cy="185.7" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.1913 3.3093)" class="moonphase-st2" cx="61.5" cy="164" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -9.37 7.475)" class="moonphase-st2" cx="143.4" cy="189.4" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -7.4088 10.0439)" class="moonphase-st2" cx="195.3" cy="151.8" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -6.7051 3.1966)" class="moonphase-st2" cx="60" cy="134.5" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -6.3978 7.2496)" class="moonphase-st2" cx="140.5" cy="130.4" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -4.1672 4.4112)" class="moonphase-st2" cx="85.3" cy="84.8" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -4.0462 7.799)" class="moonphase-st2" cx="152.5" cy="84.1" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -4.075 5.6271)" class="moonphase-st2" cx="109.5" cy="83.6" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -5.3236 7.0806)" class="moonphase-st2" cx="137.6" cy="109" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -5.4139 4.0981)" class="moonphase-st2" cx="78.5" cy="109.3" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -3.1415 7.1868)" class="moonphase-st2" cx="140.8" cy="65.8" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -4.173 9.7109)" class="moonphase-st2" cx="190.3" cy="87.5" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -2.9942 5.5451)" class="moonphase-st2" cx="108.4" cy="62.1" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -4.9554 2.9763)" class="moonphase-st2" cx="56.5" cy="99.7" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -5.6591 9.8236)" class="moonphase-st2" cx="191.8" cy="117" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -5.9664 5.7705)" class="moonphase-st2" cx="111.4" cy="121.1" rx="2.7" ry="2.7"/>
+                <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.8694 6.583)" class="moonphase-st3" cx="126" cy="179" rx="26.7" ry="26.7"/>
+                <circle class="moonphase-st4" cx="132.6" cy="196.8" r="3.6"/>
+                <circle class="moonphase-st4" cx="137.9" cy="187.9" r="5.3"/>
+                <circle class="moonphase-st4" cx="141.5" cy="180.8" r="1.8"/>
+              </g>
+              <line class="moonphase-st5" x1="125.6" y1="0.2" x2="125.6" y2="29.2"/>
+              <line class="moonphase-st5" x1="125.6" y1="220.8" x2="125.6" y2="249.8"/>
+              <line class="moonphase-st5" x1="187.9" y1="17" x2="173.4" y2="42.1"/>
+              <line class="moonphase-st5" x1="77.7" y1="207.9" x2="63.2" y2="233"/>
+              <line class="moonphase-st5" x1="233.6" y1="62.6" x2="208.5" y2="77.1"/>
+              <line class="moonphase-st5" x1="42.6" y1="172.9" x2="17.5" y2="187.4"/>
+              <line class="moonphase-st5" x1="250.3" y1="125" x2="221.3" y2="125"/>
+              <line class="moonphase-st5" x1="29.8" y1="125" x2="0.8" y2="125"/>
+              <line class="moonphase-st5" x1="233.6" y1="187.4" x2="208.5" y2="172.9"/>
+              <line class="moonphase-st5" x1="42.6" y1="77.1" x2="17.5" y2="62.6"/>
+              <line class="moonphase-st5" x1="187.9" y1="233" x2="173.4" y2="207.9"/>
+              <line class="moonphase-st5" x1="77.7" y1="42.1" x2="63.2" y2="17"/>
+              <path class="moonphase-st0" d="M125 39.1c-47.2 0-85.5 38.3-85.5 85.5s38.3 85.5 85.5 85.5 85.5-38.3 85.5-85.5S172.2 39.1 125 39.1zM127.4 205.7c-14.7 0.7-27.3-10.6-28-25.3 -0.7-14.7 10.6-27.3 25.3-28 14.7-0.7 27.3 10.6 28 25.3C153.4 192.4 142.1 205 127.4 205.7z"/>
+              <ellipse transform="matrix(0.9987 -5.043483e-02 5.043483e-02 0.9987 -8.8694 6.583)" class="moonphase-st8" cx="126" cy="179" rx="26.7" ry="26.7"/>
+              <path id="moonphase-second-hand" class="moonphase-st6 primary-center" d="M125.5 125V9.5"/>
+              <rect id="moonphase-minute-hand" x="123.5" y="15.2" class="moonphase-st7 primary-center" width="4" height="110"/>
+              <rect id="moonphase-hour-hand" x="122" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 251.0994 171.5)" width="7" height="79"/>
+            </svg>
+
+
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='power-reserve'>
           <div class='flex-one'>
+            <p>A power reserve indicator is a complication of the watch which is designed to show the amount of remaining stored energy. The power reserve indicator indicates the tension on the mainspring at any particular moment. If the indicator is fully
+              drained, the watch will stop running until it's wound again.</p>
             <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+              Many reserve indicators are half circles or partial curves. So TickTock accepts a range of rotation values, its empty and full positions, to determine the movement of the hand. The hand will be placed in the full position by default and will drain 0.5deg
+              per second. As the reserve reaches its empty range value, all complications cease to work until the watch is wound again by using the left arrow key.
+            </p>
+            <p>
+              Note that the range values are relative to the hand's starting position.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='power-reserve-demo'>View Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='power-reserve-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+settings = {
+  dials: [{
+    hands: {
+      hour: 'reserve-hour-hand',
+      minute: 'reserve-minute-hand',
+      second: 'reserve-second-hand'
+    }
+  }],
+  reserve: {
+    id: 'reserve-hand',
+    range: [-90, 90]
+  }
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
-          <div class='complication-demo flex-two'>
-            Power Reserve Demo
+          <div class='complication-demo flex-one'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+            	.reserve-st0{fill:#FFFFFF;}
+            	.reserve-st1{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+            	.reserve-st2{fill:none;stroke:#007486;stroke-miterlimit:10;}
+            	.reserve-st3{fill:#272727;}
+            	.reserve-st4{fill:none;stroke:#272727;stroke-width:2;stroke-miterlimit:10;}
+
+              </style>
+              <path class="reserve-st0" d="M125.2 245c-66.2 0-120-53.8-120-120S59.1 5 125.2 5s120 53.8 120 120S191.4 245 125.2 245z"/>
+              <path d="M125.2 10c30.7 0 59.6 12 81.3 33.7s33.7 50.6 33.7 81.3 -12 59.6-33.7 81.3S155.9 240 125.2 240s-59.6-12-81.3-33.7S10.2 155.7 10.2 125s12-59.6 33.7-81.3S94.5 10 125.2 10M125.2 0c-69 0-125 56-125 125s56 125 125 125 125-56 125-125S194.3 0 125.2 0L125.2 0z"/>
+              <line class="reserve-st1" x1="125.6" y1="0.2" x2="125.6" y2="29.2"/>
+              <line class="reserve-st1" x1="125.6" y1="220.8" x2="125.6" y2="249.8"/>
+              <line class="reserve-st1" x1="187.9" y1="17" x2="173.4" y2="42.1"/>
+              <line class="reserve-st1" x1="77.7" y1="207.9" x2="63.2" y2="233"/>
+              <line class="reserve-st1" x1="233.6" y1="62.6" x2="208.5" y2="77.1"/>
+              <line class="reserve-st1" x1="42.6" y1="172.9" x2="17.5" y2="187.4"/>
+              <line class="reserve-st1" x1="250.3" y1="125" x2="221.3" y2="125"/>
+              <line class="reserve-st1" x1="29.8" y1="125" x2="0.8" y2="125"/>
+              <line class="reserve-st1" x1="233.6" y1="187.4" x2="208.5" y2="172.9"/>
+              <line class="reserve-st1" x1="42.6" y1="77.1" x2="17.5" y2="62.6"/>
+              <line class="reserve-st1" x1="187.9" y1="233" x2="173.4" y2="207.9"/>
+              <line class="reserve-st1" x1="77.7" y1="42.1" x2="63.2" y2="17"/>
+              <path id="reserve-second-hand" class="reserve-st2 primary-center" d="M125.5 125V9.5"/>
+              <rect id="reserve-minute-hand" x="123.5" y="15.2" class="reserve-st3 primary-center" width="4" height="110"/>
+              <rect id="reserve-hour-hand" x="122" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 251.0994 171.5)" width="7" height="79"/>
+              <path d="M193.1 168c-5.6 0.3-11.3-0.6-16.6-2.6 -5.3-2-10.3-5.1-14.4-9.1 -4.2-4-7.5-8.8-9.7-14.2 -2.3-5.3-3.4-11.1-3.4-16.9 0-5.8 1.2-11.6 3.4-16.9 2.3-5.3 5.6-10.2 9.7-14.2 4.1-4 9.1-7.1 14.4-9.1 5.3-2 11-2.9 16.6-2.6 -5.6 0.3-11.1 1.6-16.1 3.9 -5 2.3-9.5 5.5-13.3 9.4 -7.6 7.9-11.9 18.6-11.8 29.4 -0.1 10.8 4.3 21.6 11.8 29.4 3.8 3.9 8.3 7.2 13.3 9.4C182 166.4 187.5 167.7 193.1 168z"/>
+              <path d="M188.9 87.4h4.4v0.9H190V91h3.1v0.9H190v3.7h-1V87.4z"/>
+              <path d="M193 158.7h-3.1v2.5h3.5v0.7h-4.5v-6.9h4.4v0.7h-3.3v2.2h3.1V158.7z"/>
+              <line id='reserve-hand' class="reserve-st4 three-center" x1="193.4" y1="125.2" x2="150.3" y2="125.2"/>
+            </svg>
+
           </div>
         </section>
       </div>
@@ -348,10 +601,11 @@ let demo = new Watch(settings);
       </p>
       <p>
         Many complications in physical watches and clocks consist of rotating discs. Whether that be moonphases or date indicators, TickTock expects many of its components to be designed as a disc that will rotate from its center point. Transform origin points
-        may need to be manually set in the CSS when rotating other elements, such as hands, for the time being.
+        may need to be manually set in the CSS when rotating other elements, such as hands, for the time being. And for best browser support (looking at you, Firefox), these transform-origin values should be specified as pixels versus directional words
+        like 'center' and 'bottom'.
       </p>
       <p>
-        Understandably, this is a very niche library but I found myself wanting to re-use many of these components so why not open it up for others. I welcome contributions from others who also admire watchmaking.
+        Understandably, this is a very niche library but I found myself wanting to re-use many of these components so why not open it up for others. I welcome contributions from others who also admire watchmaking. Take a look at the <a href='https://github.com/yuschick/TickTock/tree/master'>README on Github</a>        to find functionality already on the ToDo list or feel free to send a PR for complications or updates to things I have missed.
       </p>
     </section>
   </main>

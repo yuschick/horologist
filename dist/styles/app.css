@@ -222,7 +222,6 @@ h4 {
   text-transform: uppercase; }
 
 .btn {
-  color: #EFF1F3;
   display: inline-block;
   padding: 0.5rem 1rem;
   text-align: center;
@@ -234,6 +233,7 @@ h4 {
     background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#272727));
     background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: linear-gradient(to bottom, #474747 0%, #272727 100%);
+    color: #EFF1F3;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#272727',GradientType=0 ); }
     .btn.primary:hover {
       background: #474747;
@@ -245,10 +245,16 @@ h4 {
 a,
 a:active,
 a:visited {
-  color: #EFF1F3; }
+  color: #007486; }
+  a.invert,
+  a:active.invert,
+  a:visited.invert {
+    color: #EFF1F3; }
 
 a:hover {
-  color: #fefefe; }
+  color: #008aa0; }
+  a:hover.invert {
+    color: #fefefe; }
 
 h2 a,
 h2 a:active,
@@ -299,6 +305,43 @@ nav a:visited {
       -ms-transform-origin: center center;
           transform-origin: center center; }
 
+.primary-center {
+  -webkit-transform-origin: 125px 125px;
+      -ms-transform-origin: 125px 125px;
+          transform-origin: 125px 125px; }
+
+.secondary-center {
+  -webkit-transform-origin: 125px 180px;
+      -ms-transform-origin: 125px 180px;
+          transform-origin: 125px 180px; }
+
+.three-center {
+  -webkit-transform-origin: 190px 125px;
+      -ms-transform-origin: 190px 125px;
+          transform-origin: 190px 125px; }
+
+#blackout {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease; }
+  #blackout.active {
+    opacity: 0.8; }
+
+#the-crown {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  -o-transition: transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease; }
+  #the-crown.active {
+    -webkit-transform: translate(3px, 5px);
+        -ms-transform: translate(3px, 5px);
+            transform: translate(3px, 5px); }
+
 .panel {
   display: block;
   padding: 3rem 0;
@@ -322,11 +365,14 @@ nav a:visited {
   background: #272727;
   margin: 0.5rem 0; }
   .secondary-nav li {
+    border-right: 1px solid #000;
     color: #EFF1F3;
     padding: 0.5rem 1rem; }
     .secondary-nav li.active {
       background: #EFF1F3;
       color: #272727; }
+    .secondary-nav li:last-child {
+      border: 0; }
 
 footer {
   background: #272727;
@@ -339,6 +385,11 @@ footer {
             flex: 1 0 auto; }
     footer div:last-child {
       text-align: right; }
+  footer a,
+  footer a:active,
+  footer a:hover,
+  footer a:visited {
+    color: #EFF1F3; }
 
 .has-spacer:after {
   background: #272727;

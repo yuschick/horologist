@@ -5,3 +5,33 @@
 .origin-center {
   transform-origin: center center;
 }
+
+.primary-center {
+  transform-origin: 125px 125px;
+}
+
+.secondary-center {
+  transform-origin: 125px 180px;
+}
+
+.three-center {
+  transform-origin: 190px 125px;
+}
+
+#blackout {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  &.active {
+    opacity: 0.8;
+  }
+}
+
+#the-crown {
+  transform: translate(0,0);
+  transition: transform 0.5s ease;
+
+  &.active {
+    transform: translate(3px, 5px);
+  }
+}

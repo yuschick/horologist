@@ -100,8 +100,8 @@
 
     <span class="hljs-keyword">this</span>.allMinutes = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.minuteAngle = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">this</span>.fiveMinuteChimes = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">this</span>.fiveMinuteElement = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.fifteenMinuteChimes = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.fifteenMinuteElement = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.minuteChimes = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.minuteElement = <span class="hljs-literal">null</span>;
 
@@ -132,8 +132,8 @@
       <span class="hljs-keyword">this</span>.minuteAngle %= <span class="hljs-number">360</span>;
     }
     <span class="hljs-keyword">this</span>.allMinutes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.minuteAngle / <span class="hljs-number">6</span>);
-    <span class="hljs-keyword">this</span>.fiveMinuteChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.allMinutes / <span class="hljs-number">5</span>);
-    <span class="hljs-keyword">this</span>.minuteChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.allMinutes - (<span class="hljs-keyword">this</span>.fiveMinuteChimes * <span class="hljs-number">5</span>));
+    <span class="hljs-keyword">this</span>.fifteenMinuteChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.allMinutes / <span class="hljs-number">15</span>);
+    <span class="hljs-keyword">this</span>.minuteChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.allMinutes - (<span class="hljs-keyword">this</span>.fifteenMinuteChimes * <span class="hljs-number">15</span>));
   }
 
   bindEvents() {
@@ -145,8 +145,8 @@
       <span class="hljs-keyword">this</span>.playHours();
     });
 
-    <span class="hljs-keyword">this</span>.fiveMinuteElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
-      <span class="hljs-keyword">this</span>.playFiveMinutes();
+    <span class="hljs-keyword">this</span>.fifteenMinuteElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
+      <span class="hljs-keyword">this</span>.playFifteenMinutes();
     });
 
     <span class="hljs-keyword">this</span>.minuteElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
@@ -157,8 +157,8 @@
   stopAll() {
     <span class="hljs-keyword">this</span>.hourElement.pause();
     <span class="hljs-keyword">this</span>.hourElement.currentTime = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">this</span>.fiveMinuteElement.pause();
-    <span class="hljs-keyword">this</span>.fiveMinuteElementcurrentTime = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.fifteenMinuteElement.pause();
+    <span class="hljs-keyword">this</span>.fifteenMinuteElementcurrentTime = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.minuteElement.pause();
     <span class="hljs-keyword">this</span>.minuteElementcurrentTime = <span class="hljs-number">0</span>;
 
@@ -185,15 +185,15 @@
       <span class="hljs-keyword">this</span>.counter++;
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter === <span class="hljs-keyword">this</span>.hourChimes + <span class="hljs-number">1</span>) {
       <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
-      <span class="hljs-keyword">this</span>.playFiveMinutes();
+      <span class="hljs-keyword">this</span>.playFifteenMinutes();
     }
   }
 
-  playFiveMinutes() {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter &lt;= <span class="hljs-keyword">this</span>.fiveMinuteChimes) {
-      <span class="hljs-keyword">this</span>.fiveMinuteElement.play();
+  playFifteenMinutes() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter &lt;= <span class="hljs-keyword">this</span>.fifteenMinuteChimes) {
+      <span class="hljs-keyword">this</span>.fifteenMinuteElement.play();
       <span class="hljs-keyword">this</span>.counter++;
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter === <span class="hljs-keyword">this</span>.fiveMinuteChimes + <span class="hljs-number">1</span>) {
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter === <span class="hljs-keyword">this</span>.fifteenMinuteChimes + <span class="hljs-number">1</span>) {
       <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
       <span class="hljs-keyword">this</span>.playMinutes();
     }
@@ -213,18 +213,23 @@
     <span class="hljs-keyword">this</span>.hourElement.src = <span class="hljs-keyword">this</span>.chimes.hour;
     <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.hourElement);
 
-    <span class="hljs-keyword">this</span>.fiveMinuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'audio'</span>);
-    <span class="hljs-keyword">this</span>.fiveMinuteElement.src = <span class="hljs-keyword">this</span>.chimes.fiveMinute;
-    <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.fiveMinuteElement);
+    <span class="hljs-keyword">this</span>.fifteenMinuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'audio'</span>);
+    <span class="hljs-keyword">this</span>.fifteenMinuteElement.src = <span class="hljs-keyword">this</span>.chimes.quarter;
+    <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.fifteenMinuteElement);
 
     <span class="hljs-keyword">this</span>.minuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'audio'</span>);
     <span class="hljs-keyword">this</span>.minuteElement.src = <span class="hljs-keyword">this</span>.chimes.minute;
     <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.minuteElement);
   }
 
+  updateCursorForTrigger() {
+    <span class="hljs-keyword">this</span>.trigger.style.cursor = <span class="hljs-string">'pointer'</span>;
+  }
+
   init() {
     <span class="hljs-keyword">this</span>.buildAudioElements();
     <span class="hljs-keyword">this</span>.bindEvents();
+    <span class="hljs-keyword">this</span>.updateCursorForTrigger();
   }
 }
 

@@ -20,8 +20,8 @@ class MinuteRepeater {
 
     this.allMinutes = 0;
     this.minuteAngle = 0;
-    this.fiveMinuteChimes = 0;
-    this.fiveMinuteElement = null;
+    this.fifteenMinuteChimes = 0;
+    this.fifteenMinuteElement = null;
     this.minuteChimes = 0;
     this.minuteElement = null;
 
@@ -52,8 +52,8 @@ class MinuteRepeater {
       this.minuteAngle %= 360;
     }
     this.allMinutes = Math.floor(this.minuteAngle / 6);
-    this.fiveMinuteChimes = Math.floor(this.allMinutes / 5);
-    this.minuteChimes = Math.floor(this.allMinutes - (this.fiveMinuteChimes * 5));
+    this.fifteenMinuteChimes = Math.floor(this.allMinutes / 15);
+    this.minuteChimes = Math.floor(this.allMinutes - (this.fifteenMinuteChimes * 15));
   }
 
   bindEvents() {
@@ -65,8 +65,8 @@ class MinuteRepeater {
       this.playHours();
     });
 
-    this.fiveMinuteElement.addEventListener('ended', () => {
-      this.playFiveMinutes();
+    this.fifteenMinuteElement.addEventListener('ended', () => {
+      this.playFifteenMinutes();
     });
 
     this.minuteElement.addEventListener('ended', () => {
@@ -77,8 +77,8 @@ class MinuteRepeater {
   stopAll() {
     this.hourElement.pause();
     this.hourElement.currentTime = 0;
-    this.fiveMinuteElement.pause();
-    this.fiveMinuteElementcurrentTime = 0;
+    this.fifteenMinuteElement.pause();
+    this.fifteenMinuteElementcurrentTime = 0;
     this.minuteElement.pause();
     this.minuteElementcurrentTime = 0;
 
@@ -105,15 +105,15 @@ class MinuteRepeater {
       this.counter++;
     } else if (this.counter === this.hourChimes + 1) {
       this.counter = 1;
-      this.playFiveMinutes();
+      this.playFifteenMinutes();
     }
   }
 
-  playFiveMinutes() {
-    if (this.counter <= this.fiveMinuteChimes) {
-      this.fiveMinuteElement.play();
+  playFifteenMinutes() {
+    if (this.counter <= this.fifteenMinuteChimes) {
+      this.fifteenMinuteElement.play();
       this.counter++;
-    } else if (this.counter === this.fiveMinuteChimes + 1) {
+    } else if (this.counter === this.fifteenMinuteChimes + 1) {
       this.counter = 1;
       this.playMinutes();
     }
@@ -133,18 +133,23 @@ class MinuteRepeater {
     this.hourElement.src = this.chimes.hour;
     document.body.appendChild(this.hourElement);
 
-    this.fiveMinuteElement = document.createElement('audio');
-    this.fiveMinuteElement.src = this.chimes.fiveMinute;
-    document.body.appendChild(this.fiveMinuteElement);
+    this.fifteenMinuteElement = document.createElement('audio');
+    this.fifteenMinuteElement.src = this.chimes.quarter;
+    document.body.appendChild(this.fifteenMinuteElement);
 
     this.minuteElement = document.createElement('audio');
     this.minuteElement.src = this.chimes.minute;
     document.body.appendChild(this.minuteElement);
   }
 
+  updateCursorForTrigger() {
+    this.trigger.style.cursor = 'pointer';
+  }
+
   init() {
     this.buildAudioElements();
     this.bindEvents();
+    this.updateCursorForTrigger();
   }
 }
 
