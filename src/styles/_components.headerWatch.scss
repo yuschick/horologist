@@ -1,9 +1,7 @@
-#hour-hand,
-#minute-hand,
-#second-hand {
+.origin-bc {
   transform-origin: bottom center;
 }
 
-#second-hand {
-  transition: transform 1s linear;
+.origin-center {
+  transform-origin: center center;
 }

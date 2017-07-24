@@ -9,4 +9,14 @@
   &:last-child {
     margin-bottom: 0;
   }
+
+  &.complication {
+    background: $tertiaryColor;
+    margin-top: $vspace;
+    max-width: none;
+
+    pre {
+      border: 0;
+    }
+  }
 }

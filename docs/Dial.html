@@ -105,6 +105,8 @@
       settings.offset.toString() :
       <span class="hljs-literal">null</span>;
 
+    <span class="hljs-keyword">this</span>.sweepingSeconds = settings.sweep || <span class="hljs-literal">false</span>;
+
     <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">this</span>.parent.rightNow;
     <span class="hljs-keyword">this</span>.currentTime = {};
 
@@ -153,6 +155,10 @@
   stopInterval() {
     clearInterval(<span class="hljs-keyword">this</span>.interval);
     <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
+  }
+
+  applySweepingTransition() {
+    <span class="hljs-keyword">this</span>.hands.second.style.transition = <span class="hljs-string">'transform 1s linear'</span>;
   }
 
   getCurrentTime() {
@@ -258,6 +264,13 @@
     setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
       <span class="hljs-keyword">this</span>.getCurrentTime();
       <span class="hljs-keyword">this</span>.rotateHands();
+
+      setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.second &amp;&amp; <span class="hljs-keyword">this</span>.sweepingSeconds) {
+          <span class="hljs-keyword">this</span>.applySweepingTransition();
+        }
+      }, <span class="hljs-number">100</span>);
+
     }, <span class="hljs-number">350</span>);
   }
 }

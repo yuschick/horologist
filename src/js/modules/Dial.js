@@ -25,6 +25,8 @@ class Dial {
       settings.offset.toString() :
       null;
 
+    this.sweepingSeconds = settings.sweep || false;
+
     this.rightNow = this.parent.rightNow;
     this.currentTime = {};
 
@@ -73,6 +75,10 @@ class Dial {
   stopInterval() {
     clearInterval(this.interval);
     this.interval = null;
+  }
+
+  applySweepingTransition() {
+    this.hands.second.style.transition = 'transform 1s linear';
   }
 
   getCurrentTime() {
@@ -178,6 +184,13 @@ class Dial {
     setTimeout(() => {
       this.getCurrentTime();
       this.rotateHands();
+
+      setTimeout(() => {
+        if (this.hands.second && this.sweepingSeconds) {
+          this.applySweepingTransition();
+        }
+      }, 100);
+
     }, 350);
   }
 }

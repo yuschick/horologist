@@ -52,6 +52,32 @@
 	  "use strict";
 
 	  var Watch = __webpack_require__(2);
+
+	  /*
+	  UTIL FUNCTIONS (extract to module)
+	  */
+	  function showSpecificItem(val, src, prop) {
+	    var comp = void 0;
+	    src.forEach(function (item) {
+	      comp = item.attributes[prop].value;
+	      if (comp === val) {
+	        item.classList.toggle('is-hidden');
+	        return;
+	      }
+	    });
+	  }
+
+	  function hideAllCodeBlocks() {
+	    codeBlocks.forEach(function (block) {
+	      if (!block.classList.contains('is-hidden')) {
+	        block.classList.add('is-hidden');
+	      }
+	    });
+	  }
+
+	  /*
+	  HEADER WATCH (extract to module)
+	  */
 	  var settings = {
 	    dials: [{
 	      name: 'header-dial',
@@ -59,22 +85,79 @@
 	        hour: 'hour-hand',
 	        minute: 'minute-hand',
 	        second: 'second-hand'
-	      }
+	      },
+	      sweep: true
 	    }]
 	  };
-
 	  var headerWatch = new Watch(settings);
 
-	  function findSpecificDemo(type) {
-	    var comp = void 0;
-	    complicationDemos.forEach(function (demo) {
-	      comp = demo.attributes['data-comp'].value;
-	      if (comp === type) {
-	        demo.classList.remove('is-hidden');
-	        return;
-	      }
-	    });
+	  /*
+	  DEMO WATCHES (extract to module)
+	  */
+	  var demoWatchSettings = null;
+	  var demoWatch = null;
+	  buildAndShowDemoWatch('dials');
+
+	  function clearCurrentDemo() {
+	    demoWatch.stopInterval();
+	    demoWatch = null;
+	    demoWatchSettings = null;
 	  }
+
+	  function buildAndShowDemoWatch(type) {
+	    if (demoWatch) clearCurrentDemo();
+
+	    switch (type) {
+	      case 'dials':
+	        demoWatchSettings = {
+	          dials: [{
+	            name: 'primary',
+	            hands: {
+	              hour: 'dial-primary-hour-hand',
+	              minute: 'dial-primary-minute-hand',
+	              second: 'dial-primary-second-hand'
+	            }
+	          }, {
+	            name: 'secondary',
+	            hands: {
+	              hour: 'dial-secondary-hour-hand',
+	              minute: 'dial-secondary-minute-hand',
+	              second: 'dial-secondary-second-hand'
+	            },
+	            offset: '+6',
+	            sweep: true
+	          }]
+	        };
+
+	        // demoWatch = new Watch(demoWatchSettings);
+	        break;
+
+	      case 'day-night-indicator':
+	        demoWatchSettings = {
+	          dials: [{
+	            hands: {
+	              hour: 'day-night-hour-hand',
+	              minute: 'day-night-minute-hand',
+	              second: 'day-night-second-hand'
+	            }
+	          }],
+	          dayNightIndicator: {
+	            id: 'day-night-dial'
+	          }
+	        };
+
+	        break;
+	    }
+
+	    demoWatch = new Watch(demoWatchSettings);
+	  }
+
+	  /*
+	  COMPLICATIONS DEMOS NAV AND TOGGLE
+	  */
+	  var complications = document.querySelectorAll('.complication-link');
+	  var complicationDemos = document.querySelectorAll('.complication-container');
+	  var complicationNavItems = document.querySelectorAll('.secondary-nav li');
 
 	  function toggleVisibleDemo(type) {
 	    complicationDemos.forEach(function (demo) {
@@ -83,7 +166,9 @@
 	      }
 	    });
 
-	    findSpecificDemo(type);
+	    hideAllCodeBlocks();
+	    showSpecificItem(type, complicationDemos, 'data-comp');
+	    buildAndShowDemoWatch(type);
 	  }
 
 	  function toggleActiveCompNav(el) {
@@ -93,16 +178,26 @@
 	    el.parentElement.classList.add('active');
 	  }
 
-	  var complications = document.querySelectorAll('.complication-link');
-	  var complicationDemos = document.querySelectorAll('.complication-container');
-	  var complicationNavItems = document.querySelectorAll('.secondary-nav li');
-
 	  complications.forEach(function (comp) {
 	    comp.addEventListener('click', function () {
 	      event.preventDefault();
 	      var type = this.attributes['data-comp'].value;
 	      toggleVisibleDemo(type);
 	      toggleActiveCompNav(this);
+	    });
+	  });
+
+	  /*
+	  SHOW DEMO CODE (extract to module)
+	  */
+	  var viewCodeBtns = document.querySelectorAll('.view-code-btn');
+	  var codeBlocks = document.querySelectorAll('.complication.code-block-container');
+
+	  viewCodeBtns.forEach(function (btn) {
+	    btn.addEventListener('click', function () {
+	      event.preventDefault();
+	      var type = this.attributes['data-type'].value;
+	      showSpecificItem(type, codeBlocks, 'data-type');
 	    });
 	  });
 	})();
@@ -330,6 +425,8 @@
 	    this.format = settings.format ? settings.format : 12;
 	    this.gmtOffset = settings.offset ? settings.offset.toString() : null;
 
+	    this.sweepingSeconds = settings.sweep || false;
+
 	    this.rightNow = this.parent.rightNow;
 	    this.currentTime = {};
 
@@ -385,6 +482,11 @@
 	    value: function stopInterval() {
 	      clearInterval(this.interval);
 	      this.interval = null;
+	    }
+	  }, {
+	    key: 'applySweepingTransition',
+	    value: function applySweepingTransition() {
+	      this.hands.second.style.transition = 'transform 1s linear';
 	    }
 	  }, {
 	    key: 'getCurrentTime',
@@ -496,6 +598,12 @@
 	      setTimeout(function () {
 	        _this2.getCurrentTime();
 	        _this2.rotateHands();
+
+	        setTimeout(function () {
+	          if (_this2.hands.second && _this2.sweepingSeconds) {
+	            _this2.applySweepingTransition();
+	          }
+	        }, 100);
 	      }, 350);
 	    }
 	  }]);

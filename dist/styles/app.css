@@ -209,7 +209,7 @@ h1 {
 
 h2 {
   color: #EFF1F3;
-  font: 1.75rem/1.15 "Rubik", sans-serif;
+  font: 1.75rem/1 "Rubik", sans-serif;
   text-transform: uppercase; }
   h2 span {
     color: #272727; }
@@ -218,7 +218,7 @@ h3 {
   font: 1.5rem/1 "Open Sans", sans-serif; }
 
 h4 {
-  font: 1.5rem/1 "Open Sans", sans-serif;
+  font: 1.5rem/1.5 "Open Sans", sans-serif;
   text-transform: uppercase; }
 
 .btn {
@@ -277,20 +277,27 @@ nav a:visited {
   width: 100%; }
   .code-block-container:last-child {
     margin-bottom: 0; }
+  .code-block-container.complication {
+    background: #EFF1F3;
+    margin-top: 1rem;
+    max-width: none; }
+    .code-block-container.complication pre {
+      border: 0; }
 
-#hour-hand,
-#minute-hand,
-#second-hand {
+.complication-demo {
+  text-align: center; }
+  .complication-demo svg {
+    max-width: 300px; }
+
+.origin-bc {
   -webkit-transform-origin: bottom center;
       -ms-transform-origin: bottom center;
           transform-origin: bottom center; }
 
-#second-hand {
-  -webkit-transition: -webkit-transform 1s linear;
-  transition: -webkit-transform 1s linear;
-  -o-transition: transform 1s linear;
-  transition: transform 1s linear;
-  transition: transform 1s linear, -webkit-transform 1s linear; }
+.origin-center {
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center; }
 
 .panel {
   display: block;
@@ -308,8 +315,6 @@ nav a:visited {
   color: #EFF1F3;
   padding: 1rem 1rem;
   text-transform: uppercase; }
-  .primary-nav li:last-child {
-    padding-right: 0; }
   .primary-nav li.active {
     background: #272727; }
 

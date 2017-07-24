@@ -4,10 +4,6 @@
     padding: $vspace $hspace;
     text-transform: uppercase;
 
-    &:last-child {
-      padding-right: 0;
-    }
-
     &.active {
       background: $primaryColor;
     }

@@ -10,7 +10,7 @@ h1 {
 
 h2 {
   color: $tertiaryColor;
-  font: 1.75rem/1.15 $secondaryFont;
+  font: 1.75rem/1 $secondaryFont;
   text-transform: uppercase;
 
   span {
@@ -23,6 +23,6 @@ h3 {
 }
 
 h4 {
-  font: 1.5rem/1 $primaryFont;
+  font: 1.5rem/1.5 $primaryFont;
   text-transform: uppercase;
 }

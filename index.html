@@ -14,7 +14,7 @@
 <body>
   <header>
     <div class='container flex-container is-spread'>
-      <h2 class='is-'><a href='/'>TickTock <span>JS</span></a></h2>
+      <h2><a href='/'>TickTock <span>JS</span></a></h2>
       <nav class='primary-nav'>
         <ul class='flex-container'>
           <li>
@@ -63,11 +63,11 @@
             <line class="st1" x1="77.1" y1="42.1" x2="62.6" y2="17"/>
             <path class="st3" d="M125 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.1 210.8 125 210.8z"/>
             <path class="st2" d="M125 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.2 149.2 125 149.2M125 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.4 148.2 125 148.2L125 148.2z"/>
-            <g id="second-hand">
+            <g class='origin-bc' id="second-hand">
               <line class="st4" x1="125.4" y1="179.8" x2="125.4" y2="148.8"/>
             </g>
-            <rect id="minute-hand" x="123" y="15.2" class="st2" width="4" height="110"/>
-            <rect id="hour-hand" x="121.5" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250 171.5)" width="7" height="79"/>
+            <rect class='origin-bc' id="minute-hand" x="123" y="15.2" class="st2" width="4" height="110"/>
+            <rect class='origin-bc' id="hour-hand" x="121.5" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250 171.5)" width="7" height="79"/>
           </svg>
 
         </div>
@@ -91,7 +91,7 @@
         <h4 class='is-light'>Complications</h4>
         <nav class='secondary-nav'>
           <ul class='flex-container'>
-            <li>
+            <li class='active'>
               <a class='complication-link' href='#' data-comp='dials'>Dials</a>
             </li>
             <li>
@@ -103,7 +103,7 @@
             <li>
               <a class='complication-link' href='#' data-comp='minute-repeater'>Minute Repeater</a>
             </li>
-            <li class='active'>
+            <li>
               <a class='complication-link' href='#' data-comp='moonphase'>Moonphase</a>
             </li>
             <li>
@@ -111,34 +111,171 @@
             </li>
           </ul>
         </nav>
-        <section class='complication-container flex-container is-spread is-hidden' data-comp='dials'>
+        <section class='complication-container flex-container is-spread' data-comp='dials'>
           <div class='flex-one'>
             <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
+              Dials are the base complication in TickTock. A dial supports hands, hour, minute, and seconds, as well as other settings to account for GMT Offsets and 12-and-24-hour time formats. Perhaps the most powerful feature is the ability to include multiple dials
+              in one watch as the example shows.
+            </p>
+            <p>
+              In the demo, the watch is displaying dual time zones commonly referred to as a Dual Time or GMT complication. The larger dial is acting as the current, local time whereas the sub dial at 6 o'clock is acting as the home time with its GMT Offset set to
+              '+6' hours.
+            </p>
+            <p>
+              Additionally, a dial supports sweeping and ticking seconds hands. The primary dial shows a ticking seconds hand, or deadbeat seconds, while the sub dial shows the seconds hand sweeping.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='dial-demo'>View Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='dial-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+const settings = {
+  dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'dial-primary-hour-hand',
+        minute: 'dial-primary-minute-hand',
+        second: 'dial-primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'dial-secondary-hour-hand',
+        minute: 'dial-secondary-minute-hand',
+        second: 'dial-secondary-second-hand'
+      },
+      offset: '+6',
+      sweep: true
+    }]
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
-          <div class='complication-demo flex-two'>
-            Dials Demo
+          <div class='complication-demo flex-one'>
+
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+            	.st5{fill:#FFFFFF;}
+            	.st6{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+            	.st7{fill:#007486;}
+            	.st8{fill:#272727;}
+            	.st9{fill:#EFF1F3;}
+            	.st10{fill:none;stroke:#272727;stroke-miterlimit:10;}
+            	.st11{fill:none;stroke:#272727;stroke-width:3;stroke-miterlimit:10;}
+
+              </style>
+              <path class="st5" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+              <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+              <line class="st6" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+              <line class="st6" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+              <line class="st6" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+              <line class="st6" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+              <line class="st6" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+              <line class="st6" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+              <line class="st6" x1="250.1" y1="125" x2="221.1" y2="125"/>
+              <line class="st6" x1="29.6" y1="125" x2="0.6" y2="125"/>
+              <line class="st6" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+              <line class="st6" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+              <line class="st6" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+              <line class="st6" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+              <path class="st9" d="M125.3 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.4 210.8 125.3 210.8z"/>
+              <path class="st8" d="M125.3 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.5 149.2 125.3 149.2M125.3 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.7 148.2 125.3 148.2L125.3 148.2z"/>
+              <line class="st10 origin-bc" id="dial-secondary-second-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+              <line class="st10 origin-bc" id="dial-secondary-minute-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+              <line class="st11 origin-bc" id="dial-secondary-hour-hand" x1="125.3" y1="179.8" x2="125.3" y2="155.5"/>
+              <rect class='origin-bc st7' id="dial-primary-second-hand" x="123.3" y="15.2" width="2" height="110"/>
+              <rect class='origin-bc st8' id="dial-primary-minute-hand" x="123.3" y="15.2" width="4" height="110"/>
+              <rect class='origin-bc' id="dial-primary-hour-hand" x="121.8" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+            </svg>
+
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='day-night-indicator'>
           <div class='flex-one'>
-            <p>
-              Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
-              aliquam magna quis, molestie erat. Cras fringilla magna sed ipsum faucibus aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel maximus neque. Cras quis lorem at velit consequat molestie.
-            </p>
+            <p>A day/night indicator shows which half of the day corresponds to, typically, a 12-hour time display. In the demo this works by rotating the indicator disc underneath a mask to only display the appropriate half. In TickTock this indicator defaults
+              to represent the time of the first dial in the dials array. However, the indicator can also be adjusted to work off of a secondary dial.</p>
+            <p>Many simple day/night indicators are a two-color disc. In TickTock it begins to "show" the next segment during the day or night: It shows "day" only from midnight to 6 AM and "night" only from noon to 6 PM, with a half-day or half-night display
+              the rest of the time.</p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='day-night-indicator-demo'>View Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='day-night-indicator-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+const settings = {
+  dials: [{
+    hands: {
+      hour: 'day-night-hour-hand',
+      minute: 'day-night-minute-hand',
+      second: 'day-night-second-hand'
+    }
+  }],
+  dayNightIndicator: {
+    id: 'day-night-dial'
+  }
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
-          <div class='complication-demo flex-two'>
-            Day Night Indicator Demo
+          <div class='complication-demo flex-one'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
+              <style type="text/css">
+
+            	.day-night-st0{fill:#FFFFFF;}
+            	.day-night-st1{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+            	.day-night-st2{fill:none;stroke:#007486;stroke-miterlimit:10;}
+            	.day-night-st3{fill:#272727;}
+            	.day-night-st4{fill:#3D98E2;stroke:#000000;stroke-width:0.25;stroke-miterlimit:10;}
+            	.day-night-st5{fill:#0F2E47;stroke:#000000;stroke-width:0.25;stroke-miterlimit:10;}
+            	.day-night-st6{fill:#E2D752;}
+            	.day-night-st7{fill:#FFFFFF;stroke:#000000;stroke-width:0.25;stroke-miterlimit:10;}
+
+              </style>
+              <path class="day-night-st0" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+              <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+              <line class="day-night-st1" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+              <line class="day-night-st1" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+              <line class="day-night-st1" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+              <line class="day-night-st1" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+              <line class="day-night-st1" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+              <line class="day-night-st1" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+              <line class="day-night-st1" x1="250.1" y1="125" x2="221.1" y2="125"/>
+              <line class="day-night-st1" x1="29.6" y1="125" x2="0.6" y2="125"/>
+              <line class="day-night-st1" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+              <line class="day-night-st1" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+              <line class="day-night-st1" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+              <line class="day-night-st1" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+              <g id="day-night-dial" class='origin-center' style='transform-origin: 126px 180px'>
+                <path class="day-night-st4" d="M156.8 180.8c0-17.4-14.1-31.5-31.5-31.5s-31.5 14.1-31.5 31.5"/>
+                <path class="day-night-st5" d="M156.8 180.2c0 17.4-14.1 31.5-31.5 31.5s-31.5-14.1-31.5-31.5"/>
+                <circle class="day-night-st6" cx="139.6" cy="197" r="1"/>
+                <circle class="day-night-st6" cx="114.6" cy="196" r="1"/>
+                <circle class="day-night-st6" cx="130.6" cy="197" r="1"/>
+                <circle class="day-night-st6" cx="120.6" cy="187" r="1"/>
+                <circle class="day-night-st6" cx="142.6" cy="188" r="1"/>
+                <circle class="day-night-st6" cx="118.6" cy="203" r="1"/>
+                <circle class="day-night-st6" cx="100.6" cy="194" r="1"/>
+                <circle class="day-night-st6" cx="130.6" cy="205" r="1"/>
+                <circle class="day-night-st6" cx="150.6" cy="192" r="1"/>
+                <circle class="day-night-st6" cx="100.6" cy="183" r="1"/>
+                <circle class="day-night-st6" cx="130.6" cy="183" r="1"/>
+              </g>
+              <path class="day-night-st7" d="M93.8 180.2c0 17.4 14.1 31.5 31.5 31.5s31.5-14.1 31.5-31.5"/>
+              <path id="day-night-second-hand" class="day-night-st2 origin-bc" d="M125.3 125V9.5"/>
+              <rect id="day-night-minute-hand" x="123.3" y="15.2" class="day-night-st3 origin-bc" width="4" height="110"/>
+              <rect id="day-night-hour-hand" x="121.8" y="46.2" class='origin-bc' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+            </svg>
           </div>
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='manual-time'>
@@ -149,7 +286,7 @@
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn'>View Code</a>
             </div>
           </div>
           <div class='complication-demo flex-two'>
@@ -164,14 +301,14 @@
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn'>View Code</a>
             </div>
           </div>
           <div class='complication-demo flex-two'>
             Minute Repeater Demo
           </div>
         </section>
-        <section class='complication-container flex-container is-spread' data-comp='moonphase'>
+        <section class='complication-container flex-container is-spread is-hidden' data-comp='moonphase'>
           <div class='flex-one'>
             <p>
               Fusce vitae vestibulum ex, ut condimentum nisi. Nam sodales pellentesque felis, sit amet cursus nulla finibus nec. Etiam consectetur, lorem sit amet ornare rutrum, nisl magna luctus odio, nec eleifend justo lacus sit amet leo. Mauris quis leo ultrices,
@@ -179,7 +316,7 @@
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn'>View Code</a>
             </div>
           </div>
           <div class='complication-demo flex-two'>
@@ -194,7 +331,7 @@
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary'>View Code</a>
+              <a href='#' class='btn primary view-code-btn'>View Code</a>
             </div>
           </div>
           <div class='complication-demo flex-two'>
@@ -227,5 +364,6 @@
     </div>
   </footer>
   <script src="./dist/js/app.js"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </body>
 </html>
