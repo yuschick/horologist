@@ -44,7 +44,8 @@ const settings = {
         second: 'secondary-minutes-hand'
       },
       offset: '-4',
-      format: 24
+      format: 24,
+      sweep: true
     }
   ],
   reserve: {
@@ -94,6 +95,7 @@ let VoutilainenGMR = new Watch(settings);
   - **second** (*String*): The id of the second hand SVG element
 - **offset** (*String*): *Default: 0* Use the offset value to define a GMT timezone (eg: '+2', '-4.5')
 - **format** (*Number*): *Default: 12* Specify `12` or `24` to define if the dial should run as 12 or 24 hour time
+- **sweep** (*Boolean*): *Default: False* If true, the second hand will sweep as oppose to tick
 
 #### reserve {Object}
 - **id** (*String*): The id of the power reserve hand SVG element
