@@ -97,6 +97,7 @@
     }
 
     <span class="hljs-keyword">this</span>.dialInstances = [];
+    <span class="hljs-keyword">this</span>.activeDial = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.globalInterval = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 
@@ -136,6 +137,10 @@
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(num);
   }
 
+  resetActiveDial() {
+    <span class="hljs-keyword">this</span>.activeDial = <span class="hljs-number">0</span>;
+  }
+
   keyBindings() {
     <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'keydown'</span>, () =&gt; {
       <span class="hljs-keyword">switch</span> (event.keyCode) {
@@ -151,36 +156,23 @@
 
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crown) {
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crown.crownActive) {
+          event.preventDefault();
           <span class="hljs-keyword">switch</span> (event.keyCode) {
             <span class="hljs-keyword">case</span> <span class="hljs-number">37</span>:
               <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.powerReserve)
                 <span class="hljs-keyword">this</span>.powerReserve.incrementReserve();
               <span class="hljs-keyword">break</span>;
             <span class="hljs-keyword">case</span> <span class="hljs-number">38</span>:
-              <span class="hljs-keyword">this</span>.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">dial</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (dial.setSecondary &amp;&amp; dial.id === <span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.dialInstances.length - <span class="hljs-number">1</span>].id) {
-                  dial.rotateHands();
-                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!dial.setSecondary) {
-                  dial.rotateHands();
-                }
-              });
+              <span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.activeDial].rotateHands();
               <span class="hljs-keyword">break</span>;
             <span class="hljs-keyword">case</span> <span class="hljs-number">39</span>:
-              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crown)
-                <span class="hljs-keyword">this</span>.crown.toggleBlackout();
+              <span class="hljs-keyword">this</span>.activeDial++;
 
-              <span class="hljs-keyword">this</span>.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">dial</span>) =&gt;</span> {
-                dial.toggleSecondaryTime();
-              });
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.activeDial &gt;= <span class="hljs-keyword">this</span>.dialInstances.length) <span class="hljs-keyword">this</span>.activeDial = <span class="hljs-number">0</span>;
+
               <span class="hljs-keyword">break</span>;
             <span class="hljs-keyword">case</span> <span class="hljs-number">40</span>:
-              <span class="hljs-keyword">this</span>.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">dial</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (dial.setSecondary &amp;&amp; dial.id === <span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.dialInstances.length - <span class="hljs-number">1</span>].id) {
-                  dial.rotateHands(<span class="hljs-string">'back'</span>);
-                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!dial.setSecondary) {
-                  dial.rotateHands(<span class="hljs-string">'back'</span>);
-                }
-              });
+              <span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.activeDial].rotateHands(<span class="hljs-string">'back'</span>);
               <span class="hljs-keyword">break</span>;
           }
         }

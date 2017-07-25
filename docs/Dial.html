@@ -122,21 +122,46 @@
     <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.crownActive = <span class="hljs-literal">false</span>;
     <span class="hljs-keyword">this</span>.manualTime = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.settingTime = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.setSecondary = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.transition = {};
+    <span class="hljs-keyword">this</span>.settingTime = <span class="hljs-literal">false</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>this.setSecondary = false;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.transition = {};
 
     <span class="hljs-keyword">this</span>.init();
   }
 
   toggleActiveCrown() {
     <span class="hljs-keyword">this</span>.crownActive = !<span class="hljs-keyword">this</span>.crownActive;
-  }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>toggleSecondaryTime() {
+  this.setSecondary = !this.setSecondary;
+}</p>
 
-  toggleSecondaryTime() {
-    <span class="hljs-keyword">this</span>.setSecondary = !<span class="hljs-keyword">this</span>.setSecondary;
-  }
-
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
   toggleSettingTime() {
     <span class="hljs-keyword">this</span>.settingTime = !<span class="hljs-keyword">this</span>.settingTime;
   }
@@ -185,10 +210,24 @@
   rotateHands(dir = <span class="hljs-literal">null</span>) {
     <span class="hljs-keyword">let</span> rotateVal;
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) {
-      <span class="hljs-keyword">let</span> hourOffset = <span class="hljs-keyword">this</span>.setSecondary ?
-        <span class="hljs-keyword">this</span>.rotateValues.hourJump :
-        <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>let hourOffset = this.setSecondary ?
+  this.rotateValues.hourJump :
+  this.rotateValues.hoursRotateValOffset;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> hourOffset = <span class="hljs-keyword">this</span>.rotateValues.hoursRotateValOffset;
       rotateVal = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour);
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.settingTime) {
         <span class="hljs-keyword">if</span> (dir) {

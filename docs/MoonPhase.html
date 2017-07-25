@@ -84,8 +84,7 @@
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.id)
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MoonPhase class requires that an ID of the moonphase element be provided."</span>;
-      }
-    <span class="hljs-keyword">catch</span> (errorMsg) {
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
@@ -98,9 +97,9 @@
   }
 
   rotateDisc(val) {
-    val = <span class="hljs-keyword">this</span>.invert
-      ? val * <span class="hljs-number">-1</span>
-      : val;
+    val = <span class="hljs-keyword">this</span>.invert ?
+      val * <span class="hljs-number">-1</span> :
+      val;
     <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${val}</span>deg)`</span>;
   }
 
@@ -175,7 +174,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">22.5</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">83</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:</pre></div></div>
             
@@ -192,7 +191,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">45</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">60</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:</pre></div></div>
             
@@ -209,7 +208,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">67.5</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">37</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:</pre></div></div>
             
@@ -247,7 +246,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-22.5</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-37</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:</pre></div></div>
             
@@ -264,7 +263,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-45</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-60</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:</pre></div></div>
             
@@ -281,7 +280,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-67.5</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-83</span>);
         <span class="hljs-keyword">break</span>;
       <span class="hljs-keyword">default</span>:
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error'</span>);

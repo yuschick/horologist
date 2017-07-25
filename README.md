@@ -53,16 +53,7 @@ const settings = {
     range: [-90, 90]
   },
   crown: {
-    id: 'crown',
-    blackout: [
-      {
-        selector: '.blackout',
-        className: 'active'
-      }, {
-        selector: '.main_dial',
-        className: 'faded'
-      }
-    ]
+    id: 'crown'
   },
   moonphase: {
     id: 'moonphase-dial',
@@ -103,9 +94,6 @@ let VoutilainenGMR = new Watch(settings);
 
 #### crown {Object}
 - **id** (*String*): The id of the crown SVG element
-- **blackout** [*Array*]: Useful with dual time watches. When setting the time of the second dial, black out the first to increase focus.
- - **selector** (*String*): The element selector for an element related to the blackout functionality (eg. '.blackout', '#coverall')
- - **className** (*String*): The class name which should be toggled when activating and deactivating the blackout mode
 
 #### moonphase {Object}
 - **id** (*String*): The id of the moonphase dial SVG element
@@ -126,7 +114,6 @@ let VoutilainenGMR = new Watch(settings);
 
 
 ## ToDo
-- [ ] Create a more simplistic (design) demo to showcase the library and its components
 - [ ] Create a TickTock site to host proper documentation and demos
 - [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
 - [ ] Provide perpetual calendar support
@@ -136,7 +123,8 @@ let VoutilainenGMR = new Watch(settings);
   - [ ] Year indicator
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
-- [ ] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
+- [x] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
+  - For now only for time dials. Will need type values to determine how to rotate hands
 - [x] Add a day/night indicator
 - [x] Provide minute repeater support
 

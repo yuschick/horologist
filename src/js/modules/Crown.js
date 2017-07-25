@@ -10,27 +10,27 @@ class Crown {
     }
 
     this.crown = document.getElementById(settings.id);
-    this.blackoutElements = settings.blackout;
+    // this.blackoutElements = settings.blackout;
     this.parent = parentWatch;
     this.crownActive = false;
-    this.setSecondary = false;
+    // this.setSecondary = false;
     this.init();
   }
 
-  toggleBlackout() {
-    this.setSecondary = !this.setSecondary;
-    this.blackoutElements.forEach((el) => {
-      document.querySelector(el.selector).classList.toggle(el.className);
-    });
-  }
+  // toggleBlackout() {
+  //   this.setSecondary = !this.setSecondary;
+  //   this.blackoutElements.forEach((el) => {
+  //     document.querySelector(el.selector).classList.toggle(el.className);
+  //   });
+  // }
 
   toggleCrown() {
     this.crownActive = !this.crownActive;
     this.parent.dialInstances.forEach((instance) => {
       if (instance.toggleActiveCrown)
         instance.toggleActiveCrown();
-      if (instance.setSecondary)
-        instance.toggleSecondaryTime();
+      // if (instance.setSecondary)
+      //   instance.toggleSecondaryTime();
     });
 
     if (this.crownActive) {
@@ -42,10 +42,11 @@ class Crown {
       });
     } else {
       this.parent.startInterval();
+      this.parent.resetActiveDial();
       this.crown.classList.remove('active');
-      if (this.setSecondary) {
-        this.toggleBlackout();
-      }
+      // if (this.setSecondary) {
+      //   this.toggleBlackout();
+      // }
       this.parent.dialInstances.forEach((instance) => {
         if (instance.toggleSettingTime)
           instance.toggleSettingTime();
@@ -55,7 +56,12 @@ class Crown {
     }
   }
 
+  updateCursorForTrigger() {
+    this.crown.style.cursor = 'pointer';
+  }
+
   init() {
+    this.updateCursorForTrigger();
     this.crown.addEventListener('click', () => {
       this.toggleCrown();
     });

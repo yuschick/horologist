@@ -17,6 +17,7 @@ class Watch {
     }
 
     this.dialInstances = [];
+    this.activeDial = 0;
     this.globalInterval = null;
     this.rightNow = new Date();
 
@@ -56,6 +57,10 @@ class Watch {
     return Number(num);
   }
 
+  resetActiveDial() {
+    this.activeDial = 0;
+  }
+
   keyBindings() {
     window.addEventListener('keydown', () => {
       switch (event.keyCode) {
@@ -71,36 +76,23 @@ class Watch {
 
       if (this.crown) {
         if (this.crown.crownActive) {
+          event.preventDefault();
           switch (event.keyCode) {
             case 37:
               if (this.powerReserve)
                 this.powerReserve.incrementReserve();
               break;
             case 38:
-              this.dialInstances.forEach((dial) => {
-                if (dial.setSecondary && dial.id === this.dialInstances[this.dialInstances.length - 1].id) {
-                  dial.rotateHands();
-                } else if (!dial.setSecondary) {
-                  dial.rotateHands();
-                }
-              });
+              this.dialInstances[this.activeDial].rotateHands();
               break;
             case 39:
-              if (this.crown)
-                this.crown.toggleBlackout();
+              this.activeDial++;
 
-              this.dialInstances.forEach((dial) => {
-                dial.toggleSecondaryTime();
-              });
+              if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
+
               break;
             case 40:
-              this.dialInstances.forEach((dial) => {
-                if (dial.setSecondary && dial.id === this.dialInstances[this.dialInstances.length - 1].id) {
-                  dial.rotateHands('back');
-                } else if (!dial.setSecondary) {
-                  dial.rotateHands('back');
-                }
-              });
+              this.dialInstances[this.activeDial].rotateHands('back');
               break;
           }
         }

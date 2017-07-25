@@ -147,6 +147,7 @@
 	    }
 
 	    this.dialInstances = [];
+	    this.activeDial = 0;
 	    this.globalInterval = null;
 	    this.rightNow = new Date();
 
@@ -188,6 +189,11 @@
 	      return Number(num);
 	    }
 	  }, {
+	    key: 'resetActiveDial',
+	    value: function resetActiveDial() {
+	      this.activeDial = 0;
+	    }
+	  }, {
 	    key: 'keyBindings',
 	    value: function keyBindings() {
 	      var _this2 = this;
@@ -204,34 +210,22 @@
 
 	        if (_this2.crown) {
 	          if (_this2.crown.crownActive) {
+	            event.preventDefault();
 	            switch (event.keyCode) {
 	              case 37:
 	                if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
 	                break;
 	              case 38:
-	                _this2.dialInstances.forEach(function (dial) {
-	                  if (dial.setSecondary && dial.id === _this2.dialInstances[_this2.dialInstances.length - 1].id) {
-	                    dial.rotateHands();
-	                  } else if (!dial.setSecondary) {
-	                    dial.rotateHands();
-	                  }
-	                });
+	                _this2.dialInstances[_this2.activeDial].rotateHands();
 	                break;
 	              case 39:
-	                if (_this2.crown) _this2.crown.toggleBlackout();
+	                _this2.activeDial++;
 
-	                _this2.dialInstances.forEach(function (dial) {
-	                  dial.toggleSecondaryTime();
-	                });
+	                if (_this2.activeDial >= _this2.dialInstances.length) _this2.activeDial = 0;
+
 	                break;
 	              case 40:
-	                _this2.dialInstances.forEach(function (dial) {
-	                  if (dial.setSecondary && dial.id === _this2.dialInstances[_this2.dialInstances.length - 1].id) {
-	                    dial.rotateHands('back');
-	                  } else if (!dial.setSecondary) {
-	                    dial.rotateHands('back');
-	                  }
-	                });
+	                _this2.dialInstances[_this2.activeDial].rotateHands('back');
 	                break;
 	            }
 	          }
@@ -333,7 +327,7 @@
 	    this.crownActive = false;
 	    this.manualTime = false;
 	    this.settingTime = false;
-	    this.setSecondary = false;
+	    // this.setSecondary = false;
 	    this.transition = {};
 
 	    this.init();
@@ -344,11 +338,11 @@
 	    value: function toggleActiveCrown() {
 	      this.crownActive = !this.crownActive;
 	    }
-	  }, {
-	    key: 'toggleSecondaryTime',
-	    value: function toggleSecondaryTime() {
-	      this.setSecondary = !this.setSecondary;
-	    }
+
+	    // toggleSecondaryTime() {
+	    //   this.setSecondary = !this.setSecondary;
+	    // }
+
 	  }, {
 	    key: 'toggleSettingTime',
 	    value: function toggleSettingTime() {
@@ -411,7 +405,10 @@
 	      var rotateVal = void 0;
 
 	      if (this.hands.hour) {
-	        var hourOffset = this.setSecondary ? this.rotateValues.hourJump : this.rotateValues.hoursRotateValOffset;
+	        // let hourOffset = this.setSecondary ?
+	        //   this.rotateValues.hourJump :
+	        //   this.rotateValues.hoursRotateValOffset;
+	        var hourOffset = this.rotateValues.hoursRotateValOffset;
 	        rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
 	        if (this.settingTime) {
 	          if (dir) {
@@ -527,28 +524,28 @@
 	    }
 
 	    this.crown = document.getElementById(settings.id);
-	    this.blackoutElements = settings.blackout;
+	    // this.blackoutElements = settings.blackout;
 	    this.parent = parentWatch;
 	    this.crownActive = false;
-	    this.setSecondary = false;
+	    // this.setSecondary = false;
 	    this.init();
 	  }
 
+	  // toggleBlackout() {
+	  //   this.setSecondary = !this.setSecondary;
+	  //   this.blackoutElements.forEach((el) => {
+	  //     document.querySelector(el.selector).classList.toggle(el.className);
+	  //   });
+	  // }
+
 	  _createClass(Crown, [{
-	    key: 'toggleBlackout',
-	    value: function toggleBlackout() {
-	      this.setSecondary = !this.setSecondary;
-	      this.blackoutElements.forEach(function (el) {
-	        document.querySelector(el.selector).classList.toggle(el.className);
-	      });
-	    }
-	  }, {
 	    key: 'toggleCrown',
 	    value: function toggleCrown() {
 	      this.crownActive = !this.crownActive;
 	      this.parent.dialInstances.forEach(function (instance) {
 	        if (instance.toggleActiveCrown) instance.toggleActiveCrown();
-	        if (instance.setSecondary) instance.toggleSecondaryTime();
+	        // if (instance.setSecondary)
+	        //   instance.toggleSecondaryTime();
 	      });
 
 	      if (this.crownActive) {
@@ -559,10 +556,11 @@
 	        });
 	      } else {
 	        this.parent.startInterval();
+	        this.parent.resetActiveDial();
 	        this.crown.classList.remove('active');
-	        if (this.setSecondary) {
-	          this.toggleBlackout();
-	        }
+	        // if (this.setSecondary) {
+	        //   this.toggleBlackout();
+	        // }
 	        this.parent.dialInstances.forEach(function (instance) {
 	          if (instance.toggleSettingTime) instance.toggleSettingTime();
 	          if (instance.updateToManualTime) instance.updateToManualTime();
@@ -570,10 +568,16 @@
 	      }
 	    }
 	  }, {
+	    key: 'updateCursorForTrigger',
+	    value: function updateCursorForTrigger() {
+	      this.crown.style.cursor = 'pointer';
+	    }
+	  }, {
 	    key: 'init',
 	    value: function init() {
 	      var _this = this;
 
+	      this.updateCursorForTrigger();
 	      this.crown.addEventListener('click', function () {
 	        _this.toggleCrown();
 	      });
@@ -745,15 +749,15 @@
 	          break;
 	        case 1:
 	          // Waxing Crescent
-	          this.rotateDisc(22.5);
+	          this.rotateDisc(83);
 	          break;
 	        case 2:
 	          // First Quarter
-	          this.rotateDisc(45);
+	          this.rotateDisc(60);
 	          break;
 	        case 3:
 	          // Waxing Gibbous
-	          this.rotateDisc(67.5);
+	          this.rotateDisc(37);
 	          break;
 	        case 4:
 	          // Full
@@ -765,15 +769,15 @@
 	          break;
 	        case 5:
 	          // Waning Gibbous
-	          this.rotateDisc(-22.5);
+	          this.rotateDisc(-37);
 	          break;
 	        case 6:
 	          // Third quarter
-	          this.rotateDisc(-45);
+	          this.rotateDisc(-60);
 	          break;
 	        case 7:
 	          // Waning Crescent
-	          this.rotateDisc(-67.5);
+	          this.rotateDisc(-83);
 	          break;
 	        default:
 	          console.log('Error');
@@ -821,8 +825,8 @@
 
 	    this.allMinutes = 0;
 	    this.minuteAngle = 0;
-	    this.fiveMinuteChimes = 0;
-	    this.fiveMinuteElement = null;
+	    this.fifteenMinuteChimes = 0;
+	    this.fifteenMinuteElement = null;
 	    this.minuteChimes = 0;
 	    this.minuteElement = null;
 
@@ -854,8 +858,8 @@
 	        this.minuteAngle %= 360;
 	      }
 	      this.allMinutes = Math.floor(this.minuteAngle / 6);
-	      this.fiveMinuteChimes = Math.floor(this.allMinutes / 5);
-	      this.minuteChimes = Math.floor(this.allMinutes - this.fiveMinuteChimes * 5);
+	      this.fifteenMinuteChimes = Math.floor(this.allMinutes / 15);
+	      this.minuteChimes = Math.floor(this.allMinutes - this.fifteenMinuteChimes * 15);
 	    }
 	  }, {
 	    key: "bindEvents",
@@ -870,8 +874,8 @@
 	        _this.playHours();
 	      });
 
-	      this.fiveMinuteElement.addEventListener('ended', function () {
-	        _this.playFiveMinutes();
+	      this.fifteenMinuteElement.addEventListener('ended', function () {
+	        _this.playFifteenMinutes();
 	      });
 
 	      this.minuteElement.addEventListener('ended', function () {
@@ -883,8 +887,8 @@
 	    value: function stopAll() {
 	      this.hourElement.pause();
 	      this.hourElement.currentTime = 0;
-	      this.fiveMinuteElement.pause();
-	      this.fiveMinuteElementcurrentTime = 0;
+	      this.fifteenMinuteElement.pause();
+	      this.fifteenMinuteElementcurrentTime = 0;
 	      this.minuteElement.pause();
 	      this.minuteElementcurrentTime = 0;
 
@@ -913,16 +917,16 @@
 	        this.counter++;
 	      } else if (this.counter === this.hourChimes + 1) {
 	        this.counter = 1;
-	        this.playFiveMinutes();
+	        this.playFifteenMinutes();
 	      }
 	    }
 	  }, {
-	    key: "playFiveMinutes",
-	    value: function playFiveMinutes() {
-	      if (this.counter <= this.fiveMinuteChimes) {
-	        this.fiveMinuteElement.play();
+	    key: "playFifteenMinutes",
+	    value: function playFifteenMinutes() {
+	      if (this.counter <= this.fifteenMinuteChimes) {
+	        this.fifteenMinuteElement.play();
 	        this.counter++;
-	      } else if (this.counter === this.fiveMinuteChimes + 1) {
+	      } else if (this.counter === this.fifteenMinuteChimes + 1) {
 	        this.counter = 1;
 	        this.playMinutes();
 	      }
@@ -944,19 +948,25 @@
 	      this.hourElement.src = this.chimes.hour;
 	      document.body.appendChild(this.hourElement);
 
-	      this.fiveMinuteElement = document.createElement('audio');
-	      this.fiveMinuteElement.src = this.chimes.fiveMinute;
-	      document.body.appendChild(this.fiveMinuteElement);
+	      this.fifteenMinuteElement = document.createElement('audio');
+	      this.fifteenMinuteElement.src = this.chimes.quarter;
+	      document.body.appendChild(this.fifteenMinuteElement);
 
 	      this.minuteElement = document.createElement('audio');
 	      this.minuteElement.src = this.chimes.minute;
 	      document.body.appendChild(this.minuteElement);
 	    }
 	  }, {
+	    key: "updateCursorForTrigger",
+	    value: function updateCursorForTrigger() {
+	      this.trigger.style.cursor = 'pointer';
+	    }
+	  }, {
 	    key: "init",
 	    value: function init() {
 	      this.buildAudioElements();
 	      this.bindEvents();
+	      this.updateCursorForTrigger();
 	    }
 	  }]);
 
