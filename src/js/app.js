@@ -166,19 +166,13 @@ const util = require('./util');
               name: 'secondary',
               hands: {
                 hour: 'crown-secondary-hour-hand',
-                minute: 'crown-secondary-minute-hand',
-                second: 'crown-secondary-second-hand'
+                minute: 'crown-secondary-minute-hand'
               },
-              offset: '+6',
-              sweep: true
+              offset: '+6'
             }
           ],
           crown: {
-            id: 'the-crown',
-            blackout: [{
-              selector: '#blackout',
-              className: 'active'
-            }]
+            id: 'the-crown'
           }
         };
         break;

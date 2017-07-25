@@ -212,18 +212,12 @@
 	            name: 'secondary',
 	            hands: {
 	              hour: 'crown-secondary-hour-hand',
-	              minute: 'crown-secondary-minute-hand',
-	              second: 'crown-secondary-second-hand'
+	              minute: 'crown-secondary-minute-hand'
 	            },
-	            offset: '+6',
-	            sweep: true
+	            offset: '+6'
 	          }],
 	          crown: {
-	            id: 'the-crown',
-	            blackout: [{
-	              selector: '#blackout',
-	              className: 'active'
-	            }]
+	            id: 'the-crown'
 	          }
 	        };
 	        break;
@@ -335,6 +329,7 @@
 	    }
 
 	    this.dialInstances = [];
+	    this.activeDial = 0;
 	    this.globalInterval = null;
 	    this.rightNow = new Date();
 
@@ -376,6 +371,11 @@
 	      return Number(num);
 	    }
 	  }, {
+	    key: 'resetActiveDial',
+	    value: function resetActiveDial() {
+	      this.activeDial = 0;
+	    }
+	  }, {
 	    key: 'keyBindings',
 	    value: function keyBindings() {
 	      var _this2 = this;
@@ -392,34 +392,22 @@
 
 	        if (_this2.crown) {
 	          if (_this2.crown.crownActive) {
+	            event.preventDefault();
 	            switch (event.keyCode) {
 	              case 37:
 	                if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
 	                break;
 	              case 38:
-	                _this2.dialInstances.forEach(function (dial) {
-	                  if (dial.setSecondary && dial.id === _this2.dialInstances[_this2.dialInstances.length - 1].id) {
-	                    dial.rotateHands();
-	                  } else if (!dial.setSecondary) {
-	                    dial.rotateHands();
-	                  }
-	                });
+	                _this2.dialInstances[_this2.activeDial].rotateHands();
 	                break;
 	              case 39:
-	                if (_this2.crown) _this2.crown.toggleBlackout();
+	                _this2.activeDial++;
 
-	                _this2.dialInstances.forEach(function (dial) {
-	                  dial.toggleSecondaryTime();
-	                });
+	                if (_this2.activeDial >= _this2.dialInstances.length) _this2.activeDial = 0;
+
 	                break;
 	              case 40:
-	                _this2.dialInstances.forEach(function (dial) {
-	                  if (dial.setSecondary && dial.id === _this2.dialInstances[_this2.dialInstances.length - 1].id) {
-	                    dial.rotateHands('back');
-	                  } else if (!dial.setSecondary) {
-	                    dial.rotateHands('back');
-	                  }
-	                });
+	                _this2.dialInstances[_this2.activeDial].rotateHands('back');
 	                break;
 	            }
 	          }
@@ -521,7 +509,7 @@
 	    this.crownActive = false;
 	    this.manualTime = false;
 	    this.settingTime = false;
-	    this.setSecondary = false;
+	    // this.setSecondary = false;
 	    this.transition = {};
 
 	    this.init();
@@ -532,11 +520,11 @@
 	    value: function toggleActiveCrown() {
 	      this.crownActive = !this.crownActive;
 	    }
-	  }, {
-	    key: 'toggleSecondaryTime',
-	    value: function toggleSecondaryTime() {
-	      this.setSecondary = !this.setSecondary;
-	    }
+
+	    // toggleSecondaryTime() {
+	    //   this.setSecondary = !this.setSecondary;
+	    // }
+
 	  }, {
 	    key: 'toggleSettingTime',
 	    value: function toggleSettingTime() {
@@ -599,7 +587,10 @@
 	      var rotateVal = void 0;
 
 	      if (this.hands.hour) {
-	        var hourOffset = this.setSecondary ? this.rotateValues.hourJump : this.rotateValues.hoursRotateValOffset;
+	        // let hourOffset = this.setSecondary ?
+	        //   this.rotateValues.hourJump :
+	        //   this.rotateValues.hoursRotateValOffset;
+	        var hourOffset = this.rotateValues.hoursRotateValOffset;
 	        rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
 	        if (this.settingTime) {
 	          if (dir) {
@@ -715,28 +706,28 @@
 	    }
 
 	    this.crown = document.getElementById(settings.id);
-	    this.blackoutElements = settings.blackout;
+	    // this.blackoutElements = settings.blackout;
 	    this.parent = parentWatch;
 	    this.crownActive = false;
-	    this.setSecondary = false;
+	    // this.setSecondary = false;
 	    this.init();
 	  }
 
+	  // toggleBlackout() {
+	  //   this.setSecondary = !this.setSecondary;
+	  //   this.blackoutElements.forEach((el) => {
+	  //     document.querySelector(el.selector).classList.toggle(el.className);
+	  //   });
+	  // }
+
 	  _createClass(Crown, [{
-	    key: 'toggleBlackout',
-	    value: function toggleBlackout() {
-	      this.setSecondary = !this.setSecondary;
-	      this.blackoutElements.forEach(function (el) {
-	        document.querySelector(el.selector).classList.toggle(el.className);
-	      });
-	    }
-	  }, {
 	    key: 'toggleCrown',
 	    value: function toggleCrown() {
 	      this.crownActive = !this.crownActive;
 	      this.parent.dialInstances.forEach(function (instance) {
 	        if (instance.toggleActiveCrown) instance.toggleActiveCrown();
-	        if (instance.setSecondary) instance.toggleSecondaryTime();
+	        // if (instance.setSecondary)
+	        //   instance.toggleSecondaryTime();
 	      });
 
 	      if (this.crownActive) {
@@ -747,10 +738,11 @@
 	        });
 	      } else {
 	        this.parent.startInterval();
+	        this.parent.resetActiveDial();
 	        this.crown.classList.remove('active');
-	        if (this.setSecondary) {
-	          this.toggleBlackout();
-	        }
+	        // if (this.setSecondary) {
+	        //   this.toggleBlackout();
+	        // }
 	        this.parent.dialInstances.forEach(function (instance) {
 	          if (instance.toggleSettingTime) instance.toggleSettingTime();
 	          if (instance.updateToManualTime) instance.updateToManualTime();

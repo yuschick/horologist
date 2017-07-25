@@ -10,7 +10,7 @@
   Update CSS and JS to .min upon build
 
   UPDATE: Crown, MinuteRepeater, and Moonphase classes on master!!!!!!!!!
-  
+
   /-->
   <title>TickTock - Making Digital Time Mechanical</title>
 </head>
@@ -129,7 +129,7 @@
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn' data-type='dial-demo'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='dial-demo'>Toggle Code</a>
             </div>
             <section class='complication code-block-container is-hidden' data-type='dial-demo'>
               <code>
@@ -207,7 +207,7 @@ let demo = new Watch(settings);
             <p>Many simple day/night indicators are a two-color disc that show "day" only from midnight to 6 AM and "night" only from noon to 6 PM, with a half-day or half-night display the rest of the time. TickTock follows this convention.</p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn' data-type='day-night-indicator-demo'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='day-night-indicator-demo'>Toggle Code</a>
             </div>
             <section class='complication code-block-container is-hidden' data-type='day-night-indicator-demo'>
               <code>
@@ -282,18 +282,45 @@ let demo = new Watch(settings);
         </section>
         <section class='complication-container flex-container is-spread is-hidden' data-comp='manual-time'>
           <div class='flex-one'>
-            <p>The manul time complication allows a user to click the crown of the watch to temporarily pause its running. In this state, referred to as the set state, they're able to use the arrow keys to manually adjust the time. Upon clicking the dial
+            <p>The manul time complication allows a user to click the crown of the watch to temporarily pause its running. In this state, referred to as the set state, they're able to use the arrow keys to manually adjust the time. Upon clicking the crown
               again, TickTock will resume telling the time from the manually set position. To account for visual cues, on click, the crown will toggle an 'active' class.</p>
             <p>
-              Additionally, if a secondary dial is being used, while in the set state, the right arrow key will allow a user to target the secondary dial to set its time in hour increments.
-            </p>
-            <p>
-              When the focus is on the secondary dial, TickTock supports an array of selectors and classes to toggle. For example, in the demo, this feature is used to create a blackout effect to draw focus to the secondary dial.
+              Additionally, if a secondary dial is being used, while in the set state, the right arrow key will allow a user to target the secondary dial to set its time independently.
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='manual-time-demo'>Toggle Code</a>
             </div>
+            <section class='complication code-block-container is-hidden' data-type='manual-time-demo'>
+              <code>
+                <pre class='prettyprint lang-js linenums'>
+settings = {
+  dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'crown-primary-hour-hand',
+        minute: 'crown-primary-minute-hand',
+        second: 'crown-primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'crown-secondary-hour-hand',
+        minute: 'crown-secondary-minute-hand'
+      },
+      offset: '+6'
+    }
+  ],
+  crown: {
+    id: 'the-crown'
+  }
+};
+
+let demo = new Watch(settings);
+                </pre>
+              </code>
+            </section>
           </div>
           <div class='complication-demo flex-one'>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enable-background="new 0 0 250 250">
@@ -353,7 +380,7 @@ let demo = new Watch(settings);
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn' data-type='minute-repeater-demo'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='minute-repeater-demo'>Toggle Code</a>
             </div>
             <section class='complication code-block-container is-hidden' data-type='minute-repeater-demo'>
               <code>
@@ -425,7 +452,7 @@ let demo = new Watch(settings);
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn' data-type='moonphase-demo'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='moonphase-demo'>Toggle Code</a>
             </div>
             <section class='complication code-block-container is-hidden' data-type='moonphase-demo'>
               <code>
@@ -531,7 +558,7 @@ let demo = new Watch(settings);
             </p>
             <div class='flex-container'>
               <a href='#' class='btn primary'>View Docs</a>
-              <a href='#' class='btn primary view-code-btn' data-type='power-reserve-demo'>View Code</a>
+              <a href='#' class='btn primary view-code-btn' data-type='power-reserve-demo'>Toggle Code</a>
             </div>
             <section class='complication code-block-container is-hidden' data-type='power-reserve-demo'>
               <code>

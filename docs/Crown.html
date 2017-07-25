@@ -89,29 +89,80 @@
       <span class="hljs-keyword">return</span>;
     }
 
-    <span class="hljs-keyword">this</span>.crown = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.blackoutElements = settings.blackout;
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.crownActive = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.setSecondary = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.init();
-  }
+    <span class="hljs-keyword">this</span>.crown = <span class="hljs-built_in">document</span>.getElementById(settings.id);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>this.blackoutElements = settings.blackout;</p>
 
-  toggleBlackout() {
-    <span class="hljs-keyword">this</span>.setSecondary = !<span class="hljs-keyword">this</span>.setSecondary;
-    <span class="hljs-keyword">this</span>.blackoutElements.forEach(<span class="hljs-function">(<span class="hljs-params">el</span>) =&gt;</span> {
-      <span class="hljs-built_in">document</span>.querySelector(el.selector).classList.toggle(el.className);
-    });
-  }
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.parent = parentWatch;
+    <span class="hljs-keyword">this</span>.crownActive = <span class="hljs-literal">false</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>this.setSecondary = false;</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.init();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>toggleBlackout() {
+  this.setSecondary = !this.setSecondary;
+  this.blackoutElements.forEach((el) =&gt; {
+    document.querySelector(el.selector).classList.toggle(el.className);
+  });
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
   toggleCrown() {
     <span class="hljs-keyword">this</span>.crownActive = !<span class="hljs-keyword">this</span>.crownActive;
     <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
       <span class="hljs-keyword">if</span> (instance.toggleActiveCrown)
-        instance.toggleActiveCrown();
-      <span class="hljs-keyword">if</span> (instance.setSecondary)
-        instance.toggleSecondaryTime();
-    });
+        instance.toggleActiveCrown();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>if (instance.setSecondary)
+  instance.toggleSecondaryTime();</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    });
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crownActive) {
       <span class="hljs-keyword">this</span>.parent.stopInterval();
@@ -122,11 +173,25 @@
       });
     } <span class="hljs-keyword">else</span> {
       <span class="hljs-keyword">this</span>.parent.startInterval();
-      <span class="hljs-keyword">this</span>.crown.classList.remove(<span class="hljs-string">'active'</span>);
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.setSecondary) {
-        <span class="hljs-keyword">this</span>.toggleBlackout();
-      }
-      <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
+      <span class="hljs-keyword">this</span>.parent.resetActiveDial();
+      <span class="hljs-keyword">this</span>.crown.classList.remove(<span class="hljs-string">'active'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>if (this.setSecondary) {
+  this.toggleBlackout();
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
         <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
           instance.toggleSettingTime();
         <span class="hljs-keyword">if</span> (instance.updateToManualTime)
