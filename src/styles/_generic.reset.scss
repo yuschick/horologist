@@ -130,3 +130,7 @@ img {
 *:before {
   box-sizing: border-box;
 }
+
+.linenums {
+  padding: $vspace/2 $hspace/2;
+}

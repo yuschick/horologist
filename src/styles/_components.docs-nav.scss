@@ -1,0 +1,42 @@
+.docs-nav {
+  padding: $vspace 0;
+
+  span {
+    background: $secondaryColor;
+    color: $tertiaryColor;
+    display: block;
+    padding: $vspace/4 $hspace/2;
+    text-transform: uppercase;
+  }
+
+  ul ul {
+    margin-bottom: $vspace;
+  }
+
+  ul ul li {
+    padding: $vspace/4 0 $vspace/4 $hspace;
+
+    &:nth-child(even) {
+      background: darken($tertiaryColor, 2.5%);
+    }
+  }
+}
+
+.doc-specs {
+  background: darken($tertiaryColor, 2.5%);
+  font-size: 0.9rem;
+  margin: 5px 0;
+  padding: 0.5rem;
+
+  div {
+    margin-right: $hspace;
+  }
+}
+
+.doc-property-container {
+  margin-bottom: $vspace*2;
+
+  &:last-child {
+    margin: 0;
+  }
+}

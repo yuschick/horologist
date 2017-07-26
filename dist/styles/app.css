@@ -124,6 +124,9 @@ img {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
+.linenums {
+  padding: 0.5rem 0.5rem; }
+
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -200,6 +203,9 @@ header {
 .complication-container {
   color: #EFF1F3; }
 
+.docs-container {
+  padding: 1rem 1rem; }
+
 h1 {
   color: #007486;
   font: 5.5rem/1.15 "Rubik", sans-serif;
@@ -221,6 +227,9 @@ h4 {
   font: 1.5rem/1.5 "Open Sans", sans-serif;
   text-transform: uppercase; }
 
+h5 {
+  font: 1.25rem/1.25 "Open Sans", sans-serif; }
+
 .btn {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -230,15 +239,15 @@ h4 {
     margin-left: 1rem; }
   .btn.primary {
     background: #474747;
-    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#272727));
+    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: linear-gradient(to bottom, #474747 0%, #272727 100%);
     color: #EFF1F3;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#272727',GradientType=0 ); }
     .btn.primary:hover {
       background: #474747;
-      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#070707));
+      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: linear-gradient(to bottom, #474747 0%, #070707 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#070707',GradientType=0 ); }
 
@@ -373,6 +382,34 @@ nav a:visited {
       color: #272727; }
     .secondary-nav li:last-child {
       border: 0; }
+
+.docs-nav {
+  padding: 1rem 0; }
+  .docs-nav span {
+    background: #007486;
+    color: #EFF1F3;
+    display: block;
+    padding: 0.25rem 0.5rem;
+    text-transform: uppercase; }
+  .docs-nav ul ul {
+    margin-bottom: 1rem; }
+  .docs-nav ul ul li {
+    padding: 0.25rem 0 0.25rem 1rem; }
+    .docs-nav ul ul li:nth-child(even) {
+      background: #e8ebee; }
+
+.doc-specs {
+  background: #e8ebee;
+  font-size: .9rem;
+  margin: 5px 0;
+  padding: 0.5rem; }
+  .doc-specs div {
+    margin-right: 1rem; }
+
+.doc-property-container {
+  margin-bottom: 2rem; }
+  .doc-property-container:last-child {
+    margin: 0; }
 
 footer {
   background: #272727;

@@ -37,17 +37,934 @@
     </div>
   </header>
   <main>
-    <ol>
-      <li>
-        complete docs
-      </li>
-      <li>
-        turn ticktock into package to install and run from npm
-      </li>
-      <li>
-        write getting started section of docs for npm, browser, and require (see Momentjs docs)
-      </li>
-    </ol>
+    <div class='container flex-container'>
+      <section class='flex-one docs-tree-container is-fixed'>
+        <nav class='docs-nav'>
+          <ul>
+            <li>
+              <span>Getting Started</span>
+
+              <ul>
+                <li>
+                  Install with NPM
+                </li>
+                <li>
+                  Install with Require
+                </li>
+                <li>
+                  Install for Browser
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Dials</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Defining a Dial
+                </li>
+                <li>
+                  Dial Names
+                </li>
+                <li>
+                  Defining Hands
+                </li>
+                <li>
+                  GMT Offsets
+                </li>
+                <li>
+                  12/24-Hour Formats
+                </li>
+                <li>
+                  Sweeping Seconds
+                </li>
+                <li>
+                  Multiple Dials
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Day/Night Indicator</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Dial Relationship
+                </li>
+                <li>
+                  Define the Indicatore
+                </li>
+                <li>
+                  Target a Specific Dial
+                </li>
+                <li>
+                  Invert the Direction
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Manual Time (Crown)</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Define the Crown
+                </li>
+                <li>
+                  Crown Active States
+                </li>
+                <li>
+                  Watch Keybindings
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Minute Repeater</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Define the Trigger
+                </li>
+                <li>
+                  Define the Chimes
+                </li>
+                <li>
+                  Target a Specific Dial
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Moonphase</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Define the Element
+                </li>
+                <li>
+                  Invert the Direction
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Power Reserve</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Define the Element
+                </li>
+                <li>
+                  Setting the Range of Motion
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <span>Watch</span>
+
+              <ul>
+                <li>
+                  Overview
+                </li>
+                <li>
+                  Default Keybindings
+                </li>
+                <li>
+                  Handling the Intervals
+                </li>
+              </ul>
+
+            </li>
+          </ul>
+        </nav>
+      </section>
+      <section class='flex-four docs-container'>
+        <section id='getting-started-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Getting Started</h4>
+          <h5>Installing with NPM</h5>
+          <p>NPM Details</p>
+        </section>
+        <section id='getting-started-require' class='doc-property-container'>
+          <h5>Installing with Require</h5>
+          <p>Require Details</p>
+        </section>
+        <section id='getting-started-browser' class='doc-property-container'>
+          <h5>Installing with Browser</h5>
+          <p>Browser Details</p>
+        </section>
+        <section id='dials-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Dials</h4>
+          <h5 id='dials-overview'>Overview</h5>
+          <p>
+            The dials are the primary component in TickTock. A dial serves as a collection of hand elements and settings used to indicate the time by rotating the elements according to the current local time, the provided GMT offset, or the manually set time.
+          </p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    },
+    offset: '+3',
+    format: 12,
+    sweep: true
+  }]
+};
+            </pre>
+          </code>
+        </section>
+        <section id='dials-definingadial' class='doc-property-container'>
+          <h5>Defining a Dial</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> dials
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Array
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>
+            The dials property is an array that contains objects for each individual dial. This allows flexibility in how to display the time as well as how many time zones can be shown.
+          </p>
+          <p>
+            Every hand element entered in a dial object will work in unison regardless of where they visually appear in the design. For example, if the watch has large hour and minute hands but shows the seconds in a sub-dial at 6 o'clock, those can still be designated
+            in the same dial object. Just because visually they are not together does not mean that they must be entrered as separate dials.
+          </p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    },
+    offset: '+3',
+    format: 12,
+    sweep: true
+  }]
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-dialnames' class='doc-property-container'>
+          <h5>Dial Names</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> name
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>
+            Dial names are not required in most instances. The name is primarily used for personal reference. However, the name does serve a purpose when including the Day/Night Indicator complication. Because Day/Night Indicators are often used on watches that have
+            multiple dials, the name of the dial is used to link the indicator to the correct dial.
+          </p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    ...
+  }]
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-defininghands' class='doc-property-container'>
+          <h5>Defining Hands</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> hands
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>The hands object contains three properties, hour, minute, and second. Each property contains a string value of corresponding element's ID.</p>
+
+          <p>
+            While the hands object is required for the dial component, not every hand is required. A dial could contain an hour and minute hand, just a second hand, or any combination of the three.
+          </p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }]
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-gmtoffsets' class='doc-property-container'>
+          <h5>GMT Offsets</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> offset
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>TickTock defaults to the local timezone by using JavaScript's native Date() object. However, a dial can be given a specific GMT offset value to override this default.</p>
+          <p>
+            The offset property is a string supporting both negative and positive values. The values are relative to the Greenwich Mean Time (GMT). So to set a dial to show the time in New York City the offset property would have a value of '-5'. Whereas showing
+            the time in Singapore would be '+8'.
+          </p>
+          <p>
+            Decimal values are also supported. For example, Delhi would have an offset value of '+5.3'.
+          </p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '+2' // Helsinki, Finland
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-hourformats' class='doc-property-container'>
+          <h5>12/24-hour Formats</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> format
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Number
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> 12
+            </div>
+          </div>
+          <p>Most watches show time in a 12-hour format where the hour hand rotates a full circle every 12 hours. But if the dial is to show the time in a 24-hour format, TickTock supports the format property. The property defaults to 12 but can be set to
+            24 to adust the rotation value of the hour hand.</p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '-4',
+  format: 24
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-sweepingseconds' class='doc-property-container'>
+          <h5>Sweeping Seconds</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> sweep
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Boolean
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> False
+            </div>
+          </div>
+          <p>By default, the second hand of each dial will tick or jump from one position to the next. However, by setting the sweep property to true TickTock will apply a CSS transition to the second hand to have it smoothly rotate around the dial. </p>
+          <p>
+            The sweep property only affects the second hand of the dial. To have a sweeping motion for the minute and hour hands as well, a CSS transition will need to be added manually.
+          </p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '-4',
+  format: 24,
+  sweep: true
+};
+          </pre>
+        </code>
+        </section>
+        <section id='dials-multipledials' class='doc-property-container'>
+          <h5>Multiple Dials</h5>
+          <p>Because the dials property is an array of dial objects, a single watch can display multiple dials at once. For example, Dual Time watches which show both local and home times together. TickTock supports passing in multiple dial objects each
+            with their own settings to support such complications.</p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'dial-primary-hour-hand',
+        minute: 'dial-primary-minute-hand',
+        second: 'dial-primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'dial-secondary-hour-hand',
+        minute: 'dial-secondary-minute-hand',
+        second: 'dial-secondary-second-hand'
+      },
+      offset: '+6',
+      sweep: true
+    }]
+};
+          </pre>
+        </code>
+        </section>
+        <section class='doc-property-container'>
+          <h4 class='has-spacer'>Day/Night Indicator</h4>
+          <h5 id='day-night-overview'>Overview</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> dayNightIndicator
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Day/Night Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1,
+    invert: true
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='day-night-defininganindicator' class='doc-property-container'>
+          <h5>Define the Indicator</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> id
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Define an Indicator Details</p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial'
+  }
+};
+          </pre>
+        </code>
+        </section>
+        <section id='day-night-targetdial' class='doc-property-container'>
+          <h5>Target a Specific Dial</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> dial
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Number
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> 0
+            </div>
+          </div>
+          <p>Target a Specific Dial Details</p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1
+  }
+};
+          </pre>
+        </code>
+        </section>
+        <section id='day-night-invert' class='doc-property-container'>
+          <h5>Invert the Direction</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> invert
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Boolean
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> False
+            </div>
+          </div>
+          <p>Invert the Direction Details</p>
+          <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1,
+    invert: true
+  }
+};
+          </pre>
+        </code>
+        </section>
+        <section class='doc-property-container'>
+          <h4 class='has-spacer'>Manual Time (Crown)</h4>
+          <h5 id='crown-overview'>Overview</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> crown
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Crown Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  crown: {
+    id: 'the-crown'
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section class='doc-property-container'>
+          <h5 id='crown-definethecrown'>Define the Crown</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> id
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Crown Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  crown: {
+    id: 'the-crown'
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section class='doc-property-container'>
+          <h5 id='crown-activestates'>Crown Active States</h5>
+          <p>Active States Details</p>
+        </section>
+        <section class='doc-property-container'>
+          <h5 id='crown-keybindings'>Watch Keybindings</h5>
+          <p>Watch Keybindings Details</p>
+        </section>
+        <section id='minute-repeater-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Minute Repeater</h4>
+          <h5>Overview</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> repeater
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Minute Repeater Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  repeater: {
+    id: 'play-repeater',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    },
+    dial: 1
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='minute-repeater-definethetrigger' class='doc-property-container'>
+          <h5>Define the Trigger</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> id
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Minute Repeater Trigger Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  repeater: {
+    id: 'play-repeater'
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='minute-repeater-definethechimes' class='doc-property-container'>
+          <h5>Define the Chimes</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> chimes
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Minute Repeater Chimes Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  repeater: {
+    id: 'play-repeater',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    }
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='minute-repeater-targetdial' class='doc-property-container'>
+          <h5>Target a Specific Dial</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> dial
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Number
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> 0
+            </div>
+          </div>
+          <p>Minute Repeater Dial Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  repeater: {
+    id: 'play-repeater',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    },
+    dial: 1
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='moonphase-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Moonphase</h4>
+          <h5>Overview</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> moonphase
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Moonphase Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  moonphase: {
+    id: 'moonphase-disc',
+    invert: true
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='moonphase-definetheelement' class='doc-property-container'>
+          <h5>Define the Element</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> id
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Moonphase Element Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  moonphase: {
+    id: 'moonphase-disc'
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='moonphase-invertdirection' class='doc-property-container'>
+          <h5>Invert the Direction</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> invert
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Boolean
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> False
+            </div>
+          </div>
+          <p>Moonphase Invert Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  moonphase: {
+    id: 'moonphase-disc',
+    invert: true
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='reserve-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Power Reserve</h4>
+          <h5>Overview</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> reserve
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Object
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> False
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Power Reserve Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='reserve-definetheelement' class='doc-property-container'>
+          <h5>Define the Element</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> id
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> String
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+            <div>
+              <span class='is-strong'>Default: </span> null
+            </div>
+          </div>
+          <p>Power Reserve Element Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  reserve: {
+    id: 'power-reserve-hand'
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='reserve-range' class='doc-property-container'>
+          <h5>Range of Motion</h5>
+          <div class='flex-container doc-specs'>
+            <div>
+              <span class='is-strong'>Property: </span> range
+            </div>
+            <div>
+              <span class='is-strong'>Type: </span> Array
+            </div>
+            <div>
+              <span class='is-strong'>Required: </span> True
+            </div>
+          </div>
+          <p>Power Reserve Range Details</p>
+          <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};
+            </pre>
+          </code>
+        </section>
+        <section id='watch-header' class='doc-property-container'>
+          <h4 class='has-spacer'>Watch</h4>
+          <h5>Overview</h5>
+          <p>Watch Details</p>
+        </section>
+        <section id='watch-keybindings' class='doc-property-container'>
+          <h5>Default Keybindings</h5>
+          <p>Watch Keybindings Details</p>
+        </section>
+        <section id='watch-intervals' class='doc-property-container'>
+          <h5>Default Intervals</h5>
+          <p>Watch Intervals Details</p>
+        </section>
+      </section>
+    </div>
   </main>
   <footer class='flex-container is-spread'>
     <div>
