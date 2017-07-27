@@ -69,4 +69,9 @@ header {
 
 .docs-container {
   padding: $vspace $hspace;
+
+  &.fixed-nav {
+    margin-left: 250px;
+    /* the width of the docs tree */
+  }
 }

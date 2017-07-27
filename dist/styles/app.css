@@ -205,6 +205,9 @@ header {
 
 .docs-container {
   padding: 1rem 1rem; }
+  .docs-container.fixed-nav {
+    margin-left: 250px;
+    /* the width of the docs tree */ }
 
 h1 {
   color: #007486;
@@ -389,18 +392,22 @@ nav a:visited {
     background: #007486;
     color: #EFF1F3;
     display: block;
-    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
     text-transform: uppercase; }
   .docs-nav ul ul {
-    margin-bottom: 1rem; }
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem; }
   .docs-nav ul ul li {
     padding: 0.25rem 0 0.25rem 1rem; }
     .docs-nav ul ul li:nth-child(even) {
       background: #e8ebee; }
+    .docs-nav ul ul li a {
+      display: block; }
 
 .doc-specs {
   background: #e8ebee;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin: 5px 0;
   padding: 0.5rem; }
   .doc-specs div {
@@ -408,8 +415,20 @@ nav a:visited {
 
 .doc-property-container {
   margin-bottom: 2rem; }
-  .doc-property-container:last-child {
-    margin: 0; }
+
+.docs-tree-container {
+  top: 0;
+  width: 250px; }
+
+.is-collapsed {
+  height: 30px;
+  overflow: hidden; }
+
+.is-expanded {
+  height: auto; }
+
+.doc-tree-group {
+  cursor: pointer; }
 
 footer {
   background: #272727;
@@ -449,11 +468,22 @@ footer {
 .is-shaded {
   background: #007486; }
 
+.is-code-ref {
+  background: #e0e4e8;
+  color: #007486;
+  padding: 0 0.33333rem; }
+
 .is-strong {
   font-weight: 700; }
 
+.is-underlined {
+  text-decoration: underline; }
+
 .is-hidden {
   display: none; }
+
+.is-fixed {
+  position: fixed; }
 
 .is-rounded {
   border-radius: 50%; }

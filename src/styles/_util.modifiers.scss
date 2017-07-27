@@ -25,12 +25,26 @@
   background: $secondaryColor;
 }
 
+.is-code-ref {
+  background: darken($tertiaryColor, 5%);
+  color: $secondaryColor;
+  padding: 0 $hspace/3;
+}
+
 .is-strong {
   font-weight: 700;
 }
 
+.is-underlined {
+  text-decoration: underline;
+}
+
 .is-hidden {
   display: none;
+}
+
+.is-fixed {
+  position: fixed;
 }
 
 .is-rounded {

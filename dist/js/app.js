@@ -274,6 +274,79 @@
 	      showSpecificItem(type, codeBlocks, 'data-type');
 	    });
 	  });
+
+	  /*
+	  DOCS SECTION FIXED ON SCROLL
+	  */
+	  var docTree = document.querySelector('.docs-tree-container');
+	  var docsContainer = document.querySelector('.docs-container');
+	  var docTreeGroups = document.querySelectorAll('.doc-tree-group');
+
+	  var gettingStarted = document.querySelector('.getting-started-section');
+	  var dialsSection = document.querySelector('.dials-section');
+	  var indicatorSection = document.querySelector('.day-night-indicator-section');
+	  var crownSection = document.querySelector('.crown-section');
+	  var repeaterSection = document.querySelector('.minute-repeater-section');
+	  var moonphaseSection = document.querySelector('.moonphase-section');
+	  var reserveSection = document.querySelector('.reserve-section');
+	  var watchSection = document.querySelector('.watch-section');
+
+	  docTreeGroups.forEach(function (group) {
+	    group.addEventListener('click', function () {
+	      var type = this.attributes['data-doc-group'].value;
+	      toggleDocTreeGroups(type);
+	    });
+	  });
+
+	  function toggleDocTreeGroups(showGroup) {
+	    docTreeGroups.forEach(function (group) {
+	      if (group.attributes['data-doc-group'].value === showGroup) {
+	        group.classList.add('is-expanded');
+	      } else {
+	        group.classList.remove('is-expanded');
+	        group.classList.add('is-collapsed');
+	      }
+	    });
+	  }
+
+	  function checkScrollPosition(pos) {
+	    if (pos >= 57) {
+	      docTree.classList.add('is-fixed');
+	      docsContainer.classList.add('fixed-nav');
+	    } else {
+	      docTree.classList.remove('is-fixed');
+	      docsContainer.classList.remove('fixed-nav');
+	    }
+
+	    if (pos < gettingStarted.offsetTop + gettingStarted.clientHeight) {
+	      toggleDocTreeGroups('getting-started');
+	    } else if (pos > gettingStarted.offsetTop + gettingStarted.clientHeight && pos < dialsSection.offsetTop + dialsSection.clientHeight) {
+	      toggleDocTreeGroups('dials');
+	    } else if (pos > dialsSection.offsetTop + dialsSection.clientHeight && pos < indicatorSection.offsetTop + indicatorSection.clientHeight) {
+	      toggleDocTreeGroups('day-night-indicator');
+	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < crownSection.offsetTop + crownSection.clientHeight) {
+	      toggleDocTreeGroups('crown');
+	    } else if (pos > crownSection.offsetTop + crownSection.clientHeight && pos < repeaterSection.offsetTop + repeaterSection.clientHeight) {
+	      toggleDocTreeGroups('repeater');
+	    } else if (pos > repeaterSection.offsetTop + repeaterSection.clientHeight && pos < moonphaseSection.offsetTop + moonphaseSection.clientHeight) {
+	      toggleDocTreeGroups('moonphase');
+	    } else if (pos > moonphaseSection.offsetTop + moonphaseSection.clientHeight && pos < reserveSection.offsetTop + reserveSection.clientHeight) {
+	      toggleDocTreeGroups('reserve');
+	    } else {
+	      toggleDocTreeGroups('watch');
+	    }
+	  }
+
+	  var ticking = false;
+	  window.addEventListener('scroll', function () {
+	    if (!ticking) {
+	      window.requestAnimationFrame(function () {
+	        checkScrollPosition(window.scrollY);
+	        ticking = false;
+	      });
+	    }
+	    ticking = true;
+	  });
 	})();
 
 /***/ }),
