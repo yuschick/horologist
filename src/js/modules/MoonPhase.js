@@ -68,15 +68,15 @@ class MoonPhase {
         break;
       case 1:
         // Waxing Crescent
-        this.rotateDisc(83);
+        this.rotateDisc(-40);
         break;
       case 2:
         // First Quarter
-        this.rotateDisc(60);
+        this.rotateDisc(-25);
         break;
       case 3:
         // Waxing Gibbous
-        this.rotateDisc(37);
+        this.rotateDisc(-13);
         break;
       case 4:
         // Full
@@ -88,15 +88,15 @@ class MoonPhase {
         break;
       case 5:
         // Waning Gibbous
-        this.rotateDisc(-37);
+        this.rotateDisc(13);
         break;
       case 6:
-        // Third quarter
-        this.rotateDisc(-60);
+        // Last quarter
+        this.rotateDisc(25);
         break;
       case 7:
         // Waning Crescent
-        this.rotateDisc(-83);
+        this.rotateDisc(40);
         break;
       default:
         console.log('Error');

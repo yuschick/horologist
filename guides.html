@@ -26,9 +26,9 @@
           <li class='active'>
             <a href='./guides.html'>Guides</a>
           </li>
-          <li>
+          <!-- <li>
             <a href='./demos.html'>Demos</a>
-          </li>
+          </li> -->
           <li>
             <a href='https://github.com/yuschick/TickTock'>Github</a>
           </li>
@@ -37,14 +37,245 @@
     </div>
   </header>
   <main>
-    <ol>
-      <li>
-        Build your first watch guide
-      </li>
-      <li>
-        Other guides can include: 24-hour dial, digital display (zeitwerk reference)
-      </li>
-    </ol>
+    <div class='container flex-container'>
+      <!-- <section class='flex-one docs-tree-container'>
+        <nav class='docs-nav'>
+          <ul>
+            <li class='active' data-id='01'>Building Your First Watch</li>
+          </ul>
+        </nav>
+      </section> -->
+      <section class='flex-four docs-container'>
+        <h4 class='has-spacer'>Building Your First Watch</h4>
+        <p>
+          TickTock looks like it could be cool but how should I get started? This guide will walk you through designing a simple watch in Adobe Illustrator, optimizing the exported SVG code, and then using TickTock to bring it all together.
+        </p>
+        <p>
+          So what are we building?
+        </p>
+        <p>
+          Let's build a watch that contains a primary dial, a second timezone display, and a power reserve. Whew! Rest assured, we'll keep the design simple as to focus on the settings and functionality of TickTock.
+        </p>
+        <p>
+          If you do not have Adobe Illustrator, fret not. You can either download a trial version or use the provided SVG code from this example. That way everybody can be on the same page. Or just skip the design section entirely and grab the resulting code here:
+        </p>
+        <p>
+          <a href='./src/images/guides/firstwatch/first-watch-optimised.svg' class='btn primary'>Download Optimized SVG Code</a>
+        </p>
+        <h5>
+          The Design
+        </h5>
+        <p>
+          This isn't meant to be a full design tutorial but moreso cover some best practices in TickTock that begin with the design. First, we will begin by laying out the primary dial.
+        </p>
+        <p>
+          We can begin by making our initial circle for the primary dial. After creating the initial circle, trim the Illustrator canvas to fit the circle exactly. I then, personally, update my canvas X and Y coordinates to 0 and 0 in Illustrator. Next we will
+          move onto making the hour markers. Typically, I do this by first creating the markers for 12 and 6. I align these to the center of the artboard.
+        </p>
+        <img src='./src/images/guides/firstwatch/screen-01.jpg' alt='TickTock - Building Your First Watch - Step 1' />
+        <p>
+          With these two markers in place, I am able to copy and paste a new pair and rotate the pair -30 degrees to give me markers for 1 and 7. I continue this copy, paste in place, and transform again until I have markers the whole way around the dial.
+        </p>
+        <img src='./src/images/guides/firstwatch/screen-02.jpg' alt='TickTock - Building Your First Watch - Step 2' />
+        <p>
+          With the markers in place, we can move onto creating the hands. Let's start by drawing the second hand and going over some key points in the design process. Let's draw a thin red line from the center of our primary dial up to the 12 o'clock marker. Align
+          this line with the artboard horizontally. At this point the line's bottom center point should be aligned directly with the center of the dial. This ensures that you can set the hand's
+          <span class='is-code-ref'>transform-origin</span> point to its bottom center point and it will rotate around the center of the dial. Also, note that TickTock expects each hand element to contain and ID. So with the line drawn, double click on
+          it to enter isolation mode then in the Layers tab, assign the line an ID of
+          <span class='is-code-ref'>primary-second-hand</span>. Follow this process for creating the minute and hour hands as well keeping them all aligned to the center point of the dial.
+        </p>
+        <p>
+          Once the hands are in place, let's draw a small circle and center align it as well to hide the bottom edges of the hands. Let's also remove the hour marker for 6 as we will be placing our secondary dial in its place.
+        </p>
+        <img src='./src/images/guides/firstwatch/screen-03.jpg' alt='TickTock - Building Your First Watch - Step 3' />
+        <p>
+          So at this point we have our primary dial laid out with three hands, <span class='is-code-ref'>primary-second-hand</span>, <span class='is-code-ref'>primary-minute-hand</span>, <span class='is-code-ref'>primary-hour-hand</span>. So let's move
+          onto our secondary dial.
+        </p>
+        <p>
+          Following the same process from our primary dial we can draw a smaller circle, align it to the horizontal center of the artboard and place it into the now open area where the 6 o'clock marker was. This will be our secondary dial container. With this container
+          set, we can follow the same process for the secondary hands by drawing lines from the center point of the secondary dial to its 12 o'clock position. We will still want to assign IDs to each of these hands and can follow a similar naming convention
+          as before, <span class='is-code-ref'>secondary-second-hand</span>. Once the dial and hands are drawn, select them all and group these elements together. For better organization of your code later feel free to give an ID to this group
+          of <span class='is-code-ref'>secondary-dial</span>.
+        </p>
+        <img src='./src/images/guides/firstwatch/screen-04.jpg' alt='TickTock - Building Your First Watch - Step 4' />
+        <p>
+          Which brings us to the power reserve. This can be built by drawing a circle and using the scissor tool to cut it in half. In this design, an outline was added and tapers at the edges by adjusting the line style. The key takeaway here is understanding
+          how to define the range values of the power reserve hand. The range values are relative to how the hand is initially drawn. In this design, the line is drawn in the middle of the reserve meaning it has a range of 90 degrees to the full marker
+          and -90 to the empty marker. If the line is drawn horizontally to point to the full marker first, the hand would have a range of -180 for empty and 0 for full. So however the reserve hand is drawn, its range is relative to that position. Once
+          the hand is drawn, give it an ID as well, <span class='is-code-ref'>reserve-hand</span>.
+        </p>
+        <img src='./src/images/guides/firstwatch/screen-05.jpg' alt='TickTock - Building Your First Watch - Step 5' />
+        <p>
+          And again, for organization, group all the power reserve elements together and assign them an ID so this is easier to find in the code later. Also note that the screenshot is hiding the primary hands so the reserve can clearly be shown.
+        </p>
+        <h5>
+          Optimizing the SVG
+        </h5>
+        <p>
+          After saving our Illustrator file we can save it again as an SVG which will allow us to grab the generated code. Generally speaking, generated code can use a little TLC to clean it up. We will be using the SVG Editor from Peter Collingridge to do just
+          that. <a href='https://petercollingridge.appspot.com/svg-editor' target='new'>SVG Editor</a>.
+        </p>
+        <p>
+          Once there we can paste in our SVG code and click Load to begin cleaning everything up. On the next screen toggle between conservative and extreme and use the display the ensure nothing is affected visually. Note, that if you select the extreme compression,
+          ensure to uncheck the Remove IDs checkbox so we can still easily locate groups and elements in our code. After playing with these settings, download the optimized code for our project.
+        </p>
+        <p>
+          Download the working code here
+        </p>
+        <p>
+          <a href='./src/images/guides/firstwatch/first-watch-optimised.svg' class='btn primary'>Download Optimized SVG Code</a>
+        </p>
+        <h5>
+          Animating with TickTock
+        </h5>
+        <p>
+          First, let's take our cleaned up SVG code and paste that into our HTML document. Let's create our <span class='is-code-ref'>app.js</span> file and begin building the settings for our new watch.
+        </p>
+        <p class='is-strong'>
+          app.js
+        </p>
+        <code>
+        <pre class='prettyprint linenums lang-js'>
+(function() {
+  "use strict"
+  const Watch = require('./modules/Watch');
+  const settings = { ... };
+  let firstWatch = new Watch(settings);
+})();
+        </pre></code>
+
+        <p>
+          From the code snippet above you can see we're using the require method of bringing in TickTock. This will vary based upon your preference of including the library. But we're assigning the parent Watch class to our Watch constant variable. From there we
+          can call new Watch() to instantiate a new watch with whatever settings we wish. Let's dig into our settings next.
+        </p>
+        <p>
+          We know we have two dials, a primary and secondary. So let's start there.
+        </p>
+        <code>
+        <pre class='prettyprint linenums lang-js'>
+  const settings = {
+    dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'primary-hour-hand',
+        minute: 'primary-minute-hand',
+        second: 'primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'secondary-hour-hand',
+        minute: 'secondary-minute-hand',
+        second: 'secondary-second-hand'
+      }
+    }]
+  };
+        </pre></code>
+        <p>
+          Note the importance of the IDs we defined in our SVG. Those are the ID values we use in these settings to define the individual elements for each hand and dial. Now, we should have both dials ticking along with the current time. But let's play with a
+          couple additional settings for our secondary dial.
+        </p>
+        <code>
+        <pre class='prettyprint linenums lang-js'>
+  const settings = {
+    dials: [...
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'secondary-hour-hand',
+        minute: 'secondary-minute-hand',
+        second: 'secondary-second-hand'
+      },
+      offset: '+4',
+      sweep: true
+    }]
+  };
+        </pre></code>
+        <p>
+          In the updated settings, we've added a GNMT offset value of '+4' hours and set the sweep property to have the second hand on the secondary dial sweep to offer contrast from the ticking second hand on the primary dial.
+        </p>
+        <p>
+          Now, let's finish this up by adding in the power reserve.
+        </p>
+        <code>
+        <pre class='prettyprint linenums lang-js'>
+  const settings = {
+    ...
+    reserve: {
+      id: 'power-reserve-hand',
+      range: [-90, 90]
+    }
+  };
+        </pre></code>
+        <p>
+          Again, we supply the ID of the hand element to the settings. Then we define the range of motion for the power reserve, which is relative to its originally drawn position.
+        </p>
+        <p>
+          So the updated <span class='is-code-ref'>app.js</span> will look like this:
+        </p>
+        <code>
+        <pre class='prettyprint linenums lang-js'>
+(function() {
+  "use strict"
+  const Watch = require('./modules/Watch');
+  const settings = {
+    dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'primary-hour-hand',
+        minute: 'primary-minute-hand',
+        second: 'primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'secondary-hour-hand',
+        minute: 'secondary-minute-hand',
+        second: 'secondary-second-hand'
+      },
+      offset: '+4',
+      sweep: true
+    }],
+    reserve: {
+      id: 'power-reserve-hand',
+      range: [-90, 90]
+    }
+  };
+  let firstWatch = new Watch(settings);
+})();
+        </pre></code>
+
+        <p>
+          And to ensure things rotate correctly, we can use the following CSS with the <span class='is-code-ref'>transform-origin</span> points defined.
+
+          <code><pre class='prettyprint linenums lang-css'>
+#primary-second-hand,
+#primary-minute-hand,
+#primary-hour-hand {
+  transform-origin: 122px 122px;
+}
+
+#secondary-second-hand,
+#secondary-minute-hand,
+#secondary-hour-hand {
+  transform-origin: 122px 196px;
+}
+
+#power-reserve-hand {
+  transform-origin: 122px 70px;
+}
+          </pre></code>
+        </p>
+        <h5>
+          The Result
+        </p>
+        <p data-height="400" data-theme-id="20882" data-slug-hash="wqvJey" data-default-tab="result" data-user="Yuschick" data-embed-version="2" data-pen-title="TickTock JS - First Watch Guide Result" class="codepen">See the Pen <a href="https://codepen.io/Yuschick/pen/wqvJey/">TickTock JS - First Watch Guide Result</a> by Daniel Yuschick (<a href="https://codepen.io/Yuschick">@Yuschick</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+        <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+    </div>
   </main>
   <footer class='flex-container is-spread'>
     <div>
@@ -57,4 +288,6 @@
   <script src="./dist/js/app.js"></script>
   <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </body>
+</html>
+
 </html>
