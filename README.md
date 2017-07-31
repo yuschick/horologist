@@ -1,3 +1,5 @@
+[![TickTock JS](http://yuschick.github.io/TickTock/screenshot.jpg)](http://yuschick.github.io/TickTock/)
+
 # TickTock JS - [View Docs](http://yuschick.github.io/TickTock/)
 TickTock JS is a library for animating and rotating SVG elements to tell the time on a clock or watch dial. It works as a parent Watch class which builds components as needed based on the user settings. These components currently include:  
 
