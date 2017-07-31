@@ -8,23 +8,33 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Minute Repeater
 - Day/Night Indicator
 
-## Examples
-[Voutilainen GMR](http://yuschick.github.io/TickTock/)
+## [Visit TickTock Docs](http://yuschick.github.io/TickTock/)
 
-[![Voutilainen GMR Screenshot](https://raw.githubusercontent.com/yuschick/voutilainen-gmr/master/screenshot.jpg)](http://yuschick.github.io/TickTock/)
+## Getting Started
+Install the ticktock-js package via the terminal.
 
-## Get Started
-Clone the repository and run `yarn` to install the package file.
+```
+yarn add ticktock-js --save-dev
+```
 
-Run `yarn watch` during development
+```
+npm install ticktock-js --save-dev
+```
 
-Require the `Watch` class in your primary JS file.
+Include the library into your project.
 
-Instantiate the class with the required settings.
+```
+const Watch = require('ticktock-js');
+```
 
-Run `yarn build` to compile all files
+Then instantiate the Watch class with the `settings`object.
 
-## Documentation
+```js
+const settings = { ... };
+let demo = new Watch(settings);
+```
+
+## Quick Docs
 #### Example Settings
 
 ```js
@@ -62,9 +72,9 @@ const settings = {
   repeater: {
     id: 'repeater-btn',
     chimes: {
-      hour: './dist/sounds/chime-01.mp4',
-      fiveMinute: './dist/sounds/chime-02.mp4',
-      minute: './dist/sounds/chime-03.mp4'
+      hour: './src/sounds/chime-01.mp4',
+      fiveMinute: './src/sounds/chime-02.mp4',
+      minute: './src/sounds/chime-03.mp4'
     },
     dial: 1
   },
@@ -75,7 +85,7 @@ const settings = {
   }
 };
 
-let VoutilainenGMR = new Watch(settings);
+let demo = new Watch(settings);
 ```
 
 #### dials [Array]  
@@ -103,7 +113,7 @@ let VoutilainenGMR = new Watch(settings);
 - **id** (*String*): The id of the element that is to trigger playing the minute repeater on click. Clicking this element a second time will toggle the repeater off. The repeater will play back the time of the first dial passed into the dials array.
 - **chimes** {*Object*}:
   - **hour** (*String*): File path to the audio file to be played for every hour
-  - **fiveMinute** (*String*): File path to the audio file to be played for every five minute increment
+  - **quarter** (*String*): File path to the audio file to be played for every five minute increment
   - **minute** (*String*): File path to the audio file to be played for every remaining minute
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read and played by the repeater.
 
@@ -112,10 +122,8 @@ let VoutilainenGMR = new Watch(settings);
 - **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read by the indicator.
 
-
 ## ToDo
-- [ ] Create a TickTock site to host proper documentation and demos
-- [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
+- [ ] Include lunar.js for a more accurate moonphase
 - [ ] Provide perpetual calendar support
   - [ ] Day indicator
   - [ ] Date indicator
@@ -123,10 +131,14 @@ let VoutilainenGMR = new Watch(settings);
   - [ ] Year indicator
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
+- [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
+
+- [x] Create NPM package
 - [x] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
   - For now only for time dials. Will need type values to determine how to rotate hands
 - [x] Add a day/night indicator
 - [x] Provide minute repeater support
+- [x] Create a TickTock site to host proper documentation and demos
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
