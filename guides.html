@@ -45,7 +45,7 @@
           </ul>
         </nav>
       </section> -->
-      <section class='flex-four docs-container'>
+      <section class='docs-container'>
         <h4 class='has-spacer'>Building Your First Watch</h4>
         <p>
           TickTock looks like it could be cool but how should I get started? This guide will walk you through designing a simple watch in Adobe Illustrator, optimizing the exported SVG code, and then using TickTock to bring it all together.
@@ -139,15 +139,15 @@
         <pre class='prettyprint linenums lang-js'>
 (function() {
   "use strict"
-  const Watch = require('./modules/Watch');
+  const Watch = require('ticktock-js');
   const settings = { ... };
   let firstWatch = new Watch(settings);
 })();
         </pre></code>
 
         <p>
-          From the code snippet above you can see we're using the require method of bringing in TickTock. This will vary based upon your preference of including the library. But we're assigning the parent Watch class to our Watch constant variable. From there we
-          can call new Watch() to instantiate a new watch with whatever settings we wish. Let's dig into our settings next.
+          From the code snippet above you can see we're using Node.js to require the TickTock package. For more information on this, please visit the <a href='./docs-html'>Docs</a>. This will vary based upon your preference of including the library. But
+          we're assigning the parent Watch class to our Watch constant variable. From there we can call new Watch() to instantiate a new watch with whatever settings we wish. Let's dig into our settings next.
         </p>
         <p>
           We know we have two dials, a primary and secondary. So let's start there.
@@ -219,7 +219,7 @@
         <pre class='prettyprint linenums lang-js'>
 (function() {
   "use strict"
-  const Watch = require('./modules/Watch');
+  const Watch = require('ticktock-js');
   const settings = {
     dials: [{
       name: 'primary',

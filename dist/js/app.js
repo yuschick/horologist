@@ -50,10 +50,10 @@
 	  "use strict";
 
 	  var util = __webpack_require__(1);
-	  var HeaderWatch = __webpack_require__(9);
+	  var HeaderWatch = __webpack_require__(2);
 	  var DemoWatches = __webpack_require__(10);
-	  var ComplicationsNav = __webpack_require__(12);
-	  var DocsPage = __webpack_require__(13);
+	  var ComplicationsNav = __webpack_require__(11);
+	  var DocsPage = __webpack_require__(12);
 	})();
 
 /***/ }),
@@ -102,16 +102,40 @@
 
 	'use strict';
 
+	module.exports = function () {
+	  "use strict";
+
+	  var Watch = __webpack_require__(3);
+	  var settings = {
+	    dials: [{
+	      name: 'header-dial',
+	      hands: {
+	        hour: 'hour-hand',
+	        minute: 'minute-hand',
+	        second: 'second-hand'
+	      },
+	      sweep: true
+	    }]
+	  };
+	  var headerWatch = new Watch(settings);
+	}();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Dial = __webpack_require__(3);
-	var Crown = __webpack_require__(4);
-	var PowerReserve = __webpack_require__(5);
-	var MoonPhase = __webpack_require__(6);
-	var MinuteRepeater = __webpack_require__(7);
-	var DayNightIndicator = __webpack_require__(8);
+	var Dial = __webpack_require__(4);
+	var Crown = __webpack_require__(5);
+	var PowerReserve = __webpack_require__(6);
+	var MoonPhase = __webpack_require__(7);
+	var MinuteRepeater = __webpack_require__(8);
+	var DayNightIndicator = __webpack_require__(9);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -261,7 +285,7 @@
 	module.exports = Watch;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -483,7 +507,7 @@
 	module.exports = Dial;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -570,7 +594,7 @@
 	module.exports = Crown;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -649,7 +673,7 @@
 	module.exports = PowerReserve;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -776,7 +800,7 @@
 	module.exports = MoonPhase;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -956,7 +980,7 @@
 	module.exports = MinuteRepeater;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -1056,36 +1080,12 @@
 	module.exports = DayNightIndicator;
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function () {
-	  "use strict";
-
-	  var Watch = __webpack_require__(2);
-	  var settings = {
-	    dials: [{
-	      name: 'header-dial',
-	      hands: {
-	        hour: 'hour-hand',
-	        minute: 'minute-hand',
-	        second: 'second-hand'
-	      },
-	      sweep: true
-	    }]
-	  };
-	  var headerWatch = new Watch(settings);
-	}();
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Watch = __webpack_require__(2);
+	var Watch = __webpack_require__(3);
 
 	module.exports = {
 
@@ -1221,8 +1221,7 @@
 	};
 
 /***/ }),
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1279,7 +1278,7 @@
 	}();
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict';

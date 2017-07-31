@@ -46,13 +46,7 @@
 
               <ul>
                 <li>
-                  <a href='#getting-started-header'>Install with NPM</a>
-                </li>
-                <li>
-                  <a href='#getting-started-require'>Install with Require</a>
-                </li>
-                <li>
-                  <a href='#getting-started-browser'>Install for Browser</a>
+                  <a href='#getting-started-header'>Getting Started with Node.js</a>
                 </li>
               </ul>
 
@@ -200,17 +194,59 @@
         <section class='getting-started-section'>
           <section id='getting-started-header' class='doc-property-container'>
             <h4 class='has-spacer'>Getting Started</h4>
-            <h5>Installing with NPM</h5>
-            <p>NPM Details</p>
+            <h5>Getting Started with NPM</h5>
+            <p>Getting up and running with TickTock via NPM and Node.js is quick. First, install the package into your project.</p>
+            <code>
+            <pre class='prettyprint linenums'>yarn add ticktock-js --save-dev</pre>
+          </code>
+            <code>
+          <!-- <pre class='prettyprint linenums'>npm install ticktock-js --save-dev</pre> -->
+        </code>
+
+            <p>
+              Include the package in your project.
+            </p>
+            <code>
+            <pre class='prettyprint lang-js linenums'>
+const Watch = require('ticktock-js');</pre>
+          </code>
+
+            <p>
+              Lastly, create the <span class='is-code-ref'>settings</span> object and instantiate the new Watch class.
+            </p>
+
+            <code>
+          <pre class='prettyprint lang-js linenums'>
+const settings = {
+  dials: [{
+    name: 'primary',
+    hands: {
+      hour: 'primary-hour-hand',
+      minute: 'primary-minute-hand',
+      second: 'primary-second-hand'
+    }
+  },
+  {
+    name: 'secondary',
+    hands: {
+      hour: 'secondary-hour-hand',
+      minute: 'secondary-minute-hand',
+      second: 'secondary-second-hand'
+    },
+    offset: '+4',
+    sweep: true
+  }],
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};
+let demo = new Watch(settings);
+          </pre>
+        </code>
+
           </section>
-          <section id='getting-started-require' class='doc-property-container'>
-            <h5>Installing with Require</h5>
-            <p>Require Details</p>
-          </section>
-          <section id='getting-started-browser' class='doc-property-container'>
-            <h5>Installing with Browser</h5>
-            <p>Browser Details</p>
-          </section>
+
         </section>
 
         <section class='dials-section'>
