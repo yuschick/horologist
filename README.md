@@ -14,7 +14,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 Install the ticktock-js package via the terminal.
 
 ```
-yarn add ticktock-js --save-dev
+yarn add ticktock-js --dev
 ```
 
 ```
