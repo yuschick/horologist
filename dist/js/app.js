@@ -1284,7 +1284,7 @@
 	'use strict';
 
 	module.exports = function () {
-	  var docTree = document.querySelector('.docs-tree-container');
+	  var docTree = document.querySelector('.aside-nav-container');
 
 	  if (!docTree) return;
 

@@ -38,14 +38,16 @@
   </header>
   <main>
     <div class='container flex-container'>
-      <!-- <section class='flex-one docs-tree-container'>
-        <nav class='docs-nav'>
+      <section class='flex-one guides-nav-container'>
+        <nav class='guides-nav'>
           <ul>
-            <li class='active' data-id='01'>Building Your First Watch</li>
+            <!-- <li>Design Best Practices</li>
+            <li>Designing Your First Watch</li> -->
+            <li class='active'>Building Your First Watch</li>
           </ul>
         </nav>
-      </section> -->
-      <section class='docs-container'>
+      </section>
+      <section class='flex-four docs-container guide-container'>
         <h4 class='has-spacer'>Building Your First Watch</h4>
         <p>
           TickTock looks like it could be cool but how should I get started? This guide will walk you through designing a simple watch in Adobe Illustrator, optimizing the exported SVG code, and then using TickTock to bring it all together.
@@ -137,12 +139,12 @@
         </p>
         <code>
         <pre class='prettyprint linenums lang-js'>
-(function() {
-  "use strict"
-  const Watch = require('ticktock-js');
-  const settings = { ... };
-  let firstWatch = new Watch(settings);
-})();
+        (function() {
+        "use strict"
+        const Watch = require('ticktock-js');
+        const settings = { ... };
+        let firstWatch = new Watch(settings);
+        })();
         </pre></code>
 
         <p>
@@ -154,24 +156,24 @@
         </p>
         <code>
         <pre class='prettyprint linenums lang-js'>
-  const settings = {
-    dials: [{
-      name: 'primary',
-      hands: {
+        const settings = {
+        dials: [{
+        name: 'primary',
+        hands: {
         hour: 'primary-hour-hand',
         minute: 'primary-minute-hand',
         second: 'primary-second-hand'
-      }
-    },
-    {
-      name: 'secondary',
-      hands: {
+        }
+        },
+        {
+        name: 'secondary',
+        hands: {
         hour: 'secondary-hour-hand',
         minute: 'secondary-minute-hand',
         second: 'secondary-second-hand'
-      }
-    }]
-  };
+        }
+        }]
+        };
         </pre></code>
         <p>
           Note the importance of the IDs we defined in our SVG. Those are the ID values we use in these settings to define the individual elements for each hand and dial. Now, we should have both dials ticking along with the current time. But let's play with a
@@ -179,19 +181,19 @@
         </p>
         <code>
         <pre class='prettyprint linenums lang-js'>
-  const settings = {
-    dials: [...
-    {
-      name: 'secondary',
-      hands: {
+        const settings = {
+        dials: [...
+        {
+        name: 'secondary',
+        hands: {
         hour: 'secondary-hour-hand',
         minute: 'secondary-minute-hand',
         second: 'secondary-second-hand'
-      },
-      offset: '+4',
-      sweep: true
-    }]
-  };
+        },
+        offset: '+4',
+        sweep: true
+        }]
+        };
         </pre></code>
         <p>
           In the updated settings, we've added a GNMT offset value of '+4' hours and set the sweep property to have the second hand on the secondary dial sweep to offer contrast from the ticking second hand on the primary dial.
@@ -201,13 +203,13 @@
         </p>
         <code>
         <pre class='prettyprint linenums lang-js'>
-  const settings = {
-    ...
-    reserve: {
-      id: 'power-reserve-hand',
-      range: [-90, 90]
-    }
-  };
+        const settings = {
+        ...
+        reserve: {
+        id: 'power-reserve-hand',
+        range: [-90, 90]
+        }
+        };
         </pre></code>
         <p>
           Again, we supply the ID of the hand element to the settings. Then we define the range of motion for the power reserve, which is relative to its originally drawn position.
@@ -217,56 +219,56 @@
         </p>
         <code>
         <pre class='prettyprint linenums lang-js'>
-(function() {
-  "use strict"
-  const Watch = require('ticktock-js');
-  const settings = {
-    dials: [{
-      name: 'primary',
-      hands: {
+        (function() {
+        "use strict"
+        const Watch = require('ticktock-js');
+        const settings = {
+        dials: [{
+        name: 'primary',
+        hands: {
         hour: 'primary-hour-hand',
         minute: 'primary-minute-hand',
         second: 'primary-second-hand'
-      }
-    },
-    {
-      name: 'secondary',
-      hands: {
+        }
+        },
+        {
+        name: 'secondary',
+        hands: {
         hour: 'secondary-hour-hand',
         minute: 'secondary-minute-hand',
         second: 'secondary-second-hand'
-      },
-      offset: '+4',
-      sweep: true
-    }],
-    reserve: {
-      id: 'power-reserve-hand',
-      range: [-90, 90]
-    }
-  };
-  let firstWatch = new Watch(settings);
-})();
+        },
+        offset: '+4',
+        sweep: true
+        }],
+        reserve: {
+        id: 'power-reserve-hand',
+        range: [-90, 90]
+        }
+        };
+        let firstWatch = new Watch(settings);
+        })();
         </pre></code>
 
         <p>
           And to ensure things rotate correctly, we can use the following CSS with the <span class='is-code-ref'>transform-origin</span> points defined.
 
           <code><pre class='prettyprint linenums lang-css'>
-#primary-second-hand,
-#primary-minute-hand,
-#primary-hour-hand {
-  transform-origin: 122px 122px;
-}
+        #primary-second-hand,
+        #primary-minute-hand,
+        #primary-hour-hand {
+        transform-origin: 122px 122px;
+        }
 
-#secondary-second-hand,
-#secondary-minute-hand,
-#secondary-hour-hand {
-  transform-origin: 122px 196px;
-}
+        #secondary-second-hand,
+        #secondary-minute-hand,
+        #secondary-hour-hand {
+        transform-origin: 122px 196px;
+        }
 
-#power-reserve-hand {
-  transform-origin: 122px 70px;
-}
+        #power-reserve-hand {
+        transform-origin: 122px 70px;
+        }
           </pre></code>
         </p>
         <h5>

@@ -1,5 +1,5 @@
 module.exports = (function() {
-  const docTree = document.querySelector('.docs-tree-container');
+  const docTree = document.querySelector('.aside-nav-container');
 
   if (!docTree) return;
 

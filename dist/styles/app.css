@@ -242,15 +242,15 @@ h5 {
     margin-left: 1rem; }
   .btn.primary {
     background: #474747;
-    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#272727));
+    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: linear-gradient(to bottom, #474747 0%, #272727 100%);
     color: #EFF1F3;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#272727',GradientType=0 ); }
     .btn.primary:hover {
       background: #474747;
-      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#070707));
+      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: linear-gradient(to bottom, #474747 0%, #070707 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#070707',GradientType=0 ); }
 
@@ -386,23 +386,28 @@ nav a:visited {
     .secondary-nav li:last-child {
       border: 0; }
 
-.docs-nav {
+.aside-nav-container {
+  top: 0;
+  width: 250px; }
+
+.aside-nav {
   padding: 1rem 0; }
-  .docs-nav span {
+  .aside-nav span {
     background: #007486;
     color: #EFF1F3;
     display: block;
     font-size: 1rem;
     padding: 0.2rem 0.5rem;
     text-transform: uppercase; }
-  .docs-nav ul ul {
+  .aside-nav ul ul {
     font-size: 0.9rem;
     margin-bottom: 0.5rem; }
-  .docs-nav ul ul li {
+  .aside-nav ul ul li {
+    font-size: 0.9rem;
     padding: 0.25rem 0 0.25rem 1rem; }
-    .docs-nav ul ul li:nth-child(even) {
+    .aside-nav ul ul li:nth-child(even) {
       background: #e8ebee; }
-    .docs-nav ul ul li a {
+    .aside-nav ul ul li a {
       display: block; }
 
 .doc-specs {
@@ -416,19 +421,21 @@ nav a:visited {
 .doc-property-container {
   margin-bottom: 2rem; }
 
-.docs-tree-container {
+.doc-tree-group {
+  cursor: pointer; }
+
+.guides-nav-container {
   top: 0;
   width: 250px; }
 
-.is-collapsed {
-  height: 30px;
-  overflow: hidden; }
-
-.is-expanded {
-  height: auto; }
-
-.doc-tree-group {
-  cursor: pointer; }
+.guides-nav {
+  font-size: 1rem;
+  padding: 1rem 0; }
+  .guides-nav li {
+    padding: 0.2rem 0.5rem; }
+  .guides-nav .active {
+    background: #007486;
+    color: #fff; }
 
 footer {
   background: #272727;
@@ -496,6 +503,13 @@ footer {
 
 .is-light {
   color: #EFF1F3; }
+
+.is-collapsed {
+  height: 30px;
+  overflow: hidden; }
+
+.is-expanded {
+  height: auto; }
 
 .has-gears {
   background-color: #eff1f3;

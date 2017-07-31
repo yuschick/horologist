@@ -1,4 +1,9 @@
-.docs-nav {
+.aside-nav-container {
+  top: 0;
+  width: 250px;
+}
+
+.aside-nav {
   padding: $vspace 0;
 
   span {
@@ -16,6 +21,7 @@
   }
 
   ul ul li {
+    font-size: 0.9rem;
     padding: $vspace/4 0 $vspace/4 $hspace;
 
     &:nth-child(even) {
@@ -41,20 +47,6 @@
 
 .doc-property-container {
   margin-bottom: $vspace*2;
-}
-
-.docs-tree-container {
-  top: 0;
-  width: 250px;
-}
-
-.is-collapsed {
-  height: 30px;
-  overflow: hidden;
-}
-
-.is-expanded {
-  height: auto;
 }
 
 .doc-tree-group {
