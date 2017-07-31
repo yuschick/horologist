@@ -127,6 +127,14 @@ img {
 .linenums {
   padding: 0.5rem 0.5rem; }
 
+.demo-iframe {
+  height: 800px;
+  width: 100%; }
+
+.demo-icon {
+  margin-left: 1rem;
+  width: 20px; }
+
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -242,15 +250,15 @@ h5 {
     margin-left: 1rem; }
   .btn.primary {
     background: #474747;
-    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#272727));
+    background: -o-linear-gradient(top, #474747 0%, #272727 100%);
     background: linear-gradient(to bottom, #474747 0%, #272727 100%);
     color: #EFF1F3;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#272727',GradientType=0 ); }
     .btn.primary:hover {
       background: #474747;
-      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: -webkit-gradient(linear, left top, left bottom, from(#474747), to(#070707));
+      background: -o-linear-gradient(top, #474747 0%, #070707 100%);
       background: linear-gradient(to bottom, #474747 0%, #070707 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#474747', endColorstr='#070707',GradientType=0 ); }
 

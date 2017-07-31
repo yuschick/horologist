@@ -194,7 +194,7 @@
         <section class='getting-started-section'>
           <section id='getting-started-header' class='doc-property-container'>
             <h4 class='has-spacer'>Getting Started</h4>
-            <h5>Getting Started with NPM</h5>
+            <h5 class='is-strong'>Getting Started with NPM</h5>
             <p>Getting up and running with TickTock via NPM and Node.js is quick. First, install the package into your project.</p>
             <code>
             <pre class='prettyprint linenums'>yarn add ticktock-js --dev</pre>
@@ -252,7 +252,7 @@ let demo = new Watch(settings);
         <section class='dials-section'>
           <section id='dials-header' class='doc-property-container'>
             <h4 class='has-spacer'>Dials</h4>
-            <h5 id='dials-overview'>Overview</h5>
+            <h5 class='is-strong' id='dials-overview'>Overview</h5>
             <p>
               The dials are the primary component in TickTock. A dial serves as a collection of hand elements and settings used to indicate the time by rotating the elements according to the current local time, the provided GMT offset, or the manually set time.
             </p>
@@ -275,7 +275,7 @@ let settings = {
           </code>
           </section>
           <section id='dials-definingadial' class='doc-property-container'>
-            <h5>Defining a Dial</h5>
+            <h5 class='is-strong'>Defining a Dial</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> dials
@@ -313,7 +313,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-dialnames' class='doc-property-container'>
-            <h5>Dial Names</h5>
+            <h5 class='is-strong'>Dial Names</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> name
@@ -344,7 +344,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-defininghands' class='doc-property-container'>
-            <h5>Defining Hands</h5>
+            <h5 class='is-strong'>Defining Hands</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> hands
@@ -378,7 +378,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-gmtoffsets' class='doc-property-container'>
-            <h5>GMT Offsets</h5>
+            <h5 class='is-strong'>GMT Offsets</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> offset
@@ -418,7 +418,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-hourformats' class='doc-property-container'>
-            <h5>12/24-hour Formats</h5>
+            <h5 class='is-strong'>12/24-hour Formats</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> format
@@ -453,7 +453,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-sweepingseconds' class='doc-property-container'>
-            <h5>Sweeping Seconds</h5>
+            <h5 class='is-strong'>Sweeping Seconds</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> sweep
@@ -492,7 +492,7 @@ let settings = {
         </code>
           </section>
           <section id='dials-multipledials' class='doc-property-container'>
-            <h5>Multiple Dials</h5>
+            <h5 class='is-strong'>Multiple Dials</h5>
             <p>Because the <span class='is-code-ref'>dials</span> property is an array of dial objects, a single watch can display multiple dials at once. For example, Dual Time watches which show both local and home times together. TickTock supports passing
               in multiple dial objects each with their own settings to support such complications.</p>
             <code>
@@ -524,7 +524,7 @@ let settings = {
         <section class='day-night-indicator-section'>
           <section class='doc-property-container'>
             <h4 class='has-spacer'>Day/Night Indicator</h4>
-            <h5 id='day-night-overview'>Overview</h5>
+            <h5 class='is-strong' id='day-night-overview'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> dayNightIndicator
@@ -556,7 +556,7 @@ let settings = {
           </code>
           </section>
           <section id='day-night-defininganindicator' class='doc-property-container'>
-            <h5>Define the Indicator</h5>
+            <h5 class='is-strong'>Define the Indicator</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> id
@@ -582,7 +582,7 @@ let settings = {
         </code>
           </section>
           <section id='day-night-targetdial' class='doc-property-container'>
-            <h5>Target a Specific Dial</h5>
+            <h5 class='is-strong'>Target a Specific Dial</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> dial
@@ -635,7 +635,7 @@ let settings = {
         </code>
           </section>
           <section id='day-night-invert' class='doc-property-container'>
-            <h5>Invert the Direction</h5>
+            <h5 class='is-strong'>Invert the Direction</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> invert
@@ -668,7 +668,7 @@ let settings = {
         <section class='crown-section'>
           <section class='doc-property-container'>
             <h4 class='has-spacer'>Manual Time (Crown)</h4>
-            <h5 id='crown-overview'>Overview</h5>
+            <h5 class='is-strong' id='crown-overview'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> crown
@@ -700,7 +700,7 @@ let settings = {
           </code>
           </section>
           <section class='doc-property-container'>
-            <h5 id='crown-definethecrown'>Define the Crown</h5>
+            <h5 class='is-strong' id='crown-definethecrown'>Define the Crown</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> id
@@ -726,7 +726,7 @@ let settings = {
           </code>
           </section>
           <section class='doc-property-container'>
-            <h5 id='crown-activestates'>Crown Active States</h5>
+            <h5 class='is-strong' id='crown-activestates'>Crown Active States</h5>
             <p>To allow for visual cues between states, the crown will toggle an <span class='is-code-ref'>'active'</span> class whenever clicked.</p>
             <p>For example, this can allow a CSS transition to slide the crown out into a set position upon the first click and then transtion it back into its original position when clicked again.</p>
             <p>
@@ -734,7 +734,7 @@ let settings = {
             </p>
           </section>
           <section class='doc-property-container'>
-            <h5 id='crown-keybindings'>Watch Keybindings</h5>
+            <h5 class='is-strong' id='crown-keybindings'>Watch Keybindings</h5>
             <p>When the crown is clicked, a series of keydown event listeners are enabled to allow setting the time on dials, increasing power reserves, and alternating between dials. Additionally, the enter key is bound to replicate the behavior of clicking
               the crown.</p>
             <p class='is-underlined'>
@@ -760,7 +760,7 @@ let settings = {
         <section class='minute-repeater-section'>
           <section id='minute-repeater-header' class='doc-property-container'>
             <h4 class='has-spacer'>Minute Repeater</h4>
-            <h5>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> repeater
@@ -799,7 +799,7 @@ let settings = {
           </code>
           </section>
           <section id='minute-repeater-definethetrigger' class='doc-property-container'>
-            <h5>Define the Trigger</h5>
+            <h5 class='is-strong'>Define the Trigger</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> id
@@ -828,7 +828,7 @@ let settings = {
           </code>
           </section>
           <section id='minute-repeater-definethechimes' class='doc-property-container'>
-            <h5>Define the Chimes</h5>
+            <h5 class='is-strong'>Define the Chimes</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> chimes
@@ -861,7 +861,7 @@ let settings = {
           </code>
           </section>
           <section id='minute-repeater-targetdial' class='doc-property-container'>
-            <h5>Target a Specific Dial</h5>
+            <h5 class='is-strong'>Target a Specific Dial</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> dial
@@ -898,7 +898,7 @@ let settings = {
         <section class='moonphase-section'>
           <section id='moonphase-header' class='doc-property-container'>
             <h4 class='has-spacer'>Moonphase</h4>
-            <h5>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> moonphase
@@ -930,7 +930,7 @@ let settings = {
           </code>
           </section>
           <section id='moonphase-definetheelement' class='doc-property-container'>
-            <h5>Define the Element</h5>
+            <h5 class='is-strong'>Define the Element</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> id
@@ -955,7 +955,7 @@ let settings = {
           </code>
           </section>
           <section id='moonphase-invertdirection' class='doc-property-container'>
-            <h5>Invert the Direction</h5>
+            <h5 class='is-strong'>Invert the Direction</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> invert
@@ -990,7 +990,7 @@ let settings = {
         <section class='reserve-section'>
           <section id='reserve-header' class='doc-property-container'>
             <h4 class='has-spacer'>Power Reserve</h4>
-            <h5>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> reserve
@@ -1027,7 +1027,7 @@ let settings = {
           </code>
           </section>
           <section id='reserve-definetheelement' class='doc-property-container'>
-            <h5>Define the Element</h5>
+            <h5 class='is-strong'>Define the Element</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> id
@@ -1055,7 +1055,7 @@ let settings = {
           </code>
           </section>
           <section id='reserve-range' class='doc-property-container'>
-            <h5>Range of Motion</h5>
+            <h5 class='is-strong'>Range of Motion</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> range
@@ -1095,7 +1095,7 @@ let settings = {
         <section class='watch-sexction'>
           <section id='watch-header' class='doc-property-container'>
             <h4 class='has-spacer'>Watch</h4>
-            <h5>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <p>The <span class='is-code-ref'>Watch</span> class serves as the parent container for all the child components. As settings are passed into the instance of the <span class='is-code-ref'>Watch</span>, that instance is passed to each child component.
               This reference gives access to properties and methods that only exist on the <span class='is-code-ref'>Watch</span> class.</p>
             <p>
@@ -1104,7 +1104,7 @@ let settings = {
             </p>
           </section>
           <section id='watch-keybindings' class='doc-property-container'>
-            <h5>Default Keybindings</h5>
+            <h5 class='is-strong'>Default Keybindings</h5>
             <p>Every instance of the <span class='is-code-ref'>Watch</span> class adds keydown event listeners for several keys. These events provide ways to interact with components of the watch such as the crown, adjusting time manually, and winding the
               power reserve.</p>
             <p class='is-underlined'>
@@ -1127,7 +1127,7 @@ let settings = {
             </p>
           </section>
           <section id='watch-intervals' class='doc-property-container'>
-            <h5>Default Intervals</h5>
+            <h5 class='is-strong'>Default Intervals</h5>
             <p>Every instance of the <span class='is-code-ref'>Watch</span> class creates an interval to run every second. This interval will update the time and perform any checks and updates associated with other components.</p>
             <p>
               For example, a watch with a day/night indicator will update the indicators position as the time reaches 12:00 AM because this check is part of the primary interval.
