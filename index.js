@@ -4,12 +4,12 @@
  * Defines the parent Watch class
  * @param {Object} settings
  */
- const Dial = require('./Dial');
- const Crown = require('./Crown');
- const PowerReserve = require('./PowerReserve');
- const MoonPhase = require('./MoonPhase');
- const MinuteRepeater = require('./MinuteRepeater');
- const DayNightIndicator = require('./DayNightIndicator');
+ const Dial = require('./src/modules/Dial');
+ const Crown = require('./src/modules/Crown');
+ const PowerReserve = require('./src/modules/PowerReserve');
+ const MoonPhase = require('./src/modules/MoonPhase');
+ const MinuteRepeater = require('./src/modules/MinuteRepeater');
+ const DayNightIndicator = require('./src/modules/DayNightIndicator');
 
  class Watch {
    constructor(settings) {
