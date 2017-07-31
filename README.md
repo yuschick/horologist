@@ -132,7 +132,6 @@ let demo = new Watch(settings);
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
-
 - [x] Create NPM package
 - [x] Let the right arrow cycle through dials to adjust time zones, dates, days, etc....
   - For now only for time dials. Will need type values to determine how to rotate hands
