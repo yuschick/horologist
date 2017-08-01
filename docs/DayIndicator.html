@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>PowerReserve.js</title>
+  <title>DayIndicator.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -88,7 +88,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>PowerReserve.js</h1>
+                  <h1>DayIndicator.js</h1>
               </div>
           </li>
         
@@ -103,63 +103,46 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PowerReserve</span> </span>{
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DayIndicator</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The PowerReserve class requires that an ID of the power reserve element be provided."</span>;
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Day Indicator class requires that an ID of the indiciator element be provided."</span>;
     } <span class="hljs-keyword">catch</span> (errorMsg) {
       <span class="hljs-built_in">console</span>.error(errorMsg);
       <span class="hljs-keyword">return</span>;
     }
 
     <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.minAngle = settings.range[<span class="hljs-number">0</span>];
-    <span class="hljs-keyword">this</span>.maxAngle = settings.range[<span class="hljs-number">1</span>];
-    <span class="hljs-keyword">this</span>.increment = <span class="hljs-number">0.5</span>;
+    <span class="hljs-keyword">this</span>.day = <span class="hljs-keyword">this</span>.parent.rightNow.getDay();
+    <span class="hljs-keyword">this</span>.hours = <span class="hljs-keyword">this</span>.parent.rightNow.getHours();
+    <span class="hljs-keyword">this</span>.offsetHours = settings.offsetHours || <span class="hljs-literal">false</span>;
+
     <span class="hljs-keyword">this</span>.init();
   }
 
-  decrementReserve() {
-    <span class="hljs-keyword">let</span> currentRotate = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.element);
+  getRotateValue() {
+    <span class="hljs-keyword">let</span> value = (<span class="hljs-keyword">this</span>.day * <span class="hljs-number">51.43</span>);
 
-    <span class="hljs-keyword">if</span> (currentRotate &lt;= <span class="hljs-keyword">this</span>.minAngle) {
-      <span class="hljs-keyword">this</span>.parent.stopInterval();
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">let</span> newRotate = <span class="hljs-built_in">Number</span>(currentRotate) - (<span class="hljs-keyword">this</span>.increment / <span class="hljs-number">2</span>);
-      <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${newRotate}</span>deg)`</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetHours) {
+      value += <span class="hljs-keyword">this</span>.hours * <span class="hljs-number">2.14</span>;
     }
+
+    <span class="hljs-keyword">return</span> value;
   }
 
-  incrementReserve() {
-    <span class="hljs-keyword">let</span> currentRotate = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.element);
-
-    <span class="hljs-keyword">if</span> (currentRotate &lt;= (<span class="hljs-keyword">this</span>.maxAngle - <span class="hljs-keyword">this</span>.increment) &amp;&amp; currentRotate &gt;= <span class="hljs-keyword">this</span>.minAngle) {
-      <span class="hljs-keyword">let</span> newRotate = <span class="hljs-built_in">Number</span>(currentRotate) + <span class="hljs-keyword">this</span>.increment;
-      <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${newRotate}</span>deg)`</span>;
-    }
-  }
-
-  startInterval() {
-    <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.decrementReserve();
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  stopInterval() {
-    clearInterval(<span class="hljs-keyword">this</span>.interval);
-    <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
+  rotateElement() {
+    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
   }
 
   init() {
-    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.maxAngle}</span>deg)`</span>;
+    <span class="hljs-keyword">this</span>.rotateElement();
   }
 }
 
-<span class="hljs-built_in">module</span>.exports = PowerReserve;</pre></div></div>
+<span class="hljs-built_in">module</span>.exports = DayIndicator;</pre></div></div>
             
         </li>
         

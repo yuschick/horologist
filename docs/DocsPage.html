@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayIndicator.html">
+                  DayIndicator.js
+                </a>
+              
+                
                 <a class="source" href="DayNightIndicator.html">
                   DayNightIndicator.js
                 </a>
@@ -109,6 +114,7 @@
   <span class="hljs-keyword">const</span> gettingStarted = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.getting-started-section'</span>);
   <span class="hljs-keyword">const</span> dialsSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.dials-section'</span>);
   <span class="hljs-keyword">const</span> indicatorSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.day-night-indicator-section'</span>);
+  <span class="hljs-keyword">const</span> dayIndicatorSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.day-indicator-section'</span>);
   <span class="hljs-keyword">const</span> crownSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.crown-section'</span>);
   <span class="hljs-keyword">const</span> repeaterSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.minute-repeater-section'</span>);
   <span class="hljs-keyword">const</span> moonphaseSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.moonphase-section'</span>);
@@ -149,6 +155,8 @@
       toggleDocTreeGroups(<span class="hljs-string">'dials'</span>);
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (dialsSection.offsetTop + dialsSection.clientHeight) &amp;&amp; pos &lt; (indicatorSection.offsetTop + indicatorSection.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'day-night-indicator'</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (indicatorSection.offsetTop + indicatorSection.clientHeight) &amp;&amp; pos &lt; (dayIndicatorSection.offsetTop + dayIndicatorSection.clientHeight)) {
+      toggleDocTreeGroups(<span class="hljs-string">'day-indicator'</span>);
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (indicatorSection.offsetTop + indicatorSection.clientHeight) &amp;&amp; pos &lt; (crownSection.offsetTop + crownSection.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'crown'</span>);
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (crownSection.offsetTop + crownSection.clientHeight) &amp;&amp; pos &lt; (repeaterSection.offsetTop + repeaterSection.clientHeight)) {

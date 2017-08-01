@@ -90,13 +90,29 @@
                   <a href='#day-night-overview'>Overview</a>
                 </li>
                 <li>
-                  <a href='#day-night-defininganindicator'>Define the Indicatore</a>
+                  <a href='#day-night-defininganindicator'>Define the Indicator</a>
                 </li>
                 <li>
                   <a href='#day-night-targetdial'>Target a Specific Dial</a>
                 </li>
                 <li>
                   <a href='#day-night-invert'>Invert the Direction</a>
+                </li>
+              </ul>
+
+            </li>
+            <li class='doc-tree-group is-collapsed' data-doc-group='day-indicator'>
+              <span>Day Indicator</span>
+
+              <ul>
+                <li>
+                  <a href='#day-overview'>Overview</a>
+                </li>
+                <li>
+                  <a href='#day-defininganindicator'>Define the Indicator</a>
+                </li>
+                <li>
+                  <a href='#day-offset'>Offset Hours</a>
                 </li>
               </ul>
 
@@ -250,9 +266,9 @@ let demo = new Watch(settings);
         </section>
 
         <section class='dials-section'>
-          <section id='dials-header' class='doc-property-container'>
+          <section id='dials-overview' class='doc-property-container'>
             <h4 class='has-spacer'>Dials</h4>
-            <h5 class='is-strong' id='dials-overview'>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <p>
               The dials are the primary component in TickTock. A dial serves as a collection of hand elements and settings used to indicate the time by rotating the elements according to the current local time, the provided GMT offset, or the manually set time.
             </p>
@@ -522,9 +538,9 @@ let settings = {
           </section>
         </section>
         <section class='day-night-indicator-section'>
-          <section class='doc-property-container'>
+          <section class='doc-property-container' id='day-night-overview'>
             <h4 class='has-spacer'>Day/Night Indicator</h4>
-            <h5 class='is-strong' id='day-night-overview'>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> dayNightIndicator
@@ -665,10 +681,107 @@ let settings = {
         </code>
           </section>
         </section>
-        <section class='crown-section'>
+        <section class='day-indicator-section' id='day-overview'>
           <section class='doc-property-container'>
+            <h4 class='has-spacer'>Day Indicator</h4>
+            <h5 class='is-strong'>Overview</h5>
+            <div class='flex-container doc-specs'>
+              <div>
+                <span class='is-strong'>Property: </span> dayIndicator
+              </div>
+              <div>
+                <span class='is-strong'>Type: </span> Object
+              </div>
+              <div>
+                <span class='is-strong'>Required: </span> False
+              </div>
+              <div>
+                <span class='is-strong'>Default: </span> null
+              </div>
+            </div>
+            <p>The Day Indicator will display the name of the current day of the week. Commonly, this component is built as a rotating disc, as in the demo, but can also be represented with a rotating hand.</p>
+            <p>
+              The default behavior of TickTock is to rotate the day disc once every day to show the correct label beginning with Sunday. However, an additional setting, <span class='is-code-ref'>offsetHours</span> can be used to rotate the element an
+              additional amount for the current hour to visually represent the day's progress.
+            </p>
+            <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayIndicator: {
+    id: 'day-indicator-disc',
+    offsetHours: true
+  }
+};
+            </pre>
+          </code>
+          </section>
+          <section id='day-defininganindicator' class='doc-property-container'>
+            <h5 class='is-strong'>Define the Indicator</h5>
+            <div class='flex-container doc-specs'>
+              <div>
+                <span class='is-strong'>Property: </span> id
+              </div>
+              <div>
+                <span class='is-strong'>Type: </span> String
+              </div>
+              <div>
+                <span class='is-strong'>Required: </span> True
+              </div>
+            </div>
+            <p>The <span class='is-code-ref'>dayIndicator</span> object accepts an <span class='is-code-ref'>id</span> property. This property expects a string value of the indicator element's ID.</p>
+            <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayIndicator: {
+    id: 'day-indicator-disc'
+  }
+};
+          </pre>
+        </code>
+          </section>
+          <section id='day-offset' class='doc-property-container'>
+            <h5 class='is-strong'>Offset the Hours</h5>
+            <div class='flex-container doc-specs'>
+              <div>
+                <span class='is-strong'>Property: </span> offsetHours
+              </div>
+              <div>
+                <span class='is-strong'>Type: </span> Boolean
+              </div>
+              <div>
+                <span class='is-strong'>Required: </span> False
+              </div>
+              <div>
+                <span class='is-strong'>Default: </span> False
+              </div>
+            </div>
+            <p>While most indicators rotate once a day to depict the current label, some update regularly with the time to also indicate the progression through the day. Using the <span class='is-code-ref'>offsetHours</span> setting allows TickTock to not
+              only rotate the element to the correct day but to also rotate an additional amount for the day's current hour.</p>
+            <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayIndicator: {
+    id: 'day-indicator-disc',
+    offsetHours: true
+  }
+};
+          </pre>
+        </code>
+          </section>
+        </section>
+
+
+
+
+
+
+        <section class='crown-section'>
+          <section class='doc-property-container' id='crown-overview'>
             <h4 class='has-spacer'>Manual Time (Crown)</h4>
-            <h5 class='is-strong' id='crown-overview'>Overview</h5>
+            <h5 class='is-strong'>Overview</h5>
             <div class='flex-container doc-specs'>
               <div>
                 <span class='is-strong'>Property: </span> crown

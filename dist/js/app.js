@@ -136,6 +136,7 @@
 	var MoonPhase = __webpack_require__(7);
 	var MinuteRepeater = __webpack_require__(8);
 	var DayNightIndicator = __webpack_require__(9);
+	var DayIndicator = __webpack_require__(13);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -180,6 +181,10 @@
 	    if (settings.dayNightIndicator) {
 	      this.dayNightIndicatorDial = settings.dayNightIndicator.dial || 0;
 	      this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
+	    }
+
+	    if (settings.dayIndicator) {
+	      this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
 	    }
 
 	    this.init();
@@ -1187,6 +1192,22 @@
 
 	        break;
 
+	      case 'day-indicator':
+	        this.demoWatchSettings = {
+	          dials: [{
+	            hands: {
+	              hour: 'day-indicator-hour-hand',
+	              minute: 'day-indicator-minute-hand',
+	              second: 'day-indicator-second-hand'
+	            }
+	          }],
+	          dayIndicator: {
+	            id: 'day-indicator-disc'
+	          }
+	        };
+
+	        break;
+
 	      case 'moonphase':
 	        this.demoWatchSettings = {
 	          dials: [{
@@ -1340,6 +1361,7 @@
 	  var gettingStarted = document.querySelector('.getting-started-section');
 	  var dialsSection = document.querySelector('.dials-section');
 	  var indicatorSection = document.querySelector('.day-night-indicator-section');
+	  var dayIndicatorSection = document.querySelector('.day-indicator-section');
 	  var crownSection = document.querySelector('.crown-section');
 	  var repeaterSection = document.querySelector('.minute-repeater-section');
 	  var moonphaseSection = document.querySelector('.moonphase-section');
@@ -1379,6 +1401,8 @@
 	      toggleDocTreeGroups('dials');
 	    } else if (pos > dialsSection.offsetTop + dialsSection.clientHeight && pos < indicatorSection.offsetTop + indicatorSection.clientHeight) {
 	      toggleDocTreeGroups('day-night-indicator');
+	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < dayIndicatorSection.offsetTop + dayIndicatorSection.clientHeight) {
+	      toggleDocTreeGroups('day-indicator');
 	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < crownSection.offsetTop + crownSection.clientHeight) {
 	      toggleDocTreeGroups('crown');
 	    } else if (pos > crownSection.offsetTop + crownSection.clientHeight && pos < repeaterSection.offsetTop + repeaterSection.clientHeight) {
@@ -1403,6 +1427,64 @@
 	    ticking = true;
 	  });
 	}();
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DayIndicator = function () {
+	  function DayIndicator(settings, parentWatch) {
+	    _classCallCheck(this, DayIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Day Indicator class requires that an ID of the indiciator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.day = this.parent.rightNow.getDay();
+	    this.hours = this.parent.rightNow.getHours();
+	    this.offsetHours = settings.offsetHours || false;
+
+	    this.init();
+	  }
+
+	  _createClass(DayIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = this.day * 51.43;
+
+	      if (this.offsetHours) {
+	        value += this.hours * 2.14;
+	      }
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return DayIndicator;
+	}();
+
+	module.exports = DayIndicator;
 
 /***/ })
 /******/ ]);

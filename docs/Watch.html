@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DayIndicator.html">
+                  DayIndicator.js
+                </a>
+              
+                
                 <a class="source" href="DayNightIndicator.html">
                   DayNightIndicator.js
                 </a>
@@ -104,6 +109,7 @@
 <span class="hljs-keyword">const</span> MoonPhase = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MoonPhase'</span>);
 <span class="hljs-keyword">const</span> MinuteRepeater = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MinuteRepeater'</span>);
 <span class="hljs-keyword">const</span> DayNightIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayNightIndicator'</span>);
+<span class="hljs-keyword">const</span> DayIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayIndicator'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Watch</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings) {
@@ -146,6 +152,10 @@
     <span class="hljs-keyword">if</span> (settings.dayNightIndicator) {
       <span class="hljs-keyword">this</span>.dayNightIndicatorDial = settings.dayNightIndicator.dial || <span class="hljs-number">0</span>;
       <span class="hljs-keyword">this</span>.dayNightIndicator = <span class="hljs-keyword">new</span> DayNightIndicator(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.dayNightIndicatorDial], settings.dayNightIndicator, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (settings.dayIndicator) {
+      <span class="hljs-keyword">this</span>.dayIndicator = <span class="hljs-keyword">new</span> DayIndicator(settings.dayIndicator, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">this</span>.init();

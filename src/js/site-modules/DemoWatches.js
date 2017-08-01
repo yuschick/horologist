@@ -58,6 +58,22 @@ module.exports = {
 
         break;
 
+        case 'day-indicator':
+          this.demoWatchSettings = {
+            dials: [{
+              hands: {
+                hour: 'day-indicator-hour-hand',
+                minute: 'day-indicator-minute-hand',
+                second: 'day-indicator-second-hand'
+              }
+            }],
+            dayIndicator: {
+              id: 'day-indicator-disc'
+            }
+          };
+
+          break;
+
       case 'moonphase':
         this.demoWatchSettings = {
           dials: [{
