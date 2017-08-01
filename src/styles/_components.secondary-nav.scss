@@ -2,6 +2,10 @@
   background: $primaryColor;
   margin: $vspace/2 0;
 
+  .flex-container {
+    flex-wrap: wrap;
+  }
+
   li {
     border-right: 1px solid #000;
     color: $tertiaryColor;

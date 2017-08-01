@@ -1,12 +1,12 @@
 .panel {
   display: block;
-  padding: $vspace*3 0;
+  padding: $vspace*3 1rem;
   position: relative;
   width: 100%;
 }
 
 .panel + .panel {
-  padding: $vspace*2 0;
+  padding: $vspace*2 1rem;
 }
 
 .panel .panel {

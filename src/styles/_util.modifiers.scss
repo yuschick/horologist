@@ -45,6 +45,9 @@
 
 .is-fixed {
   position: fixed;
+  @include bp(800) {
+    position: static;
+  }
 }
 
 .is-rounded {

@@ -51,9 +51,9 @@
 
 	  var util = __webpack_require__(1);
 	  var HeaderWatch = __webpack_require__(2);
-	  var DemoWatches = __webpack_require__(10);
-	  var ComplicationsNav = __webpack_require__(11);
-	  var DocsPage = __webpack_require__(12);
+	  var DemoWatches = __webpack_require__(11);
+	  var ComplicationsNav = __webpack_require__(12);
+	  var DocsPage = __webpack_require__(13);
 	})();
 
 /***/ }),
@@ -136,7 +136,7 @@
 	var MoonPhase = __webpack_require__(7);
 	var MinuteRepeater = __webpack_require__(8);
 	var DayNightIndicator = __webpack_require__(9);
-	var DayIndicator = __webpack_require__(13);
+	var DayIndicator = __webpack_require__(10);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -1132,6 +1132,64 @@
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DayIndicator = function () {
+	  function DayIndicator(settings, parentWatch) {
+	    _classCallCheck(this, DayIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Day Indicator class requires that an ID of the indiciator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.day = this.parent.rightNow.getDay();
+	    this.hours = this.parent.rightNow.getHours();
+	    this.offsetHours = settings.offsetHours || false;
+
+	    this.init();
+	  }
+
+	  _createClass(DayIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = this.day * 51.43;
+
+	      if (this.offsetHours) {
+	        value += this.hours * 2.14;
+	      }
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return DayIndicator;
+	}();
+
+	module.exports = DayIndicator;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1288,7 +1346,7 @@
 	};
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1297,7 +1355,7 @@
 	  'use strict';
 
 	  var util = __webpack_require__(1);
-	  var DemoWatches = __webpack_require__(10);
+	  var DemoWatches = __webpack_require__(11);
 
 	  var complications = document.querySelectorAll('.complication-link');
 	  var complicationDemos = document.querySelectorAll('.complication-container');
@@ -1345,7 +1403,7 @@
 	}();
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1427,64 +1485,6 @@
 	    ticking = true;
 	  });
 	}();
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var DayIndicator = function () {
-	  function DayIndicator(settings, parentWatch) {
-	    _classCallCheck(this, DayIndicator);
-
-	    try {
-	      if (!settings.id) throw "The Day Indicator class requires that an ID of the indiciator element be provided.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
-
-	    this.element = document.getElementById(settings.id);
-	    this.parent = parentWatch;
-	    this.day = this.parent.rightNow.getDay();
-	    this.hours = this.parent.rightNow.getHours();
-	    this.offsetHours = settings.offsetHours || false;
-
-	    this.init();
-	  }
-
-	  _createClass(DayIndicator, [{
-	    key: "getRotateValue",
-	    value: function getRotateValue() {
-	      var value = this.day * 51.43;
-
-	      if (this.offsetHours) {
-	        value += this.hours * 2.14;
-	      }
-
-	      return value;
-	    }
-	  }, {
-	    key: "rotateElement",
-	    value: function rotateElement() {
-	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
-	    }
-	  }, {
-	    key: "init",
-	    value: function init() {
-	      this.rotateElement();
-	    }
-	  }]);
-
-	  return DayIndicator;
-	}();
-
-	module.exports = DayIndicator;
 
 /***/ })
 /******/ ]);

@@ -194,6 +194,16 @@ img {
       -ms-flex: 5;
           flex: 5; }
 
+@media screen and (max-width: 500px) {
+  .flex-container .flex-five,
+  .flex-container .flex-four,
+  .flex-container .flex-one,
+  .flex-container .flex-three,
+  .flex-container .flex-two {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+            flex: 1 0 auto; } }
+
 header {
   background: #007486;
   border-bottom: 3px solid #272727;
@@ -209,13 +219,28 @@ header {
   width: 250px; }
 
 .complication-container {
-  color: #EFF1F3; }
+  color: #EFF1F3;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+  @media screen and (max-width: 700px) {
+    .complication-container {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+      .complication-container .flex-one:first-child {
+        margin-bottom: 1rem; } }
 
 .docs-container {
   padding: 1rem 1rem; }
   .docs-container.fixed-nav {
     margin-left: 250px;
     /* the width of the docs tree */ }
+    @media screen and (max-width: 800px) {
+      .docs-container.fixed-nav {
+        margin-left: 0; } }
 
 h1 {
   color: #007486;
@@ -223,6 +248,9 @@ h1 {
   text-transform: uppercase; }
   h1 span {
     color: #272727; }
+  @media screen and (max-width: 500px) {
+    h1 {
+      font-size: 4.5rem; } }
 
 h2 {
   color: #EFF1F3;
@@ -230,6 +258,9 @@ h2 {
   text-transform: uppercase; }
   h2 span {
     color: #272727; }
+  @media screen and (max-width: 500px) {
+    h2 {
+      font-size: 1.25rem; } }
 
 h3 {
   font: 1.5rem/1 "Open Sans", sans-serif; }
@@ -369,12 +400,12 @@ nav a:visited {
 
 .panel {
   display: block;
-  padding: 3rem 0;
+  padding: 3rem 1rem;
   position: relative;
   width: 100%; }
 
 .panel + .panel {
-  padding: 2rem 0; }
+  padding: 2rem 1rem; }
 
 .panel .panel {
   padding-bottom: 0; }
@@ -391,6 +422,9 @@ nav a:visited {
 .secondary-nav {
   background: #272727;
   margin: 0.5rem 0; }
+  .secondary-nav .flex-container {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
   .secondary-nav li {
     border-right: 1px solid #000;
     color: #EFF1F3;
@@ -402,6 +436,7 @@ nav a:visited {
       border: 0; }
 
 .aside-nav-container {
+  background: #EFF1F3;
   top: 0;
   width: 250px; }
 
@@ -425,6 +460,11 @@ nav a:visited {
     .aside-nav ul ul li a {
       display: block; }
 
+@media screen and (max-width: 800px) {
+  .aside-nav-container {
+    padding: 0.5rem 1.5rem;
+    width: 100%; } }
+
 .doc-specs {
   background: #e8ebee;
   font-size: 0.9rem;
@@ -442,6 +482,9 @@ nav a:visited {
 .guides-nav-container {
   top: 0;
   width: 250px; }
+  @media screen and (max-width: 800px) {
+    .guides-nav-container {
+      display: none; } }
 
 .guides-nav {
   font-size: 1rem;
@@ -506,6 +549,9 @@ footer {
 
 .is-fixed {
   position: fixed; }
+  @media screen and (max-width: 800px) {
+    .is-fixed {
+      position: static; } }
 
 .is-rounded {
   border-radius: 50%; }

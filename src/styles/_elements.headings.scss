@@ -6,6 +6,9 @@ h1 {
   span {
     color: $primaryColor;
   }
+  @include bp(500) {
+    font-size: 4.5rem;
+  }
 }
 
 h2 {
@@ -15,6 +18,9 @@ h2 {
 
   span {
     color: $primaryColor;
+  }
+  @include bp(500) {
+    font-size: 1.25rem;
   }
 }
 
