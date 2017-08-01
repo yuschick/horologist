@@ -10,6 +10,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Minute Repeater
 - Day/Night Indicator
 - Day Indicator
+- Date Indicator
 
 ## Getting Started
 Install the ticktock-js package via the terminal.
@@ -87,6 +88,9 @@ const settings = {
   dayIndicator: {
     id: 'day-indicator-disc',
     offsetHours: true
+  },
+  date: {
+    id: 'date-disc'
   }
 };
 
@@ -131,10 +135,13 @@ let demo = new Watch(settings);
 - **id** (*String*): The id of the day indicator element
 - **offsetHours** (*Boolean*): *Default: false* Set this property to *true* if the day indicator should be rotated an additional amount according to the hour of the current day.
 
+#### date {Object}
+- **id** (*String*): The id of the date indicator element
+
 ## ToDo
 - [ ] Provide perpetual calendar support
   - [x] Day indicator
-  - [ ] Date indicator
+  - [x] Date indicator
   - [ ] Month indicator
   - [ ] Year indicator
 - [ ] Provide basic chronograph support

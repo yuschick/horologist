@@ -4,12 +4,14 @@
  * Defines the parent Watch class
  * @param {Object} settings
  */
- const Dial = require('./src/modules/Dial');
- const Crown = require('./src/modules/Crown');
- const PowerReserve = require('./src/modules/PowerReserve');
- const MoonPhase = require('./src/modules/MoonPhase');
- const MinuteRepeater = require('./src/modules/MinuteRepeater');
- const DayNightIndicator = require('./src/modules/DayNightIndicator');
+ const Dial = require('./Dial');
+ const Crown = require('./Crown');
+ const PowerReserve = require('./PowerReserve');
+ const MoonPhase = require('./MoonPhase');
+ const MinuteRepeater = require('./MinuteRepeater');
+ const DayNightIndicator = require('./DayNightIndicator');
+ const DayIndicator = require('./DayIndicator');
+ const DateIndicator = require('./DateIndicator');
 
  class Watch {
    constructor(settings) {
@@ -52,6 +54,14 @@
      if (settings.dayNightIndicator) {
        this.dayNightIndicatorDial = settings.dayNightIndicator.dial || 0;
        this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
+     }
+
+     if (settings.dayIndicator) {
+       this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
+     }
+
+     if (settings.date) {
+       this.dateIndicator = new DateIndicator(settings.date, this);
      }
 
      this.init();

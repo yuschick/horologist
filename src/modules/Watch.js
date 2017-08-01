@@ -5,6 +5,7 @@ const MoonPhase = require('./MoonPhase');
 const MinuteRepeater = require('./MinuteRepeater');
 const DayNightIndicator = require('./DayNightIndicator');
 const DayIndicator = require('./DayIndicator');
+const DateIndicator = require('./DateIndicator');
 
 class Watch {
   constructor(settings) {
@@ -51,6 +52,10 @@ class Watch {
 
     if (settings.dayIndicator) {
       this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
+    }
+
+    if (settings.date) {
+      this.dateIndicator = new DateIndicator(settings.date, this);
     }
 
     this.init();
