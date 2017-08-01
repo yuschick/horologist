@@ -39,8 +39,23 @@ module.exports = {
           ]
         };
 
-        // demoWatch = new Watch(demoWatchSettings);
         break;
+
+        case 'date-indicator':
+          this.demoWatchSettings = {
+            dials: [{
+              hands: {
+                hour: 'date-hour-hand',
+                minute: 'date-minute-hand',
+                second: 'date-second-hand'
+              }
+            }],
+            date: {
+              id: 'date-disc'
+            }
+          };
+
+          break;
 
       case 'day-night-indicator':
         this.demoWatchSettings = {

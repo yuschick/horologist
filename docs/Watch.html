@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DateIndicator.html">
+                  DateIndicator.js
+                </a>
+              
+                
                 <a class="source" href="DayIndicator.html">
                   DayIndicator.js
                 </a>
@@ -110,6 +115,7 @@
 <span class="hljs-keyword">const</span> MinuteRepeater = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MinuteRepeater'</span>);
 <span class="hljs-keyword">const</span> DayNightIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayNightIndicator'</span>);
 <span class="hljs-keyword">const</span> DayIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayIndicator'</span>);
+<span class="hljs-keyword">const</span> DateIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DateIndicator'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Watch</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings) {
@@ -156,6 +162,10 @@
 
     <span class="hljs-keyword">if</span> (settings.dayIndicator) {
       <span class="hljs-keyword">this</span>.dayIndicator = <span class="hljs-keyword">new</span> DayIndicator(settings.dayIndicator, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (settings.date) {
+      <span class="hljs-keyword">this</span>.dateIndicator = <span class="hljs-keyword">new</span> DateIndicator(settings.date, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">this</span>.init();

@@ -25,6 +25,11 @@
                 </a>
               
                 
+                <a class="source" href="DateIndicator.html">
+                  DateIndicator.js
+                </a>
+              
+                
                 <a class="source" href="DayIndicator.html">
                   DayIndicator.js
                 </a>
@@ -142,22 +147,25 @@
               <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
             }
           ]
-        };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>demoWatch = new Watch(demoWatchSettings);</p>
+        };
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'date-indicator'</span>:
+          <span class="hljs-keyword">this</span>.demoWatchSettings = {
+            <span class="hljs-attr">dials</span>: [{
+              <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'date-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'date-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'date-second-hand'</span>
+              }
+            }],
+            <span class="hljs-attr">date</span>: {
+              <span class="hljs-attr">id</span>: <span class="hljs-string">'date-disc'</span>
+            }
+          };
+
+          <span class="hljs-keyword">break</span>;
 
       <span class="hljs-keyword">case</span> <span class="hljs-string">'day-night-indicator'</span>:
         <span class="hljs-keyword">this</span>.demoWatchSettings = {

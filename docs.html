@@ -17,9 +17,6 @@
   <link rel="stylesheet" href="./dist/styles/app.css">
   <!--
   Update CSS and JS to .min upon build
-
-  UPDATE: Crown, MinuteRepeater, and Moonphase classes on master!!!!!!!!!
-
   /-->
   <title>Docs - TickTock</title>
 </head>
@@ -87,6 +84,19 @@
                 </li>
                 <li>
                   <a href='#dials-multipledials'>Multiple Dials</a>
+                </li>
+              </ul>
+
+            </li>
+            <li class='doc-tree-group is-collapsed' data-doc-group='date-indicator'>
+              <span>Date Indicator</span>
+
+              <ul>
+                <li>
+                  <a href='#date-overview'>Overview</a>
+                </li>
+                <li>
+                  <a href='#date-defininganindicator'>Define the Indicator</a>
                 </li>
               </ul>
 
@@ -546,6 +556,68 @@ let settings = {
         </code>
           </section>
         </section>
+        <!-- -->
+        <section class='date-indicator-section'>
+          <section class='doc-property-container' id='date-overview'>
+            <h4 class='has-spacer'>Date Indicator</h4>
+            <h5 class='is-strong'>Overview</h5>
+            <div class='flex-container doc-specs'>
+              <div>
+                <span class='is-strong'>Property: </span> date
+              </div>
+              <div>
+                <span class='is-strong'>Type: </span> Object
+              </div>
+              <div>
+                <span class='is-strong'>Required: </span> False
+              </div>
+              <div>
+                <span class='is-strong'>Default: </span> null
+              </div>
+            </div>
+            <p>Date indicators are used to show the current date of the month. They're commonly paired with a Day Indicator and part of several date-related complications comprising annual and perpetual calendars.</p>
+            <p>
+              TickTock expects the initial position of the indicator to be on the 1st. It will then rotate for each day from there.
+            </p>
+            <code>
+            <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  date: {
+    id: 'date-disc'
+  }
+};
+            </pre>
+          </code>
+          </section>
+          <section id='date-defininganindicator' class='doc-property-container'>
+            <h5 class='is-strong'>Define the Indicator</h5>
+            <div class='flex-container doc-specs'>
+              <div>
+                <span class='is-strong'>Property: </span> id
+              </div>
+              <div>
+                <span class='is-strong'>Type: </span> String
+              </div>
+              <div>
+                <span class='is-strong'>Required: </span> True
+              </div>
+            </div>
+            <p>The <span class='is-code-ref'>date</span> object accepts an <span class='is-code-ref'>id</span> property. This property expects a string value of the indicator element's ID. The indicator's initial position is expected to be on the 1st and
+              will rotate clockwise for each day from there.</p>
+            <code>
+          <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  dayNightIndicator: {
+    id: 'date-disc'
+  }
+};
+          </pre>
+        </code>
+          </section>
+        </section>
+        <!-- -->
         <section class='day-night-indicator-section'>
           <section class='doc-property-container' id='day-night-overview'>
             <h4 class='has-spacer'>Day/Night Indicator</h4>

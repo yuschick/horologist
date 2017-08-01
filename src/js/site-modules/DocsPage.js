@@ -10,6 +10,7 @@ module.exports = (function() {
   const dialsSection = document.querySelector('.dials-section');
   const indicatorSection = document.querySelector('.day-night-indicator-section');
   const dayIndicatorSection = document.querySelector('.day-indicator-section');
+  const dateIndicatorSection = document.querySelector('.date-indicator-section');
   const crownSection = document.querySelector('.crown-section');
   const repeaterSection = document.querySelector('.minute-repeater-section');
   const moonphaseSection = document.querySelector('.moonphase-section');
@@ -48,6 +49,8 @@ module.exports = (function() {
       toggleDocTreeGroups('getting-started');
     } else if (pos > (gettingStarted.offsetTop + gettingStarted.clientHeight) && pos < (dialsSection.offsetTop + dialsSection.clientHeight)) {
       toggleDocTreeGroups('dials');
+    } else if (pos > (dialsSection.offsetTop + dialsSection.clientHeight) && pos < (dateIndicatorSection.offsetTop + dateIndicatorSection.clientHeight)) {
+      toggleDocTreeGroups('date-indicator');
     } else if (pos > (dialsSection.offsetTop + dialsSection.clientHeight) && pos < (indicatorSection.offsetTop + indicatorSection.clientHeight)) {
       toggleDocTreeGroups('day-night-indicator');
     } else if (pos > (indicatorSection.offsetTop + indicatorSection.clientHeight) && pos < (dayIndicatorSection.offsetTop + dayIndicatorSection.clientHeight)) {
