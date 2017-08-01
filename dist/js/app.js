@@ -682,6 +682,13 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	// http://stackoverflow.com/questions/11759992/calculating-jdayjulian-day-in-javascript
+	// http://jsfiddle.net/gkyYJ/
+	// http://stackoverflow.com/users/965051/adeneo
+	Date.prototype.getJulian = function () {
+	  return this / 86400000 - this.getTimezoneOffset() / 1440 + 2440587.5;
+	};
+
 	var MoonPhase = function () {
 	  function MoonPhase(settings, parentWatch) {
 	    _classCallCheck(this, MoonPhase);
@@ -706,91 +713,130 @@
 	      val = this.invert ? val * -1 : val;
 	      this.element.style.transform = "rotate(" + val + "deg)";
 	    }
+
+	    /*
+	      Shouts to: https://github.com/tingletech/moon-phase
+	    */
+
+	  }, {
+	    key: "moon_day",
+	    value: function moon_day(today) {
+	      var GetFrac = function GetFrac(fr) {
+	        return fr - Math.floor(fr);
+	      };
+
+	      var thisJD = today.getJulian();
+	      var year = today.getFullYear();
+	      var degToRad = 3.14159265 / 180;
+	      var K0 = void 0,
+	          T = void 0,
+	          T2 = void 0,
+	          T3 = void 0,
+	          J0 = void 0,
+	          F0 = void 0,
+	          M0 = void 0,
+	          M1 = void 0,
+	          B1 = void 0,
+	          oldJ = void 0;
+
+	      K0 = Math.floor((year - 1900) * 12.3685);
+	      T = (year - 1899.5) / 100;
+	      T2 = T * T;
+	      T3 = T * T * T;
+	      J0 = 2415020 + 29 * K0;
+	      F0 = 0.0001178 * T2 - 0.000000155 * T3 + (0.75933 + 0.53058868 * K0) - (0.000837 * T + 0.000335 * T2);
+	      M0 = 360 * GetFrac(K0 * 0.08084821133) + 359.2242 - 0.0000333 * T2 - 0.00000347 * T3;
+	      M1 = 360 * GetFrac(K0 * 0.07171366128) + 306.0253 + 0.0107306 * T2 + 0.00001236 * T3;
+	      B1 = 360 * GetFrac(K0 * 0.08519585128) + 21.2964 - 0.0016528 * T2 - 0.00000239 * T3;
+
+	      var phase = 0;
+	      var jday = 0;
+
+	      while (jday < thisJD) {
+	        var F = F0 + 1.530588 * phase;
+	        var M5 = (M0 + phase * 29.10535608) * degToRad;
+	        var M6 = (M1 + phase * 385.81691806) * degToRad;
+	        var B6 = (B1 + phase * 390.67050646) * degToRad;
+	        F -= 0.4068 * Math.sin(M6) + (0.1734 - 0.000393 * T) * Math.sin(M5);
+	        F += 0.0161 * Math.sin(2 * M6) + 0.0104 * Math.sin(2 * B6);
+	        F -= 0.0074 * Math.sin(M5 - M6) - 0.0051 * Math.sin(M5 + M6);
+	        F += 0.0021 * Math.sin(2 * M5) + 0.0010 * Math.sin(2 * B6 - M6);
+	        F += 0.5 / 1440;
+	        oldJ = jday;
+	        jday = J0 + 28 * phase + Math.floor(F);
+	        phase++;
+	      }
+
+	      // 29.53059 days per lunar month
+	      return (thisJD - oldJ) / 29.53059;
+	    }
+
+	    /*
+	      Shouts to: https://github.com/tingletech/moon-phase
+	    */
+
 	  }, {
 	    key: "getCurrentPhase",
-	    value: function getCurrentPhase() {
-	      /* Shouts to:  http://jivebay.com/calculating-the-moon-phase/ */
-	      var rightNow = this.parent.rightNow,
-	          year = rightNow.getFullYear(),
-	          month = rightNow.getMonth(),
-	          date = rightNow.getDate(),
-	          c = void 0,
-	          e = void 0,
-	          jd = void 0,
-	          b = void 0,
-	          diff = void 0;
+	    value: function getCurrentPhase(phase) {
+	      var sweep = [];
+	      var mag = void 0;
+	      // the "sweep-flag" and the direction of movement change every quarter moon
+	      // zero and one are both new moon; 0.50 is full moon
 
-	      if (month < 3) {
-	        year--;
-	        month += 12;
+	      if (phase <= 0.25) {
+	        sweep = [1, 0];
+	        mag = 20 - 20 * phase * 4;
+	      } else if (phase <= 0.50) {
+	        sweep = [0, 0];
+	        mag = 20 * (phase - 0.25) * 4;
+	      } else if (phase <= 0.75) {
+	        sweep = [1, 1];
+	        mag = 20 - 20 * (phase - 0.50) * 4;
+	      } else if (phase <= 1) {
+	        sweep = [0, 1];
+	        mag = 20 * (phase - 0.75) * 4;
+	      } else {
+	        return;
 	      }
 
-	      month++;
-
-	      c = 365.25 * year;
-	      e = 30.6 * month;
-	      jd = c + e + date - 694039.09;
-	      jd /= 29.5305882;
-	      b = parseInt(jd);
-	      jd -= b;
-	      b = Math.round(jd * 8);
-
-	      diff = jd * 10;
-	      diff = +diff.toFixed(2);
-
-	      if (b >= 8) {
-	        b = 0;
-	      }
-
-	      switch (b) {
-	        case 0:
-	          // New Moon
-	          if (this.invert) {
-	            this.rotateDisc(0);
-	          } else {
-	            this.rotateDisc(180);
-	          }
-	          break;
-	        case 1:
-	          // Waxing Crescent
-	          this.rotateDisc(-40);
-	          break;
-	        case 2:
-	          // First Quarter
-	          this.rotateDisc(-25);
-	          break;
-	        case 3:
-	          // Waxing Gibbous
-	          this.rotateDisc(-13);
-	          break;
-	        case 4:
-	          // Full
-	          if (this.invert) {
-	            this.rotateDisc(180);
-	          } else {
-	            this.rotateDisc(0);
-	          }
-	          break;
-	        case 5:
-	          // Waning Gibbous
-	          this.rotateDisc(13);
-	          break;
-	        case 6:
-	          // Last quarter
-	          this.rotateDisc(25);
-	          break;
-	        case 7:
-	          // Waning Crescent
-	          this.rotateDisc(40);
-	          break;
-	        default:
-	          console.log('Error');
+	      if (phase <= 0.0625 || phase > 0.9375) {
+	        // new moon
+	        if (this.invert) {
+	          this.rotateDisc(0);
+	        } else {
+	          this.rotateDisc(180);
+	        }
+	      } else if (phase <= 0.1875) {
+	        // waxing crescent
+	        this.rotateDisc(40);
+	      } else if (phase <= 0.3125) {
+	        // first quarter
+	        this.rotateDisc(25);
+	      } else if (phase <= 0.4375) {
+	        // waxing gibbous
+	        this.rotateDisc(13);
+	      } else if (phase <= 0.5625) {
+	        // full moon
+	        if (this.invert) {
+	          this.rotateDisc(180);
+	        } else {
+	          this.rotateDisc(0);
+	        }
+	      } else if (phase <= 0.6875) {
+	        // waning gibbous
+	        this.rotateDisc(-13);
+	      } else if (phase <= 0.8125) {
+	        // last quarter
+	        this.rotateDisc(-25);
+	      } else if (phase <= 0.9375) {
+	        // waning crescent
+	        this.rotateDisc(-40);
 	      }
 	    }
 	  }, {
 	    key: "init",
 	    value: function init() {
-	      this.getCurrentPhase();
+	      this.getCurrentPhase(this.moon_day(this.parent.rightNow));
 	    }
 	  }]);
 

@@ -95,10 +95,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p><a href="http://stackoverflow.com/questions/11759992/calculating-jdayjulian-day-in-javascript">http://stackoverflow.com/questions/11759992/calculating-jdayjulian-day-in-javascript</a>
+<a href="http://jsfiddle.net/gkyYJ/">http://jsfiddle.net/gkyYJ/</a>
+<a href="http://stackoverflow.com/users/965051/adeneo">http://stackoverflow.com/users/965051/adeneo</a></p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoonPhase</span> </span>{
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">Date</span>.prototype.getJulian = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> ((<span class="hljs-keyword">this</span> / <span class="hljs-number">86400000</span>) - (<span class="hljs-keyword">this</span>.getTimezoneOffset() / <span class="hljs-number">1440</span>) + <span class="hljs-number">2440587.5</span>);
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoonPhase</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
     <span class="hljs-keyword">try</span> {
@@ -118,47 +125,51 @@
 
   rotateDisc(val) {
     val = <span class="hljs-keyword">this</span>.invert ?
-      val * <span class="hljs-number">-1</span> :
-      val;
+    val * <span class="hljs-number">-1</span> :
+    val;
     <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${val}</span>deg)`</span>;
   }
 
-  getCurrentPhase() {
-    <span class="hljs-comment">/* Shouts to:  http://jivebay.com/calculating-the-moon-phase/ */</span>
-    <span class="hljs-keyword">let</span> rightNow = <span class="hljs-keyword">this</span>.parent.rightNow,
-      year = rightNow.getFullYear(),
-      month = rightNow.getMonth(),
-      date = rightNow.getDate(),
-      c,
-      e,
-      jd,
-      b,
-      diff;
+  <span class="hljs-comment">/*
+    Shouts to: https://github.com/tingletech/moon-phase
+  */</span>
+  moon_day(today) {
+    <span class="hljs-keyword">let</span> GetFrac = <span class="hljs-function">(<span class="hljs-params">fr</span>) =&gt;</span> {
+      <span class="hljs-keyword">return</span> (fr - <span class="hljs-built_in">Math</span>.floor(fr));
+    };
 
-    <span class="hljs-keyword">if</span> (month &lt; <span class="hljs-number">3</span>) {
-      year--;
-      month += <span class="hljs-number">12</span>;
-    }
+    <span class="hljs-keyword">let</span> thisJD = today.getJulian();
+    <span class="hljs-keyword">let</span> year = today.getFullYear();
+    <span class="hljs-keyword">let</span> degToRad = <span class="hljs-number">3.14159265</span> / <span class="hljs-number">180</span>;
+    <span class="hljs-keyword">let</span> K0, T, T2, T3, J0, F0, M0, M1, B1, oldJ;
 
-    month++;
+    K0 = <span class="hljs-built_in">Math</span>.floor((year - <span class="hljs-number">1900</span>) * <span class="hljs-number">12.3685</span>);
+    T = (year - <span class="hljs-number">1899.5</span>) / <span class="hljs-number">100</span>;
+    T2 = T * T;
+    T3 = T * T * T;
+    J0 = <span class="hljs-number">2415020</span> + <span class="hljs-number">29</span> * K0;
+    F0 = <span class="hljs-number">0.0001178</span> * T2 - <span class="hljs-number">0.000000155</span> * T3 + (<span class="hljs-number">0.75933</span> + <span class="hljs-number">0.53058868</span> * K0) - (<span class="hljs-number">0.000837</span> * T + <span class="hljs-number">0.000335</span> * T2);
+    M0 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08084821133</span>)) + <span class="hljs-number">359.2242</span> - <span class="hljs-number">0.0000333</span> * T2 - <span class="hljs-number">0.00000347</span> * T3;
+    M1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.07171366128</span>)) + <span class="hljs-number">306.0253</span> + <span class="hljs-number">0.0107306</span> * T2 + <span class="hljs-number">0.00001236</span> * T3;
+    B1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08519585128</span>)) + <span class="hljs-number">21.2964</span> - (<span class="hljs-number">0.0016528</span> * T2) - (<span class="hljs-number">0.00000239</span> * T3);
 
-    c = <span class="hljs-number">365.25</span> * year;
-    e = <span class="hljs-number">30.6</span> * month;
-    jd = c + e + date - <span class="hljs-number">694039.09</span>;
-    jd /= <span class="hljs-number">29.5305882</span>;
-    b = <span class="hljs-built_in">parseInt</span>(jd);
-    jd -= b;
-    b = <span class="hljs-built_in">Math</span>.round(jd * <span class="hljs-number">8</span>);
+    <span class="hljs-keyword">let</span> phase = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">let</span> jday = <span class="hljs-number">0</span>;
 
-    diff = jd * <span class="hljs-number">10</span>;
-    diff = +diff.toFixed(<span class="hljs-number">2</span>);
-
-    <span class="hljs-keyword">if</span> (b &gt;= <span class="hljs-number">8</span>) {
-      b = <span class="hljs-number">0</span>;
-    }
-
-    <span class="hljs-keyword">switch</span> (b) {
-      <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:</pre></div></div>
+    <span class="hljs-keyword">while</span> (jday &lt; thisJD) {
+      <span class="hljs-keyword">let</span> F = F0 + <span class="hljs-number">1.530588</span> * phase;
+      <span class="hljs-keyword">let</span> M5 = (M0 + phase * <span class="hljs-number">29.10535608</span>) * degToRad;
+      <span class="hljs-keyword">let</span> M6 = (M1 + phase * <span class="hljs-number">385.81691806</span>) * degToRad;
+      <span class="hljs-keyword">let</span> B6 = (B1 + phase * <span class="hljs-number">390.67050646</span>) * degToRad;
+      F -= <span class="hljs-number">0.4068</span> * <span class="hljs-built_in">Math</span>.sin(M6) + (<span class="hljs-number">0.1734</span> - <span class="hljs-number">0.000393</span> * T) * <span class="hljs-built_in">Math</span>.sin(M5);
+      F += <span class="hljs-number">0.0161</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M6) + <span class="hljs-number">0.0104</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6);
+      F -= <span class="hljs-number">0.0074</span> * <span class="hljs-built_in">Math</span>.sin(M5 - M6) - <span class="hljs-number">0.0051</span> * <span class="hljs-built_in">Math</span>.sin(M5 + M6);
+      F += <span class="hljs-number">0.0021</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M5) + <span class="hljs-number">0.0010</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6 - M6);
+      F += <span class="hljs-number">0.5</span> / <span class="hljs-number">1440</span>;
+      oldJ = jday;
+      jday = J0 + <span class="hljs-number">28</span> * phase + <span class="hljs-built_in">Math</span>.floor(F);
+      phase++;
+    }</pre></div></div>
             
         </li>
         
@@ -169,17 +180,20 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>New Moon</p>
+              <p>29.53059 days per lunar month</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
-          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
-        } <span class="hljs-keyword">else</span> {
-          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
-        }
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> (((thisJD - oldJ) / <span class="hljs-number">29.53059</span>));
+  }
+
+
+  <span class="hljs-comment">/*
+    Shouts to: https://github.com/tingletech/moon-phase
+  */</span>
+  getCurrentPhase(phase) {
+    <span class="hljs-keyword">let</span> sweep = [];
+    <span class="hljs-keyword">let</span> mag;</pre></div></div>
             
         </li>
         
@@ -190,13 +204,29 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Waxing Crescent</p>
+              <p>the “sweep-flag” and the direction of movement change every quarter moon
+zero and one are both new moon; 0.50 is full moon</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-40</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>
+    <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.25</span>) {
+      sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>];
+      mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * phase * <span class="hljs-number">4</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.50</span>) {
+      sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+      mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.25</span>) * <span class="hljs-number">4</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.75</span>) {
+      sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>];
+      mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.50</span>) * <span class="hljs-number">4</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">1</span>) {
+      sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>];
+      mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.75</span>) * <span class="hljs-number">4</span>
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.0625</span> || phase &gt; <span class="hljs-number">0.9375</span>) {</pre></div></div>
             
         </li>
         
@@ -207,13 +237,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>First Quarter</p>
+              <p>new moon</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-25</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
+        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
+      }
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.1875</span>) {</pre></div></div>
             
         </li>
         
@@ -224,13 +257,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Waxing Gibbous</p>
+              <p>waxing crescent</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-13</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">40</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.3125</span>) {</pre></div></div>
             
         </li>
         
@@ -241,17 +273,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Full</p>
+              <p>first quarter</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
-          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
-        } <span class="hljs-keyword">else</span> {
-          <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
-        }
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">25</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.4375</span>) {</pre></div></div>
             
         </li>
         
@@ -262,13 +289,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Waning Gibbous</p>
+              <p>waxing gibbous</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">13</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">13</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.5625</span>) {</pre></div></div>
             
         </li>
         
@@ -279,13 +305,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Last quarter</p>
+              <p>full moon</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">25</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
+        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>);
+      }
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.6875</span>) {</pre></div></div>
             
         </li>
         
@@ -296,19 +325,48 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Waning Crescent</p>
+              <p>waning gibbous</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">40</span>);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">default</span>:
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error'</span>);
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-13</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.8125</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>last quarter</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-25</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.9375</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>waning crescent</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-40</span>);
     }
   }
 
   init() {
-    <span class="hljs-keyword">this</span>.getCurrentPhase();
+    <span class="hljs-keyword">this</span>.getCurrentPhase(<span class="hljs-keyword">this</span>.moon_day(<span class="hljs-keyword">this</span>.parent.rightNow));
   }
 }
 
