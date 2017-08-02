@@ -9,8 +9,11 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Moonphase
 - Minute Repeater
 - Day/Night Indicator
-- Day Indicator
-- Date Indicator
+- Annual / Perpetual Calendar
+  - Day Indicator
+  - Date Indicator
+  - Month Indicator
+  - Year Indicator
 
 ## Getting Started
 Install the ticktock-js package via the terminal.
