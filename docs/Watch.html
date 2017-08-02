@@ -50,6 +50,11 @@
                 </a>
               
                 
+                <a class="source" href="MonthIndicator.html">
+                  MonthIndicator.js
+                </a>
+              
+                
                 <a class="source" href="MoonPhase.html">
                   MoonPhase.js
                 </a>
@@ -62,6 +67,11 @@
                 
                 <a class="source" href="Watch.html">
                   Watch.js
+                </a>
+              
+                
+                <a class="source" href="YearIndicator.html">
+                  YearIndicator.js
                 </a>
               
                 
@@ -116,6 +126,8 @@
 <span class="hljs-keyword">const</span> DayNightIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayNightIndicator'</span>);
 <span class="hljs-keyword">const</span> DayIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DayIndicator'</span>);
 <span class="hljs-keyword">const</span> DateIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./DateIndicator'</span>);
+<span class="hljs-keyword">const</span> MonthIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./MonthIndicator'</span>);
+<span class="hljs-keyword">const</span> YearIndicator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./YearIndicator'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Watch</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings) {
@@ -160,12 +172,20 @@
       <span class="hljs-keyword">this</span>.dayNightIndicator = <span class="hljs-keyword">new</span> DayNightIndicator(<span class="hljs-keyword">this</span>.dialInstances[<span class="hljs-keyword">this</span>.dayNightIndicatorDial], settings.dayNightIndicator, <span class="hljs-keyword">this</span>);
     }
 
-    <span class="hljs-keyword">if</span> (settings.dayIndicator) {
-      <span class="hljs-keyword">this</span>.dayIndicator = <span class="hljs-keyword">new</span> DayIndicator(settings.dayIndicator, <span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">if</span> (settings.day || settings.dayIndicator) {
+      <span class="hljs-keyword">this</span>.dayIndicator = <span class="hljs-keyword">new</span> DayIndicator(settings.day, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">if</span> (settings.date) {
       <span class="hljs-keyword">this</span>.dateIndicator = <span class="hljs-keyword">new</span> DateIndicator(settings.date, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (settings.month) {
+      <span class="hljs-keyword">this</span>.monthIndicator = <span class="hljs-keyword">new</span> MonthIndicator(settings.month, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (settings.year) {
+      <span class="hljs-keyword">this</span>.yearIndicator = <span class="hljs-keyword">new</span> YearIndicator(settings.year, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-keyword">this</span>.init();

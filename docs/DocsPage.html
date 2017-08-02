@@ -50,6 +50,11 @@
                 </a>
               
                 
+                <a class="source" href="MonthIndicator.html">
+                  MonthIndicator.js
+                </a>
+              
+                
                 <a class="source" href="MoonPhase.html">
                   MoonPhase.js
                 </a>
@@ -62,6 +67,11 @@
                 
                 <a class="source" href="Watch.html">
                   Watch.js
+                </a>
+              
+                
+                <a class="source" href="YearIndicator.html">
+                  YearIndicator.js
                 </a>
               
                 
@@ -119,8 +129,7 @@
   <span class="hljs-keyword">const</span> gettingStarted = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.getting-started-section'</span>);
   <span class="hljs-keyword">const</span> dialsSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.dials-section'</span>);
   <span class="hljs-keyword">const</span> indicatorSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.day-night-indicator-section'</span>);
-  <span class="hljs-keyword">const</span> dayIndicatorSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.day-indicator-section'</span>);
-  <span class="hljs-keyword">const</span> dateIndicatorSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.date-indicator-section'</span>);
+  <span class="hljs-keyword">const</span> calendarSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.calendars-section'</span>);
   <span class="hljs-keyword">const</span> crownSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.crown-section'</span>);
   <span class="hljs-keyword">const</span> repeaterSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.minute-repeater-section'</span>);
   <span class="hljs-keyword">const</span> moonphaseSection = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.moonphase-section'</span>);
@@ -157,15 +166,13 @@
 
     <span class="hljs-keyword">if</span> (pos &lt; (gettingStarted.offsetTop + gettingStarted.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'getting-started'</span>);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (gettingStarted.offsetTop + gettingStarted.clientHeight) &amp;&amp; pos &lt; (dialsSection.offsetTop + dialsSection.clientHeight)) {
-      toggleDocTreeGroups(<span class="hljs-string">'dials'</span>);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (dialsSection.offsetTop + dialsSection.clientHeight) &amp;&amp; pos &lt; (dateIndicatorSection.offsetTop + dateIndicatorSection.clientHeight)) {
-      toggleDocTreeGroups(<span class="hljs-string">'date-indicator'</span>);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (dialsSection.offsetTop + dialsSection.clientHeight) &amp;&amp; pos &lt; (indicatorSection.offsetTop + indicatorSection.clientHeight)) {
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (gettingStarted.offsetTop + gettingStarted.clientHeight) &amp;&amp; pos &lt; (calendarSection.offsetTop + calendarSection.clientHeight)) {
+      toggleDocTreeGroups(<span class="hljs-string">'calendar-indicator'</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (calendarSection.offsetTop + calendarSection.clientHeight) &amp;&amp; pos &lt; (indicatorSection.offsetTop + indicatorSection.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'day-night-indicator'</span>);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (indicatorSection.offsetTop + indicatorSection.clientHeight) &amp;&amp; pos &lt; (dayIndicatorSection.offsetTop + dayIndicatorSection.clientHeight)) {
-      toggleDocTreeGroups(<span class="hljs-string">'day-indicator'</span>);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (indicatorSection.offsetTop + indicatorSection.clientHeight) &amp;&amp; pos &lt; (crownSection.offsetTop + crownSection.clientHeight)) {
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (indicatorSection.offsetTop + indicatorSection.clientHeight) &amp;&amp; pos &lt; (dialsSection.offsetTop + dialsSection.clientHeight)) {
+      toggleDocTreeGroups(<span class="hljs-string">'dials'</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (dialsSection.offsetTop + dialsSection.clientHeight) &amp;&amp; pos &lt; (crownSection.offsetTop + crownSection.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'crown'</span>);
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pos &gt; (crownSection.offsetTop + crownSection.clientHeight) &amp;&amp; pos &lt; (repeaterSection.offsetTop + repeaterSection.clientHeight)) {
       toggleDocTreeGroups(<span class="hljs-string">'repeater'</span>);

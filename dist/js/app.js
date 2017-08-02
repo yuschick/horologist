@@ -51,9 +51,9 @@
 
 	  var util = __webpack_require__(1);
 	  var HeaderWatch = __webpack_require__(2);
-	  var DemoWatches = __webpack_require__(11);
-	  var ComplicationsNav = __webpack_require__(12);
-	  var DocsPage = __webpack_require__(13);
+	  var DemoWatches = __webpack_require__(12);
+	  var ComplicationsNav = __webpack_require__(13);
+	  var DocsPage = __webpack_require__(14);
 	})();
 
 /***/ }),
@@ -137,7 +137,9 @@
 	var MinuteRepeater = __webpack_require__(8);
 	var DayNightIndicator = __webpack_require__(9);
 	var DayIndicator = __webpack_require__(10);
-	var DateIndicator = __webpack_require__(14);
+	var DateIndicator = __webpack_require__(11);
+	var MonthIndicator = __webpack_require__(15);
+	var YearIndicator = __webpack_require__(16);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -184,12 +186,20 @@
 	      this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
 	    }
 
-	    if (settings.dayIndicator) {
-	      this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
+	    if (settings.day || settings.dayIndicator) {
+	      this.dayIndicator = new DayIndicator(settings.day, this);
 	    }
 
 	    if (settings.date) {
 	      this.dateIndicator = new DateIndicator(settings.date, this);
+	    }
+
+	    if (settings.month) {
+	      this.monthIndicator = new MonthIndicator(settings.month, this);
+	    }
+
+	    if (settings.year) {
+	      this.yearIndicator = new YearIndicator(settings.year, this);
 	    }
 
 	    this.init();
@@ -1195,6 +1205,58 @@
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DateIndicator = function () {
+	  function DateIndicator(settings, parentWatch) {
+	    _classCallCheck(this, DateIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.date = this.parent.rightNow.getDate();
+
+	    this.init();
+	  }
+
+	  _createClass(DateIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = (this.date - 1) * 11.61;
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return DateIndicator;
+	}();
+
+	module.exports = DateIndicator;
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1212,6 +1274,8 @@
 	    this.demoWatchSettings = null;
 	  },
 	  buildAndShowDemoWatch: function buildAndShowDemoWatch(type) {
+	    if (!document.querySelectorAll('.complication-container').length) return;
+
 	    if (this.demoWatch) this.clearCurrentDemo();
 
 	    switch (type) {
@@ -1234,6 +1298,31 @@
 	            offset: '+6',
 	            sweep: true
 	          }]
+	        };
+
+	        break;
+
+	      case 'perpetual-calendar':
+	        this.demoWatchSettings = {
+	          dials: [{
+	            hands: {
+	              hour: 'perpetual-hour-hand',
+	              minute: 'perpetual-minute-hand',
+	              second: 'perpetual-second-hand'
+	            }
+	          }],
+	          day: {
+	            id: 'day-indicator-disc'
+	          },
+	          date: {
+	            id: 'date-disc'
+	          },
+	          month: {
+	            id: 'month-disc'
+	          },
+	          year: {
+	            id: 'year-hand'
+	          }
 	        };
 
 	        break;
@@ -1366,7 +1455,7 @@
 	};
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1375,7 +1464,7 @@
 	  'use strict';
 
 	  var util = __webpack_require__(1);
-	  var DemoWatches = __webpack_require__(11);
+	  var DemoWatches = __webpack_require__(12);
 
 	  var complications = document.querySelectorAll('.complication-link');
 	  var complicationDemos = document.querySelectorAll('.complication-container');
@@ -1419,11 +1508,11 @@
 	    });
 	  });
 
-	  DemoWatches.buildAndShowDemoWatch('dials');
+	  DemoWatches.buildAndShowDemoWatch('perpetual-calendar');
 	}();
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1439,8 +1528,7 @@
 	  var gettingStarted = document.querySelector('.getting-started-section');
 	  var dialsSection = document.querySelector('.dials-section');
 	  var indicatorSection = document.querySelector('.day-night-indicator-section');
-	  var dayIndicatorSection = document.querySelector('.day-indicator-section');
-	  var dateIndicatorSection = document.querySelector('.date-indicator-section');
+	  var calendarSection = document.querySelector('.calendars-section');
 	  var crownSection = document.querySelector('.crown-section');
 	  var repeaterSection = document.querySelector('.minute-repeater-section');
 	  var moonphaseSection = document.querySelector('.moonphase-section');
@@ -1476,15 +1564,13 @@
 
 	    if (pos < gettingStarted.offsetTop + gettingStarted.clientHeight) {
 	      toggleDocTreeGroups('getting-started');
-	    } else if (pos > gettingStarted.offsetTop + gettingStarted.clientHeight && pos < dialsSection.offsetTop + dialsSection.clientHeight) {
-	      toggleDocTreeGroups('dials');
-	    } else if (pos > dialsSection.offsetTop + dialsSection.clientHeight && pos < dateIndicatorSection.offsetTop + dateIndicatorSection.clientHeight) {
-	      toggleDocTreeGroups('date-indicator');
-	    } else if (pos > dialsSection.offsetTop + dialsSection.clientHeight && pos < indicatorSection.offsetTop + indicatorSection.clientHeight) {
+	    } else if (pos > gettingStarted.offsetTop + gettingStarted.clientHeight && pos < calendarSection.offsetTop + calendarSection.clientHeight) {
+	      toggleDocTreeGroups('calendar-indicator');
+	    } else if (pos > calendarSection.offsetTop + calendarSection.clientHeight && pos < indicatorSection.offsetTop + indicatorSection.clientHeight) {
 	      toggleDocTreeGroups('day-night-indicator');
-	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < dayIndicatorSection.offsetTop + dayIndicatorSection.clientHeight) {
-	      toggleDocTreeGroups('day-indicator');
-	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < crownSection.offsetTop + crownSection.clientHeight) {
+	    } else if (pos > indicatorSection.offsetTop + indicatorSection.clientHeight && pos < dialsSection.offsetTop + dialsSection.clientHeight) {
+	      toggleDocTreeGroups('dials');
+	    } else if (pos > dialsSection.offsetTop + dialsSection.clientHeight && pos < crownSection.offsetTop + crownSection.clientHeight) {
 	      toggleDocTreeGroups('crown');
 	    } else if (pos > crownSection.offsetTop + crownSection.clientHeight && pos < repeaterSection.offsetTop + repeaterSection.clientHeight) {
 	      toggleDocTreeGroups('repeater');
@@ -1510,7 +1596,7 @@
 	}();
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -1519,12 +1605,12 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var DateIndicator = function () {
-	  function DateIndicator(settings, parentWatch) {
-	    _classCallCheck(this, DateIndicator);
+	var MonthIndicator = function () {
+	  function MonthIndicator(settings, parentWatch) {
+	    _classCallCheck(this, MonthIndicator);
 
 	    try {
-	      if (!settings.id) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
+	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
 	    } catch (errorMsg) {
 	      console.error(errorMsg);
 	      return;
@@ -1532,15 +1618,15 @@
 
 	    this.element = document.getElementById(settings.id);
 	    this.parent = parentWatch;
-	    this.date = this.parent.rightNow.getDate();
+	    this.month = this.parent.rightNow.getMonth();
 
 	    this.init();
 	  }
 
-	  _createClass(DateIndicator, [{
+	  _createClass(MonthIndicator, [{
 	    key: "getRotateValue",
 	    value: function getRotateValue() {
-	      var value = (this.date - 1) * 11.61;
+	      var value = this.month * 30;
 
 	      return value;
 	    }
@@ -1556,10 +1642,76 @@
 	    }
 	  }]);
 
-	  return DateIndicator;
+	  return MonthIndicator;
 	}();
 
-	module.exports = DateIndicator;
+	module.exports = MonthIndicator;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var YearIndicator = function () {
+	  function YearIndicator(settings, parentWatch) {
+	    _classCallCheck(this, YearIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.year = this.parent.rightNow.getYear();
+	    this.month = this.parent.rightNow.getMonth();
+	    this.offsetMonths = settings.offsetMonths || false;
+
+	    this.init();
+	  }
+
+	  _createClass(YearIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = 0;
+
+	      if (this.year % 4 === 0 && this.year % 100 !== 0 || this.year % 400 === 0) {
+	        value = 270;
+	      } else if (this.year % 4 === 2 && this.year % 100 !== 2 || this.year % 400 === 2) {
+	        value = 90;
+	      } else if (this.year % 4 === 3 && this.year % 100 !== 3 || this.year % 400 === 3) {
+	        value = 180;
+	      }
+
+	      if (this.offsetMonths) {
+	        value += this.month * 7.5;
+	      }
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return YearIndicator;
+	}();
+
+	module.exports = YearIndicator;
 
 /***/ })
 /******/ ]);

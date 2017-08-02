@@ -22,6 +22,22 @@
   transform-origin: 164px 125px;
 }
 
+.perpetual-day-center {
+  transform-origin: 176.2px 132.2px;
+}
+
+.perpetual-date-center {
+  transform-origin: 109.4px 132.1px;
+}
+
+.perpetual-month-center {
+  transform-origin: 124.4px 116.9px;
+}
+
+.perpetual-year-center {
+  transform-origin: 125px 190px;
+}
+
 #blackout {
   opacity: 0;
   transition: opacity 0.5s ease;

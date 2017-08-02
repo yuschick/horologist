@@ -46,5 +46,5 @@ module.exports = (function() {
     });
   });
 
-  DemoWatches.buildAndShowDemoWatch('dials');
+  DemoWatches.buildAndShowDemoWatch('perpetual-calendar');
 })();

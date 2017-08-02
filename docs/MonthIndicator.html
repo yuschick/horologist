@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>HeaderWatch.js</title>
+  <title>MonthIndicator.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -103,7 +103,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>HeaderWatch.js</h1>
+                  <h1>MonthIndicator.js</h1>
               </div>
           </li>
         
@@ -118,22 +118,40 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">  "use strict"</span>
-  <span class="hljs-keyword">const</span> Watch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../modules/Watch'</span>);
-  <span class="hljs-keyword">const</span> settings = {
-    <span class="hljs-attr">dials</span>: [{
-      <span class="hljs-attr">name</span>: <span class="hljs-string">'header-dial'</span>,
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">hour</span>: <span class="hljs-string">'hour-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'minute-hand'</span>,
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'second-hand'</span>
-      },
-      <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
-    }]
-  };
-  <span class="hljs-keyword">let</span> headerWatch = <span class="hljs-keyword">new</span> Watch(settings);
-})();</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MonthIndicator</span> </span>{
+  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!settings.id)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Month Indicator class requires that an ID of the indicator element be provided."</span>;
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+    <span class="hljs-keyword">this</span>.parent = parentWatch;
+    <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.getMonth();
+
+    <span class="hljs-keyword">this</span>.init();
+  }
+
+  getRotateValue() {
+    <span class="hljs-keyword">let</span> value = <span class="hljs-keyword">this</span>.month * <span class="hljs-number">30</span>;
+
+    <span class="hljs-keyword">return</span> value;
+  }
+
+  rotateElement() {
+    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
+  }
+
+  init() {
+    <span class="hljs-keyword">this</span>.rotateElement();
+  }
+}
+
+<span class="hljs-built_in">module</span>.exports = MonthIndicator;</pre></div></div>
             
         </li>
         

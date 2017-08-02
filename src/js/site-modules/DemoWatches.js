@@ -13,6 +13,8 @@ module.exports = {
   },
 
   buildAndShowDemoWatch(type) {
+    if (!document.querySelectorAll('.complication-container').length) return;
+
     if (this.demoWatch) this.clearCurrentDemo();
 
     switch (type) {
@@ -41,21 +43,46 @@ module.exports = {
 
         break;
 
-        case 'date-indicator':
-          this.demoWatchSettings = {
-            dials: [{
-              hands: {
-                hour: 'date-hour-hand',
-                minute: 'date-minute-hand',
-                second: 'date-second-hand'
-              }
-            }],
-            date: {
-              id: 'date-disc'
+      case 'perpetual-calendar':
+        this.demoWatchSettings = {
+          dials: [{
+            hands: {
+              hour: 'perpetual-hour-hand',
+              minute: 'perpetual-minute-hand',
+              second: 'perpetual-second-hand'
             }
-          };
+          }],
+          day: {
+            id: 'day-indicator-disc'
+          },
+          date: {
+            id: 'date-disc'
+          },
+          month: {
+            id: 'month-disc'
+          },
+          year: {
+            id: 'year-hand'
+          }
+        };
 
-          break;
+        break;
+
+      case 'date-indicator':
+        this.demoWatchSettings = {
+          dials: [{
+            hands: {
+              hour: 'date-hour-hand',
+              minute: 'date-minute-hand',
+              second: 'date-second-hand'
+            }
+          }],
+          date: {
+            id: 'date-disc'
+          }
+        };
+
+        break;
 
       case 'day-night-indicator':
         this.demoWatchSettings = {

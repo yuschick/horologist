@@ -6,6 +6,8 @@ const MinuteRepeater = require('./MinuteRepeater');
 const DayNightIndicator = require('./DayNightIndicator');
 const DayIndicator = require('./DayIndicator');
 const DateIndicator = require('./DateIndicator');
+const MonthIndicator = require('./MonthIndicator');
+const YearIndicator = require('./YearIndicator');
 
 class Watch {
   constructor(settings) {
@@ -50,12 +52,20 @@ class Watch {
       this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
     }
 
-    if (settings.dayIndicator) {
-      this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
+    if (settings.day || settings.dayIndicator) {
+      this.dayIndicator = new DayIndicator(settings.day, this);
     }
 
     if (settings.date) {
       this.dateIndicator = new DateIndicator(settings.date, this);
+    }
+
+    if (settings.month) {
+      this.monthIndicator = new MonthIndicator(settings.month, this);
+    }
+
+    if (settings.year) {
+      this.yearIndicator = new YearIndicator(settings.year, this);
     }
 
     this.init();
