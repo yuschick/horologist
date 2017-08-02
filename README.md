@@ -85,12 +85,19 @@ const settings = {
     invert: true,
     dial: 1
   },
-  dayIndicator: {
-    id: 'day-indicator-disc',
+  day: {
+    id: 'day-disc',
     offsetHours: true
   },
   date: {
     id: 'date-disc'
+  },
+  month: {
+    id: 'month-disc'
+  },
+  year: {
+    id: 'year-disc',
+    offsetMonths: true
   }
 };
 
@@ -131,12 +138,19 @@ let demo = new Watch(settings);
 - **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read by the indicator.
 
-#### dayIndicator {Object}
+#### day {Object}
 - **id** (*String*): The id of the day indicator element
 - **offsetHours** (*Boolean*): *Default: false* Set this property to *true* if the day indicator should be rotated an additional amount according to the hour of the current day.
 
 #### date {Object}
 - **id** (*String*): The id of the date indicator element
+
+#### month {Object}
+- **id** (*String*): The id of the month indicator element
+
+#### year {Object}
+- **id** (*String*): The id of the year indicator element
+- **offsetMonths** (*Boolean*): *Default: false* Set this property to *true* if the year indicator should be rotated an additional amount according to the month of the current year.
 
 ## ToDo
 - [ ] Provide basic chronograph support
