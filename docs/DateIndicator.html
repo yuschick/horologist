@@ -172,7 +172,7 @@
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.split) {
       <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'ones'</span>) {
         <span class="hljs-keyword">let</span> ones = <span class="hljs-keyword">this</span>.date % <span class="hljs-number">10</span>;
-        value = (ones - <span class="hljs-number">1</span>) * <span class="hljs-number">36</span>;
+        value = ones &gt; <span class="hljs-number">1</span> ? (ones - <span class="hljs-number">1</span>) * <span class="hljs-number">36</span> : <span class="hljs-number">36</span>;
       } <span class="hljs-keyword">else</span> {
         <span class="hljs-keyword">let</span> tenths = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.date / <span class="hljs-number">10</span>);
         value = tenths * <span class="hljs-number">90</span>;

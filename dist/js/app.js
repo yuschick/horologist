@@ -1266,7 +1266,7 @@
 	      if (this.split) {
 	        if (type === 'ones') {
 	          var ones = this.date % 10;
-	          value = (ones - 1) * 36;
+	          value = ones > 1 ? (ones - 1) * 36 : 36;
 	        } else {
 	          var tenths = Math.floor(this.date / 10);
 	          value = tenths * 90;
