@@ -158,9 +158,9 @@ let demo = new Watch(settings);
 
 ## ToDo
 - [ ] Provide mono-pusher chronograph support
-  - [ ] Provide tachymeter support (maybe)
   - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
+- [ ] Incorporate Moment Timezone for better GMT support
 - [ ] Allow passing an ID into the master Watch class
 - [ ] Rebuild TickTock site in React (Like I should have done in the first place)
 
