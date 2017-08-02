@@ -139,11 +139,6 @@ let demo = new Watch(settings);
 - **id** (*String*): The id of the date indicator element
 
 ## ToDo
-- [ ] Provide perpetual calendar support
-  - [x] Day indicator
-  - [x] Date indicator
-  - [ ] Month indicator
-  - [ ] Year indicator
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
