@@ -147,6 +147,7 @@ let demo = new Watch(settings);
 
 #### date {Object}
 - **id** (*String*): The id of the date indicator element
+- **split** (*Object*): Display the current date with two split discs - one showing the ones (0-9) and the other showing the tenths (0-3) of the date.
 
 #### month {Object}
 - **id** (*String*): The id of the month indicator element
@@ -159,8 +160,6 @@ let demo = new Watch(settings);
 - [ ] Provide mono-pusher chronograph support
   - [ ] Provide tachymeter support (maybe)
   - Likely an array of dials, again, with custom properties to determine their rate of movement
-- [ ] Provide split-disc functionality for the date
-  - Supply one disc for the tenths and another for ones
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
 - [ ] Allow passing an ID into the master Watch class
 - [ ] Rebuild TickTock site in React (Like I should have done in the first place)
