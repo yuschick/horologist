@@ -156,11 +156,14 @@ let demo = new Watch(settings);
 - **offsetMonths** (*Boolean*): *Default: false* Set this property to *true* if the year indicator should be rotated an additional amount according to the month of the current year.
 
 ## ToDo
-- [ ] Provide basic chronograph support
+- [ ] Provide mono-pusher chronograph support
+  - [ ] Provide tachymeter support (maybe)
   - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Provide split-disc functionality for the date
   - Supply one disc for the tenths and another for ones
+- [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
 - [ ] Allow passing an ID into the master Watch class
+- [ ] Rebuild TickTock site in React (Like I should have done in the first place)
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
