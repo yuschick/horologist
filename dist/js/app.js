@@ -1217,7 +1217,7 @@
 	  function DateIndicator(settings, parentWatch) {
 	    _classCallCheck(this, DateIndicator);
 
-	    if (!this.checkForErrors(settings)) return;
+	    if (this.checkForErrors(settings)) return;
 
 	    if (settings.split) {
 	      this.split = true;
@@ -1239,21 +1239,21 @@
 	        if (!settings.id && !settings.split) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
 	      } catch (errorMsg) {
 	        console.error(errorMsg);
-	        return;
+	        return true;
 	      }
 
 	      try {
 	        if (settings.id && settings.split) throw "Choose EITHER a primary or split indicator.";
 	      } catch (errorMsg) {
 	        console.error(errorMsg);
-	        return;
+	        return true;
 	      }
 
 	      try {
 	        if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw "When choosing a split date display please provide the IDs for both the ones and tenths discs.";
 	      } catch (errorMsg) {
 	        console.error(errorMsg);
-	        return;
+	        return true;
 	      }
 	    }
 	  }, {
@@ -1274,6 +1274,8 @@
 	      } else {
 	        value = (this.date - 1) * 11.61;
 	      }
+
+	      console.log(value);
 
 	      return value;
 	    }
