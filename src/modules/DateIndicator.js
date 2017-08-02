@@ -1,7 +1,6 @@
 class DateIndicator {
   constructor(settings, parentWatch) {
-
-    if (!this.checkForErrors(settings)) return;
+    if (this.checkForErrors(settings)) return;
 
     if (settings.split) {
       this.split = true;
@@ -24,7 +23,7 @@ class DateIndicator {
     }
     catch (errorMsg) {
       console.error(errorMsg);
-      return;
+      return true;
     }
 
     try {
@@ -33,7 +32,7 @@ class DateIndicator {
     }
     catch (errorMsg) {
       console.error(errorMsg);
-      return;
+      return true;
     }
 
     try {
@@ -42,7 +41,7 @@ class DateIndicator {
     }
     catch (errorMsg) {
       console.error(errorMsg);
-      return;
+      return true;
     }
   }
 
@@ -60,6 +59,8 @@ class DateIndicator {
     } else {
       value = (this.date - 1) * 11.61;
     }
+
+    console.log(value);
 
     return value;
   }
