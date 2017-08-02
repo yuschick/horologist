@@ -76,6 +76,11 @@
                       - Define the Indicator</a>
                 </li>
                 <li>
+                  <a href='#date-splitdisplay'>
+                      <span class='is-strong'>Date</span>
+                      - Define a Split Display</a>
+                </li>
+                <li>
                   <a href='#day-overview'>
                       <span class='is-strong'>Day</span>
                       - Overview</a>
@@ -327,7 +332,6 @@ let demo = new Watch(settings);
               a leap year. TickTock supports all of these individual complications so any combination of such can be created.</p>
             <section class='date-indicator-section'>
               <section class='doc-property-container' id='date-overview'>
-                <!-- <h4 class='has-spacer'>Date Indicator</h4> -->
                 <h5 class='is-strong'>Date - Overview</h5>
                 <div class='flex-container doc-specs'>
                   <div>
@@ -387,6 +391,48 @@ let settings = {
   ...
   date: {
     id: 'date-disc'
+  }
+};
+          </pre>
+                  </code>
+              </section>
+              <section id='date-splitdisplay' class='doc-property-container'>
+                <h5 class='is-strong'>Date - Defining a Split Display</h5>
+                <div class='flex-container doc-specs'>
+                  <div>
+                    <span class='is-strong'>Property:
+                    </span> split
+                  </div>
+                  <div>
+                    <span class='is-strong'>Type:
+                    </span> Object
+                  </div>
+                  <div>
+                    <span class='is-strong'>Required:
+                    </span> False
+                  </div>
+                  <div>
+                    <span class='is-strong'>Required:
+                    </span> null
+                  </div>
+                </div>
+                <p>Some date displays are broken into two split discs. One disc shows the ones of the date ranging from 0 - 9 while the other shows the tenths, 0 - 3. Combined, these two split discs display the full date.</p>
+                <p>
+                  TickTock supports this functionality with the <span class='is-code-ref'>split</span> object. By defining the IDs of the <span class='is-code-ref'>ones</span> and <span class='is-code-ref'>tenths</span> discs, TickTock will handle both
+                  discs simultaneously. Both discs are expected to be initially placed in their 0 position.
+                </p>
+                <p>
+                  Note that the <span class='is-code-ref'>Date</span> property accepts <span class='is-strong'>either</span> an <span class='is-code-ref'>id</span> or <span class='is-code-ref'>split</span> property. Including both will result in an error.
+                </p>
+                <code>
+                    <pre class='prettyprint lang-js linenums'>
+let settings = {
+  ...
+  date: {
+    split: {
+      ones: 'ones-disc',
+      tenths: 'tenths-disc'
+    }
   }
 };
           </pre>
@@ -1643,6 +1689,7 @@ let settings = {
             </pre>
               </code>
           </section>
+          /section>
         </section>
         <section class='watch-sexction'>
           <section id='watch-header' class='doc-property-container'>

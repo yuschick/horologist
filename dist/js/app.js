@@ -51,9 +51,9 @@
 
 	  var util = __webpack_require__(1);
 	  var HeaderWatch = __webpack_require__(2);
-	  var DemoWatches = __webpack_require__(12);
-	  var ComplicationsNav = __webpack_require__(13);
-	  var DocsPage = __webpack_require__(14);
+	  var DemoWatches = __webpack_require__(14);
+	  var ComplicationsNav = __webpack_require__(15);
+	  var DocsPage = __webpack_require__(16);
 	})();
 
 /***/ }),
@@ -138,8 +138,8 @@
 	var DayNightIndicator = __webpack_require__(9);
 	var DayIndicator = __webpack_require__(10);
 	var DateIndicator = __webpack_require__(11);
-	var MonthIndicator = __webpack_require__(15);
-	var YearIndicator = __webpack_require__(16);
+	var MonthIndicator = __webpack_require__(12);
+	var YearIndicator = __webpack_require__(13);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -1217,14 +1217,15 @@
 	  function DateIndicator(settings, parentWatch) {
 	    _classCallCheck(this, DateIndicator);
 
-	    try {
-	      if (!settings.id) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
+	    if (!this.checkForErrors(settings)) return;
 
-	    this.element = document.getElementById(settings.id);
+	    if (settings.split) {
+	      this.split = true;
+	      this.ones = document.getElementById(settings.split.ones);
+	      this.tenths = document.getElementById(settings.split.tenths);
+	    } else {
+	      this.element = document.getElementById(settings.id);
+	    }
 	    this.parent = parentWatch;
 	    this.date = this.parent.rightNow.getDate();
 
@@ -1232,16 +1233,59 @@
 	  }
 
 	  _createClass(DateIndicator, [{
+	    key: "checkForErrors",
+	    value: function checkForErrors(settings) {
+	      try {
+	        if (!settings.id && !settings.split) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (settings.id && settings.split) throw "Choose EITHER a primary or split indicator.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw "When choosing a split date display please provide the IDs for both the ones and tenths discs.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+	    }
+	  }, {
 	    key: "getRotateValue",
 	    value: function getRotateValue() {
-	      var value = (this.date - 1) * 11.61;
+	      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+	      var value = 0;
+
+	      if (this.split) {
+	        if (type === 'ones') {
+	          var ones = this.date % 10;
+	          value = (ones - 1) * 36;
+	        } else {
+	          var tenths = Math.floor(this.date / 10);
+	          value = tenths * 90;
+	        }
+	      } else {
+	        value = (this.date - 1) * 11.61;
+	      }
 
 	      return value;
 	    }
 	  }, {
 	    key: "rotateElement",
 	    value: function rotateElement() {
-	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	      if (this.split) {
+	        this.ones.style.transform = "rotate(" + this.getRotateValue('ones') + "deg)";
+	        this.tenths.style.transform = "rotate(" + this.getRotateValue('tenths') + "deg)";
+	      } else {
+	        this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	      }
 	    }
 	  }, {
 	    key: "init",
@@ -1257,6 +1301,124 @@
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var MonthIndicator = function () {
+	  function MonthIndicator(settings, parentWatch) {
+	    _classCallCheck(this, MonthIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.month = this.parent.rightNow.getMonth();
+
+	    this.init();
+	  }
+
+	  _createClass(MonthIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = this.month * 30;
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return MonthIndicator;
+	}();
+
+	module.exports = MonthIndicator;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var YearIndicator = function () {
+	  function YearIndicator(settings, parentWatch) {
+	    _classCallCheck(this, YearIndicator);
+
+	    try {
+	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
+	    } catch (errorMsg) {
+	      console.error(errorMsg);
+	      return;
+	    }
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.year = this.parent.rightNow.getYear();
+	    this.month = this.parent.rightNow.getMonth();
+	    this.offsetMonths = settings.offsetMonths || false;
+
+	    this.init();
+	  }
+
+	  _createClass(YearIndicator, [{
+	    key: "getRotateValue",
+	    value: function getRotateValue() {
+	      var value = 0;
+
+	      if (this.year % 4 === 0 && this.year % 100 !== 0 || this.year % 400 === 0) {
+	        value = 270;
+	      } else if (this.year % 4 === 2 && this.year % 100 !== 2 || this.year % 400 === 2) {
+	        value = 90;
+	      } else if (this.year % 4 === 3 && this.year % 100 !== 3 || this.year % 400 === 3) {
+	        value = 180;
+	      }
+
+	      if (this.offsetMonths) {
+	        value += this.month * 7.5;
+	      }
+
+	      return value;
+	    }
+	  }, {
+	    key: "rotateElement",
+	    value: function rotateElement() {
+	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.rotateElement();
+	    }
+	  }]);
+
+	  return YearIndicator;
+	}();
+
+	module.exports = YearIndicator;
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1455,7 +1617,7 @@
 	};
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1464,7 +1626,7 @@
 	  'use strict';
 
 	  var util = __webpack_require__(1);
-	  var DemoWatches = __webpack_require__(12);
+	  var DemoWatches = __webpack_require__(14);
 
 	  var complications = document.querySelectorAll('.complication-link');
 	  var complicationDemos = document.querySelectorAll('.complication-container');
@@ -1512,7 +1674,7 @@
 	}();
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1594,124 +1756,6 @@
 	    ticking = true;
 	  });
 	}();
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var MonthIndicator = function () {
-	  function MonthIndicator(settings, parentWatch) {
-	    _classCallCheck(this, MonthIndicator);
-
-	    try {
-	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
-
-	    this.element = document.getElementById(settings.id);
-	    this.parent = parentWatch;
-	    this.month = this.parent.rightNow.getMonth();
-
-	    this.init();
-	  }
-
-	  _createClass(MonthIndicator, [{
-	    key: "getRotateValue",
-	    value: function getRotateValue() {
-	      var value = this.month * 30;
-
-	      return value;
-	    }
-	  }, {
-	    key: "rotateElement",
-	    value: function rotateElement() {
-	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
-	    }
-	  }, {
-	    key: "init",
-	    value: function init() {
-	      this.rotateElement();
-	    }
-	  }]);
-
-	  return MonthIndicator;
-	}();
-
-	module.exports = MonthIndicator;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var YearIndicator = function () {
-	  function YearIndicator(settings, parentWatch) {
-	    _classCallCheck(this, YearIndicator);
-
-	    try {
-	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
-
-	    this.element = document.getElementById(settings.id);
-	    this.parent = parentWatch;
-	    this.year = this.parent.rightNow.getYear();
-	    this.month = this.parent.rightNow.getMonth();
-	    this.offsetMonths = settings.offsetMonths || false;
-
-	    this.init();
-	  }
-
-	  _createClass(YearIndicator, [{
-	    key: "getRotateValue",
-	    value: function getRotateValue() {
-	      var value = 0;
-
-	      if (this.year % 4 === 0 && this.year % 100 !== 0 || this.year % 400 === 0) {
-	        value = 270;
-	      } else if (this.year % 4 === 2 && this.year % 100 !== 2 || this.year % 400 === 2) {
-	        value = 90;
-	      } else if (this.year % 4 === 3 && this.year % 100 !== 3 || this.year % 400 === 3) {
-	        value = 180;
-	      }
-
-	      if (this.offsetMonths) {
-	        value += this.month * 7.5;
-	      }
-
-	      return value;
-	    }
-	  }, {
-	    key: "rotateElement",
-	    value: function rotateElement() {
-	      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
-	    }
-	  }, {
-	    key: "init",
-	    value: function init() {
-	      this.rotateElement();
-	    }
-	  }]);
-
-	  return YearIndicator;
-	}();
-
-	module.exports = YearIndicator;
 
 /***/ })
 /******/ ]);
