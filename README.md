@@ -158,7 +158,9 @@ let demo = new Watch(settings);
 ## ToDo
 - [ ] Provide basic chronograph support
   - Likely an array of dials, again, with custom properties to determine their rate of movement
-- [ ] Allow passing an ID into the master Watch class in case multiple watches are on one page
+- [ ] Provide split-disc functionality for the date
+  - Supply one disc for the tenths and another for ones
+- [ ] Allow passing an ID into the master Watch class
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
