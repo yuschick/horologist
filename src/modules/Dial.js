@@ -43,7 +43,6 @@ class Dial {
     this.crownActive = false;
     this.manualTime = false;
     this.settingTime = false;
-    // this.setSecondary = false;
     this.transition = {};
 
     this.init();
@@ -52,10 +51,6 @@ class Dial {
   toggleActiveCrown() {
     this.crownActive = !this.crownActive;
   }
-
-  // toggleSecondaryTime() {
-  //   this.setSecondary = !this.setSecondary;
-  // }
 
   toggleSettingTime() {
     this.settingTime = !this.settingTime;
@@ -106,9 +101,6 @@ class Dial {
     let rotateVal;
 
     if (this.hands.hour) {
-      // let hourOffset = this.setSecondary ?
-      //   this.rotateValues.hourJump :
-      //   this.rotateValues.hoursRotateValOffset;
       let hourOffset = this.rotateValues.hoursRotateValOffset;
       rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
       if (this.settingTime) {
