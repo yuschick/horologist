@@ -60,8 +60,6 @@ class DateIndicator {
       value = (this.date - 1) * 11.61;
     }
 
-    console.log(value);
-
     return value;
   }
 

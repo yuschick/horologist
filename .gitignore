@@ -3,3 +3,5 @@ materials/
 *.map
 *.lock
 .DS_Store
+/ref
+/ticktock
