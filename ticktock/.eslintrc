@@ -33,7 +33,6 @@
     "no-extra-semi": 1,
     "no-sparse-arrays": 2,
     "use-isnan": 2,
-    "curly": [2,"multi-or-nest"],
     "eqeqeq": [2,"smart"],
     "no-alert": 2,
     "no-eval": 2,
