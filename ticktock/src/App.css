@@ -132,6 +132,10 @@ img {
   position: relative;
   width: 100%; }
 
+@media screen and (max-width: 800px) {
+  .container.flex-container {
+    flex-direction: column; } }
+
 .flex-container {
   display: flex; }
   .flex-container.at-end {

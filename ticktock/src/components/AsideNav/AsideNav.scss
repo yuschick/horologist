@@ -1,9 +1,16 @@
 @import './../../styles/variables.scss';
+@import './../../styles/mixins.scss';
 
 .aside-nav-container {
   background: $tertiaryColor;
   top: 0;
   width: 250px;
+}
+@include bp(800) {
+  .aside-nav-container {
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+  }
 }
 
 .aside-nav {

@@ -8,6 +8,12 @@
   width: 100%;
 }
 
+.container.flex-container {
+  @include bp(800) {
+    flex-direction: column;
+  }
+}
+
 .flex-container {
   display: flex;
 
