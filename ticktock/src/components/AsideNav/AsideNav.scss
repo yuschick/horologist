@@ -12,6 +12,11 @@
 
 .menu-group {
   cursor: pointer;
+
+  &.active .guide {
+    background: $secondaryColor;
+    color: $tertiaryColor;
+  }
 }
 
 .group-header {
@@ -21,6 +26,11 @@
   font-size: 1rem;
   padding: $vspace/5 $hspace/2;
   text-transform: uppercase;
+
+  &.guide {
+    background: transparent;
+    color: $primaryColor;
+  }
 }
 
 .main-menu li {

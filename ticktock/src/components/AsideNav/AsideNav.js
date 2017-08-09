@@ -35,23 +35,25 @@ class AsideNav extends Component {
                 label = this.formatHeader(item.header);
 
                 return (
-                  <li ref={group => this[label] = group} key={label} className={`menu-group ${item.active ? 'active' : ''}`} data-group={this.formatHeader(item.header)} onClick={() => {this.props.update(item.header);}}>
-                    <span className='group-header'>{item.header}</span>
+                  <li key={label} className={`menu-group ${item.active ? 'active' : ''}`} data-group={this.formatHeader(item.header)} onClick={() => {this.props.update(item.header);}}>
+                    <span className={`group-header ${this.props.guide ? 'guide' : ''}`}>{item.header}</span>
 
-                    <ul className='sub-menu'>
-                      {
-                        item.items.map(subitem => {
-                          return (
-                            <li key={this.formatHeader(subitem.label)} onClick={() => {
-                                this.scrollToView(subitem.anchor);
-                              }
-                            }>
-                              <Link to={`#${subitem.anchor}`}>{subitem.label}</Link>
-                            </li>
-                          )
-                        })
-                      }
-                    </ul>
+                    {item.items ?
+                      <ul className='sub-menu'>
+                        {
+                          item.items.map(subitem => {
+                            return (
+                              <li key={this.formatHeader(subitem.label)} onClick={() => {
+                                  this.scrollToView(subitem.anchor);
+                                }
+                              }>
+                                <Link to={`#${subitem.anchor}`}>{subitem.label}</Link>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    : false}
                   </li>
                 )
               })
@@ -67,6 +69,7 @@ AsideNav.propTypes = {
   menu: PropTypes.array.isRequired,
   update: PropTypes.func.isRequired,
   fixed: PropTypes.bool,
+  guide: PropTypes.bool,
 }
 
 export default AsideNav;

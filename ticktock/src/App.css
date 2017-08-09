@@ -204,22 +204,6 @@ img {
 .panel .panel {
   padding-bottom: 0; }
 
-.code-block-container {
-  background: #272727;
-  color: #EFF1F3;
-  margin: 0 auto 1rem;
-  max-width: 500px;
-  padding: 0.5rem 1rem;
-  width: 100%; }
-  .code-block-container:last-child {
-    margin-bottom: 0; }
-  .code-block-container.complication {
-    background: #EFF1F3;
-    margin-top: 1rem;
-    max-width: none; }
-    .code-block-container.complication pre {
-      border: 0; }
-
 h1 {
   color: #007486;
   font: 5.5rem/1.15 "Rubik", sans-serif;

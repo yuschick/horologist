@@ -337,30 +337,30 @@ class Docs extends Component {
 
               <CodeBlock>
   {`const settings = {
-    dials: [{
-      name: 'primary',
-      hands: {
-        hour: 'primary-hour-hand',
-        minute: 'primary-minute-hand',
-        second: 'primary-second-hand'
-      }
-    },
-    {
-      name: 'secondary',
-      hands: {
-        hour: 'secondary-hour-hand',
-        minute: 'secondary-minute-hand',
-        second: 'secondary-second-hand'
-      },
-      offset: '+4',
-      sweep: true
-    }],
-    reserve: {
-      id: 'power-reserve-hand',
-      range: [-90, 90]
+  dials: [{
+    name: 'primary',
+    hands: {
+      hour: 'primary-hour-hand',
+      minute: 'primary-minute-hand',
+      second: 'primary-second-hand'
     }
-  };
-  let demo = new Watch(settings);`}
+  },
+  {
+    name: 'secondary',
+    hands: {
+      hour: 'secondary-hour-hand',
+      minute: 'secondary-minute-hand',
+      second: 'secondary-second-hand'
+    },
+    offset: '+4',
+    sweep: true
+  }],
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};
+let demo = new Watch(settings);`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -376,11 +376,11 @@ class Docs extends Component {
               <p>TickTock expects the initial position of the indicator to be on the 1st. It will then rotate for each day from there.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    date: {
-      id: 'date-disc'
-    }
-  };`}
+  ...
+  date: {
+    id: 'date-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -389,11 +389,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>date</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects a string value of the indicator element{String.fromCharCode(39)}s ID. The indicator{String.fromCharCode(39)}s initial position is expected to be on the 1st and will rotate clockwise for each day from there.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    date: {
-      id: 'date-disc'
-    }
-  };`}
+  ...
+  date: {
+    id: 'date-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -409,14 +409,14 @@ class Docs extends Component {
               </p>
               <CodeBlock>
   {`let settings = {
-    ...
-    date: {
-      split: {
-        ones: 'ones-disc',
-        tenths: 'tenths-disc'
-      }
+  ...
+  date: {
+    split: {
+      ones: 'ones-disc',
+      tenths: 'tenths-disc'
     }
-  };`}
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -429,12 +429,12 @@ class Docs extends Component {
               </p>
               <CodeBlock>
   {`let settings = {
-    ...
-    day: {
-      id: 'day-indicator-disc',
-      offsetHours: true
-    }
-  };`}
+  ...
+  day: {
+    id: 'day-indicator-disc',
+    offsetHours: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -443,12 +443,12 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>dayIndicator</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects a string value of the indicator element{String.fromCharCode(39)}s ID.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    day: {
-      id: 'day-indicator-disc',
-      offsetHours: true
-    }
-  };`}
+  ...
+  day: {
+    id: 'day-indicator-disc',
+    offsetHours: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -457,12 +457,12 @@ class Docs extends Component {
               <p>While most indicators rotate once a day to depict the current label, some update regularly with the time to also indicate the progression through the day. Using the <span className='is-code-ref'>offsetHours</span> setting allows TickTock to not only rotate the element to the correct day but to also rotate an additional amount for the day{String.fromCharCode(39)}s current hour.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    day: {
-      id: 'day-indicator-disc',
-      offsetHours: true
-    }
-  };`}
+  ...
+  day: {
+    id: 'day-indicator-disc',
+    offsetHours: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -471,11 +471,11 @@ class Docs extends Component {
               <p>Month indicators are used to display the current month of the year. This is commonly seen as a rotating dial with the month abbreviation being shown through a window but can also be built as a rotating hand pointing to the current month.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    month: {
-      id: 'month-disc'
-    }
-  };`}
+  ...
+  month: {
+    id: 'month-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -484,11 +484,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>month</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects a string value of the indicator element{String.fromCharCode(39)}s ID. The indicator{String.fromCharCode(39)}s initial position is expected to be on January and will rotate clockwise for each month from there.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    month: {
-      id: 'month-disc'
-    }
-  };`}
+  ...
+  month: {
+    id: 'month-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -498,12 +498,12 @@ class Docs extends Component {
               <p>TickTock also accounts for designs that may want to show the year{String.fromCharCode(39)}s progress. Much like the Day Indicator{String.fromCharCode(39)}s <span className='is-code-ref'>offsetHours</span> functionality, the <span className='is-code-ref'>offsetMonths</span> functionality rotates the indicator 90deg for each year and an additional 7.5deg for each month.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    year: {
-      id: 'year-disc',
-      offsetMonths: true
-    }
-  };`}
+  ...
+  year: {
+    id: 'year-disc',
+    offsetMonths: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -513,11 +513,11 @@ class Docs extends Component {
                 pointing toward the middle of the first year in the set of four with the fourth year being the leap year.This is different if using <span className='is-code-ref'>offsetMonths</span>.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    year: {
-      id: 'year-disc'
-    }
-  };`}
+  ...
+  year: {
+    id: 'year-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -527,12 +527,12 @@ class Docs extends Component {
               <p>TickTock expects the initial position of the indicator pointing toward the first year in the set of four with the fourth year being the leap year. If the indicator is not going to offset the months, the indictor can point to the middle of the year and will rotate 90deg for each additional year. But if the indicator is to offset the months, the initial position should begin at the very beginning of the first year label as it will rotate 90deg per year and an additional 7.5deg per month.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    year: {
-      id: 'year-disc',
-      offsetMonths: true
-    }
-  };`}
+  ...
+  year: {
+    id: 'year-disc',
+    offsetMonths: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -544,13 +544,13 @@ class Docs extends Component {
               <p>Many simple day/night indicators are a two-color disc that show {String.fromCharCode(39)}day{String.fromCharCode(39)} only from midnight to 6 AM and {String.fromCharCode(39)}night{String.fromCharCode(39)} only from noon to 6 PM, with a half-day or half-night display the rest of the time. TickTock follows this convention.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    dayNightIndicator: {
-      id: 'day-night-dial',
-      dial: 1,
-      invert: true
-    }
-  };`}
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1,
+    invert: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -559,11 +559,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>dayNightIndicator</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects a string value of the indicator element{String.fromCharCode(39)}s ID. The default behavior will be for the indicator to rotate clockwise relative to the time of the first dial passed in the dials array.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    dayNightIndicator: {
-      id: 'day-night-dial'
-    }
-  };`}
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -574,29 +574,29 @@ class Docs extends Component {
               <p>In the example code below, the day/night indicator will be tied to the {String.fromCharCode(39)}secondary{String.fromCharCode(39)} dial in the <span className='is-code-ref'>dials</span> array by setting its <span className='is-code-ref'>dial</span> property to a value of 1.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-        name: 'primary',
-        hands: {
-          hour: 'dial-primary-hour-hand',
-          minute: 'dial-primary-minute-hand',
-          second: 'dial-primary-second-hand'
-        }
+  dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'dial-primary-hour-hand',
+        minute: 'dial-primary-minute-hand',
+        second: 'dial-primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'dial-secondary-hour-hand',
+        minute: 'dial-secondary-minute-hand',
+        second: 'dial-secondary-second-hand'
       },
-      {
-        name: 'secondary',
-        hands: {
-          hour: 'dial-secondary-hour-hand',
-          minute: 'dial-secondary-minute-hand',
-          second: 'dial-secondary-second-hand'
-        },
-        offset: '+6',
-        sweep: true
-      }]
-    dayNightIndicator: {
-      id: 'day-night-dial',
-      dial: 1
-    }
-  };`}
+      offset: '+6',
+      sweep: true
+    }]
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -605,13 +605,13 @@ class Docs extends Component {
               <p>By default, the day/night indicator rotates clockwise with the initial position set to the full day display. To invert this behavior, and rotate counter clockwise, set the <span className='is-code-ref'>invert</span> property to true.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    dayNightIndicator: {
-      id: 'day-night-dial',
-      dial: 1,
-      invert: true
-    }
-  };`}
+  ...
+  dayNightIndicator: {
+    id: 'day-night-dial',
+    dial: 1,
+    invert: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -622,18 +622,18 @@ class Docs extends Component {
               <p>The dials are the primary component in TickTock. A dial serves as a collection of hand elements and settings used to indicate the time by rotating the elements according to the current local time, the provided GMT offset, or the manually set time.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      },
-      offset: '+3',
-      format: 12,
-      sweep: true
-    }]
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    },
+    offset: '+3',
+    format: 12,
+    sweep: true
+  }]
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -643,18 +643,18 @@ class Docs extends Component {
               <p>Every hand element entered in a dial object will work in unison regardless of where they visually appear in the design. For example, if the watch has large hour and minute hands but shows the seconds in a sub-dial at 6 o{String.fromCharCode(39)}clock, those can still be designated in the same dial object. Just because visually they are not together does not mean that they must be entrered as separate dials.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      },
-      offset: '+3',
-      format: 12,
-      sweep: true
-    }]
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    },
+    offset: '+3',
+    format: 12,
+    sweep: true
+  }]
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -663,11 +663,11 @@ class Docs extends Component {
               <p>Dial names are not required in most instances. The <span className='is-code-ref'>name</span> is primarily used for personal reference. However, the <span className='is-code-ref'>name</span> does serve a purpose when including the Day/Night Indicator complication. Because Day/Night Indicators are often used on watches that have multiple dials, the name of the dial is used to link the indicator to the correct dial.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      ...
-    }]
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    ...
+  }]
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -677,15 +677,15 @@ class Docs extends Component {
               <p>While the <span className='is-code-ref'>hands</span> object is required for the dial component, not every hand is required. A dial could contain an hour and minute hand, just a second hand, or any combination of the three.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      }
-    }]
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }]
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -696,16 +696,16 @@ class Docs extends Component {
               <p>Decimal values are also supported. For example, Delhi would have an <span className='is-code-ref'>offset</span> value of {String.fromCharCode(39)}+5.3{String.fromCharCode(39)}.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      }
-    }],
-    offset: '+2' // Helsinki, Finland
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '+2' // Helsinki, Finland
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -714,17 +714,17 @@ class Docs extends Component {
               <p>Most watches show time in a 12-hour format where the hour hand rotates a full circle every 12 hours. But if the dial is to show the time in a 24-hour format, TickTock supports the <span className='is-code-ref'>format</span> property. The property defaults to 12 but can be set to 24 to adust the rotation value of the hour hand.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      }
-    }],
-    offset: '-4',
-    format: 24
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '-4',
+  format: 24
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -734,18 +734,18 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>sweep</span> property only affects the second hand of the dial. To have a sweeping motion for the minute and hour hands as well, a CSS transition will need to be added manually.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-      name: 'primary-dial',
-      hands: {
-        hour: 'element-id',
-        minute: 'element-id',
-        second: 'element-id'
-      }
-    }],
-    offset: '-4',
-    format: 24,
-    sweep: true
-  };`}
+  dials: [{
+    name: 'primary-dial',
+    hands: {
+      hour: 'element-id',
+      minute: 'element-id',
+      second: 'element-id'
+    }
+  }],
+  offset: '-4',
+  format: 24,
+  sweep: true
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -753,25 +753,25 @@ class Docs extends Component {
               <p>Because the <span className='is-code-ref'>dials</span> property is an array of dial objects, a single watch can display multiple dials at once. For example, Dual Time watches which show both local and home times together. TickTock supports passing in multiple dial objects each with their own settings to support such complications.</p>
               <CodeBlock>
   {`let settings = {
-    dials: [{
-        name: 'primary',
-        hands: {
-          hour: 'dial-primary-hour-hand',
-          minute: 'dial-primary-minute-hand',
-          second: 'dial-primary-second-hand'
-        }
+  dials: [{
+      name: 'primary',
+      hands: {
+        hour: 'dial-primary-hour-hand',
+        minute: 'dial-primary-minute-hand',
+        second: 'dial-primary-second-hand'
+      }
+    },
+    {
+      name: 'secondary',
+      hands: {
+        hour: 'dial-secondary-hour-hand',
+        minute: 'dial-secondary-minute-hand',
+        second: 'dial-secondary-second-hand'
       },
-      {
-        name: 'secondary',
-        hands: {
-          hour: 'dial-secondary-hour-hand',
-          minute: 'dial-secondary-minute-hand',
-          second: 'dial-secondary-second-hand'
-        },
-        offset: '+6',
-        sweep: true
-      }]
-  };`}
+      offset: '+6',
+      sweep: true
+    }]
+};`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -783,11 +783,11 @@ class Docs extends Component {
               <p>Additionally, if a secondary dial is being used, while in the set state, the right arrow key will allow a user to target the secondary dial to set its time independently.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    crown: {
-      id: 'the-crown'
-    }
-  };`}
+  ...
+  crown: {
+    id: 'the-crown'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -796,11 +796,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>crown</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects a string value of the crown element{String.fromCharCode(39)}s ID. TickTock will automatically update the CSS cursor property of the crown element to pointer to visually indicate the functionality on hover.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    crown: {
-      id: 'the-crown'
-    }
-  };`}
+  ...
+  crown: {
+    id: 'the-crown'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -828,17 +828,17 @@ class Docs extends Component {
               <p>The repeater button or trigger can be any element type as long as it contains an ID. Clicking the trigger will toggle playing the chimes. Upon playing the chimes, the time is stored so in the event a new minute passes after the initial button was clicked but before the chimes have completed, the latest minute will not be played.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    repeater: {
-      id: 'repeater-btn',
-      chimes: {
-        hour: './dist/sounds/chime-01.mp4',
-        quarter: './dist/sounds/chime-02.mp4',
-        minute: './dist/sounds/chime-03.mp4'
-      },
-      dial: 1
-    }
-  };`}
+  ...
+  repeater: {
+    id: 'repeater-btn',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    },
+    dial: 1
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -848,11 +848,11 @@ class Docs extends Component {
               <p>Clicking the trigger will toggle playing and stopping the chimes. Additionally, upon playing the chimes, the time is stored so in the event a new minute passes after the initial button was clicked but before the chimes have completed, the latest minute will not be played.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    repeater: {
-      id: 'repeater-btn'
-    }
-  };`}
+  ...
+  repeater: {
+    id: 'repeater-btn'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -862,16 +862,16 @@ class Docs extends Component {
               <p>However, custom chimes can be used by defining the path to each audio file inside of the <span className='is-code-ref'>chimes</span> object.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    repeater: {
-      id: 'repeater-btn',
-      chimes: {
-        hour: './dist/sounds/chime-01.mp4',
-        quarter: './dist/sounds/chime-02.mp4',
-        minute: './dist/sounds/chime-03.mp4'
-      }
+  ...
+  repeater: {
+    id: 'repeater-btn',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
     }
-  };`}
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -880,17 +880,17 @@ class Docs extends Component {
               <p>The minute repeater by default will chime the time of the first dial in the <span className='is-code-ref'>dials</span> array. However, the repeater can read the time of secondary dials as well by passing the dial{String.fromCharCode(39)}s array index into the <span className='is-code-ref'>dial</span> property.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    repeater: {
-      id: 'repeater-btn',
-      chimes: {
-        hour: './dist/sounds/chime-01.mp4',
-        quarter: './dist/sounds/chime-02.mp4',
-        minute: './dist/sounds/chime-03.mp4'
-      },
-      dial: 1
-    }
-  };`}
+  ...
+  repeater: {
+    id: 'repeater-btn',
+    chimes: {
+      hour: './dist/sounds/chime-01.mp4',
+      quarter: './dist/sounds/chime-02.mp4',
+      minute: './dist/sounds/chime-03.mp4'
+    },
+    dial: 1
+  }
+};`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -902,12 +902,12 @@ class Docs extends Component {
               <p>TickTock will rotate the moonphase disc from new moon to waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, three quarter, and waning crescent. It will also default to rotating the disc clockwise beginning from the full moon position.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    moonphase: {
-      id: 'moonphase-disc',
-      invert: true
-    }
-  };`}
+  ...
+  moonphase: {
+    id: 'moonphase-disc',
+    invert: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -916,11 +916,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>moonphase</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects the ID of the moonphase disc as a string.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    moonphase: {
-      id: 'moonphase-disc'
-    }
-  };`}
+  ...
+  moonphase: {
+    id: 'moonphase-disc'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -929,12 +929,12 @@ class Docs extends Component {
               <p>TickTock will rotate the moonphase disc from new moon to waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, three quarter, and waning crescent. It will also default to rotating the disc clockwise beginning from the full moon position which can be reversed with the <span className='is-code-ref'>invert</span> property.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    moonphase: {
-      id: 'moonphase-disc',
-      invert: true
-    }
-  };`}
+  ...
+  moonphase: {
+    id: 'moonphase-disc',
+    invert: true
+  }
+};`}
               </CodeBlock>
             </DocSection>
           </section>
@@ -947,12 +947,12 @@ class Docs extends Component {
               <p>Note that the range values are relative to the hand{String.fromCharCode(39)}s starting position.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    reserve: {
-      id: 'power-reserve-hand',
-      range: [-90, 90]
-    }
-  };`}
+  ...
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -961,11 +961,11 @@ class Docs extends Component {
               <p>The <span className='is-code-ref'>reserve</span> object accepts an <span className='is-code-ref'>id</span> property. This property expects the ID of the power reserve element as a string.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    reserve: {
-      id: 'power-reserve-hand'
-    }
-  };`}
+  ...
+  reserve: {
+    id: 'power-reserve-hand'
+  }
+};`}
               </CodeBlock>
             </DocSection>
 
@@ -977,12 +977,12 @@ class Docs extends Component {
               <p>Upon initialization, the reserve indicator will be set to its max position and will drain 0.5 degrees every second.</p>
               <CodeBlock>
   {`let settings = {
-    ...
-    reserve: {
-      id: 'power-reserve-hand',
-      range: [-90, 90]
-    }
-  };`}
+  ...
+  reserve: {
+    id: 'power-reserve-hand',
+    range: [-90, 90]
+  }
+};`}
               </CodeBlock>
             </DocSection>
           </section>

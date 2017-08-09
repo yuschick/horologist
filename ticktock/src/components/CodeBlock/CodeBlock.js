@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Code from 'react-code-prettify';
 import './CodeBlock.css';
 
 class CodeBlock extends Component {
   render() {
     return (
-      <code>
-        <pre className={`prettyprint lang-${this.props.lang || 'js'} linenums`}>{`${this.props.children}`}</pre>
-      </code>
+      <Code codeString={this.props.children} language={this.props.lang || 'javascript'} />
     );
   }
 }

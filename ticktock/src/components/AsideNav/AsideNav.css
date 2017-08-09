@@ -8,6 +8,9 @@
 
 .menu-group {
   cursor: pointer; }
+  .menu-group.active .guide {
+    background: #007486;
+    color: #EFF1F3; }
 
 .group-header {
   background: #007486;
@@ -16,6 +19,9 @@
   font-size: 1rem;
   padding: 0.2rem 0.5rem;
   text-transform: uppercase; }
+  .group-header.guide {
+    background: transparent;
+    color: #272727; }
 
 .main-menu li {
   margin-bottom: 0.2rem; }

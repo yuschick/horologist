@@ -10,7 +10,7 @@ class Footer extends Component {
           <a href='https://www.github.com/yuschick' target='new'>github.com/yuschick</a> | <a href='https://www.twitter.com/yuschick' target='new'>twitter.com/yuschick</a>
         </div>
         <div>
-          <span className='tertiary-text'>&copy;2017 TickTock</span>
+          <span className='tertiary-text'>&copy;{new Date().getFullYear()} TickTock</span>
         </div>
       </footer>
     );
