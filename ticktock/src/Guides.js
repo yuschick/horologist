@@ -81,7 +81,7 @@ class Guides extends Component {
     return (
       <div className='container flex-container'>
         <AsideNav menu={this.state.menu} guide={true} update={this.updateActiveMenu} fixed={this.state.fixed} />
-        <section className='flex-four docs-container guide-container'>
+        <section className={`flex-four docs-container ${this.state.fixed ? 'fixed-nav' : ''}`}>
           <Guide id={this.state.activeGuide} />
         </section>
       </div>

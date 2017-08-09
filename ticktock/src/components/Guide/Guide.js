@@ -13,7 +13,6 @@ class Guide extends Component {
     switch (this.props.id) {
       case 1:
         return <BuildingYourFirstWatch />;
-        break;
       default:
         return false;
     }

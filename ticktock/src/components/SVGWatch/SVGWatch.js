@@ -16,6 +16,7 @@ class SVGWatch extends Component {
     this.getMinuteRepeaterDemo = this.getMinuteRepeaterDemo.bind(this);
     this.getMoonphaseDemo = this.getMoonphaseDemo.bind(this);
     this.getReserveDemo = this.getReserveDemo.bind(this);
+    this.getFirstWatch = this.getFirstWatch.bind(this);
   }
 
   componentDidMount() {
@@ -171,6 +172,33 @@ class SVGWatch extends Component {
           }],
           reserve: {
             id: 'reserve-hand',
+            range: [-90, 90],
+          },
+        };
+        break;
+      case 'guide-first-watch':
+        settings = {
+          dials: [{
+              name: 'primary',
+              hands: {
+                hour: 'primary-hour-hand',
+                minute: 'primary-minute-hand',
+                second: 'primary-second-hand',
+              },
+            },
+            {
+            name: 'secondary',
+            hands: {
+              hour: 'secondary-hour-hand',
+              minute: 'secondary-minute-hand',
+              second: 'secondary-second-hand',
+            },
+            offset: '+4',
+            sweep: true,
+          },
+          ],
+          reserve: {
+            id: 'power-reserve-hand',
             range: [-90, 90],
           },
         };
@@ -598,6 +626,44 @@ class SVGWatch extends Component {
     );
   }
 
+  getFirstWatch() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="first-watch" x="0" y="0" viewBox="0 0 244 244" xmlSpace="preserve">
+        <g id="hour-markers">
+          <circle className="first-watch-st0" cx="122" cy="122" r="117"/>
+          <line className="first-watch-st1" x1="122" y1="0" x2="122" y2="34"/>
+          <line className="first-watch-st1" x1="183" y1="16.3" x2="166" y2="45.8"/>
+          <line className="first-watch-st1" x1="78" y1="198.2" x2="61" y2="227.7"/>
+          <line className="first-watch-st1" x1="227.7" y1="61" x2="198.2" y2="78"/>
+          <line className="first-watch-st1" x1="45.8" y1="166" x2="16.3" y2="183"/>
+          <line className="first-watch-st1" x1="244" y1="122" x2="210" y2="122"/>
+          <line className="first-watch-st1" x1="34" y1="122" x2="0" y2="122"/>
+          <line className="first-watch-st1" x1="227.7" y1="183" x2="198.2" y2="166"/>
+          <line className="first-watch-st1" x1="45.8" y1="78" x2="16.3" y2="61"/>
+          <line className="first-watch-st1" x1="183" y1="227.7" x2="166" y2="198.2"/>
+          <line className="first-watch-st1" x1="78" y1="45.8" x2="61" y2="16.3"/>
+        </g>
+        <g id="power-reserve">
+          <path className="first-watch-st2" d="M91.5 73.8c-0.3-4 0.3-8.1 1.6-12 1.4-3.8 3.6-7.4 6.5-10.4 2.8-3 6.4-5.4 10.2-7.1 3.8-1.6 8-2.5 12.2-2.5 4.2 0 8.4 0.9 12.2 2.5 3.8 1.7 7.3 4.1 10.2 7.1 2.9 3 5.1 6.6 6.5 10.4 1.4 3.9 2 8 1.6 12 -0.6-8-4.2-15.5-9.8-20.7 -5.6-5.3-13.1-8.3-20.7-8.3 -7.6 0-15.2 3-20.7 8.3C95.6 58.3 92.1 65.8 91.5 73.8z"/>
+          <line id="power-reserve-hand" className="first-watch-st3" x1="122" y1="42.8" x2="122" y2="73.8"/>
+          <path d="M143.4 67.8h4.4v0.9h-3.3v2.7h3.1v0.9h-3.1v3.7h-1V67.8z"/>
+          <path d="M100 72.2h-3.1v2.9h3.5V76h-4.5v-8.1h4.4v0.9h-3.3v2.6h3.1V72.2z"/>
+        </g>
+        <g id="secondary-dial">
+          <circle className="first-watch-st4" cx="122" cy="196.5" r="30"/>
+          <line id="secondary-second-hand" className="first-watch-st5" x1="121.5" y1="196.5" x2="121.5" y2="166.5"/>
+          <line id="secondary-minute-hand" className="first-watch-st3" x1="121.5" y1="196.5" x2="121.5" y2="166.5"/>
+          <line id="secondary-hour-hand" className="first-watch-st6" x1="121.5" y1="196.5" x2="121.5" y2="174.5"/>
+        </g>
+        <line id="primary-second-hand" className="first-watch-st7 primary-center" x1="122" y1="121.5" x2="122" y2="9.5"/>
+        <line id="primary-minute-hand" className="first-watch-st8 primary-center" x1="122" y1="121" x2="122" y2="9"/>
+        <line id="primary-hour-hand" className="first-watch-st9 primary-center" x1="122" y1="121.5" x2="122" y2="50.5"/>
+        <circle id="center-circle" cx="122" cy="122" r="9"/>
+      </svg>
+
+    );
+  }
+
   render() {
     let watch;
 
@@ -625,6 +691,9 @@ class SVGWatch extends Component {
         break;
       case 'power-reserve':
         watch = this.getReserveDemo();
+        break;
+      case 'guide-first-watch':
+        watch = this.getFirstWatch();
         break;
       default:
         return false;

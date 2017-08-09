@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import CodeBlock from './../components/CodeBlock/CodeBlock';
+import SVGWatch from './../components/SVGWatch/SVGWatch';
+import HeaderImage from './../images/guides/firstwatch/header.jpg'
 
 class BuildingYourFirstWatch extends Component {
   render() {
     return (
       <div>
         <h4 className='has-spacer'>Building Your First Watch</h4>
-        <img src='./src/images/guides/firstwatch/header.jpg' alt='Building your first watch with TickTock JS' />
+        <img src={HeaderImage} alt='Building your first watch with TickTock JS' />
         <p>
           In this guide, let{String.fromCharCode(39)}s use TickTock to create our first animated watch. We will be building the watch shown in the above graphic. It contains two dials, the second being set to a specific time zone and a power reserve indicator.
         </p>
@@ -203,8 +205,9 @@ class BuildingYourFirstWatch extends Component {
         <p className='is-strong'>
           The Result
         </p>
-        <p data-height="400" data-theme-id="20882" data-slug-hash="wqvJey" data-default-tab="result" data-user="Yuschick" data-embed-version="2" data-pen-title="TickTock JS - First Watch Guide Result" className="codepen">See the Pen <a href="https://codepen.io/Yuschick/pen/wqvJey/">TickTock JS - First Watch Guide Result</a> by Daniel Yuschick (<a href="https://codepen.io/Yuschick">@Yuschick</a>) on <a href="https://codepen.io">CodePen</a>.</p>
-        <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+        <div className='guide-watch-container'>
+          <SVGWatch watch='guide-first-watch' />
+        </div>
       </div>
     );
   }
