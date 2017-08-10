@@ -1,24 +1,18 @@
 'use strict';
 
-/**
- * Defines the parent Watch class
- * @param {Object} settings
- */
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Dial = require('./dist/modules/Dial');
-var Crown = require('./dist/modules/Crown');
-var PowerReserve = require('./dist/modules/PowerReserve');
-var MoonPhase = require('./dist/modules/MoonPhase');
-var MinuteRepeater = require('./dist/modules/MinuteRepeater');
-var DayNightIndicator = require('./dist/modules/DayNightIndicator');
-var DayIndicator = require('./dist/modules/DayIndicator');
-var DateIndicator = require('./dist/modules/DateIndicator');
-var MonthIndicator = require('./dist/modules/MonthIndicator');
-var YearIndicator = require('./dist/modules/YearIndicator');
+var Dial = require('./Dial');
+var Crown = require('./Crown');
+var PowerReserve = require('./PowerReserve');
+var MoonPhase = require('./MoonPhase');
+var MinuteRepeater = require('./MinuteRepeater');
+var DayNightIndicator = require('./DayNightIndicator');
+var DayIndicator = require('./DayIndicator');
+var DateIndicator = require('./DateIndicator');
+var Chronograph = require('./Chronograph');
 
 var Watch = function () {
   function Watch(settings) {
@@ -65,20 +59,16 @@ var Watch = function () {
       this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
     }
 
-    if (settings.day || settings.dayIndicator) {
-      this.dayIndicator = new DayIndicator(settings.day, this);
+    if (settings.dayIndicator) {
+      this.dayIndicator = new DayIndicator(settings.dayIndicator, this);
     }
 
     if (settings.date) {
       this.dateIndicator = new DateIndicator(settings.date, this);
     }
 
-    if (settings.month) {
-      this.monthIndicator = new MonthIndicator(settings.month, this);
-    }
-
-    if (settings.year) {
-      this.yearIndicator = new YearIndicator(settings.year, this);
+    if (settings.chronograph) {
+      this.chronograph = new Chronograph(settings.chronograph, this);
     }
 
     this.init();
@@ -151,10 +141,6 @@ var Watch = function () {
           _this3.powerReserve.decrementReserve();
         }
 
-        /**
-        To be accurate, yes, the moonphase should stop if the power reserve empties
-        But is that worth making this call every second?
-        **/
         if (_this3.moonphase) {
           _this3.moonphase.getCurrentPhase();
         }

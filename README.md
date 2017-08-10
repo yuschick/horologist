@@ -5,6 +5,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 
 - Dials (with dual time support)
 - Power Reserve
+- Chronograph
 - Crown and Manual Time Functionality
 - Moonphase
 - Minute Repeater
@@ -101,7 +102,19 @@ const settings = {
   year: {
     id: 'year-disc',
     offsetMonths: true
-  }
+  },
+  chronograph: {
+   buttons: {
+     start: 'start-pause-btn',
+     reset: 'reset-btn'
+   },
+   hands: {
+     tenth: 'chron-tenth-second-hand',
+     second: 'chron-second-hand',
+     minute: 'chron-minute-hand'
+   },
+   flyback: true
+ }
 };
 
 let demo = new Watch(settings);
@@ -156,9 +169,12 @@ let demo = new Watch(settings);
 - **id** (*String*): The id of the year indicator element
 - **offsetMonths** (*Boolean*): *Default: false* Set this property to *true* if the year indicator should be rotated an additional amount according to the month of the current year.
 
+#### chronograph {Object}
+- **buttons** (*Object*): An object containing the IDs of the start and reset buttons used to trigger and control the chronograph
+- **hands** (*Object*): An object containing the IDs of the hands of the chronograph. By default, TickTock supports a tenth-second hand, second hand, and minute
+- **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
+
 ## Todo
-- [ ] Provide mono-pusher chronograph support
-  - Likely an array of dials, again, with custom properties to determine their rate of movement
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
 - [ ] Incorporate Moment Timezone for better GMT support
 - [ ] Allow passing an ID into the master Watch class

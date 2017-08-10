@@ -6,6 +6,7 @@ const MinuteRepeater = require('./MinuteRepeater');
 const DayNightIndicator = require('./DayNightIndicator');
 const DayIndicator = require('./DayIndicator');
 const DateIndicator = require('./DateIndicator');
+const Chronograph = require('./Chronograph');
 
 class Watch {
   constructor(settings) {
@@ -56,6 +57,10 @@ class Watch {
 
     if (settings.date) {
       this.dateIndicator = new DateIndicator(settings.date, this);
+    }
+
+    if (settings.chronograph) {
+      this.chronograph = new Chronograph(settings.chronograph, this);
     }
 
     this.init();

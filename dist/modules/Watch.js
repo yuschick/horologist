@@ -12,6 +12,7 @@ var MinuteRepeater = require('./MinuteRepeater');
 var DayNightIndicator = require('./DayNightIndicator');
 var DayIndicator = require('./DayIndicator');
 var DateIndicator = require('./DateIndicator');
+var Chronograph = require('./Chronograph');
 
 var Watch = function () {
   function Watch(settings) {
@@ -64,6 +65,10 @@ var Watch = function () {
 
     if (settings.date) {
       this.dateIndicator = new DateIndicator(settings.date, this);
+    }
+
+    if (settings.chronograph) {
+      this.chronograph = new Chronograph(settings.chronograph, this);
     }
 
     this.init();
