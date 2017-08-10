@@ -19,6 +19,7 @@ var DayIndicator = require('./dist/modules/DayIndicator');
 var DateIndicator = require('./dist/modules/DateIndicator');
 var MonthIndicator = require('./dist/modules/MonthIndicator');
 var YearIndicator = require('./dist/modules/YearIndicator');
+var Chronograph = require('./dist/modules/Chronograph');
 
 var Watch = function () {
   function Watch(settings) {
@@ -79,6 +80,10 @@ var Watch = function () {
 
     if (settings.year) {
       this.yearIndicator = new YearIndicator(settings.year, this);
+    }
+
+    if (settings.chronograph) {
+      this.chronograph = new Chronograph(settings.chronograph, this);
     }
 
     this.init();

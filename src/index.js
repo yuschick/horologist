@@ -14,6 +14,7 @@
  const DateIndicator = require('./dist/modules/DateIndicator');
  const MonthIndicator = require('./dist/modules/MonthIndicator');
  const YearIndicator = require('./dist/modules/YearIndicator');
+ const Chronograph = require('./dist/modules/Chronograph');
 
  class Watch {
    constructor(settings) {
@@ -72,6 +73,10 @@
 
      if (settings.year) {
        this.yearIndicator = new YearIndicator(settings.year, this);
+     }
+
+     if (settings.chronograph) {
+       this.chronograph = new Chronograph(settings.chronograph, this);
      }
 
      this.init();
