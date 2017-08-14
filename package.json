@@ -32,14 +32,14 @@
     "docco": "^0.7.0",
     "minifier": "^0.8.1",
     "mocha": "^3.4.2",
-    "moment": "^2.18.1",
-    "moment-timezone": "^0.5.13",
     "postcss-cli": "^4.0.0",
     "webpack": "^1.14.0",
     "yarn-run-all": "^3.1.1"
   },
   "dependencies": {
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13"
   },
   "browserslist": [
     "last 3 versions"
