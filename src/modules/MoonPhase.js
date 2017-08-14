@@ -1,3 +1,12 @@
+// Moonphase Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The moonphase class still uses the native Date constructor in JavaScript.
+// Based on the current date it returns, the moon's position is calculated and
+// a numeric value is returned. Based on this value, the moonphase indicator is
+// rotated.
+
 // http://stackoverflow.com/questions/11759992/calculating-jdayjulian-day-in-javascript
 // http://jsfiddle.net/gkyYJ/
 // http://stackoverflow.com/users/965051/adeneo

@@ -1,0 +1,152 @@
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  background-color: #EFF1F3;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:after, blockquote:before, q:after, q:before {
+  content: '';
+  content: none;
+}
+
+img {
+  border: 0;
+  height: auto;
+  max-width: 100%;
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 1rem auto;
+  width: 300px;
+}
+
+
+/* DIALS */
+
+.dials-st5 {
+  fill: #FFFFFF;
+}
+
+.dials-st6 {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 5;
+  stroke-miterlimit: 10;
+}
+
+.dials-st7 {
+  fill: #007486;
+}
+
+.dials-st8 {
+  fill: #272727;
+}
+
+.dials-st9 {
+  fill: #EFF1F3;
+}
+
+.dials-st10 {
+  fill: none;
+  stroke: #272727;
+  stroke-miterlimit: 10;
+}
+
+.dials-st11 {
+  fill: none;
+  stroke: #272727;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+}
+
+.perpetual-st0 {
+  fill: #FFFFFF;
+}
+
+.perpetual-st1 {
+  fill: none;
+}
+
+.perpetual-st2 {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 5;
+  stroke-miterlimit: 10;
+}
+
+.perpetual-st3 {
+  fill: #EFF1F3;
+}
+
+.perpetual-st4 {
+  fill: #272727;
+}
+
+.perpetual-st5 {
+  fill: none;
+  stroke: #272727;
+  stroke-miterlimit: 10;
+}
+
+.perpetual-st6 {
+  fill: #007486;
+}
+
+.perpetual-st7 {
+  fill: none;
+  stroke: #007486;
+  stroke-miterlimit: 10;
+}
+
+.primary-center {
+  transform-origin: 125px 125px;
+}
+
+.secondary-center {
+  transform-origin: 125px 180px;
+}
+
+.perpetual-day-center {
+  transform-origin: 176.2px 132.2px;
+}
+
+.perpetual-date-center {
+  transform-origin: 109.4px 132.1px;
+}
+
+.perpetual-month-center {
+  transform-origin: 124.4px 116.9px;
+}
+
+.perpetual-year-center {
+  transform-origin: 125px 190px;
+}

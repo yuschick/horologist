@@ -4,6 +4,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// Crown Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The crown class allows a user to manually set the watche's time and wind a
+// power reserve. The crown by default toggles an active class when triggered.
+
 var Crown = function () {
   function Crown(settings, parentWatch) {
     _classCallCheck(this, Crown);

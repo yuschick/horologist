@@ -1,73 +1,77 @@
-'use strict';
+// Master Watch Class
+// @params settings: Object
+//
+// The master watch class brings in all other complication components to create
+// new instances as needed by the settings object.
+// The class also brings in Moment.js to handle dates, times, and timezones
 
-/**
- * Defines the parent Watch class
- * @param {Object} settings
- */
- const Dial = require('./dist/modules/Dial');
- const Crown = require('./dist/modules/Crown');
- const PowerReserve = require('./dist/modules/PowerReserve');
- const MoonPhase = require('./dist/modules/MoonPhase');
- const MinuteRepeater = require('./dist/modules/MinuteRepeater');
- const DayNightIndicator = require('./dist/modules/DayNightIndicator');
- const DayIndicator = require('./dist/modules/DayIndicator');
- const DateIndicator = require('./dist/modules/DateIndicator');
- const MonthIndicator = require('./dist/modules/MonthIndicator');
- const YearIndicator = require('./dist/modules/YearIndicator');
- const Chronograph = require('./dist/modules/Chronograph');
+const Moment = require('moment');
 
- class Watch {
-   constructor(settings) {
+const Dial = require('./modules/Dial');
+const Crown = require('./modules/Crown');
+const PowerReserve = require('./modules/PowerReserve');
+const MoonPhase = require('./modules/MoonPhase');
+const MinuteRepeater = require('./modules/MinuteRepeater');
+const DayNightIndicator = require('./modules/DayNightIndicator');
+const DayIndicator = require('./modules/DayIndicator');
+const DateIndicator = require('./modules/DateIndicator');
+const MonthIndicator = require('./modules/MonthIndicator');
+const YearIndicator = require('./modules/YearIndicator');
+const Chronograph = require('./modules/Chronograph');
 
-     try {
-       if (!settings.dials)
-         throw "At least one dial is required for the Watch class.";
-     } catch (errorMsg) {
-       console.error(errorMsg);
-       return;
-     }
+class Watch {
+  constructor(settings) {
+    if (settings.testing) return;
 
-     this.dialInstances = [];
-     this.activeDial = 0;
-     this.globalInterval = null;
-     this.rightNow = new Date();
+    try {
+      if (!settings.dials)
+        throw "At least one dial is required for the Watch class.";
+    } catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
 
-     settings.dials.forEach((dial) => {
-       let tempDial = new Dial(dial, this);
-       this.dialInstances.push(tempDial);
-     });
+    this.dialInstances = [];
+    this.activeDial = 0;
+    this.globalInterval = null;
+    this.rightNow = Moment();
 
-     if (settings.crown) {
-       this.crown = new Crown(settings.crown, this);
-     }
+    settings.dials.forEach((dial) => {
+      let tempDial = new Dial(dial, this);
+      this.dialInstances.push(tempDial);
+    });
 
-     if (settings.reserve) {
-       this.powerReserve = new PowerReserve(settings.reserve, this);
-     }
+    if (settings.crown) {
+      this.crown = new Crown(settings.crown, this);
+    }
 
-     if (settings.moonphase) {
-       this.moonphase = new MoonPhase(settings.moonphase, this);
-     }
+    if (settings.reserve) {
+      this.powerReserve = new PowerReserve(settings.reserve, this);
+    }
 
-     if (settings.repeater) {
-       this.repeaterDial = settings.repeater.dial || 0;
-       this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater, this);
-     }
+    if (settings.moonphase) {
+      this.moonphase = new MoonPhase(settings.moonphase, this);
+    }
 
-     if (settings.dayNightIndicator) {
-       this.dayNightIndicatorDial = settings.dayNightIndicator.dial || 0;
-       this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
-     }
+    if (settings.repeater) {
+      this.repeaterDial = settings.repeater.dial || 0;
+      this.repeater = new MinuteRepeater(this.dialInstances[this.repeaterDial], settings.repeater, this);
+    }
 
-     if (settings.day || settings.dayIndicator) {
-       this.dayIndicator = new DayIndicator(settings.day, this);
-     }
+    if (settings.dayNightIndicator) {
+      this.dayNightIndicatorDial = settings.dayNightIndicator.dial || 0;
+      this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
+    }
 
-     if (settings.date) {
-       this.dateIndicator = new DateIndicator(settings.date, this);
-     }
+    if (settings.dayIndicator || settings.day) {
+      this.dayIndicator = new DayIndicator(settings.dayIndicator || settings.day, this);
+    }
 
-     if (settings.month) {
+    if (settings.date) {
+      this.dateIndicator = new DateIndicator(settings.date, this);
+    }
+
+    if (settings.month) {
        this.monthIndicator = new MonthIndicator(settings.month, this);
      }
 
@@ -75,99 +79,101 @@
        this.yearIndicator = new YearIndicator(settings.year, this);
      }
 
-     if (settings.chronograph) {
-       this.chronograph = new Chronograph(settings.chronograph, this);
-     }
+    if (settings.chronograph) {
+      this.chronograph = new Chronograph(settings.chronograph, this);
+    }
 
-     this.init();
-   }
+    this.init();
+  }
 
-   getCurrentRotateValue(el) {
-     let val = el.style.transform;
-     let num = val.replace('rotate(', '').replace('deg)', '');
-     return Number(num);
-   }
+  getCurrentRotateValue(el) {
+    let val = el.style.transform;
+    let num = val.replace('rotate(', '').replace('deg)', '');
+    return Number(num);
+  }
 
-   resetActiveDial() {
-     this.activeDial = 0;
-   }
+  resetActiveDial() {
+    this.activeDial = 0;
+  }
 
-   keyBindings() {
-     window.addEventListener('keydown', () => {
-       switch (event.keyCode) {
-         case 37:
-           if (this.powerReserve)
-             this.powerReserve.incrementReserve();
-           break;
-         case 13:
-           if (this.crown)
-             this.crown.toggleCrown();
-           break;
-       }
+  keyBindings() {
+    window.addEventListener('keydown', () => {
+      switch (event.keyCode) {
+        case 37:
+          if (this.powerReserve)
+            this.powerReserve.incrementReserve();
+          break;
+        case 13:
+          if (this.crown)
+            this.crown.toggleCrown();
+          break;
+      }
 
-       if (this.crown) {
-         if (this.crown.crownActive) {
-           event.preventDefault();
-           switch (event.keyCode) {
-             case 37:
-               if (this.powerReserve)
-                 this.powerReserve.incrementReserve();
-               break;
-             case 38:
-               this.dialInstances[this.activeDial].rotateHands();
-               break;
-             case 39:
-               this.activeDial++;
+      if (this.crown) {
+        if (this.crown.crownActive) {
+          event.preventDefault();
+          switch (event.keyCode) {
+            case 37:
+              if (this.powerReserve)
+                this.powerReserve.incrementReserve();
+              break;
+            case 38:
+              this.dialInstances[this.activeDial].rotateHands();
+              break;
+            case 39:
+              this.activeDial++;
 
-               if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
+              if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
 
-               break;
-             case 40:
-               this.dialInstances[this.activeDial].rotateHands('back');
-               break;
-           }
-         }
-       }
+              break;
+            case 40:
+              this.dialInstances[this.activeDial].rotateHands('back');
+              break;
+          }
+        }
+      }
 
-     });
-   }
+    });
+  }
 
-   startInterval() {
-     this.globalInterval = setInterval(() => {
+  startInterval() {
+    this.globalInterval = setInterval(() => {
 
-       this.dialInstances.forEach((dial) => {
-         dial.getCurrentTime();
-         dial.rotateHands();
-       });
+      this.rightNow = Moment();
 
-       if (this.powerReserve) {
-         this.powerReserve.decrementReserve();
-       }
+      this.dialInstances.forEach((dial) => {
+        dial.getCurrentTime();
+        dial.rotateHands();
+      });
 
-       /**
-       To be accurate, yes, the moonphase should stop if the power reserve empties
-       But is that worth making this call every second?
-       **/
-       if (this.moonphase) {
-         this.moonphase.getCurrentPhase();
-       }
+      if (this.powerReserve) {
+        this.powerReserve.decrementReserve();
+      }
 
-     }, 1000);
-   }
+      /**
+      To be accurate, yes, the moonphase should stop if the power reserve empties
+      But is that worth making this call every second?
+      **/
+      if (this.moonphase) {
+        this.moonphase.getCurrentPhase();
+      }
 
-   stopInterval() {
-     clearInterval(this.globalInterval);
-     this.globalInterval = null;
+    }, 1000);
+  }
 
-     if (this.repeater) {
-       this.repeater.stopAll();
-     }
-   }
+  stopInterval() {
+    clearInterval(this.globalInterval);
+    this.globalInterval = null;
 
-   init() {
-     this.startInterval();
-     this.keyBindings();
-   }
- }
+    if (this.repeater) {
+      this.repeater.stopAll();
+    }
+  }
 
- module.exports = Watch;
+  init() {
+    this.startInterval();
+    this.keyBindings();
+  }
+}
+
+module.exports = Watch;

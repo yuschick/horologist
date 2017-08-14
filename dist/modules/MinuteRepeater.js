@@ -4,6 +4,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// MinuteRepeater Class
+// @params dial: object
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The minuterepeater class accepts a dial, or defaults to the 0th index of the
+// dials array on the parent Watch class, and based on the hands' rotation values
+// calculates the amount of hours, quarter hours, and remaining minutes. With
+// these values, the class then plays back chimes to audibly indicate the time.
+
 var MinuteRepeater = function () {
   function MinuteRepeater(dial, repeater, parentWatch) {
     _classCallCheck(this, MinuteRepeater);

@@ -4,6 +4,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// YearIndicator Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The year class accepts a Moment date object. The current year is stored and
+// based upon its relationsbhip to the next leap year, an indicator is rotated
+// to display that current relationship.
+
 var YearIndicator = function () {
   function YearIndicator(settings, parentWatch) {
     _classCallCheck(this, YearIndicator);
@@ -17,8 +25,8 @@ var YearIndicator = function () {
 
     this.element = document.getElementById(settings.id);
     this.parent = parentWatch;
-    this.year = this.parent.rightNow.getYear();
-    this.month = this.parent.rightNow.getMonth();
+    this.year = this.parent.rightNow.year();
+    this.month = this.parent.rightNow.month();
     this.offsetMonths = settings.offsetMonths || false;
 
     this.init();

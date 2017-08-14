@@ -4,6 +4,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// PowerReserve Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The powerreserve class gradually ticks down an indicator which is meant to
+// represent the amount of power that remains in the movement for automatic and
+// manually-wound watches. Upon draining and reaching its minimum rotation value
+// the interval on the parent watch class is cleared and functionality of all
+// components, with the exception of the crown, are stopped.
+
 var PowerReserve = function () {
   function PowerReserve(settings, parentWatch) {
     _classCallCheck(this, PowerReserve);

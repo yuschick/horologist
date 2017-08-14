@@ -1,3 +1,13 @@
+// MinuteRepeater Class
+// @params dial: object
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The minuterepeater class accepts a dial, or defaults to the 0th index of the
+// dials array on the parent Watch class, and based on the hands' rotation values
+// calculates the amount of hours, quarter hours, and remaining minutes. With
+// these values, the class then plays back chimes to audibly indicate the time.
+
 class MinuteRepeater {
   constructor(dial, repeater, parentWatch) {
 

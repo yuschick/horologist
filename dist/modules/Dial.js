@@ -4,6 +4,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// Dial Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The Dial class also brings in Moment-Timezone to better support GMTOffsets and
+// timezone values for dual-time displays. Based on the given time of the current
+// or provided timezone, hour, minute, and second hands are rotated.
+// The dial class supports telling time in 12 or 24 hour formats. Based on this
+// format, the hour hand is either rotated 30 or 15 degrees per hour.
+
+var Timezone = require('moment-timezone');
+
 var Dial = function () {
   function Dial(settings, parentWatch) {
     _classCallCheck(this, Dial);
@@ -23,7 +35,17 @@ var Dial = function () {
     this.parent = parentWatch;
 
     this.format = settings.format ? settings.format : 12;
-    this.gmtOffset = settings.offset ? settings.offset.toString() : null;
+
+    this.gmtOffset;
+    this.timezone;
+    if (settings.timezone) {
+      this.timezone = settings.timezone;
+    } else if (!settings.timezone && settings.offset) {
+      this.timezone = null;
+      this.gmtOffset = settings.offset ? settings.offset.toString() : null;
+    } else {
+      this.timezone = Timezone.tz.guess();
+    }
 
     this.sweepingSeconds = settings.sweep || false;
 
@@ -85,18 +107,28 @@ var Dial = function () {
   }, {
     key: 'getCurrentTime',
     value: function getCurrentTime() {
-      this.rightNow = new Date();
-      if (this.gmtOffset) {
+      this.rightNow = this.gmtOffset && !this.timezone ? new Date() : this.parent.rightNow.tz(this.timezone);
+      var currentTime = void 0;
+
+      if (this.gmtOffset && !this.timezone) {
+        /* passed in a gmtOffset like +8 */
         /* Shouts to: http://www.techrepublic.com/article/convert-the-local-time-to-another-time-zone-with-this-javascript/6016329/ */
         var gmt = this.rightNow.getTime() + this.rightNow.getTimezoneOffset() * 60000;
         this.rightNow = new Date(gmt + 3600000 * this.gmtOffset);
-      }
 
-      var currentTime = {
-        hours: this.rightNow.getHours(),
-        minutes: this.rightNow.getMinutes(),
-        seconds: this.rightNow.getSeconds()
-      };
+        currentTime = {
+          hours: this.rightNow.getHours(),
+          minutes: this.rightNow.getMinutes(),
+          seconds: this.rightNow.getSeconds()
+        };
+      } else {
+        /* passed in a Moment Timezone valid string */
+        currentTime = {
+          hours: this.rightNow.hours(),
+          minutes: this.rightNow.minutes(),
+          seconds: this.rightNow.seconds()
+        };
+      }
 
       this.currentTime = currentTime;
     }

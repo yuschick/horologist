@@ -1,3 +1,12 @@
+// Chronograph Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The chronograph complication requires a buttons and hands object
+// the buttons object contains the start and reset buttons which control the hands
+// The hands are designed and used to indicate tenth seconds, seconds, and minutes
+// for timing events. Flyback functionality is supported for timing laps.
+
 class Chronograph {
   constructor(settings, parentWatch) {
 

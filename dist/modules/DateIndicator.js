@@ -4,6 +4,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// DateIndicator Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The Date functionality uses Moment JS to retrieve the current date. Based on
+// the date, the indicator, whether a disc or hand, is rotated 11.61 degrees.
+// Additionally, split displays are supported where the ones and tenths of the
+// date are indicated on two separate discs that are rotated separately.
+
 var DateIndicator = function () {
   function DateIndicator(settings, parentWatch) {
     _classCallCheck(this, DateIndicator);
@@ -18,7 +27,7 @@ var DateIndicator = function () {
       this.element = document.getElementById(settings.id);
     }
     this.parent = parentWatch;
-    this.date = this.parent.rightNow.getDate();
+    this.date = this.parent.rightNow.date();
 
     this.init();
   }

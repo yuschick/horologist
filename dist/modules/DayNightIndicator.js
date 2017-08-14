@@ -4,6 +4,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// DayNightIndicator Class
+// @params dial: object
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// Based upon the supplied dial, which by default is the 0th index of the dials array
+// on the parent watch class, an indicator will be rotated to show the day/night
+// value. Think of this complication more of an AM/PM indicator. From 12-06 AM
+// the indicator is shown in full day. And from 18-24 the indicator is shown in
+// full night. The hours in between the dial in shown split meaning the day is
+// split into fourths and the indicator is rotated 25 degrees for each.
+
 var DayNightIndicator = function () {
   function DayNightIndicator(dial, settings, parentWatch) {
     _classCallCheck(this, DayNightIndicator);
@@ -21,7 +33,7 @@ var DayNightIndicator = function () {
     this.parent = parentWatch;
     this.invert = settings.invert || false;
 
-    this.hours = this.parent.rightNow.getHours();
+    this.hours = this.parent.rightNow.hours();
     this.isAM = this.hours < 12 ? true : false;
 
     this.hourAngle = 0;

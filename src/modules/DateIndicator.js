@@ -1,3 +1,12 @@
+// DateIndicator Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The Date functionality uses Moment JS to retrieve the current date. Based on
+// the date, the indicator, whether a disc or hand, is rotated 11.61 degrees.
+// Additionally, split displays are supported where the ones and tenths of the
+// date are indicated on two separate discs that are rotated separately.
+
 class DateIndicator {
   constructor(settings, parentWatch) {
     if (this.checkForErrors(settings)) return;
@@ -11,7 +20,7 @@ class DateIndicator {
       this.element = document.getElementById(settings.id);
     }
     this.parent = parentWatch;
-    this.date = this.parent.rightNow.getDate();
+    this.date = this.parent.rightNow.date();
 
     this.init();
   }

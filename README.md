@@ -59,7 +59,7 @@ const settings = {
         hour: 'secondary-hours-hand',
         second: 'secondary-minutes-hand'
       },
-      offset: '-4',
+      timezone: 'America/New_York',
       format: 24,
       sweep: true
     }
@@ -126,7 +126,8 @@ let demo = new Watch(settings);
   - **hour** (*String*): The id of the hour hand SVG element
   - **minute** (*String*): The id of the minute hand SVG element
   - **second** (*String*): The id of the second hand SVG element
-- **offset** (*String*): *Default: 0* Use the offset value to define a GMT timezone (eg: '+2', '-4.5')
+- **offset** (*String*): *Default: 0* Use the offset value to define a GMT timezone (eg: '+2', '-4.5') **will become deprecated in lieu of timezone**
+- **timezone** (*String*): *Default: null* Use the timezone value to define a timezone for the dial based upon the supported values of Moment Timezone
 - **format** (*Number*): *Default: 12* Specify `12` or `24` to define if the dial should run as 12 or 24 hour time
 - **sweep** (*Boolean*): *Default: False* If true, the second hand will sweep as oppose to tick
 
@@ -176,7 +177,6 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
-- [ ] Incorporate Moment Timezone for better GMT support
 - [ ] Allow passing an ID into the master Watch class
 
 ## Contact

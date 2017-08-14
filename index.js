@@ -1,13 +1,17 @@
 'use strict';
 
-/**
- * Defines the parent Watch class
- * @param {Object} settings
- */
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// Master Watch Class
+// @params settings: Object
+//
+// The master watch class brings in all other complication components to create
+// new instances as needed by the settings object.
+// The class also brings in Moment.js to handle dates, times, and timezones
+
+var Moment = require('moment');
 
 var Dial = require('./dist/modules/Dial');
 var Crown = require('./dist/modules/Crown');
@@ -27,6 +31,8 @@ var Watch = function () {
 
     _classCallCheck(this, Watch);
 
+    if (settings.testing) return;
+
     try {
       if (!settings.dials) throw "At least one dial is required for the Watch class.";
     } catch (errorMsg) {
@@ -37,7 +43,7 @@ var Watch = function () {
     this.dialInstances = [];
     this.activeDial = 0;
     this.globalInterval = null;
-    this.rightNow = new Date();
+    this.rightNow = Moment();
 
     settings.dials.forEach(function (dial) {
       var tempDial = new Dial(dial, _this);
@@ -66,8 +72,8 @@ var Watch = function () {
       this.dayNightIndicator = new DayNightIndicator(this.dialInstances[this.dayNightIndicatorDial], settings.dayNightIndicator, this);
     }
 
-    if (settings.day || settings.dayIndicator) {
-      this.dayIndicator = new DayIndicator(settings.day, this);
+    if (settings.dayIndicator || settings.day) {
+      this.dayIndicator = new DayIndicator(settings.dayIndicator || settings.day, this);
     }
 
     if (settings.date) {
@@ -146,6 +152,8 @@ var Watch = function () {
       var _this3 = this;
 
       this.globalInterval = setInterval(function () {
+
+        _this3.rightNow = Moment();
 
         _this3.dialInstances.forEach(function (dial) {
           dial.getCurrentTime();

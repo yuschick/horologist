@@ -1,3 +1,10 @@
+// Month Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// Accepting a Moment object, the month is stored and based on its value, the
+// month indicator is rotated 30 degrees to display the current month.
+
 class MonthIndicator {
   constructor(settings, parentWatch) {
 
@@ -11,7 +18,7 @@ class MonthIndicator {
 
     this.element = document.getElementById(settings.id);
     this.parent = parentWatch;
-    this.month = this.parent.rightNow.getMonth();
+    this.month = this.parent.rightNow.month();
 
     this.init();
   }

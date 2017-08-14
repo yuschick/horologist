@@ -4,6 +4,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// Chronograph Class
+// @params settings: object
+// @params parentWatch: Watch instance
+//
+// The chronograph complication requires a buttons and hands object
+// the buttons object contains the start and reset buttons which control the hands
+// The hands are designed and used to indicate tenth seconds, seconds, and minutes
+// for timing events. Flyback functionality is supported for timing laps.
+
 var Chronograph = function () {
   function Chronograph(settings, parentWatch) {
     _classCallCheck(this, Chronograph);
