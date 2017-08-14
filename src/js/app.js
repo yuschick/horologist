@@ -48,4 +48,19 @@ const Watch = require('./../index');
     },
   };
   demo = new Watch(settings);
+
+  settings = {
+    dials: [{
+      hands: {
+        hour: 'moonphase-hour-hand',
+        minute: 'moonphase-minute-hand',
+        second: 'moonphase-second-hand',
+      },
+    }],
+    moonphase: {
+      id: 'moonphase-dial',
+    },
+  };
+  demo = new Watch(settings);
+
 })();

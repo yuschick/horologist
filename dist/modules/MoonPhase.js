@@ -32,6 +32,7 @@ var MoonPhase = function () {
     }
 
     this.parent = parentWatch;
+    this.rightNow = new Date();
     this.element = document.getElementById(settings.id);
     this.invert = settings.invert || false;
 
@@ -159,7 +160,7 @@ var MoonPhase = function () {
   }, {
     key: "init",
     value: function init() {
-      this.getCurrentPhase(this.moon_day(this.parent.rightNow));
+      this.getCurrentPhase(this.moon_day(this.rightNow));
     }
   }]);
 

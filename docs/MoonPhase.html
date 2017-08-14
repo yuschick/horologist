@@ -146,6 +146,7 @@ rotated.</p>
     }
 
     <span class="hljs-keyword">this</span>.parent = parentWatch;
+    <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
     <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
     <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
 
@@ -283,7 +284,7 @@ zero and one are both new moon; 0.50 is full moon</p>
   }
 
   init() {
-    <span class="hljs-keyword">this</span>.getCurrentPhase(<span class="hljs-keyword">this</span>.moon_day(<span class="hljs-keyword">this</span>.parent.rightNow));
+    <span class="hljs-keyword">this</span>.getCurrentPhase(<span class="hljs-keyword">this</span>.moon_day(<span class="hljs-keyword">this</span>.rightNow));
   }
 }
 

@@ -26,6 +26,7 @@ class MoonPhase {
     }
 
     this.parent = parentWatch;
+    this.rightNow = new Date();
     this.element = document.getElementById(settings.id);
     this.invert = settings.invert || false;
 
@@ -138,7 +139,7 @@ class MoonPhase {
   }
 
   init() {
-    this.getCurrentPhase(this.moon_day(this.parent.rightNow));
+    this.getCurrentPhase(this.moon_day(this.rightNow));
   }
 }
 

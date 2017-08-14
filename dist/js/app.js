@@ -95,6 +95,20 @@
 	    }
 	  };
 	  demo = new Watch(settings);
+
+	  settings = {
+	    dials: [{
+	      hands: {
+	        hour: 'moonphase-hour-hand',
+	        minute: 'moonphase-minute-hand',
+	        second: 'moonphase-second-hand'
+	      }
+	    }],
+	    moonphase: {
+	      id: 'moonphase-dial'
+	    }
+	  };
+	  demo = new Watch(settings);
 	})();
 
 /***/ }),
@@ -17188,6 +17202,7 @@
 	    }
 
 	    this.parent = parentWatch;
+	    this.rightNow = new Date();
 	    this.element = document.getElementById(settings.id);
 	    this.invert = settings.invert || false;
 
@@ -17315,7 +17330,7 @@
 	  }, {
 	    key: "init",
 	    value: function init() {
-	      this.getCurrentPhase(this.moon_day(this.parent.rightNow));
+	      this.getCurrentPhase(this.moon_day(this.rightNow));
 	    }
 	  }]);
 
