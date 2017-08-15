@@ -187,6 +187,7 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
+- [ ] Update moonphase to work off of a 360-degree cycle and not the arbitrary positions currently set
 - [ ] Allow passing an ID into the master Watch class
 
 ## Contact
