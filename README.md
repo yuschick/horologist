@@ -187,6 +187,7 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Add retrograde functionality to the day and month indicators
+- [ ] Incorporate a split second (rattrapante) chronograph functionality
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
 - [ ] Update moonphase to work off of a 360-degree cycle and not the arbitrary positions currently set
 - [ ] Allow passing an ID into the master Watch class
