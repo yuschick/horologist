@@ -186,6 +186,7 @@ let demo = new Watch(settings);
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 
 ## Todo
+- [ ] Add retrograde functionality to the day and month indicators
 - [ ] Include additional moonphase positions for more accurate rotation based on the returned numeric value
 - [ ] Update moonphase to work off of a 360-degree cycle and not the arbitrary positions currently set
 - [ ] Allow passing an ID into the master Watch class
