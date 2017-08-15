@@ -5,9 +5,11 @@
 # TickTock JS - [View Docs](http://yuschick.github.io/TickTock/)
 TickTock JS is a library for animating and rotating SVG elements to tell the time on a clock or watch dial. It works as a parent Watch class which builds components as needed based on the user settings. These components currently include:  
 
-- Dials (with dual time support)
+- Dials
+  - Dual Time Support (with Moment-Timezone)
 - Power Reserve
 - Chronograph
+  - Flyback
 - Crown and Manual Time Functionality
 - Moonphase
 - Minute Repeater
@@ -15,6 +17,8 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Annual / Perpetual Calendar
   - Day Indicator
   - Date Indicator
+    - Split Display
+    - Retrograde Display
   - Month Indicator
   - Year Indicator
 
@@ -164,6 +168,10 @@ let demo = new Watch(settings);
 #### date {Object}
 - **id** (*String*): The id of the date indicator element
 - **split** (*Object*): Display the current date with two split discs - one showing the ones (0-9) and the other showing the tenths (0-3) of the date.
+  - **ones** (*String*): The id of the disc to indicate the ones of the date
+  - **tenths** (*String*): The id of the disc to indicate the tenths of the date
+- **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
+  - **max** (*Number*): *Default: 180* Define the max angle of the indicator
 
 #### month {Object}
 - **id** (*String*): The id of the month indicator element
