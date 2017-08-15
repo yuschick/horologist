@@ -63,4 +63,21 @@ const Watch = require('./../index');
   };
   demo = new Watch(settings);
 
+  settings = {
+    dials: [{
+      hands: {
+        hour: 'date-hour-hand',
+        minute: 'date-minute-hand',
+        second: 'date-second-hand',
+      },
+    }],
+    date: {
+      id: 'date-arrow',
+      retrograde: {
+        max: 205
+      }
+    },
+  };
+  demo = new Watch(settings);
+
 })();

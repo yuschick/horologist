@@ -111,7 +111,8 @@
 <p>The Date functionality uses Moment JS to retrieve the current date. Based on
 the date, the indicator, whether a disc or hand, is rotated 11.61 degrees.
 Additionally, split displays are supported where the ones and tenths of the
-date are indicated on two separate discs that are rotated separately.</p>
+date are indicated on two separate discs that are rotated separately.
+The date can also optionally be indicated with a retrograde indicator</p>
 
             </div>
             
@@ -128,8 +129,11 @@ date are indicated on two separate discs that are rotated separately.</p>
     <span class="hljs-keyword">else</span> {
       <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
     }
+
     <span class="hljs-keyword">this</span>.parent = parentWatch;
     <span class="hljs-keyword">this</span>.date = <span class="hljs-keyword">this</span>.parent.rightNow.date();
+    <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
 
     <span class="hljs-keyword">this</span>.init();
   }
@@ -154,6 +158,15 @@ date are indicated on two separate discs that are rotated separately.</p>
     }
 
     <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.split)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"Choose EITHER a retrograde or split indicator."</span>;
+    }
+    <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">if</span> (settings.split &amp;&amp; (!settings.split.ones || !settings.split.tenths))
         <span class="hljs-keyword">throw</span> <span class="hljs-string">"When choosing a split date display please provide the IDs for both the ones and tenths discs."</span>;
     }
@@ -166,16 +179,23 @@ date are indicated on two separate discs that are rotated separately.</p>
   getRotateValue(type = <span class="hljs-literal">null</span>) {
     <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.split) {
-      <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'ones'</span>) {
-        <span class="hljs-keyword">let</span> ones = <span class="hljs-keyword">this</span>.date % <span class="hljs-number">10</span>;
-        value = ones &gt; <span class="hljs-number">1</span> ? (ones - <span class="hljs-number">1</span>) * <span class="hljs-number">36</span> : <span class="hljs-number">36</span>;
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">let</span> tenths = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.date / <span class="hljs-number">10</span>);
-        value = tenths * <span class="hljs-number">90</span>;
-      }
+    <span class="hljs-keyword">this</span>.date = <span class="hljs-keyword">this</span>.parent.rightNow.date();
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.retrograde) {
+      <span class="hljs-keyword">let</span> rotateValue = <span class="hljs-keyword">this</span>.max / <span class="hljs-number">31</span>;
+      value = (<span class="hljs-keyword">this</span>.date - <span class="hljs-number">1</span>) * rotateValue;
     } <span class="hljs-keyword">else</span> {
-      value = (<span class="hljs-keyword">this</span>.date - <span class="hljs-number">1</span>) * <span class="hljs-number">11.61</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.split) {
+        <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'ones'</span>) {
+          <span class="hljs-keyword">let</span> ones = <span class="hljs-keyword">this</span>.date % <span class="hljs-number">10</span>;
+          value = ones &gt; <span class="hljs-number">1</span> ? (ones - <span class="hljs-number">1</span>) * <span class="hljs-number">36</span> : <span class="hljs-number">36</span>;
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">let</span> tenths = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.date / <span class="hljs-number">10</span>);
+          value = tenths * <span class="hljs-number">90</span>;
+        }
+      } <span class="hljs-keyword">else</span> {
+        value = (<span class="hljs-keyword">this</span>.date - <span class="hljs-number">1</span>) * <span class="hljs-number">11.61</span>;
+      }
     }
 
     <span class="hljs-keyword">return</span> value;
