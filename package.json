@@ -1,6 +1,6 @@
 {
   "name": "ticktock-js",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "TickTock is a JavaScript library used to animate mechanical watches and clocks.",
   "main": "index.js",
   "scripts": {
