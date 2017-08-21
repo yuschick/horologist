@@ -111,31 +111,37 @@ class MoonPhase {
       return;
     }
 
-    if (phase <= 0.0625 || phase > 0.9375) {
-      if (this.invert) {
-        this.rotateDisc(0); // new moon
-      } else {
-        this.rotateDisc(180); // new moon
+    phase = phase.toFixed(5) * 3.6;
+    this.rotateDisc(phase * 100);
+
+    /*
+      if (phase <= 0.0625 || phase > 0.9375) {
+        if (this.invert) {
+          this.rotateDisc(0); // new moon
+        } else {
+          this.rotateDisc(180); // new moon
+        }
+        this.rotateDisc(phase * 3.6);
+      } else if (phase <= 0.1875) {
+        this.rotateDisc(40); // waxing crescent
+      } else if (phase <= 0.3125) {
+        this.rotateDisc(25); // first quarter
+      } else if (phase <= 0.4375) {
+        this.rotateDisc(13); // waxing gibbous
+      } else if (phase <= 0.5625) {
+        if (this.invert) {
+          this.rotateDisc(180); // full moon
+        } else {
+          this.rotateDisc(0); // full moon
+        }
+      } else if (phase <= 0.6875) {
+        this.rotateDisc(-13);// waning gibbous
+      } else if (phase <= 0.8125) {
+        this.rotateDisc(-25); // last quarter
+      } else if (phase <= 0.9375) {
+        this.rotateDisc(-40); // waning crescent
       }
-    } else if (phase <= 0.1875) {
-      this.rotateDisc(40); // waxing crescent
-    } else if (phase <= 0.3125) {
-      this.rotateDisc(25); // first quarter
-    } else if (phase <= 0.4375) {
-      this.rotateDisc(13); // waxing gibbous
-    } else if (phase <= 0.5625) {
-      if (this.invert) {
-        this.rotateDisc(180); // full moon
-      } else {
-        this.rotateDisc(0); // full moon
-      }
-    } else if (phase <= 0.6875) {
-      this.rotateDisc(-13);// waning gibbous
-    } else if (phase <= 0.8125) {
-      this.rotateDisc(-25); // last quarter
-    } else if (phase <= 0.9375) {
-      this.rotateDisc(-40); // waning crescent
-    }
+    */
   }
 
   init() {

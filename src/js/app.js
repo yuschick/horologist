@@ -59,6 +59,7 @@ const Watch = require('./../index');
     }],
     moonphase: {
       id: 'moonphase-dial',
+      invert: true
     },
   };
   demo = new Watch(settings);

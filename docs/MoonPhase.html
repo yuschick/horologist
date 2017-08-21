@@ -256,31 +256,37 @@ zero and one are both new moon; 0.50 is full moon</p>
       <span class="hljs-keyword">return</span>;
     }
 
-    <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.0625</span> || phase &gt; <span class="hljs-number">0.9375</span>) {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
-        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>); <span class="hljs-comment">// new moon</span>
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>); <span class="hljs-comment">// new moon</span>
+    phase = phase.toFixed(<span class="hljs-number">5</span>) * <span class="hljs-number">3.6</span>;
+    <span class="hljs-keyword">this</span>.rotateDisc(phase * <span class="hljs-number">100</span>);
+
+    <span class="hljs-comment">/*
+      if (phase &lt;= 0.0625 || phase &gt; 0.9375) {
+        if (this.invert) {
+          this.rotateDisc(0); // new moon
+        } else {
+          this.rotateDisc(180); // new moon
+        }
+        this.rotateDisc(phase * 3.6);
+      } else if (phase &lt;= 0.1875) {
+        this.rotateDisc(40); // waxing crescent
+      } else if (phase &lt;= 0.3125) {
+        this.rotateDisc(25); // first quarter
+      } else if (phase &lt;= 0.4375) {
+        this.rotateDisc(13); // waxing gibbous
+      } else if (phase &lt;= 0.5625) {
+        if (this.invert) {
+          this.rotateDisc(180); // full moon
+        } else {
+          this.rotateDisc(0); // full moon
+        }
+      } else if (phase &lt;= 0.6875) {
+        this.rotateDisc(-13);// waning gibbous
+      } else if (phase &lt;= 0.8125) {
+        this.rotateDisc(-25); // last quarter
+      } else if (phase &lt;= 0.9375) {
+        this.rotateDisc(-40); // waning crescent
       }
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.1875</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">40</span>); <span class="hljs-comment">// waxing crescent</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.3125</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">25</span>); <span class="hljs-comment">// first quarter</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.4375</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">13</span>); <span class="hljs-comment">// waxing gibbous</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.5625</span>) {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) {
-        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">180</span>); <span class="hljs-comment">// full moon</span>
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">0</span>); <span class="hljs-comment">// full moon</span>
-      }
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.6875</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-13</span>);<span class="hljs-comment">// waning gibbous</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.8125</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-25</span>); <span class="hljs-comment">// last quarter</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.9375</span>) {
-      <span class="hljs-keyword">this</span>.rotateDisc(<span class="hljs-number">-40</span>); <span class="hljs-comment">// waning crescent</span>
-    }
+    */</span>
   }
 
   init() {
