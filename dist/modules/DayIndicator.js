@@ -30,16 +30,25 @@ var DayIndicator = function () {
     this.hours = this.parent.rightNow.hours();
     this.offsetHours = settings.offsetHours || false;
 
+    this.retrograde = settings.retrograde || null;
+    this.max = this.retrograde ? this.retrograde.max : 180;
+
     this.init();
   }
 
   _createClass(DayIndicator, [{
     key: "getRotateValue",
     value: function getRotateValue() {
-      var value = this.day * 51.43;
+      var value = 0;
 
-      if (this.offsetHours) {
-        value += this.hours * 2.14;
+      if (this.retrograde) {
+        var rotateValue = this.max / 7;
+        value = this.day * rotateValue;
+      } else {
+        value = this.day * 51.43;
+        if (this.offsetHours) {
+          value += this.hours * 2.14;
+        }
       }
 
       return value;

@@ -26,13 +26,23 @@ var MonthIndicator = function () {
     this.parent = parentWatch;
     this.month = this.parent.rightNow.month();
 
+    this.retrograde = settings.retrograde || null;
+    this.max = this.retrograde ? this.retrograde.max : 180;
+
     this.init();
   }
 
   _createClass(MonthIndicator, [{
     key: "getRotateValue",
     value: function getRotateValue() {
-      var value = this.month * 30;
+      var value = 0;
+
+      if (this.retrograde) {
+        var rotateValue = this.max / 12;
+        value = this.month * rotateValue;
+      } else {
+        value = this.month * 30;
+      }
 
       return value;
     }

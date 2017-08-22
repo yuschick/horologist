@@ -133,14 +133,23 @@ indicator is rotated an additional 2.14 degrees for each hour of the day.</p>
     <span class="hljs-keyword">this</span>.hours = <span class="hljs-keyword">this</span>.parent.rightNow.hours();
     <span class="hljs-keyword">this</span>.offsetHours = settings.offsetHours || <span class="hljs-literal">false</span>;
 
+    <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
+
     <span class="hljs-keyword">this</span>.init();
   }
 
   getRotateValue() {
-    <span class="hljs-keyword">let</span> value = (<span class="hljs-keyword">this</span>.day * <span class="hljs-number">51.43</span>);
+    <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetHours) {
-      value += <span class="hljs-keyword">this</span>.hours * <span class="hljs-number">2.14</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.retrograde) {
+      <span class="hljs-keyword">let</span> rotateValue = <span class="hljs-keyword">this</span>.max / <span class="hljs-number">7</span>;
+      value = (<span class="hljs-keyword">this</span>.day) * rotateValue;
+    } <span class="hljs-keyword">else</span> {
+      value = <span class="hljs-keyword">this</span>.day * <span class="hljs-number">51.43</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetHours) {
+        value += <span class="hljs-keyword">this</span>.hours * <span class="hljs-number">2.14</span>;
+      }
     }
 
     <span class="hljs-keyword">return</span> value;

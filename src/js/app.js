@@ -72,7 +72,7 @@ const Watch = require('./../index');
         second: 'date-second-hand',
       },
     }],
-    date: {
+    month: {
       id: 'date-arrow',
       retrograde: {
         max: 205

@@ -119,7 +119,7 @@
 	        second: 'date-second-hand'
 	      }
 	    }],
-	    date: {
+	    month: {
 	      id: 'date-arrow',
 	      retrograde: {
 	        max: 205
@@ -17322,32 +17322,34 @@
 	      phase = phase.toFixed(5) * 3.6;
 	      this.rotateDisc(phase * 100);
 
-	      // if (phase <= 0.0625 || phase > 0.9375) {
-	      //   if (this.invert) {
-	      //     this.rotateDisc(0); // new moon
-	      //   } else {
-	      //     this.rotateDisc(180); // new moon
-	      //   }
-	      //   this.rotateDisc(phase * 3.6);
-	      // } else if (phase <= 0.1875) {
-	      //   this.rotateDisc(40); // waxing crescent
-	      // } else if (phase <= 0.3125) {
-	      //   this.rotateDisc(25); // first quarter
-	      // } else if (phase <= 0.4375) {
-	      //   this.rotateDisc(13); // waxing gibbous
-	      // } else if (phase <= 0.5625) {
-	      //   if (this.invert) {
-	      //     this.rotateDisc(180); // full moon
-	      //   } else {
-	      //     this.rotateDisc(0); // full moon
-	      //   }
-	      // } else if (phase <= 0.6875) {
-	      //   this.rotateDisc(-13);// waning gibbous
-	      // } else if (phase <= 0.8125) {
-	      //   this.rotateDisc(-25); // last quarter
-	      // } else if (phase <= 0.9375) {
-	      //   this.rotateDisc(-40); // waning crescent
-	      // }
+	      /*
+	        if (phase <= 0.0625 || phase > 0.9375) {
+	          if (this.invert) {
+	            this.rotateDisc(0); // new moon
+	          } else {
+	            this.rotateDisc(180); // new moon
+	          }
+	          this.rotateDisc(phase * 3.6);
+	        } else if (phase <= 0.1875) {
+	          this.rotateDisc(40); // waxing crescent
+	        } else if (phase <= 0.3125) {
+	          this.rotateDisc(25); // first quarter
+	        } else if (phase <= 0.4375) {
+	          this.rotateDisc(13); // waxing gibbous
+	        } else if (phase <= 0.5625) {
+	          if (this.invert) {
+	            this.rotateDisc(180); // full moon
+	          } else {
+	            this.rotateDisc(0); // full moon
+	          }
+	        } else if (phase <= 0.6875) {
+	          this.rotateDisc(-13);// waning gibbous
+	        } else if (phase <= 0.8125) {
+	          this.rotateDisc(-25); // last quarter
+	        } else if (phase <= 0.9375) {
+	          this.rotateDisc(-40); // waning crescent
+	        }
+	      */
 	    }
 	  }, {
 	    key: "init",
@@ -17699,16 +17701,25 @@
 	    this.hours = this.parent.rightNow.hours();
 	    this.offsetHours = settings.offsetHours || false;
 
+	    this.retrograde = settings.retrograde || null;
+	    this.max = this.retrograde ? this.retrograde.max : 180;
+
 	    this.init();
 	  }
 
 	  _createClass(DayIndicator, [{
 	    key: "getRotateValue",
 	    value: function getRotateValue() {
-	      var value = this.day * 51.43;
+	      var value = 0;
 
-	      if (this.offsetHours) {
-	        value += this.hours * 2.14;
+	      if (this.retrograde) {
+	        var rotateValue = this.max / 7;
+	        value = this.day * rotateValue;
+	      } else {
+	        value = this.day * 51.43;
+	        if (this.offsetHours) {
+	          value += this.hours * 2.14;
+	        }
 	      }
 
 	      return value;
@@ -17885,13 +17896,23 @@
 	    this.parent = parentWatch;
 	    this.month = this.parent.rightNow.month();
 
+	    this.retrograde = settings.retrograde || null;
+	    this.max = this.retrograde ? this.retrograde.max : 180;
+
 	    this.init();
 	  }
 
 	  _createClass(MonthIndicator, [{
 	    key: "getRotateValue",
 	    value: function getRotateValue() {
-	      var value = this.month * 30;
+	      var value = 0;
+
+	      if (this.retrograde) {
+	        var rotateValue = this.max / 12;
+	        value = this.month * rotateValue;
+	      } else {
+	        value = this.month * 30;
+	      }
 
 	      return value;
 	    }

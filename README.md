@@ -164,6 +164,8 @@ let demo = new Watch(settings);
 #### day {Object}
 - **id** (*String*): The id of the day indicator element
 - **offsetHours** (*Boolean*): *Default: false* Set this property to *true* if the day indicator should be rotated an additional amount according to the hour of the current day.
+- **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
+  - **max** (*Number*): *Default: 180* Define the max angle of the indicator
 
 #### date {Object}
 - **id** (*String*): The id of the date indicator element
@@ -175,6 +177,8 @@ let demo = new Watch(settings);
 
 #### month {Object}
 - **id** (*String*): The id of the month indicator element
+- **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
+  - **max** (*Number*): *Default: 180* Define the max angle of the indicator
 
 #### year {Object}
 - **id** (*String*): The id of the year indicator element
@@ -186,7 +190,6 @@ let demo = new Watch(settings);
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 
 ## Todo
-- [ ] Add retrograde functionality to the day and month indicators
 - [ ] Incorporate a split second (rattrapante) chronograph functionality
 - [ ] Allow passing an ID into the master Watch class
 
