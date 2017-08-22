@@ -16,10 +16,12 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 - Day/Night Indicator
 - Annual / Perpetual Calendar
   - Day Indicator
+    - Retrograde Display
   - Date Indicator
     - Split Display
     - Retrograde Display
   - Month Indicator
+    - Retrograde Display
   - Year Indicator
 
 ## Getting Started
