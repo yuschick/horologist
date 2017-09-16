@@ -193,6 +193,12 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Incorporate a split second (rattrapante) chronograph functionality
+- [ ] Retrograde hours and minutes
+- [ ] Manual setting of all complications
+  - [ ] Moonphase
+  - [ ] Day, Date, Month, Year
+  - [ ] Day/Night Indicator
+- [ ] Add hour support for chronographs
 - [ ] Allow passing an ID into the master Watch class
 
 ## Contact
