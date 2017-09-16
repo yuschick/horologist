@@ -24,9 +24,10 @@ class Chronograph {
     };
 
     this.hands = {
-      tenth: document.getElementById(settings.hands.tenth),
+      tenth: document.getElementById(settings.hands.tenth) || null,
       second: document.getElementById(settings.hands.second),
-      minute: document.getElementById(settings.hands.minute)
+      minute: document.getElementById(settings.hands.minute),
+      hour: document.getElementById(settings.hands.hour) || null,
     };
 
     this.flyback = settings.flyback || false;
@@ -86,7 +87,7 @@ class Chronograph {
 
   resetHands() {
     Object.keys(this.hands).map(hand => {
-      this.hands[hand].style.transform = 'rotate(0deg)';
+      if(this.hands[hand]) this.hands[hand].style.transform = 'rotate(0deg)';
     });
   }
 
@@ -95,11 +96,12 @@ class Chronograph {
   }
 
   rotateHands() {
-    let tenthValue = this.parent.getCurrentRotateValue(this.hands.tenth);
+    let tenthValue = this.hands.tenth ? this.parent.getCurrentRotateValue(this.hands.tenth) : 0;
     let secondValue = this.parent.getCurrentRotateValue(this.hands.second);
     let minuteValue = this.parent.getCurrentRotateValue(this.hands.minute);
+    let hourValue = this.hands.hour ? this.parent.getCurrentRotateValue(this.hands.hour) : 0;
 
-    this.hands.tenth.style.transform = `rotate(${tenthValue + 0.6}deg)`;
+    if (this.hands.tenth) this.hands.tenth.style.transform = `rotate(${tenthValue + 0.6}deg)`;
 
     if (this.counter % 10 === 0) {
       this.hands.second.style.transform = `rotate(${secondValue + 6}deg)`;
@@ -107,6 +109,7 @@ class Chronograph {
 
     if (this.counter % 600 === 0) {
       this.hands.minute.style.transform = `rotate(${minuteValue + 6}deg)`;
+      if (this.hands.hour) this.hands.hour.style.transform = `rotate(${hourValue + 0.5}deg)`;
       this.counter = 0;
     }
   }

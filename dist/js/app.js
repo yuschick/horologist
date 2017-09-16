@@ -75,6 +75,31 @@
 
 	  settings = {
 	    dials: [{
+	      name: 'primary',
+	      hands: {
+	        hour: 'chrono-hour-hand',
+	        minute: 'chrono-primary-minute-hand',
+	        second: 'second-hand'
+	      },
+	      sweep: true
+	    }],
+	    chronograph: {
+	      buttons: {
+	        start: 'start-pause-btn',
+	        reset: 'reset-btn'
+	      },
+	      hands: {
+	        tenth: 'chrono-tenth-second-hand',
+	        second: 'chrono-second-hand',
+	        minute: 'chrono-minute-hand',
+	        hour: 'chrono-hour-sub-hand'
+	      }
+	    }
+	  };
+	  demo = new Watch(settings);
+
+	  settings = {
+	    dials: [{
 	      hands: {
 	        hour: 'perpetual-hour-hand',
 	        minute: 'perpetual-minute-hand',
@@ -18043,9 +18068,10 @@
 	    };
 
 	    this.hands = {
-	      tenth: document.getElementById(settings.hands.tenth),
+	      tenth: document.getElementById(settings.hands.tenth) || null,
 	      second: document.getElementById(settings.hands.second),
-	      minute: document.getElementById(settings.hands.minute)
+	      minute: document.getElementById(settings.hands.minute),
+	      hour: document.getElementById(settings.hands.hour) || null
 	    };
 
 	    this.flyback = settings.flyback || false;
@@ -18126,7 +18152,7 @@
 	      var _this3 = this;
 
 	      Object.keys(this.hands).map(function (hand) {
-	        _this3.hands[hand].style.transform = 'rotate(0deg)';
+	        if (_this3.hands[hand]) _this3.hands[hand].style.transform = 'rotate(0deg)';
 	      });
 	    }
 	  }, {
@@ -18137,11 +18163,12 @@
 	  }, {
 	    key: 'rotateHands',
 	    value: function rotateHands() {
-	      var tenthValue = this.parent.getCurrentRotateValue(this.hands.tenth);
+	      var tenthValue = this.hands.tenth ? this.parent.getCurrentRotateValue(this.hands.tenth) : 0;
 	      var secondValue = this.parent.getCurrentRotateValue(this.hands.second);
 	      var minuteValue = this.parent.getCurrentRotateValue(this.hands.minute);
+	      var hourValue = this.hands.hour ? this.parent.getCurrentRotateValue(this.hands.hour) : 0;
 
-	      this.hands.tenth.style.transform = 'rotate(' + (tenthValue + 0.6) + 'deg)';
+	      if (this.hands.tenth) this.hands.tenth.style.transform = 'rotate(' + (tenthValue + 0.6) + 'deg)';
 
 	      if (this.counter % 10 === 0) {
 	        this.hands.second.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
@@ -18149,6 +18176,7 @@
 
 	      if (this.counter % 600 === 0) {
 	        this.hands.minute.style.transform = 'rotate(' + (minuteValue + 6) + 'deg)';
+	        if (this.hands.hour) this.hands.hour.style.transform = 'rotate(' + (hourValue + 0.5) + 'deg)';
 	        this.counter = 0;
 	      }
 	    }

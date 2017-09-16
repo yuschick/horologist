@@ -28,6 +28,32 @@ const Watch = require('./../index');
 
   settings = {
     dials: [{
+        name: 'primary',
+        hands: {
+          hour: 'chrono-hour-hand',
+          minute: 'chrono-primary-minute-hand',
+          second: 'second-hand',
+        },
+        sweep: true,
+      },
+    ],
+    chronograph: {
+      buttons: {
+        start: 'start-pause-btn',
+        reset: 'reset-btn',
+      },
+      hands: {
+        tenth: 'chrono-tenth-second-hand',
+        second: 'chrono-second-hand',
+        minute: 'chrono-minute-hand',
+        hour: 'chrono-hour-sub-hand',
+      },
+    },
+  };
+  demo = new Watch(settings);
+
+  settings = {
+    dials: [{
       hands: {
         hour: 'perpetual-hour-hand',
         minute: 'perpetual-minute-hand',

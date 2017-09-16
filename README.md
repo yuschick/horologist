@@ -188,7 +188,7 @@ let demo = new Watch(settings);
 
 #### chronograph {Object}
 - **buttons** (*Object*): An object containing the IDs of the start and reset buttons used to trigger and control the chronograph
-- **hands** (*Object*): An object containing the IDs of the hands of the chronograph. By default, TickTock supports a tenth-second hand, second hand, and minute
+- **hands** (*Object*): An object containing the IDs of the hands of the chronograph. By default, TickTock supports tenth-second, second, minute, and hour hands. The second and minute hands are required.
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 
 ## Todo
@@ -198,7 +198,7 @@ let demo = new Watch(settings);
   - [ ] Moonphase
   - [ ] Day, Date, Month, Year
   - [ ] Day/Night Indicator
-- [ ] Add hour support for chronographs
+- [x] Add hour support for chronographs
 - [ ] Allow passing an ID into the master Watch class
 
 ## Contact

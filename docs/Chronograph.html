@@ -133,9 +133,10 @@ for timing events. Flyback functionality is supported for timing laps.</p>
     };
 
     <span class="hljs-keyword">this</span>.hands = {
-      <span class="hljs-attr">tenth</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.tenth),
+      <span class="hljs-attr">tenth</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.tenth) || <span class="hljs-literal">null</span>,
       <span class="hljs-attr">second</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.second),
-      <span class="hljs-attr">minute</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.minute)
+      <span class="hljs-attr">minute</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.minute),
+      <span class="hljs-attr">hour</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.hour) || <span class="hljs-literal">null</span>,
     };
 
     <span class="hljs-keyword">this</span>.flyback = settings.flyback || <span class="hljs-literal">false</span>;
@@ -195,7 +196,7 @@ for timing events. Flyback functionality is supported for timing laps.</p>
 
   resetHands() {
     <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.hands).map(<span class="hljs-function"><span class="hljs-params">hand</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.hands[hand].style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.hands[hand]) <span class="hljs-keyword">this</span>.hands[hand].style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
     });
   }
 
@@ -204,11 +205,12 @@ for timing events. Flyback functionality is supported for timing laps.</p>
   }
 
   rotateHands() {
-    <span class="hljs-keyword">let</span> tenthValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.tenth);
+    <span class="hljs-keyword">let</span> tenthValue = <span class="hljs-keyword">this</span>.hands.tenth ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.tenth) : <span class="hljs-number">0</span>;
     <span class="hljs-keyword">let</span> secondValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second);
     <span class="hljs-keyword">let</span> minuteValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
+    <span class="hljs-keyword">let</span> hourValue = <span class="hljs-keyword">this</span>.hands.hour ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour) : <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">this</span>.hands.tenth.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${tenthValue + <span class="hljs-number">0.6</span>}</span>deg)`</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.tenth) <span class="hljs-keyword">this</span>.hands.tenth.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${tenthValue + <span class="hljs-number">0.6</span>}</span>deg)`</span>;
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">10</span> === <span class="hljs-number">0</span>) {
       <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${secondValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
@@ -216,6 +218,7 @@ for timing events. Flyback functionality is supported for timing laps.</p>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">600</span> === <span class="hljs-number">0</span>) {
       <span class="hljs-keyword">this</span>.hands.minute.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${minuteValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) <span class="hljs-keyword">this</span>.hands.hour.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${hourValue + <span class="hljs-number">0.5</span>}</span>deg)`</span>;
       <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">0</span>;
     }
   }
