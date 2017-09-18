@@ -197,14 +197,18 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Incorporate a split second (rattrapante) chronograph functionality
-- [x] Add invert functionality for day, date, month, and year complications.
 - [ ] Retrograde hours and minutes
+- [ ] Update repeater to use two chimes, pairing the chimes on quarter hours per most traditional repeaters
+  - chime 1 for hours
+  - chime 1 & 2 for quarter hours
+  - chime 2 for minutes
 - [ ] Manual setting of all complications
   - [ ] Moonphase
   - [ ] Day, Date, Month, Year
   - [ ] Day/Night Indicator
-- [x] Add hour support for chronographs
 - [ ] Allow passing an ID into the master Watch class
+- [x] Add hour support for chronographs
+- [x] Add invert functionality for day, date, month, and year complications.
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
