@@ -102,7 +102,8 @@ const settings = {
     offsetHours: true
   },
   date: {
-    id: 'date-disc'
+    id: 'date-disc',
+    invert: true
   },
   month: {
     id: 'month-disc'
@@ -168,6 +169,7 @@ let demo = new Watch(settings);
 - **offsetHours** (*Boolean*): *Default: false* Set this property to *true* if the day indicator should be rotated an additional amount according to the hour of the current day.
 - **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
   - **max** (*Number*): *Default: 180* Define the max angle of the indicator
+- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 #### date {Object}
 - **id** (*String*): The id of the date indicator element
@@ -176,15 +178,17 @@ let demo = new Watch(settings);
   - **tenths** (*String*): The id of the disc to indicate the tenths of the date
 - **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
   - **max** (*Number*): *Default: 180* Define the max angle of the indicator
+- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 #### month {Object}
 - **id** (*String*): The id of the month indicator element
 - **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
   - **max** (*Number*): *Default: 180* Define the max angle of the indicator
+- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 #### year {Object}
 - **id** (*String*): The id of the year indicator element
-- **offsetMonths** (*Boolean*): *Default: false* Set this property to *true* if the year indicator should be rotated an additional amount according to the month of the current year.
+- **offsetMonths** (*Boolean*): *Default: false* Set this property to *true* if the year indicator should be rotated an additional amount according to the month of the current year.- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 #### chronograph {Object}
 - **buttons** (*Object*): An object containing the IDs of the start and reset buttons used to trigger and control the chronograph
