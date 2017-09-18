@@ -197,7 +197,7 @@ let demo = new Watch(settings);
 
 ## Todo
 - [ ] Incorporate a split second (rattrapante) chronograph functionality
-- [ ] Add invert functionality for day, date, month, and year complications.
+- [x] Add invert functionality for day, date, month, and year complications.
 - [ ] Retrograde hours and minutes
 - [ ] Manual setting of all complications
   - [ ] Moonphase
