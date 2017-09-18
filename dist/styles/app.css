@@ -208,3 +208,21 @@ img {
   stroke: #000000;
   stroke-miterlimit: 10;
 }
+
+.left-center {
+  -webkit-transform-origin: 70px 125px;
+      -ms-transform-origin: 70px 125px;
+          transform-origin: 70px 125px;
+}
+
+.right-center {
+  -webkit-transform-origin: 180px 125px;
+      -ms-transform-origin: 180px 125px;
+          transform-origin: 180px 125px;
+}
+
+.bottom-center {
+  -webkit-transform-origin: 125px 179px;
+      -ms-transform-origin: 125px 179px;
+          transform-origin: 125px 179px;
+}

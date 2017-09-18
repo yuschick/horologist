@@ -32,6 +32,7 @@ var DayIndicator = function () {
 
     this.retrograde = settings.retrograde || null;
     this.max = this.retrograde ? this.retrograde.max : 180;
+    this.invert = settings.invert || false;
 
     this.init();
   }
@@ -50,6 +51,8 @@ var DayIndicator = function () {
           value += this.hours * 2.14;
         }
       }
+
+      if (this.invert) value *= -1;
 
       return value;
     }

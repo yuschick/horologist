@@ -131,6 +131,7 @@ month indicator is rotated 30 degrees to display the current month.</p>
 
     <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
+    <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
 
     <span class="hljs-keyword">this</span>.init();
   }
@@ -144,6 +145,8 @@ month indicator is rotated 30 degrees to display the current month.</p>
     } <span class="hljs-keyword">else</span> {
       value = <span class="hljs-keyword">this</span>.month * <span class="hljs-number">30</span>;
     }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
 
     <span class="hljs-keyword">return</span> value;
   }

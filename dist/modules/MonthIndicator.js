@@ -28,6 +28,7 @@ var MonthIndicator = function () {
 
     this.retrograde = settings.retrograde || null;
     this.max = this.retrograde ? this.retrograde.max : 180;
+    this.invert = settings.invert || false;
 
     this.init();
   }
@@ -43,6 +44,8 @@ var MonthIndicator = function () {
       } else {
         value = this.month * 30;
       }
+
+      if (this.invert) value *= -1;
 
       return value;
     }

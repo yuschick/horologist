@@ -135,6 +135,7 @@ indicator is rotated an additional 2.14 degrees for each hour of the day.</p>
 
     <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
+    <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
 
     <span class="hljs-keyword">this</span>.init();
   }
@@ -151,6 +152,8 @@ indicator is rotated an additional 2.14 degrees for each hour of the day.</p>
         value += <span class="hljs-keyword">this</span>.hours * <span class="hljs-number">2.14</span>;
       }
     }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
 
     <span class="hljs-keyword">return</span> value;
   }

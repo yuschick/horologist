@@ -17,7 +17,7 @@ var YearIndicator = function () {
     _classCallCheck(this, YearIndicator);
 
     try {
-      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
+      if (!settings.id) throw "The Year Indicator class requires that an ID of the indicator element be provided.";
     } catch (errorMsg) {
       console.error(errorMsg);
       return;
@@ -28,6 +28,7 @@ var YearIndicator = function () {
     this.year = this.parent.rightNow.year();
     this.month = this.parent.rightNow.month();
     this.offsetMonths = settings.offsetMonths || false;
+    this.invert = settings.invert || false;
 
     this.init();
   }
@@ -48,6 +49,8 @@ var YearIndicator = function () {
       if (this.offsetMonths) {
         value += this.month * 7.5;
       }
+
+      if (this.invert) value *= -1;
 
       return value;
     }

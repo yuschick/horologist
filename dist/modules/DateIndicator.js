@@ -32,6 +32,7 @@ var DateIndicator = function () {
     this.date = this.parent.rightNow.date();
     this.retrograde = settings.retrograde || null;
     this.max = this.retrograde ? this.retrograde.max : 180;
+    this.invert = settings.invert || false;
 
     this.init();
   }
@@ -92,6 +93,8 @@ var DateIndicator = function () {
           value = (this.date - 1) * 11.61;
         }
       }
+
+      if (this.invert) value *= -1;
 
       return value;
     }

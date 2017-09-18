@@ -17728,6 +17728,7 @@
 
 	    this.retrograde = settings.retrograde || null;
 	    this.max = this.retrograde ? this.retrograde.max : 180;
+	    this.invert = settings.invert || false;
 
 	    this.init();
 	  }
@@ -17746,6 +17747,8 @@
 	          value += this.hours * 2.14;
 	        }
 	      }
+
+	      if (this.invert) value *= -1;
 
 	      return value;
 	    }
@@ -17804,6 +17807,7 @@
 	    this.date = this.parent.rightNow.date();
 	    this.retrograde = settings.retrograde || null;
 	    this.max = this.retrograde ? this.retrograde.max : 180;
+	    this.invert = settings.invert || false;
 
 	    this.init();
 	  }
@@ -17865,6 +17869,8 @@
 	        }
 	      }
 
+	      if (this.invert) value *= -1;
+
 	      return value;
 	    }
 	  }, {
@@ -17923,6 +17929,7 @@
 
 	    this.retrograde = settings.retrograde || null;
 	    this.max = this.retrograde ? this.retrograde.max : 180;
+	    this.invert = settings.invert || false;
 
 	    this.init();
 	  }
@@ -17938,6 +17945,8 @@
 	      } else {
 	        value = this.month * 30;
 	      }
+
+	      if (this.invert) value *= -1;
 
 	      return value;
 	    }
@@ -17981,7 +17990,7 @@
 	    _classCallCheck(this, YearIndicator);
 
 	    try {
-	      if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
+	      if (!settings.id) throw "The Year Indicator class requires that an ID of the indicator element be provided.";
 	    } catch (errorMsg) {
 	      console.error(errorMsg);
 	      return;
@@ -17992,6 +18001,7 @@
 	    this.year = this.parent.rightNow.year();
 	    this.month = this.parent.rightNow.month();
 	    this.offsetMonths = settings.offsetMonths || false;
+	    this.invert = settings.invert || false;
 
 	    this.init();
 	  }
@@ -18012,6 +18022,8 @@
 	      if (this.offsetMonths) {
 	        value += this.month * 7.5;
 	      }
+
+	      if (this.invert) value *= -1;
 
 	      return value;
 	    }
