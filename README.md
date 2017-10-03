@@ -215,3 +215,6 @@ let demo = new Watch(settings);
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
+
+## Sponsors
+[<img src="https://spiceprogram.org/assets/img/chilicorn_sticker.svg" width="50" alt="Spice Program - Futurice">](https://spiceprogram.org/)
