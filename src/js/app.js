@@ -30,6 +30,33 @@ const Watch = require('./../index');
     dials: [{
         name: 'primary',
         hands: {
+          hour: 'split-hour-hand',
+          minute: 'split-minute-hand',
+          second: 'running-second-hand',
+        },
+        sweep: true
+      },
+    ],
+    chronograph: {
+      buttons: {
+        start: 'split-start-stop-btn',
+        reset: 'split-reset-btn'
+      },
+      hands: {
+        second: 'split-chrono-second-hand',
+        step: 'split-stop-second-hand',
+        minute: 'split-chrono-minute-hand',
+      },
+      rattrapante: true,
+      flyback: true
+    },
+  };
+  demo = new Watch(settings);
+
+  settings = {
+    dials: [{
+        name: 'primary',
+        hands: {
           hour: 'chrono-hour-hand',
           minute: 'chrono-primary-minute-hand',
           second: 'second-hand',
@@ -47,7 +74,7 @@ const Watch = require('./../index');
         second: 'chrono-second-hand',
         minute: 'chrono-minute-hand',
         hour: 'chrono-hour-sub-hand',
-      },
+      }
     },
   };
   demo = new Watch(settings);

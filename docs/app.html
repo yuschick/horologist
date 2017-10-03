@@ -140,6 +140,33 @@
     <span class="hljs-attr">dials</span>: [{
         <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
         <span class="hljs-attr">hands</span>: {
+          <span class="hljs-attr">hour</span>: <span class="hljs-string">'split-hour-hand'</span>,
+          <span class="hljs-attr">minute</span>: <span class="hljs-string">'split-minute-hand'</span>,
+          <span class="hljs-attr">second</span>: <span class="hljs-string">'running-second-hand'</span>,
+        },
+        <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
+      },
+    ],
+    <span class="hljs-attr">chronograph</span>: {
+      <span class="hljs-attr">buttons</span>: {
+        <span class="hljs-attr">start</span>: <span class="hljs-string">'split-start-stop-btn'</span>,
+        <span class="hljs-attr">reset</span>: <span class="hljs-string">'split-reset-btn'</span>
+      },
+      <span class="hljs-attr">hands</span>: {
+        <span class="hljs-attr">second</span>: <span class="hljs-string">'split-chrono-second-hand'</span>,
+        <span class="hljs-attr">step</span>: <span class="hljs-string">'split-stop-second-hand'</span>,
+        <span class="hljs-attr">minute</span>: <span class="hljs-string">'split-chrono-minute-hand'</span>,
+      },
+      <span class="hljs-attr">rattrapante</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">flyback</span>: <span class="hljs-literal">true</span>
+    },
+  };
+  demo = <span class="hljs-keyword">new</span> Watch(settings);
+
+  settings = {
+    <span class="hljs-attr">dials</span>: [{
+        <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
+        <span class="hljs-attr">hands</span>: {
           <span class="hljs-attr">hour</span>: <span class="hljs-string">'chrono-hour-hand'</span>,
           <span class="hljs-attr">minute</span>: <span class="hljs-string">'chrono-primary-minute-hand'</span>,
           <span class="hljs-attr">second</span>: <span class="hljs-string">'second-hand'</span>,
@@ -157,7 +184,7 @@
         <span class="hljs-attr">second</span>: <span class="hljs-string">'chrono-second-hand'</span>,
         <span class="hljs-attr">minute</span>: <span class="hljs-string">'chrono-minute-hand'</span>,
         <span class="hljs-attr">hour</span>: <span class="hljs-string">'chrono-hour-sub-hand'</span>,
-      },
+      }
     },
   };
   demo = <span class="hljs-keyword">new</span> Watch(settings);

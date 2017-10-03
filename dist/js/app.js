@@ -77,6 +77,32 @@
 	    dials: [{
 	      name: 'primary',
 	      hands: {
+	        hour: 'split-hour-hand',
+	        minute: 'split-minute-hand',
+	        second: 'running-second-hand'
+	      },
+	      sweep: true
+	    }],
+	    chronograph: {
+	      buttons: {
+	        start: 'split-start-stop-btn',
+	        reset: 'split-reset-btn'
+	      },
+	      hands: {
+	        second: 'split-chrono-second-hand',
+	        step: 'split-stop-second-hand',
+	        minute: 'split-chrono-minute-hand'
+	      },
+	      rattrapante: true,
+	      flyback: true
+	    }
+	  };
+	  demo = new Watch(settings);
+
+	  settings = {
+	    dials: [{
+	      name: 'primary',
+	      hands: {
 	        hour: 'chrono-hour-hand',
 	        minute: 'chrono-primary-minute-hand',
 	        second: 'second-hand'
@@ -18061,7 +18087,7 @@
 	// The chronograph complication requires a buttons and hands object
 	// the buttons object contains the start and reset buttons which control the hands
 	// The hands are designed and used to indicate tenth seconds, seconds, and minutes
-	// for timing events. Flyback functionality is supported for timing laps.
+	// for timing events. Flyback and Split-Second (rattrapante) functionality is supported for timing laps.
 
 	var Chronograph = function () {
 	  function Chronograph(settings, parentWatch) {
@@ -18083,14 +18109,17 @@
 	      tenth: document.getElementById(settings.hands.tenth) || null,
 	      second: document.getElementById(settings.hands.second),
 	      minute: document.getElementById(settings.hands.minute),
-	      hour: document.getElementById(settings.hands.hour) || null
+	      hour: document.getElementById(settings.hands.hour) || null,
+	      step: document.getElementById(settings.hands.step) || null
 	    };
 
 	    this.flyback = settings.flyback || false;
+	    this.rattrapante = settings.rattrapante || false;
 
 	    this.interval;
 	    this.counter = 1;
 	    this.isRunning = false;
+	    this.step = false;
 	    this.parent = parentWatch;
 
 	    this.init();
@@ -18120,7 +18149,7 @@
 	        _this.resetHands();
 	        _this.toggleButtonClasses(_this.buttons.reset);
 
-	        if (!_this.flyback || !_this.isRunning) {
+	        if (!_this.rattrapante && !_this.flyback || !_this.isRunning) {
 	          _this.clearInterval();
 	          _this.isRunning = false;
 	        }
@@ -18163,9 +18192,23 @@
 	    value: function resetHands() {
 	      var _this3 = this;
 
-	      Object.keys(this.hands).map(function (hand) {
-	        if (_this3.hands[hand]) _this3.hands[hand].style.transform = 'rotate(0deg)';
-	      });
+	      if (this.rattrapante && this.isRunning) {
+	        if (!this.flyback) {
+	          this.step = !this.step;
+	          if (!this.step) {
+	            this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+	          }
+	        } else {
+	          this.step = true;
+	          this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+	          this.hands.second.style.transform = 'rotate(0deg)';
+	        }
+	      } else {
+	        Object.keys(this.hands).map(function (hand) {
+	          if (_this3.hands[hand]) _this3.hands[hand].style.transform = 'rotate(0deg)';
+	        });
+	        this.step = false;
+	      }
 	    }
 	  }, {
 	    key: 'toggleButtonClasses',
@@ -18184,6 +18227,7 @@
 
 	      if (this.counter % 10 === 0) {
 	        this.hands.second.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
+	        if (!this.step && this.hands.step) this.hands.step.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
 	      }
 
 	      if (this.counter % 600 === 0) {
@@ -18200,7 +18244,7 @@
 	      this.bindEvents();
 
 	      Object.keys(this.buttons).map(function (btn) {
-	        _this4.buttons[btn].style.cursor = 'pointer';
+	        _this4.buttons[btn] ? _this4.buttons[btn].style.cursor = 'pointer' : false;
 	      });
 	    }
 	  }]);
