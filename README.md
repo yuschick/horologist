@@ -213,8 +213,8 @@ let demo = new Watch(settings);
 - [x] Add hour support for chronographs
 - [x] Add invert functionality for day, date, month, and year complications.
 
-## Contact
-[@Yuschick on Twitter](http://www.twitter.com/Yuschick)
-
 ## Sponsors
 [<img src="https://spiceprogram.org/assets/img/chilicorn_sticker.svg" width="50" alt="Spice Program - Futurice">](https://spiceprogram.org/)
+
+## Contact
+[@Yuschick on Twitter](http://www.twitter.com/Yuschick)
