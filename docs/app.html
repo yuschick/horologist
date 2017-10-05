@@ -60,6 +60,11 @@
                 </a>
               
                 
+                <a class="source" href="Foudroyante.html">
+                  Foudroyante.js
+                </a>
+              
+                
                 <a class="source" href="MinuteRepeater.html">
                   MinuteRepeater.js
                 </a>
@@ -116,22 +121,19 @@
     <span class="hljs-attr">dials</span>: [{
         <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
         <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">hour</span>: <span class="hljs-string">'dial-primary-hour-hand'</span>,
           <span class="hljs-attr">minute</span>: <span class="hljs-string">'dial-primary-minute-hand'</span>,
           <span class="hljs-attr">second</span>: <span class="hljs-string">'dial-primary-second-hand'</span>,
         },
-      },
-      {
-        <span class="hljs-attr">name</span>: <span class="hljs-string">'secondary'</span>,
-        <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">hour</span>: <span class="hljs-string">'dial-secondary-hour-hand'</span>,
-          <span class="hljs-attr">minute</span>: <span class="hljs-string">'dial-secondary-minute-hand'</span>,
-          <span class="hljs-attr">second</span>: <span class="hljs-string">'dial-secondary-second-hand'</span>,
-        },
-        <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">timezone</span>: <span class="hljs-string">'America/New_York'</span>
-      },
+      }
     ],
+    <span class="hljs-attr">foudroyante</span>: {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">'dial-secondary-second-hand'</span>,
+      <span class="hljs-attr">steps</span>: <span class="hljs-number">6</span>
+    },
+    <span class="hljs-attr">reserve</span>: {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">'dial-primary-hour-hand'</span>,
+      <span class="hljs-attr">range</span>: [<span class="hljs-number">89</span>,<span class="hljs-number">90</span>]
+    }
   };
 
   <span class="hljs-keyword">let</span> demo = <span class="hljs-keyword">new</span> Watch(settings);

@@ -55,20 +55,18 @@
 	    dials: [{
 	      name: 'primary',
 	      hands: {
-	        hour: 'dial-primary-hour-hand',
 	        minute: 'dial-primary-minute-hand',
 	        second: 'dial-primary-second-hand'
 	      }
-	    }, {
-	      name: 'secondary',
-	      hands: {
-	        hour: 'dial-secondary-hour-hand',
-	        minute: 'dial-secondary-minute-hand',
-	        second: 'dial-secondary-second-hand'
-	      },
-	      sweep: true,
-	      timezone: 'America/New_York'
-	    }]
+	    }],
+	    foudroyante: {
+	      id: 'dial-secondary-second-hand',
+	      steps: 6
+	    },
+	    reserve: {
+	      id: 'dial-primary-hour-hand',
+	      range: [89, 90]
+	    }
 	  };
 
 	  var demo = new Watch(settings);
@@ -210,6 +208,7 @@
 	var MonthIndicator = __webpack_require__(131);
 	var YearIndicator = __webpack_require__(132);
 	var Chronograph = __webpack_require__(133);
+	var Foudroyante = __webpack_require__(134);
 
 	var Watch = function () {
 	  function Watch(settings) {
@@ -276,6 +275,10 @@
 
 	    if (settings.chronograph) {
 	      this.chronograph = new Chronograph(settings.chronograph, this);
+	    }
+
+	    if (settings.foudroyante) {
+	      this.foudroyante = new Foudroyante(settings.foudroyante, this);
 	    }
 
 	    this.init();
@@ -358,6 +361,10 @@
 	          _this3.moonphase.getCurrentPhase();
 	        }
 	      }, 1000);
+
+	      if (this.foudroyante) {
+	        this.foudroyante.init();
+	      }
 	    }
 	  }, {
 	    key: 'stopInterval',
@@ -367,6 +374,10 @@
 
 	      if (this.repeater) {
 	        this.repeater.stopAll();
+	      }
+
+	      if (this.foudroyante) {
+	        this.foudroyante.clearInterval();
 	      }
 	    }
 	  }, {
@@ -18253,6 +18264,103 @@
 	}();
 
 	module.exports = Chronograph;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	// Foudroyante Class
+	// @params settings: object
+	// @params parentWatch: Watch instance
+	//
+	// Based upon the amount in the steps property, the target element (defined by id)
+	// will jump [steps] amount of times around its dial per second. For example,
+	// if steps is set to 6, the hand will jump 60 (360 / 6) degrees every 1/6 of a second.
+
+	var Foudroyante = function () {
+	  function Foudroyante(settings, parentWatch) {
+	    _classCallCheck(this, Foudroyante);
+
+	    this.errorChecking(settings);
+
+	    this.element = document.getElementById(settings.id);
+	    this.parent = parentWatch;
+	    this.steps = settings.steps;
+	    this.degreeIncrement = 360 / this.steps;
+	    this.currentAngle = 0;
+
+	    this.interval;
+	  }
+
+	  _createClass(Foudroyante, [{
+	    key: "errorChecking",
+	    value: function errorChecking(settings) {
+	      try {
+	        if (!settings.id) throw "The Foudroyante class requires that an ID of the indiciator element be provided.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (settings.steps > 10) throw "The Foudroyante can support a maximum of 10 steps.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+	    }
+	  }, {
+	    key: "defineInterval",
+	    value: function defineInterval() {
+	      var _this = this;
+
+	      this.interval = setInterval(function () {
+	        _this.rotateHand();
+	      }, 1000 / this.steps);
+	    }
+	  }, {
+	    key: "clearInterval",
+	    value: function (_clearInterval) {
+	      function clearInterval() {
+	        return _clearInterval.apply(this, arguments);
+	      }
+
+	      clearInterval.toString = function () {
+	        return _clearInterval.toString();
+	      };
+
+	      return clearInterval;
+	    }(function () {
+	      clearInterval(this.interval);
+	      this.interval = null;
+	    })
+	  }, {
+	    key: "rotateHand",
+	    value: function rotateHand() {
+	      if (this.currentAngle === 360 - this.degreeIncrement) {
+	        this.currentAngle = 0;
+	      } else {
+	        this.currentAngle += this.degreeIncrement;
+	      }
+	      this.element.style.transform = "rotate(" + this.currentAngle + "deg)";
+	    }
+	  }, {
+	    key: "init",
+	    value: function init() {
+	      this.defineInterval();
+	    }
+	  }]);
+
+	  return Foudroyante;
+	}();
+
+	module.exports = Foudroyante;
 
 /***/ })
 /******/ ]);

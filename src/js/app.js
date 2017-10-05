@@ -6,22 +6,19 @@ const Watch = require('./../index');
     dials: [{
         name: 'primary',
         hands: {
-          hour: 'dial-primary-hour-hand',
           minute: 'dial-primary-minute-hand',
           second: 'dial-primary-second-hand',
         },
-      },
-      {
-        name: 'secondary',
-        hands: {
-          hour: 'dial-secondary-hour-hand',
-          minute: 'dial-secondary-minute-hand',
-          second: 'dial-secondary-second-hand',
-        },
-        sweep: true,
-        timezone: 'America/New_York'
-      },
+      }
     ],
+    foudroyante: {
+      id: 'dial-secondary-second-hand',
+      steps: 6
+    },
+    reserve: {
+      id: 'dial-primary-hour-hand',
+      range: [89,90]
+    }
   };
 
   let demo = new Watch(settings);

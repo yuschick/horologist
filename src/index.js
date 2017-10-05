@@ -18,6 +18,7 @@ const DateIndicator = require('./modules/DateIndicator');
 const MonthIndicator = require('./modules/MonthIndicator');
 const YearIndicator = require('./modules/YearIndicator');
 const Chronograph = require('./modules/Chronograph');
+const Foudroyante = require('./modules/Foudroyante');
 
 class Watch {
   constructor(settings) {
@@ -81,6 +82,10 @@ class Watch {
 
     if (settings.chronograph) {
       this.chronograph = new Chronograph(settings.chronograph, this);
+    }
+
+    if (settings.foudroyante) {
+      this.foudroyante = new Foudroyante(settings.foudroyante, this);
     }
 
     this.init();
@@ -157,8 +162,12 @@ class Watch {
       if (this.moonphase) {
         this.moonphase.getCurrentPhase();
       }
-
     }, 1000);
+
+    if (this.foudroyante) {
+      this.foudroyante.init();
+    }
+
   }
 
   stopInterval() {
@@ -167,6 +176,10 @@ class Watch {
 
     if (this.repeater) {
       this.repeater.stopAll();
+    }
+
+    if (this.foudroyante) {
+      this.foudroyante.clearInterval();
     }
   }
 

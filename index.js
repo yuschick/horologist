@@ -24,6 +24,7 @@ var DateIndicator = require('./dist/modules/DateIndicator');
 var MonthIndicator = require('./dist/modules/MonthIndicator');
 var YearIndicator = require('./dist/modules/YearIndicator');
 var Chronograph = require('./dist/modules/Chronograph');
+var Foudroyante = require('./dist/modules/Foudroyante');
 
 var Watch = function () {
   function Watch(settings) {
@@ -90,6 +91,10 @@ var Watch = function () {
 
     if (settings.chronograph) {
       this.chronograph = new Chronograph(settings.chronograph, this);
+    }
+
+    if (settings.foudroyante) {
+      this.foudroyante = new Foudroyante(settings.foudroyante, this);
     }
 
     this.init();
@@ -172,6 +177,10 @@ var Watch = function () {
           _this3.moonphase.getCurrentPhase();
         }
       }, 1000);
+
+      if (this.foudroyante) {
+        this.foudroyante.init();
+      }
     }
   }, {
     key: 'stopInterval',
@@ -181,6 +190,10 @@ var Watch = function () {
 
       if (this.repeater) {
         this.repeater.stopAll();
+      }
+
+      if (this.foudroyante) {
+        this.foudroyante.clearInterval();
       }
     }
   }, {

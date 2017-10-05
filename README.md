@@ -24,6 +24,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
   - Month Indicator
     - Retrograde Display
   - Year Indicator
+- Foudroyante
 
 ## Getting Started
 Install the ticktock-js package via the terminal.
@@ -124,6 +125,10 @@ const settings = {
      minute: 'chron-minute-hand'
    },
    flyback: true
+ },
+ foudroyante: {
+   id: 'foudroyante-hand',
+   steps: 6
  }
 };
 
@@ -196,6 +201,10 @@ let demo = new Watch(settings);
 - **hands** (*Object*): An object containing the IDs of the hands of the chronograph. By default, TickTock supports tenth-second, second, minute, and hour hands. The second and minute hands are required.
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 - **rattrapante** (*Boolean*): *Default: false* Set this property to *true* if the chronograph should function with split seconds - one hand that measures steps while the other keeps a continues time.
+
+#### Foudroyante {Object}
+- **id** (*String*): The id of the foudroyante hand element
+- **steps** (*Number*): A number between 2-10 to determine how many steps around the dial should be taken every second by the indicator element
 
 ## Contact
 [@Yuschick on Twitter](http://www.twitter.com/Yuschick)
