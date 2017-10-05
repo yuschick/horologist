@@ -197,24 +197,8 @@ let demo = new Watch(settings);
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 - **rattrapante** (*Boolean*): *Default: false* Set this property to *true* if the chronograph should function with split seconds - one hand that measures steps while the other keeps a continues time.
 
-## Todo
-- [ ] Retrograde hours and minutes
-- [ ] Update repeater to use two chimes, pairing the chimes on quarter hours per most traditional repeaters
-  - chime 1 for hours
-  - chime 1 & 2 for quarter hours
-  - chime 2 for minutes
-- [ ] Manual setting of all complications
-  - [ ] Moonphase
-  - [ ] Day, Date, Month, Year
-  - [ ] Day/Night Indicator
-- [ ] Allow passing an ID into the master Watch class
-- [x] Incorporate a split second (rattrapante) chronograph functionality
-  - [ ] Consider reworking and renaming properties to support tri-pusher models
-- [x] Add hour support for chronographs
-- [x] Add invert functionality for day, date, month, and year complications.
+## Contact
+[@Yuschick on Twitter](http://www.twitter.com/Yuschick)
 
 ## Sponsors
 [<img src="https://spiceprogram.org/assets/img/chilicorn_sticker.svg" width="50" alt="Spice Program - Futurice">](https://spiceprogram.org/)
-
-## Contact
-[@Yuschick on Twitter](http://www.twitter.com/Yuschick)
