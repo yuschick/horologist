@@ -202,7 +202,7 @@ let demo = new Watch(settings);
 - **flyback** (*Boolean*): *Default: false* Set this property to *true* if the chronograph hands should return to their original positions and continue running when the reset button is pressed while the chronograph is running.
 - **rattrapante** (*Boolean*): *Default: false* Set this property to *true* if the chronograph should function with split seconds - one hand that measures steps while the other keeps a continues time.
 
-#### Foudroyante {Object}
+#### foudroyante {Object}
 - **id** (*String*): The id of the foudroyante hand element
 - **steps** (*Number*): A number between 2-10 to determine how many steps around the dial should be taken every second by the indicator element
 
