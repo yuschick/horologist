@@ -48,7 +48,7 @@ class Chronograph {
 
     try {
       if (settings.rattrapante && !settings.hands.step)
-        throw "A rattrapante Chronograph requires a a 'step' hand.";
+        throw "A rattrapante Chronograph requires a 'step' hand.";
     } catch (errorMsg) {
       console.error(errorMsg);
       return;
