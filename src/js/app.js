@@ -25,6 +25,24 @@ const Watch = require('./../index');
 
   settings = {
     dials: [{
+        hands: {
+          hour: 'retrograde-sec-hour-hand',
+          minute: 'retrograde-sec-minute-hand',
+        },
+        retrograde: {
+          second: {
+            id: 'retrograde-second-hand-one',
+            max: 180,
+            duration: 10
+          }
+        }
+      },
+    ]
+  };
+  demo = new Watch(settings);
+
+  settings = {
+    dials: [{
         name: 'primary',
         hands: {
           hour: 'split-hour-hand',
@@ -44,8 +62,7 @@ const Watch = require('./../index');
         step: 'split-stop-second-hand',
         minute: 'split-chrono-minute-hand',
       },
-      rattrapante: true,
-      flyback: true
+      rattrapante: true
     },
   };
   demo = new Watch(settings);

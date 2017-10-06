@@ -7,6 +7,8 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
 
 - Dials
   - Dual Time Support (with Moment-Timezone)
+  - Retrograde Display
+    - Seconds
 - Power Reserve
 - Chronograph
   - Flyback
@@ -141,6 +143,11 @@ let demo = new Watch(settings);
   - **hour** (*String*): The id of the hour hand SVG element
   - **minute** (*String*): The id of the minute hand SVG element
   - **second** (*String*): The id of the second hand SVG element
+- **retrograde** (*Object*):
+  - **second** (*Object*):
+    - **id** (*String*): The id of the second hand element
+    - **max** (*Number*): The maximum rotation value of the hand
+    - **duration** (*Number*): *Default: 60* Defines the amount of seconds the retrograde covers in one pass
 - **offset** (*String*): *Default: 0* Use the offset value to define a GMT timezone (eg: '+2', '-4.5') **will become deprecated in lieu of timezone**
 - **timezone** (*String*): *Default: null* Use the timezone value to define a timezone for the dial based upon the supported values of Moment Timezone
 - **format** (*Number*): *Default: 12* Specify `12` or `24` to define if the dial should run as 12 or 24 hour time

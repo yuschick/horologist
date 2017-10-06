@@ -73,6 +73,23 @@
 
 	  settings = {
 	    dials: [{
+	      hands: {
+	        hour: 'retrograde-sec-hour-hand',
+	        minute: 'retrograde-sec-minute-hand'
+	      },
+	      retrograde: {
+	        second: {
+	          id: 'retrograde-second-hand-one',
+	          max: 180,
+	          duration: 10
+	        }
+	      }
+	    }]
+	  };
+	  demo = new Watch(settings);
+
+	  settings = {
+	    dials: [{
 	      name: 'primary',
 	      hands: {
 	        hour: 'split-hour-hand',
@@ -91,8 +108,7 @@
 	        step: 'split-stop-second-hand',
 	        minute: 'split-chrono-minute-hand'
 	      },
-	      rattrapante: true,
-	      flyback: true
+	      rattrapante: true
 	    }
 	  };
 	  demo = new Watch(settings);
@@ -16213,7 +16229,7 @@
 /* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16235,17 +16251,30 @@
 	  function Dial(settings, parentWatch) {
 	    _classCallCheck(this, Dial);
 
-	    try {
-	      if (!settings.hands) throw "The Dial class needs an object containing the HTML elements for the hands.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
+	    this.error = false;
+	    this.errorChecking(settings);
+
+	    if (this.error) return;
+
 	    this.name = settings.name;
 	    this.hands = {};
 	    if (settings.hands.hour) this.hands.hour = document.getElementById(settings.hands.hour);
 	    if (settings.hands.minute) this.hands.minute = document.getElementById(settings.hands.minute);
 	    if (settings.hands.second) this.hands.second = document.getElementById(settings.hands.second);
+
+	    this.retrograde = {};
+
+	    if (settings.retrograde) {
+	      if (settings.retrograde.second) {
+	        this.retrograde.second = {
+	          hand: document.getElementById(settings.retrograde.second.id),
+	          max: settings.retrograde.second.max || 180,
+	          duration: settings.retrograde.second.duration || 60,
+	          increment: settings.retrograde.second.max / (settings.retrograde.second.duration || 60)
+	        };
+	        this.hands.second = this.retrograde.second.hand;
+	      }
+	    }
 
 	    this.parent = parentWatch;
 
@@ -16284,22 +16313,65 @@
 	  }
 
 	  _createClass(Dial, [{
-	    key: 'toggleActiveCrown',
+	    key: "errorChecking",
+	    value: function errorChecking(settings) {
+	      try {
+	        if (!settings.hands) throw "The Dial class needs an object containing the HTML elements for the hands.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        this.error = true;
+	        return;
+	      }
+
+	      try {
+	        if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id) throw "The retrograde second requires an id property be provided.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        this.error = true;
+	        return;
+	      }
+
+	      try {
+	        if (settings.retrograde && settings.hands.second && settings.retrograde.second) throw "A dial can only support one second hand at a time - either traditional or retrograde.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        this.error = true;
+	        return;
+	      }
+
+	      try {
+	        if (settings.retrograde && settings.retrograde.second.duration < 5) throw "The retrograde second hand requires a duration no less than 5.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        this.error = true;
+	        return;
+	      }
+
+	      try {
+	        if (settings.retrograde && 60 % settings.retrograde.second.duration != 0) throw "The retrograde second hand requires a duration that is evenly divisble by 60.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        this.error = true;
+	        return;
+	      }
+	    }
+	  }, {
+	    key: "toggleActiveCrown",
 	    value: function toggleActiveCrown() {
 	      this.crownActive = !this.crownActive;
 	    }
 	  }, {
-	    key: 'toggleSettingTime',
+	    key: "toggleSettingTime",
 	    value: function toggleSettingTime() {
 	      this.settingTime = !this.settingTime;
 	    }
 	  }, {
-	    key: 'updateToManualTime',
+	    key: "updateToManualTime",
 	    value: function updateToManualTime() {
 	      this.manualTime = true;
 	    }
 	  }, {
-	    key: 'startInterval',
+	    key: "startInterval",
 	    value: function startInterval() {
 	      var _this = this;
 
@@ -16309,18 +16381,18 @@
 	      }, 1000);
 	    }
 	  }, {
-	    key: 'stopInterval',
+	    key: "stopInterval",
 	    value: function stopInterval() {
 	      clearInterval(this.interval);
 	      this.interval = null;
 	    }
 	  }, {
-	    key: 'applySweepingTransition',
+	    key: "applySweepingTransition",
 	    value: function applySweepingTransition() {
 	      this.hands.second.style.transition = 'transform 1s linear';
 	    }
 	  }, {
-	    key: 'getCurrentTime',
+	    key: "getCurrentTime",
 	    value: function getCurrentTime() {
 	      this.rightNow = this.gmtOffset && !this.timezone ? new Date() : this.parent.rightNow.tz(this.timezone);
 	      var currentTime = void 0;
@@ -16348,12 +16420,12 @@
 	      this.currentTime = currentTime;
 	    }
 	  }, {
-	    key: 'checkForDayNightUpdates',
+	    key: "checkForDayNightUpdates",
 	    value: function checkForDayNightUpdates() {
 	      this.parent.dayNightIndicator.convertAngleToHours(this.name);
 	    }
 	  }, {
-	    key: 'rotateHands',
+	    key: "rotateHands",
 	    value: function rotateHands() {
 	      var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -16387,7 +16459,7 @@
 	          rotateVal -= 360;
 	        }
 
-	        this.hands.hour.style.transform = 'rotate(' + rotateVal + 'deg)';
+	        this.hands.hour.style.transform = "rotate(" + rotateVal + "deg)";
 	      }
 
 	      if (this.hands.minute) {
@@ -16413,11 +16485,19 @@
 	          this.hands.minute.style.transition = this.transition.minute;
 	        }
 
-	        this.hands.minute.style.transform = 'rotate(' + rotateVal + 'deg)';
+	        this.hands.minute.style.transform = "rotate(" + rotateVal + "deg)";
 	      }
 
 	      if (this.hands.second) {
-	        rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
+	        if (this.retrograde.second) {
+	          rotateVal = this.currentTime.seconds * this.retrograde.second.increment;
+	        } else {
+	          rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
+	        }
+
+	        if (this.retrograde.second && rotateVal > this.retrograde.second.max) {
+	          rotateVal = rotateVal % this.retrograde.second.max || this.retrograde.second.max;
+	        }
 
 	        if (rotateVal === 0) {
 	          this.transition.second = this.hands.second.style.transition;
@@ -16426,13 +16506,13 @@
 	          this.hands.second.style.transition = this.transition.second;
 	        }
 
-	        this.hands.second.style.transform = 'rotate(' + rotateVal + 'deg)';
+	        this.hands.second.style.transform = "rotate(" + rotateVal + "deg)";
 	      }
 
 	      if (this.parent.dayNightIndicator) this.checkForDayNightUpdates();
 	    }
 	  }, {
-	    key: 'init',
+	    key: "init",
 	    value: function init() {
 	      var _this2 = this;
 
@@ -18085,7 +18165,7 @@
 /* 133 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18104,12 +18184,7 @@
 	  function Chronograph(settings, parentWatch) {
 	    _classCallCheck(this, Chronograph);
 
-	    try {
-	      if (!settings.buttons || !settings.hands) throw "The Chronograph requires a settings object containing both the buttons and hands.";
-	    } catch (errorMsg) {
-	      console.error(errorMsg);
-	      return;
-	    }
+	    this.errorChecking(settings);
 
 	    this.buttons = {
 	      start: document.getElementById(settings.buttons.start),
@@ -18137,7 +18212,24 @@
 	  }
 
 	  _createClass(Chronograph, [{
-	    key: 'bindEvents',
+	    key: "errorChecking",
+	    value: function errorChecking(settings) {
+	      try {
+	        if (!settings.buttons || !settings.hands) throw "The Chronograph requires a settings object containing both the buttons and hands.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (settings.rattrapante && !settings.hands.step) throw "A rattrapante Chronograph requires a 'step' hand.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+	    }
+	  }, {
+	    key: "bindEvents",
 	    value: function bindEvents() {
 	      var _this = this;
 
@@ -18173,7 +18265,7 @@
 	      });
 	    }
 	  }, {
-	    key: 'clearInterval',
+	    key: "clearInterval",
 	    value: function (_clearInterval) {
 	      function clearInterval() {
 	        return _clearInterval.apply(this, arguments);
@@ -18189,7 +18281,7 @@
 	      this.interval = null;
 	    })
 	  }, {
-	    key: 'startInterval',
+	    key: "startInterval",
 	    value: function startInterval() {
 	      var _this2 = this;
 
@@ -18199,7 +18291,7 @@
 	      }, 100);
 	    }
 	  }, {
-	    key: 'resetHands',
+	    key: "resetHands",
 	    value: function resetHands() {
 	      var _this3 = this;
 
@@ -18207,11 +18299,11 @@
 	        if (!this.flyback) {
 	          this.step = !this.step;
 	          if (!this.step) {
-	            this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+	            this.hands.step.style.transform = "rotate(" + this.parent.getCurrentRotateValue(this.hands.second) + "deg)";
 	          }
 	        } else {
 	          this.step = true;
-	          this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+	          this.hands.step.style.transform = "rotate(" + this.parent.getCurrentRotateValue(this.hands.second) + "deg)";
 	          this.hands.second.style.transform = 'rotate(0deg)';
 	        }
 	      } else {
@@ -18222,33 +18314,33 @@
 	      }
 	    }
 	  }, {
-	    key: 'toggleButtonClasses',
+	    key: "toggleButtonClasses",
 	    value: function toggleButtonClasses(btn) {
 	      btn.classList.toggle('active');
 	    }
 	  }, {
-	    key: 'rotateHands',
+	    key: "rotateHands",
 	    value: function rotateHands() {
 	      var tenthValue = this.hands.tenth ? this.parent.getCurrentRotateValue(this.hands.tenth) : 0;
 	      var secondValue = this.parent.getCurrentRotateValue(this.hands.second);
 	      var minuteValue = this.parent.getCurrentRotateValue(this.hands.minute);
 	      var hourValue = this.hands.hour ? this.parent.getCurrentRotateValue(this.hands.hour) : 0;
 
-	      if (this.hands.tenth) this.hands.tenth.style.transform = 'rotate(' + (tenthValue + 0.6) + 'deg)';
+	      if (this.hands.tenth) this.hands.tenth.style.transform = "rotate(" + (tenthValue + 0.6) + "deg)";
 
 	      if (this.counter % 10 === 0) {
-	        this.hands.second.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
-	        if (!this.step && this.hands.step) this.hands.step.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
+	        this.hands.second.style.transform = "rotate(" + (secondValue + 6) + "deg)";
+	        if (!this.step && this.hands.step) this.hands.step.style.transform = "rotate(" + (secondValue + 6) + "deg)";
 	      }
 
 	      if (this.counter % 600 === 0) {
-	        this.hands.minute.style.transform = 'rotate(' + (minuteValue + 6) + 'deg)';
-	        if (this.hands.hour) this.hands.hour.style.transform = 'rotate(' + (hourValue + 0.5) + 'deg)';
+	        this.hands.minute.style.transform = "rotate(" + (minuteValue + 6) + "deg)";
+	        if (this.hands.hour) this.hands.hour.style.transform = "rotate(" + (hourValue + 0.5) + "deg)";
 	        this.counter = 0;
 	      }
 	    }
 	  }, {
-	    key: 'init',
+	    key: "init",
 	    value: function init() {
 	      var _this4 = this;
 
@@ -18303,6 +18395,20 @@
 	    value: function errorChecking(settings) {
 	      try {
 	        if (!settings.id) throw "The Foudroyante class requires that an ID of the indiciator element be provided.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (!settings.steps) throw "The Foudroyante requires a steps value.";
+	      } catch (errorMsg) {
+	        console.error(errorMsg);
+	        return;
+	      }
+
+	      try {
+	        if (settings.steps < 2) throw "The Foudroyante requires a minimum step value of 2.";
 	      } catch (errorMsg) {
 	        console.error(errorMsg);
 	        return;
