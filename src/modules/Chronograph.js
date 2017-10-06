@@ -10,13 +10,7 @@
 class Chronograph {
   constructor(settings, parentWatch) {
 
-    try {
-      if (!settings.buttons || !settings.hands)
-        throw "The Chronograph requires a settings object containing both the buttons and hands.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
-    }
+    this.errorChecking(settings);
 
     this.buttons = {
       start: document.getElementById(settings.buttons.start),
@@ -41,6 +35,24 @@ class Chronograph {
     this.parent = parentWatch;
 
     this.init();
+  }
+
+  errorChecking(settings) {
+    try {
+      if (!settings.buttons || !settings.hands)
+        throw "The Chronograph requires a settings object containing both the buttons and hands.";
+    } catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
+
+    try {
+      if (settings.rattrapante && !settings.hands.step)
+        throw "A rattrapante Chronograph requires a a 'step' hand.";
+    } catch (errorMsg) {
+      console.error(errorMsg);
+      return;
+    }
   }
 
   bindEvents() {
