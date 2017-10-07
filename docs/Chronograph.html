@@ -124,13 +124,7 @@ for timing events. Flyback and Split-Second (rattrapante) functionality is suppo
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Chronograph</span> </span>{
   <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
-    }
+    <span class="hljs-keyword">this</span>.errorChecking(settings);
 
     <span class="hljs-keyword">this</span>.buttons = {
       <span class="hljs-attr">start</span>: <span class="hljs-built_in">document</span>.getElementById(settings.buttons.start),
@@ -155,6 +149,24 @@ for timing events. Flyback and Split-Second (rattrapante) functionality is suppo
     <span class="hljs-keyword">this</span>.parent = parentWatch;
 
     <span class="hljs-keyword">this</span>.init();
+  }
+
+  errorChecking(settings) {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>;
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (settings.rattrapante &amp;&amp; !settings.hands.step)
+        <span class="hljs-keyword">throw</span> <span class="hljs-string">"A rattrapante Chronograph requires a 'step' hand."</span>;
+    } <span class="hljs-keyword">catch</span> (errorMsg) {
+      <span class="hljs-built_in">console</span>.error(errorMsg);
+      <span class="hljs-keyword">return</span>;
+    }
   }
 
   bindEvents() {
