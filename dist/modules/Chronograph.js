@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -17,12 +17,7 @@ var Chronograph = function () {
   function Chronograph(settings, parentWatch) {
     _classCallCheck(this, Chronograph);
 
-    try {
-      if (!settings.buttons || !settings.hands) throw "The Chronograph requires a settings object containing both the buttons and hands.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
-    }
+    this.errorChecking(settings);
 
     this.buttons = {
       start: document.getElementById(settings.buttons.start),
@@ -50,7 +45,24 @@ var Chronograph = function () {
   }
 
   _createClass(Chronograph, [{
-    key: 'bindEvents',
+    key: "errorChecking",
+    value: function errorChecking(settings) {
+      try {
+        if (!settings.buttons || !settings.hands) throw "The Chronograph requires a settings object containing both the buttons and hands.";
+      } catch (errorMsg) {
+        console.error(errorMsg);
+        return;
+      }
+
+      try {
+        if (settings.rattrapante && !settings.hands.step) throw "A rattrapante Chronograph requires a 'step' hand.";
+      } catch (errorMsg) {
+        console.error(errorMsg);
+        return;
+      }
+    }
+  }, {
+    key: "bindEvents",
     value: function bindEvents() {
       var _this = this;
 
@@ -86,7 +98,7 @@ var Chronograph = function () {
       });
     }
   }, {
-    key: 'clearInterval',
+    key: "clearInterval",
     value: function (_clearInterval) {
       function clearInterval() {
         return _clearInterval.apply(this, arguments);
@@ -102,7 +114,7 @@ var Chronograph = function () {
       this.interval = null;
     })
   }, {
-    key: 'startInterval',
+    key: "startInterval",
     value: function startInterval() {
       var _this2 = this;
 
@@ -112,7 +124,7 @@ var Chronograph = function () {
       }, 100);
     }
   }, {
-    key: 'resetHands',
+    key: "resetHands",
     value: function resetHands() {
       var _this3 = this;
 
@@ -120,11 +132,11 @@ var Chronograph = function () {
         if (!this.flyback) {
           this.step = !this.step;
           if (!this.step) {
-            this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+            this.hands.step.style.transform = "rotate(" + this.parent.getCurrentRotateValue(this.hands.second) + "deg)";
           }
         } else {
           this.step = true;
-          this.hands.step.style.transform = 'rotate(' + this.parent.getCurrentRotateValue(this.hands.second) + 'deg)';
+          this.hands.step.style.transform = "rotate(" + this.parent.getCurrentRotateValue(this.hands.second) + "deg)";
           this.hands.second.style.transform = 'rotate(0deg)';
         }
       } else {
@@ -135,33 +147,33 @@ var Chronograph = function () {
       }
     }
   }, {
-    key: 'toggleButtonClasses',
+    key: "toggleButtonClasses",
     value: function toggleButtonClasses(btn) {
       btn.classList.toggle('active');
     }
   }, {
-    key: 'rotateHands',
+    key: "rotateHands",
     value: function rotateHands() {
       var tenthValue = this.hands.tenth ? this.parent.getCurrentRotateValue(this.hands.tenth) : 0;
       var secondValue = this.parent.getCurrentRotateValue(this.hands.second);
       var minuteValue = this.parent.getCurrentRotateValue(this.hands.minute);
       var hourValue = this.hands.hour ? this.parent.getCurrentRotateValue(this.hands.hour) : 0;
 
-      if (this.hands.tenth) this.hands.tenth.style.transform = 'rotate(' + (tenthValue + 0.6) + 'deg)';
+      if (this.hands.tenth) this.hands.tenth.style.transform = "rotate(" + (tenthValue + 0.6) + "deg)";
 
       if (this.counter % 10 === 0) {
-        this.hands.second.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
-        if (!this.step && this.hands.step) this.hands.step.style.transform = 'rotate(' + (secondValue + 6) + 'deg)';
+        this.hands.second.style.transform = "rotate(" + (secondValue + 6) + "deg)";
+        if (!this.step && this.hands.step) this.hands.step.style.transform = "rotate(" + (secondValue + 6) + "deg)";
       }
 
       if (this.counter % 600 === 0) {
-        this.hands.minute.style.transform = 'rotate(' + (minuteValue + 6) + 'deg)';
-        if (this.hands.hour) this.hands.hour.style.transform = 'rotate(' + (hourValue + 0.5) + 'deg)';
+        this.hands.minute.style.transform = "rotate(" + (minuteValue + 6) + "deg)";
+        if (this.hands.hour) this.hands.hour.style.transform = "rotate(" + (hourValue + 0.5) + "deg)";
         this.counter = 0;
       }
     }
   }, {
-    key: 'init',
+    key: "init",
     value: function init() {
       var _this4 = this;
 

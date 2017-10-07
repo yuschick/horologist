@@ -140,6 +140,24 @@
 
   settings = {
     <span class="hljs-attr">dials</span>: [{
+        <span class="hljs-attr">hands</span>: {
+          <span class="hljs-attr">hour</span>: <span class="hljs-string">'retrograde-sec-hour-hand'</span>,
+          <span class="hljs-attr">minute</span>: <span class="hljs-string">'retrograde-sec-minute-hand'</span>,
+        },
+        <span class="hljs-attr">retrograde</span>: {
+          <span class="hljs-attr">second</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'retrograde-second-hand-one'</span>,
+            <span class="hljs-attr">max</span>: <span class="hljs-number">180</span>,
+            <span class="hljs-attr">duration</span>: <span class="hljs-number">30</span>
+          }
+        }
+      },
+    ]
+  };
+  demo = <span class="hljs-keyword">new</span> Watch(settings);
+
+  settings = {
+    <span class="hljs-attr">dials</span>: [{
         <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
         <span class="hljs-attr">hands</span>: {
           <span class="hljs-attr">hour</span>: <span class="hljs-string">'split-hour-hand'</span>,
@@ -159,8 +177,7 @@
         <span class="hljs-attr">step</span>: <span class="hljs-string">'split-stop-second-hand'</span>,
         <span class="hljs-attr">minute</span>: <span class="hljs-string">'split-chrono-minute-hand'</span>,
       },
-      <span class="hljs-attr">rattrapante</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">flyback</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">rattrapante</span>: <span class="hljs-literal">true</span>
     },
   };
   demo = <span class="hljs-keyword">new</span> Watch(settings);
