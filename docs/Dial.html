@@ -370,8 +370,15 @@ format, the hour hand is either rotated 30 or 15 degrees per hour.</p>
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.retrograde.second &amp;&amp; rotateVal &gt; <span class="hljs-keyword">this</span>.retrograde.second.max) {
         rotateVal = rotateVal % <span class="hljs-keyword">this</span>.retrograde.second.max || <span class="hljs-keyword">this</span>.retrograde.second.max;
       }
-
-      <span class="hljs-keyword">if</span> (rotateVal === <span class="hljs-number">0</span>) {
+      
+      <span class="hljs-keyword">if</span> (
+          rotateVal === <span class="hljs-number">0</span> ||
+          (
+            <span class="hljs-keyword">this</span>.retrograde.second &amp;&amp;
+            rotateVal === <span class="hljs-keyword">this</span>.retrograde.second.increment &amp;&amp;
+            <span class="hljs-keyword">this</span>.hands.second.style.transition !== <span class="hljs-string">'none'</span>
+          )
+         ) {
         <span class="hljs-keyword">this</span>.transition.second = <span class="hljs-keyword">this</span>.hands.second.style.transition;
         <span class="hljs-keyword">this</span>.hands.second.style.transition = <span class="hljs-string">'none'</span>;
       } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rotateVal &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">this</span>.hands.second.style.transition === <span class="hljs-string">'none'</span>) {

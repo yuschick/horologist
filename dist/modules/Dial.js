@@ -268,7 +268,7 @@ var Dial = function () {
           rotateVal = rotateVal % this.retrograde.second.max || this.retrograde.second.max;
         }
 
-        if (rotateVal === 0) {
+        if (rotateVal === 0 || this.retrograde.second && rotateVal === this.retrograde.second.increment && this.hands.second.style.transition !== 'none') {
           this.transition.second = this.hands.second.style.transition;
           this.hands.second.style.transition = 'none';
         } else if (rotateVal > 0 && this.hands.second.style.transition === 'none') {

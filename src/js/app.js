@@ -33,9 +33,10 @@ const Watch = require('./../index');
           second: {
             id: 'retrograde-second-hand-one',
             max: 180,
-            duration: 30
+            duration: 10
           }
-        }
+        },
+        sweep: true
       },
     ]
   };
