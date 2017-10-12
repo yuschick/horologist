@@ -2,6 +2,12 @@
 
 Thank you for your interest in contributing to TickTock! This document will help serve as a guide to contributing.
 
+Until further rules are in place, please follow existing:
+
+- naming conventions
+- spacing and indenting
+- offloading re-usable functionality to parent Watch class
+
 ### File Structure
 
 - `/index.js` is the primary file used for the library. This is auto generated with each build.
