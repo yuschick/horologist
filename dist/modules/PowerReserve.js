@@ -15,70 +15,70 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // components, with the exception of the crown, are stopped.
 
 var PowerReserve = function () {
-  function PowerReserve(settings, parentWatch) {
-    _classCallCheck(this, PowerReserve);
+    function PowerReserve(settings, parentWatch) {
+        _classCallCheck(this, PowerReserve);
 
-    try {
-      if (!settings.id) throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
+        try {
+            if (!settings.id) throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
+        } catch (errorMsg) {
+            console.error(errorMsg);
+            return;
+        }
+
+        this.element = document.getElementById(settings.id);
+        this.interval = null;
+        this.parent = parentWatch;
+        this.minAngle = settings.range[0];
+        this.maxAngle = settings.range[1];
+        this.increment = 0.5;
+        this.init();
     }
 
-    this.element = document.getElementById(settings.id);
-    this.interval = null;
-    this.parent = parentWatch;
-    this.minAngle = settings.range[0];
-    this.maxAngle = settings.range[1];
-    this.increment = 0.5;
-    this.init();
-  }
+    _createClass(PowerReserve, [{
+        key: "decrementReserve",
+        value: function decrementReserve() {
+            var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
-  _createClass(PowerReserve, [{
-    key: "decrementReserve",
-    value: function decrementReserve() {
-      var currentRotate = this.parent.getCurrentRotateValue(this.element);
+            if (currentRotate <= this.minAngle) {
+                this.parent.stopInterval();
+            } else {
+                var newRotate = Number(currentRotate) - this.increment / 2;
+                this.element.style.transform = "rotate(" + newRotate + "deg)";
+            }
+        }
+    }, {
+        key: "incrementReserve",
+        value: function incrementReserve() {
+            var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
-      if (currentRotate <= this.minAngle) {
-        this.parent.stopInterval();
-      } else {
-        var newRotate = Number(currentRotate) - this.increment / 2;
-        this.element.style.transform = "rotate(" + newRotate + "deg)";
-      }
-    }
-  }, {
-    key: "incrementReserve",
-    value: function incrementReserve() {
-      var currentRotate = this.parent.getCurrentRotateValue(this.element);
+            if (currentRotate <= this.maxAngle - this.increment && currentRotate >= this.minAngle) {
+                var newRotate = Number(currentRotate) + this.increment;
+                this.element.style.transform = "rotate(" + newRotate + "deg)";
+            }
+        }
+    }, {
+        key: "startInterval",
+        value: function startInterval() {
+            var _this = this;
 
-      if (currentRotate <= this.maxAngle - this.increment && currentRotate >= this.minAngle) {
-        var newRotate = Number(currentRotate) + this.increment;
-        this.element.style.transform = "rotate(" + newRotate + "deg)";
-      }
-    }
-  }, {
-    key: "startInterval",
-    value: function startInterval() {
-      var _this = this;
+            this.interval = setInterval(function () {
+                _this.decrementReserve();
+            }, 1000);
+        }
+    }, {
+        key: "stopInterval",
+        value: function stopInterval() {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }, {
+        key: "init",
+        value: function init() {
+            this.element.style.transform = "rotate(" + this.maxAngle + "deg)";
+        }
+    }]);
 
-      this.interval = setInterval(function () {
-        _this.decrementReserve();
-      }, 1000);
-    }
-  }, {
-    key: "stopInterval",
-    value: function stopInterval() {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
-  }, {
-    key: "init",
-    value: function init() {
-      this.element.style.transform = "rotate(" + this.maxAngle + "deg)";
-    }
-  }]);
-
-  return PowerReserve;
+    return PowerReserve;
 }();
 
 module.exports = PowerReserve;

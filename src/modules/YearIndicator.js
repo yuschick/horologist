@@ -7,53 +7,53 @@
 // to display that current relationship.
 
 class YearIndicator {
-  constructor(settings, parentWatch) {
+    constructor(settings, parentWatch) {
 
-    try {
-      if (!settings.id)
-        throw "The Year Indicator class requires that an ID of the indicator element be provided.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
+        try {
+            if (!settings.id)
+                throw "The Year Indicator class requires that an ID of the indicator element be provided.";
+        } catch (errorMsg) {
+            console.error(errorMsg);
+            return;
+        }
+
+        this.element = document.getElementById(settings.id);
+        this.parent = parentWatch;
+        this.year = this.parent.rightNow.year();
+        this.month = this.parent.rightNow.month();
+        this.offsetMonths = settings.offsetMonths || false;
+        this.invert = settings.invert || false;
+
+        this.init();
     }
 
-    this.element = document.getElementById(settings.id);
-    this.parent = parentWatch;
-    this.year = this.parent.rightNow.year();
-    this.month = this.parent.rightNow.month();
-    this.offsetMonths = settings.offsetMonths || false;
-    this.invert = settings.invert || false;
+    getRotateValue() {
+        let value = 0;
 
-    this.init();
-  }
+        if (((this.year % 4 === 0) && (this.year % 100 !== 0)) || (this.year % 400 === 0)) {
+            value = 270;
+        } else if (((this.year % 4 === 2) && (this.year % 100 !== 2)) || (this.year % 400 === 2)) {
+            value = 90;
+        } else if (((this.year % 4 === 3) && (this.year % 100 !== 3)) || (this.year % 400 === 3)) {
+            value = 180;
+        }
 
-  getRotateValue() {
-    let value = 0;
+        if (this.offsetMonths) {
+            value += this.month * 7.5;
+        }
 
-    if (((this.year % 4 === 0) && (this.year % 100 !== 0)) || (this.year % 400 === 0)) {
-      value = 270;
-    } else if (((this.year % 4 === 2) && (this.year % 100 !== 2)) || (this.year % 400 === 2)) {
-      value = 90;
-    } else if (((this.year % 4 === 3) && (this.year % 100 !== 3)) || (this.year % 400 === 3)) {
-      value = 180;
+        if (this.invert) value *= -1;
+
+        return value;
     }
 
-    if (this.offsetMonths) {
-      value += this.month * 7.5;
+    rotateElement() {
+        this.element.style.transform = `rotate(${this.getRotateValue()}deg)`;
     }
 
-    if (this.invert) value *= -1;
-
-    return value;
-  }
-
-  rotateElement() {
-    this.element.style.transform = `rotate(${this.getRotateValue()}deg)`;
-  }
-
-  init() {
-    this.rotateElement();
-  }
+    init() {
+        this.rotateElement();
+    }
 }
 
 module.exports = YearIndicator;

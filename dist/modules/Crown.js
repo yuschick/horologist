@@ -12,64 +12,64 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // power reserve. The crown by default toggles an active class when triggered.
 
 var Crown = function () {
-  function Crown(settings, parentWatch) {
-    _classCallCheck(this, Crown);
+    function Crown(settings, parentWatch) {
+        _classCallCheck(this, Crown);
 
-    try {
-      if (!settings.id) throw "The Crown class requires that an ID of the crown element be provided.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
+        try {
+            if (!settings.id) throw "The Crown class requires that an ID of the crown element be provided.";
+        } catch (errorMsg) {
+            console.error(errorMsg);
+            return;
+        }
+
+        this.crown = document.getElementById(settings.id);
+        this.parent = parentWatch;
+        this.crownActive = false;
+        this.init();
     }
 
-    this.crown = document.getElementById(settings.id);
-    this.parent = parentWatch;
-    this.crownActive = false;
-    this.init();
-  }
+    _createClass(Crown, [{
+        key: 'toggleCrown',
+        value: function toggleCrown() {
+            this.crownActive = !this.crownActive;
+            this.parent.dialInstances.forEach(function (instance) {
+                if (instance.toggleActiveCrown) instance.toggleActiveCrown();
+            });
 
-  _createClass(Crown, [{
-    key: 'toggleCrown',
-    value: function toggleCrown() {
-      this.crownActive = !this.crownActive;
-      this.parent.dialInstances.forEach(function (instance) {
-        if (instance.toggleActiveCrown) instance.toggleActiveCrown();
-      });
+            if (this.crownActive) {
+                this.parent.stopInterval();
+                this.crown.classList.add('active');
+                this.parent.dialInstances.forEach(function (instance) {
+                    if (instance.toggleSettingTime) instance.toggleSettingTime();
+                });
+            } else {
+                this.parent.startInterval();
+                this.parent.resetActiveDial();
+                this.crown.classList.remove('active');
+                this.parent.dialInstances.forEach(function (instance) {
+                    if (instance.toggleSettingTime) instance.toggleSettingTime();
+                    if (instance.updateToManualTime) instance.updateToManualTime();
+                });
+            }
+        }
+    }, {
+        key: 'updateCursorForTrigger',
+        value: function updateCursorForTrigger() {
+            this.crown.style.cursor = 'pointer';
+        }
+    }, {
+        key: 'init',
+        value: function init() {
+            var _this = this;
 
-      if (this.crownActive) {
-        this.parent.stopInterval();
-        this.crown.classList.add('active');
-        this.parent.dialInstances.forEach(function (instance) {
-          if (instance.toggleSettingTime) instance.toggleSettingTime();
-        });
-      } else {
-        this.parent.startInterval();
-        this.parent.resetActiveDial();
-        this.crown.classList.remove('active');
-        this.parent.dialInstances.forEach(function (instance) {
-          if (instance.toggleSettingTime) instance.toggleSettingTime();
-          if (instance.updateToManualTime) instance.updateToManualTime();
-        });
-      }
-    }
-  }, {
-    key: 'updateCursorForTrigger',
-    value: function updateCursorForTrigger() {
-      this.crown.style.cursor = 'pointer';
-    }
-  }, {
-    key: 'init',
-    value: function init() {
-      var _this = this;
+            this.updateCursorForTrigger();
+            this.crown.addEventListener('click', function () {
+                _this.toggleCrown();
+            });
+        }
+    }]);
 
-      this.updateCursorForTrigger();
-      this.crown.addEventListener('click', function () {
-        _this.toggleCrown();
-      });
-    }
-  }]);
-
-  return Crown;
+    return Crown;
 }();
 
 module.exports = Crown;

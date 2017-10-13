@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -121,76 +116,76 @@ if steps is set to 6, the hand will jump 60 (360 / 6) degrees every 1/6 of a sec
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foudroyante</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">this</span>.errorChecking(settings);
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
-    <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.steps = settings.steps;
-    <span class="hljs-keyword">this</span>.degreeIncrement = <span class="hljs-number">360</span> / <span class="hljs-keyword">this</span>.steps;
-    <span class="hljs-keyword">this</span>.currentAngle = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+        <span class="hljs-keyword">this</span>.steps = settings.steps;
+        <span class="hljs-keyword">this</span>.degreeIncrement = <span class="hljs-number">360</span> / <span class="hljs-keyword">this</span>.steps;
+        <span class="hljs-keyword">this</span>.currentAngle = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">this</span>.interval;
-  }
-
-  errorChecking(settings) {
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante class requires that an ID of the indiciator element be provided."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">this</span>.interval;
     }
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.steps)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a steps value."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+    errorChecking(settings) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante class requires that an ID of the indiciator element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.steps)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a steps value."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (settings.steps &lt; <span class="hljs-number">2</span>)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a minimum step value of 2."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (settings.steps &gt; <span class="hljs-number">10</span>)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante can support a maximum of 10 steps."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
     }
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (settings.steps &lt; <span class="hljs-number">2</span>)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a minimum step value of 2."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+    defineInterval() {
+        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-keyword">this</span>.rotateHand();
+        }, (<span class="hljs-number">1000</span> / <span class="hljs-keyword">this</span>.steps));
     }
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (settings.steps &gt; <span class="hljs-number">10</span>)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante can support a maximum of 10 steps."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+    clearInterval() {
+        clearInterval(<span class="hljs-keyword">this</span>.interval);
+        <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
     }
-  }
 
-  defineInterval() {
-    <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.rotateHand();
-    }, (<span class="hljs-number">1000</span> / <span class="hljs-keyword">this</span>.steps));
-  }
-
-  clearInterval() {
-    clearInterval(<span class="hljs-keyword">this</span>.interval);
-    <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
-  }
-
-  rotateHand() {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.currentAngle === (<span class="hljs-number">360</span> - <span class="hljs-keyword">this</span>.degreeIncrement)) {
-      <span class="hljs-keyword">this</span>.currentAngle = <span class="hljs-number">0</span>;
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">this</span>.currentAngle += <span class="hljs-keyword">this</span>.degreeIncrement;
+    rotateHand() {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.currentAngle === (<span class="hljs-number">360</span> - <span class="hljs-keyword">this</span>.degreeIncrement)) {
+            <span class="hljs-keyword">this</span>.currentAngle = <span class="hljs-number">0</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.currentAngle += <span class="hljs-keyword">this</span>.degreeIncrement;
+        }
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.currentAngle}</span>deg)`</span>;
     }
-    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.currentAngle}</span>deg)`</span>;
-  }
 
-  init() {
-    <span class="hljs-keyword">this</span>.defineInterval();
-  }
+    init() {
+        <span class="hljs-keyword">this</span>.defineInterval();
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = Foudroyante;</pre></div></div>

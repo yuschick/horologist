@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -120,59 +115,59 @@ power reserve. The crown by default toggles an active class when triggered.</p>
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Crown</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Crown class requires that an ID of the crown element be provided."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Crown class requires that an ID of the crown element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">this</span>.crown = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+        <span class="hljs-keyword">this</span>.crownActive = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.init();
     }
 
-    <span class="hljs-keyword">this</span>.crown = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.crownActive = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.init();
-  }
+    toggleCrown() {
+        <span class="hljs-keyword">this</span>.crownActive = !<span class="hljs-keyword">this</span>.crownActive;
+        <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (instance.toggleActiveCrown)
+                instance.toggleActiveCrown();
+        });
 
-  toggleCrown() {
-    <span class="hljs-keyword">this</span>.crownActive = !<span class="hljs-keyword">this</span>.crownActive;
-    <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
-      <span class="hljs-keyword">if</span> (instance.toggleActiveCrown)
-        instance.toggleActiveCrown();
-    });
-
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crownActive) {
-      <span class="hljs-keyword">this</span>.parent.stopInterval();
-      <span class="hljs-keyword">this</span>.crown.classList.add(<span class="hljs-string">'active'</span>);
-      <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
-        <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
-          instance.toggleSettingTime();
-      });
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">this</span>.parent.startInterval();
-      <span class="hljs-keyword">this</span>.parent.resetActiveDial();
-      <span class="hljs-keyword">this</span>.crown.classList.remove(<span class="hljs-string">'active'</span>);
-      <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
-        <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
-          instance.toggleSettingTime();
-        <span class="hljs-keyword">if</span> (instance.updateToManualTime)
-          instance.updateToManualTime();
-      });
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.crownActive) {
+            <span class="hljs-keyword">this</span>.parent.stopInterval();
+            <span class="hljs-keyword">this</span>.crown.classList.add(<span class="hljs-string">'active'</span>);
+            <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
+                    instance.toggleSettingTime();
+            });
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.parent.startInterval();
+            <span class="hljs-keyword">this</span>.parent.resetActiveDial();
+            <span class="hljs-keyword">this</span>.crown.classList.remove(<span class="hljs-string">'active'</span>);
+            <span class="hljs-keyword">this</span>.parent.dialInstances.forEach(<span class="hljs-function">(<span class="hljs-params">instance</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (instance.toggleSettingTime)
+                    instance.toggleSettingTime();
+                <span class="hljs-keyword">if</span> (instance.updateToManualTime)
+                    instance.updateToManualTime();
+            });
+        }
     }
-  }
 
-  updateCursorForTrigger() {
-    <span class="hljs-keyword">this</span>.crown.style.cursor = <span class="hljs-string">'pointer'</span>;
-  }
+    updateCursorForTrigger() {
+        <span class="hljs-keyword">this</span>.crown.style.cursor = <span class="hljs-string">'pointer'</span>;
+    }
 
-  init() {
-    <span class="hljs-keyword">this</span>.updateCursorForTrigger();
-    <span class="hljs-keyword">this</span>.crown.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-      <span class="hljs-keyword">this</span>.toggleCrown();
-    });
-  }
+    init() {
+        <span class="hljs-keyword">this</span>.updateCursorForTrigger();
+        <span class="hljs-keyword">this</span>.crown.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+            <span class="hljs-keyword">this</span>.toggleCrown();
+        });
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = Crown;</pre></div></div>

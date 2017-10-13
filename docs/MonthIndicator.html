@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -120,49 +115,49 @@ month indicator is rotated 30 degrees to display the current month.</p>
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MonthIndicator</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Month Indicator class requires that an ID of the indicator element be provided."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Month Indicator class requires that an ID of the indicator element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+        <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.month();
+
+        <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
+        <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">this</span>.init();
     }
 
-    <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.month();
+    getRotateValue() {
+        <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">this</span>.retrograde = settings.retrograde || <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
-    <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.retrograde) {
+            <span class="hljs-keyword">let</span> rotateValue = <span class="hljs-keyword">this</span>.max / <span class="hljs-number">12</span>;
+            value = <span class="hljs-keyword">this</span>.month * rotateValue;
+        } <span class="hljs-keyword">else</span> {
+            value = <span class="hljs-keyword">this</span>.month * <span class="hljs-number">30</span>;
+        }
 
-    <span class="hljs-keyword">this</span>.init();
-  }
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
 
-  getRotateValue() {
-    <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
-
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.retrograde) {
-      <span class="hljs-keyword">let</span> rotateValue = <span class="hljs-keyword">this</span>.max / <span class="hljs-number">12</span>;
-      value = <span class="hljs-keyword">this</span>.month * rotateValue;
-    } <span class="hljs-keyword">else</span> {
-      value = <span class="hljs-keyword">this</span>.month * <span class="hljs-number">30</span>;
+        <span class="hljs-keyword">return</span> value;
     }
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
+    rotateElement() {
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
+    }
 
-    <span class="hljs-keyword">return</span> value;
-  }
-
-  rotateElement() {
-    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
-  }
-
-  init() {
-    <span class="hljs-keyword">this</span>.rotateElement();
-  }
+    init() {
+        <span class="hljs-keyword">this</span>.rotateElement();
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = MonthIndicator;</pre></div></div>

@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -121,53 +116,53 @@ to display that current relationship.</p>
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YearIndicator</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Year Indicator class requires that an ID of the indicator element be provided."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Year Indicator class requires that an ID of the indicator element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+        <span class="hljs-keyword">this</span>.year = <span class="hljs-keyword">this</span>.parent.rightNow.year();
+        <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.month();
+        <span class="hljs-keyword">this</span>.offsetMonths = settings.offsetMonths || <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">this</span>.init();
     }
 
-    <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.year = <span class="hljs-keyword">this</span>.parent.rightNow.year();
-    <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.month();
-    <span class="hljs-keyword">this</span>.offsetMonths = settings.offsetMonths || <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+    getRotateValue() {
+        <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">this</span>.init();
-  }
+        <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">0</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">0</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">0</span>)) {
+            value = <span class="hljs-number">270</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">2</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">2</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">2</span>)) {
+            value = <span class="hljs-number">90</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">3</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">3</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">3</span>)) {
+            value = <span class="hljs-number">180</span>;
+        }
 
-  getRotateValue() {
-    <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetMonths) {
+            value += <span class="hljs-keyword">this</span>.month * <span class="hljs-number">7.5</span>;
+        }
 
-    <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">0</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">0</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">0</span>)) {
-      value = <span class="hljs-number">270</span>;
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">2</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">2</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">2</span>)) {
-      value = <span class="hljs-number">90</span>;
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">3</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">3</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">3</span>)) {
-      value = <span class="hljs-number">180</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
+
+        <span class="hljs-keyword">return</span> value;
     }
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetMonths) {
-      value += <span class="hljs-keyword">this</span>.month * <span class="hljs-number">7.5</span>;
+    rotateElement() {
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
     }
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
-
-    <span class="hljs-keyword">return</span> value;
-  }
-
-  rotateElement() {
-    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
-  }
-
-  init() {
-    <span class="hljs-keyword">this</span>.rotateElement();
-  }
+    init() {
+        <span class="hljs-keyword">this</span>.rotateElement();
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = YearIndicator;</pre></div></div>

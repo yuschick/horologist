@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -136,75 +131,75 @@ rotated.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-built_in">Date</span>.prototype.getJulian = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> ((<span class="hljs-keyword">this</span> / <span class="hljs-number">86400000</span>) - (<span class="hljs-keyword">this</span>.getTimezoneOffset() / <span class="hljs-number">1440</span>) + <span class="hljs-number">2440587.5</span>);
+    <span class="hljs-keyword">return</span> ((<span class="hljs-keyword">this</span> / <span class="hljs-number">86400000</span>) - (<span class="hljs-keyword">this</span>.getTimezoneOffset() / <span class="hljs-number">1440</span>) + <span class="hljs-number">2440587.5</span>);
 };
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoonPhase</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.id)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MoonPhase class requires that an ID of the moonphase element be provided."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MoonPhase class requires that an ID of the moonphase element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+        <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">this</span>.init();
     }
 
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-    <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-    <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
-    <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+    rotateDisc(val) {
+        val = <span class="hljs-keyword">this</span>.invert ?
+            val * <span class="hljs-number">-1</span> :
+            val;
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${val}</span>deg)`</span>;
+    }
 
-    <span class="hljs-keyword">this</span>.init();
-  }
+    <span class="hljs-comment">/*
+      Shouts to: https://github.com/tingletech/moon-phase
+    */</span>
+    moon_day(today) {
+        <span class="hljs-keyword">let</span> GetFrac = <span class="hljs-function">(<span class="hljs-params">fr</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> (fr - <span class="hljs-built_in">Math</span>.floor(fr));
+        };
 
-  rotateDisc(val) {
-    val = <span class="hljs-keyword">this</span>.invert ?
-    val * <span class="hljs-number">-1</span> :
-    val;
-    <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${val}</span>deg)`</span>;
-  }
+        <span class="hljs-keyword">let</span> thisJD = today.getJulian();
+        <span class="hljs-keyword">let</span> year = today.getFullYear();
+        <span class="hljs-keyword">let</span> degToRad = <span class="hljs-number">3.14159265</span> / <span class="hljs-number">180</span>;
+        <span class="hljs-keyword">let</span> K0, T, T2, T3, J0, F0, M0, M1, B1, oldJ;
 
-  <span class="hljs-comment">/*
-    Shouts to: https://github.com/tingletech/moon-phase
-  */</span>
-  moon_day(today) {
-    <span class="hljs-keyword">let</span> GetFrac = <span class="hljs-function">(<span class="hljs-params">fr</span>) =&gt;</span> {
-      <span class="hljs-keyword">return</span> (fr - <span class="hljs-built_in">Math</span>.floor(fr));
-    };
+        K0 = <span class="hljs-built_in">Math</span>.floor((year - <span class="hljs-number">1900</span>) * <span class="hljs-number">12.3685</span>);
+        T = (year - <span class="hljs-number">1899.5</span>) / <span class="hljs-number">100</span>;
+        T2 = T * T;
+        T3 = T * T * T;
+        J0 = <span class="hljs-number">2415020</span> + <span class="hljs-number">29</span> * K0;
+        F0 = <span class="hljs-number">0.0001178</span> * T2 - <span class="hljs-number">0.000000155</span> * T3 + (<span class="hljs-number">0.75933</span> + <span class="hljs-number">0.53058868</span> * K0) - (<span class="hljs-number">0.000837</span> * T + <span class="hljs-number">0.000335</span> * T2);
+        M0 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08084821133</span>)) + <span class="hljs-number">359.2242</span> - <span class="hljs-number">0.0000333</span> * T2 - <span class="hljs-number">0.00000347</span> * T3;
+        M1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.07171366128</span>)) + <span class="hljs-number">306.0253</span> + <span class="hljs-number">0.0107306</span> * T2 + <span class="hljs-number">0.00001236</span> * T3;
+        B1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08519585128</span>)) + <span class="hljs-number">21.2964</span> - (<span class="hljs-number">0.0016528</span> * T2) - (<span class="hljs-number">0.00000239</span> * T3);
 
-    <span class="hljs-keyword">let</span> thisJD = today.getJulian();
-    <span class="hljs-keyword">let</span> year = today.getFullYear();
-    <span class="hljs-keyword">let</span> degToRad = <span class="hljs-number">3.14159265</span> / <span class="hljs-number">180</span>;
-    <span class="hljs-keyword">let</span> K0, T, T2, T3, J0, F0, M0, M1, B1, oldJ;
+        <span class="hljs-keyword">let</span> phase = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">let</span> jday = <span class="hljs-number">0</span>;
 
-    K0 = <span class="hljs-built_in">Math</span>.floor((year - <span class="hljs-number">1900</span>) * <span class="hljs-number">12.3685</span>);
-    T = (year - <span class="hljs-number">1899.5</span>) / <span class="hljs-number">100</span>;
-    T2 = T * T;
-    T3 = T * T * T;
-    J0 = <span class="hljs-number">2415020</span> + <span class="hljs-number">29</span> * K0;
-    F0 = <span class="hljs-number">0.0001178</span> * T2 - <span class="hljs-number">0.000000155</span> * T3 + (<span class="hljs-number">0.75933</span> + <span class="hljs-number">0.53058868</span> * K0) - (<span class="hljs-number">0.000837</span> * T + <span class="hljs-number">0.000335</span> * T2);
-    M0 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08084821133</span>)) + <span class="hljs-number">359.2242</span> - <span class="hljs-number">0.0000333</span> * T2 - <span class="hljs-number">0.00000347</span> * T3;
-    M1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.07171366128</span>)) + <span class="hljs-number">306.0253</span> + <span class="hljs-number">0.0107306</span> * T2 + <span class="hljs-number">0.00001236</span> * T3;
-    B1 = <span class="hljs-number">360</span> * (GetFrac(K0 * <span class="hljs-number">0.08519585128</span>)) + <span class="hljs-number">21.2964</span> - (<span class="hljs-number">0.0016528</span> * T2) - (<span class="hljs-number">0.00000239</span> * T3);
-
-    <span class="hljs-keyword">let</span> phase = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">let</span> jday = <span class="hljs-number">0</span>;
-
-    <span class="hljs-keyword">while</span> (jday &lt; thisJD) {
-      <span class="hljs-keyword">let</span> F = F0 + <span class="hljs-number">1.530588</span> * phase;
-      <span class="hljs-keyword">let</span> M5 = (M0 + phase * <span class="hljs-number">29.10535608</span>) * degToRad;
-      <span class="hljs-keyword">let</span> M6 = (M1 + phase * <span class="hljs-number">385.81691806</span>) * degToRad;
-      <span class="hljs-keyword">let</span> B6 = (B1 + phase * <span class="hljs-number">390.67050646</span>) * degToRad;
-      F -= <span class="hljs-number">0.4068</span> * <span class="hljs-built_in">Math</span>.sin(M6) + (<span class="hljs-number">0.1734</span> - <span class="hljs-number">0.000393</span> * T) * <span class="hljs-built_in">Math</span>.sin(M5);
-      F += <span class="hljs-number">0.0161</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M6) + <span class="hljs-number">0.0104</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6);
-      F -= <span class="hljs-number">0.0074</span> * <span class="hljs-built_in">Math</span>.sin(M5 - M6) - <span class="hljs-number">0.0051</span> * <span class="hljs-built_in">Math</span>.sin(M5 + M6);
-      F += <span class="hljs-number">0.0021</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M5) + <span class="hljs-number">0.0010</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6 - M6);
-      F += <span class="hljs-number">0.5</span> / <span class="hljs-number">1440</span>;
-      oldJ = jday;
-      jday = J0 + <span class="hljs-number">28</span> * phase + <span class="hljs-built_in">Math</span>.floor(F);
-      phase++;
-    }</pre></div></div>
+        <span class="hljs-keyword">while</span> (jday &lt; thisJD) {
+            <span class="hljs-keyword">let</span> F = F0 + <span class="hljs-number">1.530588</span> * phase;
+            <span class="hljs-keyword">let</span> M5 = (M0 + phase * <span class="hljs-number">29.10535608</span>) * degToRad;
+            <span class="hljs-keyword">let</span> M6 = (M1 + phase * <span class="hljs-number">385.81691806</span>) * degToRad;
+            <span class="hljs-keyword">let</span> B6 = (B1 + phase * <span class="hljs-number">390.67050646</span>) * degToRad;
+            F -= <span class="hljs-number">0.4068</span> * <span class="hljs-built_in">Math</span>.sin(M6) + (<span class="hljs-number">0.1734</span> - <span class="hljs-number">0.000393</span> * T) * <span class="hljs-built_in">Math</span>.sin(M5);
+            F += <span class="hljs-number">0.0161</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M6) + <span class="hljs-number">0.0104</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6);
+            F -= <span class="hljs-number">0.0074</span> * <span class="hljs-built_in">Math</span>.sin(M5 - M6) - <span class="hljs-number">0.0051</span> * <span class="hljs-built_in">Math</span>.sin(M5 + M6);
+            F += <span class="hljs-number">0.0021</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M5) + <span class="hljs-number">0.0010</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * B6 - M6);
+            F += <span class="hljs-number">0.5</span> / <span class="hljs-number">1440</span>;
+            oldJ = jday;
+            jday = J0 + <span class="hljs-number">28</span> * phase + <span class="hljs-built_in">Math</span>.floor(F);
+            phase++;
+        }</pre></div></div>
             
         </li>
         
@@ -219,16 +214,16 @@ rotated.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> (((thisJD - oldJ) / <span class="hljs-number">29.53059</span>));
-  }
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> (((thisJD - oldJ) / <span class="hljs-number">29.53059</span>));
+    }
 
 
-  <span class="hljs-comment">/*
-    Shouts to: https://github.com/tingletech/moon-phase
-  */</span>
-  getCurrentPhase(phase) {
-    <span class="hljs-keyword">let</span> sweep = [];
-    <span class="hljs-keyword">let</span> mag;</pre></div></div>
+    <span class="hljs-comment">/*
+      Shouts to: https://github.com/tingletech/moon-phase
+    */</span>
+    getCurrentPhase(phase) {
+        <span class="hljs-keyword">let</span> sweep = [];
+        <span class="hljs-keyword">let</span> mag;</pre></div></div>
             
         </li>
         
@@ -245,58 +240,58 @@ zero and one are both new moon; 0.50 is full moon</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>
-    <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.25</span>) {
-      sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>];
-      mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * phase * <span class="hljs-number">4</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.50</span>) {
-      sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
-      mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.25</span>) * <span class="hljs-number">4</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.75</span>) {
-      sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>];
-      mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.50</span>) * <span class="hljs-number">4</span>
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">1</span>) {
-      sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>];
-      mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.75</span>) * <span class="hljs-number">4</span>
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.25</span>) {
+            sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>];
+            mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * phase * <span class="hljs-number">4</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.50</span>) {
+            sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+            mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.25</span>) * <span class="hljs-number">4</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">0.75</span>) {
+            sweep = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>];
+            mag = <span class="hljs-number">20</span> - <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.50</span>) * <span class="hljs-number">4</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (phase &lt;= <span class="hljs-number">1</span>) {
+            sweep = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>];
+            mag = <span class="hljs-number">20</span> * (phase - <span class="hljs-number">0.75</span>) * <span class="hljs-number">4</span>
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span>;
+        }
+
+        phase = phase.toFixed(<span class="hljs-number">5</span>) * <span class="hljs-number">3.6</span>;
+        <span class="hljs-keyword">this</span>.rotateDisc(phase * <span class="hljs-number">100</span>);
+
+        <span class="hljs-comment">/*
+          if (phase &lt;= 0.0625 || phase &gt; 0.9375) {
+            if (this.invert) {
+              this.rotateDisc(0); // new moon
+            } else {
+              this.rotateDisc(180); // new moon
+            }
+            this.rotateDisc(phase * 3.6);
+          } else if (phase &lt;= 0.1875) {
+            this.rotateDisc(40); // waxing crescent
+          } else if (phase &lt;= 0.3125) {
+            this.rotateDisc(25); // first quarter
+          } else if (phase &lt;= 0.4375) {
+            this.rotateDisc(13); // waxing gibbous
+          } else if (phase &lt;= 0.5625) {
+            if (this.invert) {
+              this.rotateDisc(180); // full moon
+            } else {
+              this.rotateDisc(0); // full moon
+            }
+          } else if (phase &lt;= 0.6875) {
+            this.rotateDisc(-13);// waning gibbous
+          } else if (phase &lt;= 0.8125) {
+            this.rotateDisc(-25); // last quarter
+          } else if (phase &lt;= 0.9375) {
+            this.rotateDisc(-40); // waning crescent
+          }
+        */</span>
     }
 
-    phase = phase.toFixed(<span class="hljs-number">5</span>) * <span class="hljs-number">3.6</span>;
-    <span class="hljs-keyword">this</span>.rotateDisc(phase * <span class="hljs-number">100</span>);
-
-    <span class="hljs-comment">/*
-      if (phase &lt;= 0.0625 || phase &gt; 0.9375) {
-        if (this.invert) {
-          this.rotateDisc(0); // new moon
-        } else {
-          this.rotateDisc(180); // new moon
-        }
-        this.rotateDisc(phase * 3.6);
-      } else if (phase &lt;= 0.1875) {
-        this.rotateDisc(40); // waxing crescent
-      } else if (phase &lt;= 0.3125) {
-        this.rotateDisc(25); // first quarter
-      } else if (phase &lt;= 0.4375) {
-        this.rotateDisc(13); // waxing gibbous
-      } else if (phase &lt;= 0.5625) {
-        if (this.invert) {
-          this.rotateDisc(180); // full moon
-        } else {
-          this.rotateDisc(0); // full moon
-        }
-      } else if (phase &lt;= 0.6875) {
-        this.rotateDisc(-13);// waning gibbous
-      } else if (phase &lt;= 0.8125) {
-        this.rotateDisc(-25); // last quarter
-      } else if (phase &lt;= 0.9375) {
-        this.rotateDisc(-40); // waning crescent
-      }
-    */</span>
-  }
-
-  init() {
-    <span class="hljs-keyword">this</span>.getCurrentPhase(<span class="hljs-keyword">this</span>.moon_day(<span class="hljs-keyword">this</span>.rightNow));
-  }
+    init() {
+        <span class="hljs-keyword">this</span>.getCurrentPhase(<span class="hljs-keyword">this</span>.moon_day(<span class="hljs-keyword">this</span>.rightNow));
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = MoonPhase;</pre></div></div>

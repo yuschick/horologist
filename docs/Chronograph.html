@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -122,149 +117,149 @@ for timing events. Flyback and Split-Second (rattrapante) functionality is suppo
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Chronograph</span> </span>{
-  <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
 
-    <span class="hljs-keyword">this</span>.errorChecking(settings);
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
-    <span class="hljs-keyword">this</span>.buttons = {
-      <span class="hljs-attr">start</span>: <span class="hljs-built_in">document</span>.getElementById(settings.buttons.start),
-      <span class="hljs-attr">reset</span>: <span class="hljs-built_in">document</span>.getElementById(settings.buttons.reset),
-    };
+        <span class="hljs-keyword">this</span>.buttons = {
+            <span class="hljs-attr">start</span>: <span class="hljs-built_in">document</span>.getElementById(settings.buttons.start),
+            <span class="hljs-attr">reset</span>: <span class="hljs-built_in">document</span>.getElementById(settings.buttons.reset),
+        };
 
-    <span class="hljs-keyword">this</span>.hands = {
-      <span class="hljs-attr">tenth</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.tenth) || <span class="hljs-literal">null</span>,
-      <span class="hljs-attr">second</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.second),
-      <span class="hljs-attr">minute</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.minute),
-      <span class="hljs-attr">hour</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.hour) || <span class="hljs-literal">null</span>,
-      <span class="hljs-attr">step</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.step) || <span class="hljs-literal">null</span>,
-    };
+        <span class="hljs-keyword">this</span>.hands = {
+            <span class="hljs-attr">tenth</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.tenth) || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">second</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.second),
+            <span class="hljs-attr">minute</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.minute),
+            <span class="hljs-attr">hour</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.hour) || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">step</span>: <span class="hljs-built_in">document</span>.getElementById(settings.hands.step) || <span class="hljs-literal">null</span>,
+        };
 
-    <span class="hljs-keyword">this</span>.flyback = settings.flyback || <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.rattrapante = settings.rattrapante || <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.flyback = settings.flyback || <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.rattrapante = settings.rattrapante || <span class="hljs-literal">false</span>;
 
-    <span class="hljs-keyword">this</span>.interval;
-    <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">this</span>.isRunning = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">this</span>.parent = parentWatch;
-
-    <span class="hljs-keyword">this</span>.init();
-  }
-
-  errorChecking(settings) {
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
-    }
-
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">if</span> (settings.rattrapante &amp;&amp; !settings.hands.step)
-        <span class="hljs-keyword">throw</span> <span class="hljs-string">"A rattrapante Chronograph requires a 'step' hand."</span>;
-    } <span class="hljs-keyword">catch</span> (errorMsg) {
-      <span class="hljs-built_in">console</span>.error(errorMsg);
-      <span class="hljs-keyword">return</span>;
-    }
-  }
-
-  bindEvents() {
-    <span class="hljs-keyword">this</span>.buttons.start.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-      <span class="hljs-keyword">this</span>.isRunning = !<span class="hljs-keyword">this</span>.isRunning;
-      <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.start);
-
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isRunning) {
-        <span class="hljs-keyword">this</span>.startInterval();
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.clearInterval();
-      }
-    });
-
-    <span class="hljs-keyword">this</span>.buttons.start.addEventListener(<span class="hljs-string">'transitionend'</span>, () =&gt; {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.buttons.start.classList.contains(<span class="hljs-string">'active'</span>)) <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.start);
-    });
-
-    <span class="hljs-keyword">this</span>.buttons.reset.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-      <span class="hljs-keyword">this</span>.resetHands();
-      <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.reset);
-
-      <span class="hljs-keyword">if</span> ((!<span class="hljs-keyword">this</span>.rattrapante &amp;&amp; !<span class="hljs-keyword">this</span>.flyback) || !<span class="hljs-keyword">this</span>.isRunning) {
-        <span class="hljs-keyword">this</span>.clearInterval();
+        <span class="hljs-keyword">this</span>.interval;
+        <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
         <span class="hljs-keyword">this</span>.isRunning = <span class="hljs-literal">false</span>;
-      }
+        <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
 
-      <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
-    });
+        <span class="hljs-keyword">this</span>.init();
+    }
 
-    <span class="hljs-keyword">this</span>.buttons.reset.addEventListener(<span class="hljs-string">'transitionend'</span>, () =&gt; {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.buttons.reset.classList.contains(<span class="hljs-string">'active'</span>)) <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.reset);
-    });
-  }
-
-  clearInterval() {
-    clearInterval(<span class="hljs-keyword">this</span>.interval);
-    <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
-  }
-
-  startInterval() {
-    <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.rotateHands();
-      <span class="hljs-keyword">this</span>.counter++;
-    }, <span class="hljs-number">100</span>);
-  }
-
-  resetHands() {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.rattrapante &amp;&amp; <span class="hljs-keyword">this</span>.isRunning) {
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.flyback) {
-        <span class="hljs-keyword">this</span>.step = !<span class="hljs-keyword">this</span>.step;
-        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.step) {
-          <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second)}</span>deg)`</span>;
+    errorChecking(settings) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
         }
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second)}</span>deg)`</span>;
-        <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
-      }
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.hands).map(<span class="hljs-function"><span class="hljs-params">hand</span> =&gt;</span> {
-        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.hands[hand]) <span class="hljs-keyword">this</span>.hands[hand].style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
-      });
-      <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">false</span>;
-    }
-  }
 
-  toggleButtonClasses(btn) {
-    btn.classList.toggle(<span class="hljs-string">'active'</span>);
-  }
-
-  rotateHands() {
-    <span class="hljs-keyword">let</span> tenthValue = <span class="hljs-keyword">this</span>.hands.tenth ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.tenth) : <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">let</span> secondValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second);
-    <span class="hljs-keyword">let</span> minuteValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
-    <span class="hljs-keyword">let</span> hourValue = <span class="hljs-keyword">this</span>.hands.hour ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour) : <span class="hljs-number">0</span>;
-
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.tenth) <span class="hljs-keyword">this</span>.hands.tenth.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${tenthValue + <span class="hljs-number">0.6</span>}</span>deg)`</span>;
-
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">10</span> === <span class="hljs-number">0</span>) {
-      <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${secondValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.step &amp;&amp; <span class="hljs-keyword">this</span>.hands.step) <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${secondValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (settings.rattrapante &amp;&amp; !settings.hands.step)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"A rattrapante Chronograph requires a 'step' hand."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
+        }
     }
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">600</span> === <span class="hljs-number">0</span>) {
-      <span class="hljs-keyword">this</span>.hands.minute.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${minuteValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) <span class="hljs-keyword">this</span>.hands.hour.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${hourValue + <span class="hljs-number">0.5</span>}</span>deg)`</span>;
-      <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">0</span>;
+    bindEvents() {
+        <span class="hljs-keyword">this</span>.buttons.start.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+            <span class="hljs-keyword">this</span>.isRunning = !<span class="hljs-keyword">this</span>.isRunning;
+            <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.start);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isRunning) {
+                <span class="hljs-keyword">this</span>.startInterval();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.clearInterval();
+            }
+        });
+
+        <span class="hljs-keyword">this</span>.buttons.start.addEventListener(<span class="hljs-string">'transitionend'</span>, () =&gt; {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.buttons.start.classList.contains(<span class="hljs-string">'active'</span>)) <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.start);
+        });
+
+        <span class="hljs-keyword">this</span>.buttons.reset.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+            <span class="hljs-keyword">this</span>.resetHands();
+            <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.reset);
+
+            <span class="hljs-keyword">if</span> ((!<span class="hljs-keyword">this</span>.rattrapante &amp;&amp; !<span class="hljs-keyword">this</span>.flyback) || !<span class="hljs-keyword">this</span>.isRunning) {
+                <span class="hljs-keyword">this</span>.clearInterval();
+                <span class="hljs-keyword">this</span>.isRunning = <span class="hljs-literal">false</span>;
+            }
+
+            <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
+        });
+
+        <span class="hljs-keyword">this</span>.buttons.reset.addEventListener(<span class="hljs-string">'transitionend'</span>, () =&gt; {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.buttons.reset.classList.contains(<span class="hljs-string">'active'</span>)) <span class="hljs-keyword">this</span>.toggleButtonClasses(<span class="hljs-keyword">this</span>.buttons.reset);
+        });
     }
-  }
 
-  init() {
-    <span class="hljs-keyword">this</span>.bindEvents();
+    clearInterval() {
+        clearInterval(<span class="hljs-keyword">this</span>.interval);
+        <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
+    }
 
-    <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.buttons).map(<span class="hljs-function"><span class="hljs-params">btn</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.buttons[btn] ? <span class="hljs-keyword">this</span>.buttons[btn].style.cursor = <span class="hljs-string">'pointer'</span> : <span class="hljs-literal">false</span>;
-    });
-  }
+    startInterval() {
+        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-keyword">this</span>.rotateHands();
+            <span class="hljs-keyword">this</span>.counter++;
+        }, <span class="hljs-number">100</span>);
+    }
+
+    resetHands() {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.rattrapante &amp;&amp; <span class="hljs-keyword">this</span>.isRunning) {
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.flyback) {
+                <span class="hljs-keyword">this</span>.step = !<span class="hljs-keyword">this</span>.step;
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.step) {
+                    <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second)}</span>deg)`</span>;
+                }
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second)}</span>deg)`</span>;
+                <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.hands).map(<span class="hljs-function"><span class="hljs-params">hand</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands[hand]) <span class="hljs-keyword">this</span>.hands[hand].style.transform = <span class="hljs-string">'rotate(0deg)'</span>;
+            });
+            <span class="hljs-keyword">this</span>.step = <span class="hljs-literal">false</span>;
+        }
+    }
+
+    toggleButtonClasses(btn) {
+        btn.classList.toggle(<span class="hljs-string">'active'</span>);
+    }
+
+    rotateHands() {
+        <span class="hljs-keyword">let</span> tenthValue = <span class="hljs-keyword">this</span>.hands.tenth ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.tenth) : <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">let</span> secondValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.second);
+        <span class="hljs-keyword">let</span> minuteValue = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
+        <span class="hljs-keyword">let</span> hourValue = <span class="hljs-keyword">this</span>.hands.hour ? <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.hour) : <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.tenth) <span class="hljs-keyword">this</span>.hands.tenth.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${tenthValue + <span class="hljs-number">0.6</span>}</span>deg)`</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">10</span> === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">this</span>.hands.second.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${secondValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.step &amp;&amp; <span class="hljs-keyword">this</span>.hands.step) <span class="hljs-keyword">this</span>.hands.step.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${secondValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter % <span class="hljs-number">600</span> === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">this</span>.hands.minute.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${minuteValue + <span class="hljs-number">6</span>}</span>deg)`</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hands.hour) <span class="hljs-keyword">this</span>.hands.hour.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${hourValue + <span class="hljs-number">0.5</span>}</span>deg)`</span>;
+            <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">0</span>;
+        }
+    }
+
+    init() {
+        <span class="hljs-keyword">this</span>.bindEvents();
+
+        <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.buttons).map(<span class="hljs-function"><span class="hljs-params">btn</span> =&gt;</span> {
+            <span class="hljs-keyword">this</span>.buttons[btn] ? <span class="hljs-keyword">this</span>.buttons[btn].style.cursor = <span class="hljs-string">'pointer'</span> : <span class="hljs-literal">false</span>;
+        });
+    }
 }
 
 <span class="hljs-built_in">module</span>.exports = Chronograph;</pre></div></div>

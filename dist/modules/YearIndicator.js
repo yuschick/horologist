@@ -13,60 +13,60 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // to display that current relationship.
 
 var YearIndicator = function () {
-  function YearIndicator(settings, parentWatch) {
-    _classCallCheck(this, YearIndicator);
+    function YearIndicator(settings, parentWatch) {
+        _classCallCheck(this, YearIndicator);
 
-    try {
-      if (!settings.id) throw "The Year Indicator class requires that an ID of the indicator element be provided.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      return;
+        try {
+            if (!settings.id) throw "The Year Indicator class requires that an ID of the indicator element be provided.";
+        } catch (errorMsg) {
+            console.error(errorMsg);
+            return;
+        }
+
+        this.element = document.getElementById(settings.id);
+        this.parent = parentWatch;
+        this.year = this.parent.rightNow.year();
+        this.month = this.parent.rightNow.month();
+        this.offsetMonths = settings.offsetMonths || false;
+        this.invert = settings.invert || false;
+
+        this.init();
     }
 
-    this.element = document.getElementById(settings.id);
-    this.parent = parentWatch;
-    this.year = this.parent.rightNow.year();
-    this.month = this.parent.rightNow.month();
-    this.offsetMonths = settings.offsetMonths || false;
-    this.invert = settings.invert || false;
+    _createClass(YearIndicator, [{
+        key: "getRotateValue",
+        value: function getRotateValue() {
+            var value = 0;
 
-    this.init();
-  }
+            if (this.year % 4 === 0 && this.year % 100 !== 0 || this.year % 400 === 0) {
+                value = 270;
+            } else if (this.year % 4 === 2 && this.year % 100 !== 2 || this.year % 400 === 2) {
+                value = 90;
+            } else if (this.year % 4 === 3 && this.year % 100 !== 3 || this.year % 400 === 3) {
+                value = 180;
+            }
 
-  _createClass(YearIndicator, [{
-    key: "getRotateValue",
-    value: function getRotateValue() {
-      var value = 0;
+            if (this.offsetMonths) {
+                value += this.month * 7.5;
+            }
 
-      if (this.year % 4 === 0 && this.year % 100 !== 0 || this.year % 400 === 0) {
-        value = 270;
-      } else if (this.year % 4 === 2 && this.year % 100 !== 2 || this.year % 400 === 2) {
-        value = 90;
-      } else if (this.year % 4 === 3 && this.year % 100 !== 3 || this.year % 400 === 3) {
-        value = 180;
-      }
+            if (this.invert) value *= -1;
 
-      if (this.offsetMonths) {
-        value += this.month * 7.5;
-      }
+            return value;
+        }
+    }, {
+        key: "rotateElement",
+        value: function rotateElement() {
+            this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+        }
+    }, {
+        key: "init",
+        value: function init() {
+            this.rotateElement();
+        }
+    }]);
 
-      if (this.invert) value *= -1;
-
-      return value;
-    }
-  }, {
-    key: "rotateElement",
-    value: function rotateElement() {
-      this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
-    }
-  }, {
-    key: "init",
-    value: function init() {
-      this.rotateElement();
-    }
-  }]);
-
-  return YearIndicator;
+    return YearIndicator;
 }();
 
 module.exports = YearIndicator;

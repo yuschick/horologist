@@ -1,51 +1,163 @@
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./src/styles/app.css">
-  <!--
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="./src/styles/app.css">
+    <!--
   Update CSS and JS to .min upon build
   /-->
-  <title>TickTock JS - Making Digital Time Mechanical</title>
+    <title>TickTock JS - Making Digital Time Mechanical</title>
 </head>
+
 <body>
-  <div class="container">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
-      <style type="text/css">
+    <div>
+        <header class="main-header">
+            <div class="container flex-container is-spread">
+                <h2>
+                    <a href="/TickTock/">TickTock <span> JS</span></a>
+                </h2>
+                <nav class="primary-nav">
+                    <ul class="flex-container">
+                        <li><a href="/TickTock/docs" target="_blank">Docs</a></li>
+                        <li><a href="/TickTock/guides" target="_blank">Guides</a></li>
+                        <li><a href="https://github.com/yuschick/TickTock" target="_blank">Github</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="container demos-container">
+            <p>Welcome to the TickTock demo page. Here you will find many variations of clocks testing most of TickTock's features.</p>
+            <p>As you're working on updates or new functionality, be sure to test changes here for any potential side efects. If everything looks good, feel free to add your feature to the page.</p>
+            <section class="demo">
+                <header>
+                    <h3>Dual Time w/ Sweeping Seconds</h3>
+                </header>
+                <main class="flex-container is-spread">
+                    <aside>
+                        <p>A standard clock that utilises two dials, the primary being local time and the sub dial showing America/New_York time. The sub dial also inckludes sweeping seconds.</p>
+                    </aside>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve" enableBackground="new 0 0 250 250">
+                          <path class="dials-st5" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+                          <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+                          <line class="dials-st6" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+                          <line class="dials-st6" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+                          <line class="dials-st6" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+                          <line class="dials-st6" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+                          <line class="dials-st6" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+                          <line class="dials-st6" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+                          <line class="dials-st6" x1="250.1" y1="125" x2="221.1" y2="125"/>
+                          <line class="dials-st6" x1="29.6" y1="125" x2="0.6" y2="125"/>
+                          <line class="dials-st6" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+                          <line class="dials-st6" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+                          <line class="dials-st6" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+                          <line class="dials-st6" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+                          <path class="dials-st9" d="M125.3 210.8c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31S142.4 210.8 125.3 210.8z"/>
+                          <path class="dials-st8" d="M125.3 149.2c16.8 0 30.5 13.7 30.5 30.5s-13.7 30.5-30.5 30.5 -30.5-13.7-30.5-30.5S108.5 149.2 125.3 149.2M125.3 148.2c-17.4 0-31.5 14.1-31.5 31.5s14.1 31.5 31.5 31.5 31.5-14.1 31.5-31.5S142.7 148.2 125.3 148.2L125.3 148.2z"/>
+                          <line class="dials-st10 secondary-center" id="dial-secondary-second-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+                          <line class="dials-st10 secondary-center" id="dial-secondary-minute-hand" x1="125.3" y1="179.8" x2="125.3" y2="148.8"/>
+                          <line class="dials-st11 secondary-center" id="dial-secondary-hour-hand" x1="125.3" y1="179.8" x2="125.3" y2="155.5"/>
+                          <rect class='primary-center st7' id="dial-primary-second-hand" x="123.3" y="15.2" width="2" height="110"/>
+                          <rect class='primary-center st8' id="dial-primary-minute-hand" x="123.3" y="15.2" width="4" height="110"/>
+                          <rect class='primary-center' id="dial-primary-hour-hand" x="121.8" y="46.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 250.6448 171.5)" width="7" height="79"/>
+                        </svg>
+                    </div>
+                </main>
+            </section>
 
-      .retro-st0{fill:#FFFFFF;}
-      .sretro-t1{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
-      .retro-st2{fill:#272727;}
-      .retro-st3{fill:none;stroke:#007486;stroke-width:2;stroke-miterlimit:10;}
-      #retrograde-second-hand-one {transform-origin: 91px 158px;}
+            <p>To be finished soon...</p>
+            <!--             
+            <section class="demo">
+                <header>
+                    <h3>Retrograde Seconds</h3>
+                </header>
+                <main class="flex-container is-spread">
+                    <aside>
+                        <p>Details</p>
+                    </aside>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
+                          <path class="retro-st0" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+                          <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+                          <line class="retro-st1" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+                          <line class="retro-st1" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+                          <line class="retro-st1" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+                          <line class="retro-st1" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+                          <line class="retro-st1" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+                          <line class="retro-st1" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+                          <line class="retro-st1" x1="250.1" y1="125" x2="221.1" y2="125"/>
+                          <line class="retro-st1" x1="29.6" y1="125" x2="0.6" y2="125"/>
+                          <line class="retro-st1" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+                          <line class="retro-st1" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+                          <line class="retro-st1" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+                          <line class="retro-st1" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+                          <path class="retro-st0" d="M172.5 131.5c14.3 8.3 19.3 26.6 11 41s-26.6 19.3-41 11"/>
+                          <path d="M172.5 131.5c3.6 1.7 6.8 4.2 9.4 7.3 2.6 3.1 4.6 6.7 5.7 10.6 1.2 3.9 1.5 8.1 1 12.2 -0.5 4.1-1.8 8.1-3.9 11.6 -2.1 3.6-4.9 6.7-8.2 9.2 -3.3 2.4-7.1 4.3-11.1 5.2 -4 1-8.1 1.1-12.1 0.4 -4-0.7-7.7-2.2-11-4.5 7.1 3.4 15.2 4 22.5 1.9 7.2-2.2 13.5-7.1 17.2-13.6 3.8-6.5 4.9-14.4 3.2-21.7C183.6 142.7 179 136 172.5 131.5z"/>
+                          <line id="retrograe-second-hand-two" class="retro-st3" x1="142.5" y1="183.5" x2="157.5" y2="157.5"/>
+                          <path class="retro-st0" d="M107.5 183.5c-14.3 8.3-32.7 3.4-41-11s-3.4-32.7 11-41"/>
+                          <path d="M107.5 183.5c-3.2 2.2-7 3.8-11 4.5 -4 0.7-8.1 0.6-12.1-0.4 -4-0.9-7.7-2.7-11.1-5.2 -3.3-2.5-6.1-5.6-8.2-9.2 -2-3.6-3.4-7.6-3.9-11.6 -0.5-4.1-0.1-8.3 1-12.2 1.2-3.9 3.1-7.6 5.7-10.6 2.6-3.1 5.8-5.6 9.4-7.3C71 136 66.4 142.7 64.7 150c-1.7 7.4-0.6 15.3 3.2 21.7 3.7 6.5 10 11.4 17.2 13.6C92.3 187.5 100.4 186.9 107.5 183.5z"/>
+                          <line id="retrograde-second-hand-one" class="retro-st3" x1="92.5" y1="157.5" x2="107.5" y2="183.5"/>
+                          <rect id="retrograde-sec-minute-hand" x="123" y="15.2" class="retro-st2 primary-center" width="4" height="110"/>
+                          <rect id="retrograde-sec-hour-hand" x="121.5" y="46.3" width="7" height="79" class="primary-center"/>
+                        </svg>
+                    </div>
+                </main>
+            </section>
 
-      </style>
-      <path class="retro-st0" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
-      <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
-      <line class="retro-st1" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
-      <line class="retro-st1" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
-      <line class="retro-st1" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
-      <line class="retro-st1" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
-      <line class="retro-st1" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
-      <line class="retro-st1" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
-      <line class="retro-st1" x1="250.1" y1="125" x2="221.1" y2="125"/>
-      <line class="retro-st1" x1="29.6" y1="125" x2="0.6" y2="125"/>
-      <line class="retro-st1" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
-      <line class="retro-st1" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
-      <line class="retro-st1" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
-      <line class="retro-st1" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
-      <path class="retro-st0" d="M172.5 131.5c14.3 8.3 19.3 26.6 11 41s-26.6 19.3-41 11"/>
-      <path d="M172.5 131.5c3.6 1.7 6.8 4.2 9.4 7.3 2.6 3.1 4.6 6.7 5.7 10.6 1.2 3.9 1.5 8.1 1 12.2 -0.5 4.1-1.8 8.1-3.9 11.6 -2.1 3.6-4.9 6.7-8.2 9.2 -3.3 2.4-7.1 4.3-11.1 5.2 -4 1-8.1 1.1-12.1 0.4 -4-0.7-7.7-2.2-11-4.5 7.1 3.4 15.2 4 22.5 1.9 7.2-2.2 13.5-7.1 17.2-13.6 3.8-6.5 4.9-14.4 3.2-21.7C183.6 142.7 179 136 172.5 131.5z"/>
-      <line id="retrograe-second-hand-two" class="retro-st3" x1="142.5" y1="183.5" x2="157.5" y2="157.5"/>
-      <path class="retro-st0" d="M107.5 183.5c-14.3 8.3-32.7 3.4-41-11s-3.4-32.7 11-41"/>
-      <path d="M107.5 183.5c-3.2 2.2-7 3.8-11 4.5 -4 0.7-8.1 0.6-12.1-0.4 -4-0.9-7.7-2.7-11.1-5.2 -3.3-2.5-6.1-5.6-8.2-9.2 -2-3.6-3.4-7.6-3.9-11.6 -0.5-4.1-0.1-8.3 1-12.2 1.2-3.9 3.1-7.6 5.7-10.6 2.6-3.1 5.8-5.6 9.4-7.3C71 136 66.4 142.7 64.7 150c-1.7 7.4-0.6 15.3 3.2 21.7 3.7 6.5 10 11.4 17.2 13.6C92.3 187.5 100.4 186.9 107.5 183.5z"/>
-      <line id="retrograde-second-hand-one" class="retro-st3" x1="92.5" y1="157.5" x2="107.5" y2="183.5"/>
-      <rect id="retrograde-sec-minute-hand" x="123" y="15.2" class="retro-st2 primary-center" width="4" height="110"/>
-      <rect id="retrograde-sec-hour-hand" x="121.5" y="46.3" width="7" height="79" class="primary-center"/>
-    </svg>
-  </div>
+            <section class="demo">
+                <header>
+                    <h3>Rattrapante Chronograph</h3>
+                </header>
+                <main class="flex-container is-spread">
+                    <aside>
+                        <p>Details</p>
+                    </aside>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
+                          <path id="split-reset-btn" class="split-st0" d="M168.8 206.5l43.2 24.9c5.7 3.3 13.1 1.3 16.4-4.4l10.5-18.2c3.3-5.7 1.3-13.1-4.4-16.4l-43.2-24.9c-5.7-3.3-13.1-1.3-16.4 4.4l-10.5 18.2C161.1 195.8 163.1 203.2 168.8 206.5z"/>
+                          <path id="split-stop-btn" class="split-st0" d="M43 165.9L8.9 202.3c-4.5 4.8-4.2 12.5 0.6 17l15.3 14.4c4.8 4.5 12.5 4.2 17-0.6l34.1-36.4c4.5-4.8 4.2-12.5-0.6-17L60 165.3C55.2 160.8 47.5 161.1 43 165.9z"/>
+                          <path id="split-start-stop-btn" class="split-st0" d="M234.5 57.6l-43.2 24.9c-5.7 3.3-13.1 1.3-16.4-4.4l-10.5-18.2c-3.3-5.7-1.3-13.1 4.4-16.4L212 18.6c5.7-3.3 13.1-1.3 16.4 4.4l10.5 18.2C242.2 46.9 240.2 54.3 234.5 57.6z"/>
+                          <path class="split-st1" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+                          <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+                          <line class="split-st2" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+                          <line class="split-st2" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+                          <line class="split-st2" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+                          <line class="split-st2" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+                          <line class="split-st2" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+                          <line class="split-st2" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+                          <line class="split-st2" x1="250.1" y1="125" x2="221.1" y2="125"/>
+                          <line class="split-st2" x1="29.6" y1="125" x2="0.6" y2="125"/>
+                          <line class="split-st2" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+                          <line class="split-st2" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+                          <line class="split-st2" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+                          <line class="split-st2" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+                          <path class="split-st3" d="M70 162.3c-20.5 0-37.2-16.7-37.2-37.2S49.5 87.9 70 87.9s37.2 16.7 37.2 37.2S90.5 162.3 70 162.3z"/>
+                          <path class="split-st0" d="M70 88.4c20.2 0 36.6 16.4 36.6 36.6S90.2 161.6 70 161.6 33.4 145.2 33.4 125 49.8 88.4 70 88.4M70 87.2c-20.9 0-37.8 16.9-37.8 37.8s16.9 37.8 37.8 37.8 37.8-16.9 37.8-37.8S90.9 87.2 70 87.2L70 87.2z"/>
+                          <path class="split-st3" d="M180 162.3c-20.5 0-37.2-16.7-37.2-37.2s16.7-37.2 37.2-37.2 37.2 16.7 37.2 37.2S200.5 162.3 180 162.3z"/>
+                          <path class="split-st0" d="M180 88.4c20.2 0 36.6 16.4 36.6 36.6s-16.4 36.6-36.6 36.6 -36.6-16.4-36.6-36.6S159.8 88.4 180 88.4M180 87.2c-20.9 0-37.8 16.9-37.8 37.8s16.9 37.8 37.8 37.8 37.8-16.9 37.8-37.8S200.9 87.2 180 87.2L180 87.2z"/>
+                          <rect id="split-chrono-second-hand" x="124" y="15.2" class="split-st4 primary-center" width="2" height="110"/>
+                          <rect id="split-stop-second-hand" x="124" y="15.2" class="split-st0 primary-center" width="2" height="110"/>
+                          <rect id="split-minute-hand" x="123" y="15.2" class="split-st0 primary-center" width="4" height="110"/>
+                          <rect id="split-hour-hand" x="121.5" y="46.3" class="primary-center" width="7" height="79"/>
+                          <g id="running-second-hand" class="left-center">
+                            <path class="split-st0" d="M69.8 125c-0.2-3.1-0.4-6.1-0.6-9.1l-0.4-9.2c-0.1-3.1-0.5-6.1-0.3-9.1 0.2-3.1 0.5-6.1 1.3-9.2h0.3c0.8 3.1 1.1 6.1 1.3 9.2 0.2 3-0.2 6.1-0.3 9.1l-0.4 9.2c-0.2 3-0.4 6.1-0.6 9.1H69.8z"/>
+                          </g>
+                          <g id="split-chrono-minute-hand" class="right-center">
+                            <path class="split-st0" d="M179.9 123.8c-0.2-3.1-0.4-6.1-0.6-9.2l-0.4-9.1c-0.1-3.1-0.5-6.1-0.3-9.2 0.2-3 0.5-6.1 1.4-9.1h0.3c0.8 3.1 1.1 6.1 1.4 9.1 0.2 3.1-0.2 6.1-0.3 9.2l-0.4 9.1c-0.2 3.1-0.4 6.1-0.6 9.2H179.9z"/>
+                          </g>
+                        </svg>
+                    </div>
+                </main>
+            </section>
+          -->
+        </main>
+    </div>
+
+    <!--
 
  <div class="container">
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
@@ -469,8 +581,9 @@
         <rect id="moonphase-minute-hand" x="123.5" y="15.2" class="moonphase-st7 primary-center" width="4" height="110"/>
         <rect id="moonphase-hour-hand" x="122" y="46.2" class='primary-center' transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 251.0994 171.5)" width="7" height="79"/>
       </svg>
-  </div>
+  </div> -->
 
-  <script src="./dist/js/app.js"></script>
+    <script src="./dist/js/app.js"></script>
 </body>
+
 </html>

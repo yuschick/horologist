@@ -25,11 +25,6 @@
                 </a>
               
                 
-                <a class="source" href="util.html">
-                  util.js
-                </a>
-              
-                
                 <a class="source" href="Chronograph.html">
                   Chronograph.js
                 </a>
@@ -116,155 +111,221 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> Watch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./../index'</span>);
 
 (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">  "use strict"</span>
-  <span class="hljs-keyword">let</span> settings = {
-    <span class="hljs-attr">dials</span>: [{
-        <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
-        <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">minute</span>: <span class="hljs-string">'dial-primary-minute-hand'</span>,
-          <span class="hljs-attr">second</span>: <span class="hljs-string">'dial-primary-second-hand'</span>,
+    <span class="hljs-keyword">let</span> settings = {};
+    <span class="hljs-keyword">let</span> demo = <span class="hljs-literal">null</span>;
+
+    settings = {
+        <span class="hljs-attr">dials</span>: [{
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'dial-primary-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'dial-primary-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'dial-primary-second-hand'</span>,
+            },
+        }, {
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'secondary'</span>,
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'dial-secondary-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'dial-secondary-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'dial-secondary-second-hand'</span>,
+            },
+            <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">timezone</span>: <span class="hljs-string">'America/New_York'</span>
+        }]
+    };
+
+    demo = <span class="hljs-keyword">new</span> Watch(settings);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        hands: {
+            hour: ‘retrograde-sec-hour-hand’,
+            minute: ‘retrograde-sec-minute-hand’,
         },
-      }
-    ],
-    <span class="hljs-attr">foudroyante</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'dial-secondary-second-hand'</span>,
-      <span class="hljs-attr">steps</span>: <span class="hljs-number">6</span>
+        retrograde: {
+            second: {
+                id: ‘retrograde-second-hand-one’,
+                max: 180,
+                duration: 10
+            }
+        },
+        sweep: true
+    }, ]
+};
+demo = new Watch(settings);</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        name: ‘primary’,
+        hands: {
+            hour: ‘split-hour-hand’,
+            minute: ‘split-minute-hand’,
+            second: ‘running-second-hand’,
+        },
+        sweep: true
+    }, ],
+    chronograph: {
+        buttons: {
+            start: ‘split-start-stop-btn’,
+            reset: ‘split-reset-btn’
+        },
+        hands: {
+            second: ‘split-chrono-second-hand’,
+            step: ‘split-stop-second-hand’,
+            minute: ‘split-chrono-minute-hand’,
+        },
+        rattrapante: true
     },
-    <span class="hljs-attr">reserve</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'dial-primary-hour-hand'</span>,
-      <span class="hljs-attr">range</span>: [<span class="hljs-number">89</span>,<span class="hljs-number">90</span>]
-    }
-  };
+};
+demo = new Watch(settings);</p>
 
-  <span class="hljs-keyword">let</span> demo = <span class="hljs-keyword">new</span> Watch(settings);
-
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-        <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">hour</span>: <span class="hljs-string">'retrograde-sec-hour-hand'</span>,
-          <span class="hljs-attr">minute</span>: <span class="hljs-string">'retrograde-sec-minute-hand'</span>,
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        name: ‘primary’,
+        hands: {
+            hour: ‘chrono-hour-hand’,
+            minute: ‘chrono-primary-minute-hand’,
+            second: ‘second-hand’,
         },
-        <span class="hljs-attr">retrograde</span>: {
-          <span class="hljs-attr">second</span>: {
-            <span class="hljs-attr">id</span>: <span class="hljs-string">'retrograde-second-hand-one'</span>,
-            <span class="hljs-attr">max</span>: <span class="hljs-number">180</span>,
-            <span class="hljs-attr">duration</span>: <span class="hljs-number">10</span>
-          }
+        sweep: true,
+    }, ],
+    chronograph: {
+        buttons: {
+            start: ‘start-pause-btn’,
+            reset: ‘reset-btn’,
         },
-        <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
-      },
-    ]
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
-
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-        <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
-        <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">hour</span>: <span class="hljs-string">'split-hour-hand'</span>,
-          <span class="hljs-attr">minute</span>: <span class="hljs-string">'split-minute-hand'</span>,
-          <span class="hljs-attr">second</span>: <span class="hljs-string">'running-second-hand'</span>,
-        },
-        <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
-      },
-    ],
-    <span class="hljs-attr">chronograph</span>: {
-      <span class="hljs-attr">buttons</span>: {
-        <span class="hljs-attr">start</span>: <span class="hljs-string">'split-start-stop-btn'</span>,
-        <span class="hljs-attr">reset</span>: <span class="hljs-string">'split-reset-btn'</span>
-      },
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'split-chrono-second-hand'</span>,
-        <span class="hljs-attr">step</span>: <span class="hljs-string">'split-stop-second-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'split-chrono-minute-hand'</span>,
-      },
-      <span class="hljs-attr">rattrapante</span>: <span class="hljs-literal">true</span>
+        hands: {
+            tenth: ‘chrono-tenth-second-hand’,
+            second: ‘chrono-second-hand’,
+            minute: ‘chrono-minute-hand’,
+            hour: ‘chrono-hour-sub-hand’,
+        }
     },
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
+};
+demo = new Watch(settings);</p>
 
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-        <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
-        <span class="hljs-attr">hands</span>: {
-          <span class="hljs-attr">hour</span>: <span class="hljs-string">'chrono-hour-hand'</span>,
-          <span class="hljs-attr">minute</span>: <span class="hljs-string">'chrono-primary-minute-hand'</span>,
-          <span class="hljs-attr">second</span>: <span class="hljs-string">'second-hand'</span>,
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        hands: {
+            hour: ‘perpetual-hour-hand’,
+            minute: ‘perpetual-minute-hand’,
+            second: ‘perpetual-second-hand’,
         },
-        <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>,
-      },
-    ],
-    <span class="hljs-attr">chronograph</span>: {
-      <span class="hljs-attr">buttons</span>: {
-        <span class="hljs-attr">start</span>: <span class="hljs-string">'start-pause-btn'</span>,
-        <span class="hljs-attr">reset</span>: <span class="hljs-string">'reset-btn'</span>,
-      },
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">tenth</span>: <span class="hljs-string">'chrono-tenth-second-hand'</span>,
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'chrono-second-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'chrono-minute-hand'</span>,
-        <span class="hljs-attr">hour</span>: <span class="hljs-string">'chrono-hour-sub-hand'</span>,
-      }
-    },
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
-
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">hour</span>: <span class="hljs-string">'perpetual-hour-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'perpetual-minute-hand'</span>,
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'perpetual-second-hand'</span>,
-      },
     }],
-    <span class="hljs-attr">day</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'day-indicator-disc'</span>,
+    day: {
+        id: ‘day-indicator-disc’,
     },
-    <span class="hljs-attr">date</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'date-disc'</span>,
+    date: {
+        id: ‘date-disc’,
     },
-    <span class="hljs-attr">month</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'month-disc'</span>,
+    month: {
+        id: ‘month-disc’,
     },
-    <span class="hljs-attr">year</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'year-hand'</span>,
+    year: {
+        id: ‘year-hand’,
     },
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
+};
+demo = new Watch(settings);</p>
 
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">hour</span>: <span class="hljs-string">'moonphase-hour-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'moonphase-minute-hand'</span>,
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'moonphase-second-hand'</span>,
-      },
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        hands: {
+            hour: ‘moonphase-hour-hand’,
+            minute: ‘moonphase-minute-hand’,
+            second: ‘moonphase-second-hand’,
+        },
     }],
-    <span class="hljs-attr">moonphase</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'moonphase-dial'</span>,
-      <span class="hljs-attr">invert</span>: <span class="hljs-literal">true</span>
+    moonphase: {
+        id: ‘moonphase-dial’,
+        invert: true
     },
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
+};
+demo = new Watch(settings);</p>
 
-  settings = {
-    <span class="hljs-attr">dials</span>: [{
-      <span class="hljs-attr">hands</span>: {
-        <span class="hljs-attr">hour</span>: <span class="hljs-string">'date-hour-hand'</span>,
-        <span class="hljs-attr">minute</span>: <span class="hljs-string">'date-minute-hand'</span>,
-        <span class="hljs-attr">second</span>: <span class="hljs-string">'date-second-hand'</span>,
-      },
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>settings = {
+    dials: [{
+        hands: {
+            hour: ‘date-hour-hand’,
+            minute: ‘date-minute-hand’,
+            second: ‘date-second-hand’,
+        },
     }],
-    <span class="hljs-attr">month</span>: {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'date-arrow'</span>,
-      <span class="hljs-attr">retrograde</span>: {
-        <span class="hljs-attr">max</span>: <span class="hljs-number">205</span>
-      }
+    month: {
+        id: ‘date-arrow’,
+        retrograde: {
+            max: 205
+        }
     },
-  };
-  demo = <span class="hljs-keyword">new</span> Watch(settings);
+};
+demo = new Watch(settings);</p>
 
-})();</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>})();</pre></div></div>
             
         </li>
         
