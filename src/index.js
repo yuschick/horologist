@@ -21,7 +21,7 @@ const Chronograph = require('./modules/Chronograph');
 const Foudroyante = require('./modules/Foudroyante');
 
 class Watch {
-  constructor(settings) {
+  constructor(settings, parentId) {
     if (settings.testing) return;
 
     try {
@@ -38,7 +38,7 @@ class Watch {
     this.rightNow = Moment();
 
     settings.dials.forEach((dial) => {
-      let tempDial = new Dial(dial, this);
+      let tempDial = new Dial(dial, this, parentId);
       this.dialInstances.push(tempDial);
     });
 

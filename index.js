@@ -27,7 +27,7 @@ var Chronograph = require('./dist/modules/Chronograph');
 var Foudroyante = require('./dist/modules/Foudroyante');
 
 var Watch = function () {
-  function Watch(settings) {
+  function Watch(settings, parentId) {
     var _this = this;
 
     _classCallCheck(this, Watch);
@@ -47,7 +47,7 @@ var Watch = function () {
     this.rightNow = Moment();
 
     settings.dials.forEach(function (dial) {
-      var tempDial = new Dial(dial, _this);
+      var tempDial = new Dial(dial, _this, parentId);
       _this.dialInstances.push(tempDial);
     });
 
