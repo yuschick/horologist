@@ -1,6 +1,7 @@
 // Dial Class
 // @params settings: object
 // @params parentWatch: Watch instance
+// @params parentId: Optional. The ID of the watch (in HTML)
 //
 // The Dial class also brings in Moment-Timezone to better support GMTOffsets and
 // timezone values for dual-time displays. Based on the given time of the current
@@ -10,34 +11,77 @@
 
 const Timezone = require('moment-timezone');
 
+function getElementByClassOrId(elementName, parentId, defaultElementName) {
+  if (!elementName && !parentId)
+    return null;
+
+  const elementNameAsId = elementName ? "#" + elementName : "#" + defaultElementName;
+  const elementNameAsClass = elementName ? "." + elementName : "." + defaultElementName;
+  const parentIdSelector = "#" + parentId;
+  let element;
+
+  if (parentId) {
+    element = document.querySelector(parentIdSelector + " " + elementNameAsClass) || document.querySelector(parentIdSelector + " " + elementNameAsId);
+
+    if (!element && elementName) {
+      // Log it and try to retrieve it by id in the whole document instead as last resource
+      console.warn("Element '" + elementName + "' could not be found inside '" + parentId + "'");
+      element = document.getElementById(elementName);
+    }
+  } else {
+    element = document.getElementById(elementName);
+  }
+
+  return element;
+}
+
 class Dial {
-  constructor(settings, parentWatch) {
-    this.error = false;
-    this.errorChecking(settings);
+  constructor(settings, parentWatch, parentId) {
+    try {
+      this.name = settings.name;
+      this.hands = {};
 
-    if (this.error) return;
+      let hourHandName, minuteHandName, secondHandName;
 
-    this.name = settings.name;
-    this.hands = {};
-    if (settings.hands.hour)
-      this.hands.hour = document.getElementById(settings.hands.hour);
-    if (settings.hands.minute)
-      this.hands.minute = document.getElementById(settings.hands.minute);
-    if (settings.hands.second)
-      this.hands.second = document.getElementById(settings.hands.second);
-
-    this.retrograde = {};
-
-    if (settings.retrograde) {
-      if (settings.retrograde.second) {
-        this.retrograde.second = {
-          hand: document.getElementById(settings.retrograde.second.id),
-          max: settings.retrograde.second.max || 180,
-          duration: settings.retrograde.second.duration || 60,
-          increment: settings.retrograde.second.max / (settings.retrograde.second.duration || 60)
-        };
-        this.hands.second = this.retrograde.second.hand;
+      if (settings.hands) {
+        hourHandName = settings.hands.hour;
+        minuteHandName = settings.hands.minute;
+        secondHandName = settings.hands.second;
       }
+      this.hands.hour = getElementByClassOrId(hourHandName, parentId, "hands-hour");
+      this.hands.minute = getElementByClassOrId(minuteHandName, parentId, "hands-minute");
+      this.hands.second = getElementByClassOrId(secondHandName, parentId, "hands-second");
+
+      this.retrograde = {};
+
+      let retrogradeSecondHand, retrogradeSecondHandName,
+          maxSecond = 180, secondDuration = 60; // Defaults
+      if (settings.retrograde && settings.retrograde.second) {
+        if (settings.retrograde.second.max)
+          maxSecond = settings.retrograde.second.max;
+        if (settings.retrograde.second.duration)
+          secondDuration = settings.retrograde.second.duration;
+
+        retrogradeSecondHandName = settings.retrograde.second.id;
+      }
+      retrogradeSecondHand = getElementByClassOrId(retrogradeSecondHandName, parentId, "retrograde-second");
+
+      if (retrogradeSecondHand) {
+        this.retrograde.second = {
+          max: maxSecond,
+          duration: secondDuration,
+          increment: maxSecond / secondDuration,
+          hand: retrogradeSecondHand
+        };
+        this.checkRetrograde();
+
+        this.hands.second = retrogradeSecondHand;
+      }
+
+      this.errorChecking();
+    } catch (errorMsg) {
+      console.error(errorMsg);
+      return;
     }
 
     this.parent = parentWatch;
@@ -46,8 +90,6 @@ class Dial {
       settings.format :
       12;
 
-    this.gmtOffset;
-    this.timezone;
     if (settings.timezone) {
       this.timezone = settings.timezone;
     } else if (!settings.timezone && settings.offset) {
@@ -80,50 +122,24 @@ class Dial {
     this.init();
   }
 
-  errorChecking(settings) {
-    try {
-      if (!settings.hands)
-        throw "The Dial class needs an object containing the HTML elements for the hands.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      this.error = true;
-      return;
-    }
+  errorChecking() {
+    if (!this.hands.hour && !this.hands.minute && !this.hands.second)
+      throw "The Dial class needs at least one hand to be specified (hour, minute, second, retrograde).";
+  }
 
-    try {
-      if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id)
-        throw "The retrograde second requires an id property be provided.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      this.error = true;
-      return;
-    }
+  checkRetrograde() {
+    if (this.hands.second && this.retrograde.second)
+      throw "A dial can only support one second hand at a time - either traditional or retrograde.";
 
-    try {
-      if (settings.retrograde && settings.hands.second && settings.retrograde.second)
-        throw "A dial can only support one second hand at a time - either traditional or retrograde.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      this.error = true;
-      return;
-    }
+    if (this.retrograde.second && !this.retrograde.second.hand)
+        throw "The retrograde second requires a hand element to be provided.";
 
-    try {
-      if (settings.retrograde && settings.retrograde.second.duration < 5)
+    if (this.retrograde.second && this.retrograde.second.duration) {
+      if (this.retrograde.second.duration < 5)
         throw "The retrograde second hand requires a duration no less than 5.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      this.error = true;
-      return;
-    }
 
-    try {
-      if (settings.retrograde && 60 % settings.retrograde.second.duration != 0)
-        throw "The retrograde second hand requires a duration that is evenly divisble by 60.";
-    } catch (errorMsg) {
-      console.error(errorMsg);
-      this.error = true;
-      return;
+      if ((60 % this.retrograde.second.duration) !== 0)
+        throw "The retrograde second hand requires a duration that is evenly divisible by 60.";
     }
   }
 
