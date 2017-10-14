@@ -114,6 +114,9 @@
     <span class="hljs-keyword">let</span> settings = {};
     <span class="hljs-keyword">let</span> demo = <span class="hljs-literal">null</span>;
 
+    <span class="hljs-comment">/*
+     * Dual Time Demo
+     */</span>
     settings = {
         <span class="hljs-attr">dials</span>: [{
             <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
@@ -132,6 +135,30 @@
             <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>,
             <span class="hljs-attr">timezone</span>: <span class="hljs-string">'America/New_York'</span>
         }]
+    };
+
+    demo = <span class="hljs-keyword">new</span> Watch(settings);
+
+    <span class="hljs-comment">/*
+     * Minute Repeater Demo
+     */</span>
+    settings = {
+        <span class="hljs-attr">dials</span>: [{
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'repeater-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'repeater-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'repeater-second-hand'</span>,
+            },
+            <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
+        }],
+        <span class="hljs-attr">repeater</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'repeater-btn'</span>,
+            <span class="hljs-attr">chimes</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'./dist/sounds/chime-01.mp4'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'./dist/sounds/chime-02.mp4'</span>
+            }
+        }
     };
 
     demo = <span class="hljs-keyword">new</span> Watch(settings);</pre></div></div>

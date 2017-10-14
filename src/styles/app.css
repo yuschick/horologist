@@ -166,6 +166,10 @@ h2 span {
     justify-content: space-between;
 }
 
+.demos-container {
+    padding: 0 1rem;
+}
+
 .main-header {
     background: #007486;
     border-bottom: 3px solid #272727;
@@ -240,6 +244,13 @@ a {
 
 .bottom-center {
     transform-origin: 125px 179px;
+}
+
+
+/**** Minute Repeater ****/
+
+.repeater-st0 {
+    fill: #272727;
 }
 
 

@@ -146,8 +146,11 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
 
         <span class="hljs-keyword">this</span>.trigger = <span class="hljs-built_in">document</span>.getElementById(repeater.id);
         <span class="hljs-keyword">this</span>.chimes = repeater.chimes;
+        <span class="hljs-keyword">this</span>.hourChimeDuration = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
         <span class="hljs-keyword">this</span>.isPlaying = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.quartersPlaying = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.minutesPlaying = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.parent = parentWatch;
         <span class="hljs-keyword">this</span>.init();
     }
@@ -181,28 +184,42 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
         });
 
         <span class="hljs-keyword">this</span>.hourElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
-            <span class="hljs-keyword">this</span>.playHours();
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.quartersPlaying &amp;&amp; !<span class="hljs-keyword">this</span>.minutesPlaying) {
+                <span class="hljs-keyword">this</span>.playHours();
+            }
         });
 
-        <span class="hljs-keyword">this</span>.fifteenMinuteElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
-            <span class="hljs-keyword">this</span>.playFifteenMinutes();
-        });
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.chimes.quarter) {
+            <span class="hljs-keyword">this</span>.fifteenMinuteElement.addEventListener(<span class="hljs-string">"ended"</span>, () =&gt; {
+                <span class="hljs-keyword">this</span>.playQuarterHours();
+            });
+        }
 
         <span class="hljs-keyword">this</span>.minuteElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
-            <span class="hljs-keyword">this</span>.playMinutes();
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.quartersPlaying) {
+                <span class="hljs-keyword">this</span>.playQuarterHours();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.playMinutes();
+            }
         });
     }
 
     stopAll() {
         <span class="hljs-keyword">this</span>.hourElement.pause();
         <span class="hljs-keyword">this</span>.hourElement.currentTime = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">this</span>.fifteenMinuteElement.pause();
-        <span class="hljs-keyword">this</span>.fifteenMinuteElementcurrentTime = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.chimes.quarter) {
+            <span class="hljs-keyword">this</span>.fifteenMinuteElement.pause();
+            <span class="hljs-keyword">this</span>.fifteenMinuteElementcurrentTime = <span class="hljs-number">0</span>;
+        }
+
         <span class="hljs-keyword">this</span>.minuteElement.pause();
         <span class="hljs-keyword">this</span>.minuteElementcurrentTime = <span class="hljs-number">0</span>;
 
         <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
         <span class="hljs-keyword">this</span>.isPlaying = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.quartersPlaying = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.minutesPlaying = <span class="hljs-literal">false</span>;
     }
 
     togglePlaying() {
@@ -224,7 +241,27 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
             <span class="hljs-keyword">this</span>.counter++;
         } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter === <span class="hljs-keyword">this</span>.hourChimes + <span class="hljs-number">1</span>) {
             <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">this</span>.playQuarterHours();
+        }
+    }
+
+    playQuarterHours() {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.chimes.quarter) {
             <span class="hljs-keyword">this</span>.playFifteenMinutes();
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter &lt;= <span class="hljs-keyword">this</span>.fifteenMinuteChimes) {
+                <span class="hljs-keyword">this</span>.quartersPlaying = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">this</span>.hourElement.play();
+                setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                    <span class="hljs-keyword">this</span>.minuteElement.play();
+                    <span class="hljs-keyword">this</span>.counter++;
+                }, <span class="hljs-keyword">this</span>.hourChimeDuration / <span class="hljs-number">2</span> * <span class="hljs-number">500</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.quartersPlaying = <span class="hljs-literal">false</span>;
+                <span class="hljs-keyword">this</span>.minutesPlaying = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">this</span>.playMinutes();
+            }
         }
     }
 
@@ -243,7 +280,7 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
             <span class="hljs-keyword">this</span>.minuteElement.play();
             <span class="hljs-keyword">this</span>.counter++;
         } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.counter === <span class="hljs-keyword">this</span>.minuteChimes + <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">this</span>.counter = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">this</span>.stopAll();
         }
     }
 
@@ -252,9 +289,16 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
         <span class="hljs-keyword">this</span>.hourElement.src = <span class="hljs-keyword">this</span>.chimes.hour;
         <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.hourElement);
 
-        <span class="hljs-keyword">this</span>.fifteenMinuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'audio'</span>);
-        <span class="hljs-keyword">this</span>.fifteenMinuteElement.src = <span class="hljs-keyword">this</span>.chimes.quarter;
-        <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.fifteenMinuteElement);
+        <span class="hljs-keyword">this</span>.hourElement.addEventListener(<span class="hljs-string">"loadedmetadata"</span>, () =&gt; {
+            <span class="hljs-keyword">this</span>.hourChimeDuration = <span class="hljs-keyword">this</span>.hourElement.duration;
+        }, <span class="hljs-literal">false</span>);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.chimes.quarter) {
+            <span class="hljs-keyword">this</span>.fifteenMinuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"audio"</span>);
+            <span class="hljs-keyword">this</span>.fifteenMinuteElement.src = <span class="hljs-keyword">this</span>.chimes.quarter;
+            <span class="hljs-built_in">document</span>.body.appendChild(<span class="hljs-keyword">this</span>.fifteenMinuteElement);
+        }
+
 
         <span class="hljs-keyword">this</span>.minuteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'audio'</span>);
         <span class="hljs-keyword">this</span>.minuteElement.src = <span class="hljs-keyword">this</span>.chimes.minute;

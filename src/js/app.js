@@ -4,6 +4,9 @@ const Watch = require('./../index');
     let settings = {};
     let demo = null;
 
+    /*
+     * Dual Time Demo
+     */
     settings = {
         dials: [{
             name: 'primary',
@@ -22,6 +25,30 @@ const Watch = require('./../index');
             sweep: true,
             timezone: 'America/New_York'
         }]
+    };
+
+    demo = new Watch(settings);
+
+    /*
+     * Minute Repeater Demo
+     */
+    settings = {
+        dials: [{
+            name: 'primary',
+            hands: {
+                hour: 'repeater-hour-hand',
+                minute: 'repeater-minute-hand',
+                second: 'repeater-second-hand',
+            },
+            sweep: true
+        }],
+        repeater: {
+            id: 'repeater-btn',
+            chimes: {
+                hour: './dist/sounds/chime-01.mp4',
+                minute: './dist/sounds/chime-02.mp4'
+            }
+        }
     };
 
     demo = new Watch(settings);

@@ -37,8 +37,11 @@ class MinuteRepeater {
 
         this.trigger = document.getElementById(repeater.id);
         this.chimes = repeater.chimes;
+        this.hourChimeDuration = 0;
         this.counter = 1;
         this.isPlaying = false;
+        this.quartersPlaying = false;
+        this.minutesPlaying = false;
         this.parent = parentWatch;
         this.init();
     }
@@ -72,28 +75,42 @@ class MinuteRepeater {
         });
 
         this.hourElement.addEventListener('ended', () => {
-            this.playHours();
+            if (!this.quartersPlaying && !this.minutesPlaying) {
+                this.playHours();
+            }
         });
 
-        this.fifteenMinuteElement.addEventListener('ended', () => {
-            this.playFifteenMinutes();
-        });
+        if (this.chimes.quarter) {
+            this.fifteenMinuteElement.addEventListener("ended", () => {
+                this.playQuarterHours();
+            });
+        }
 
         this.minuteElement.addEventListener('ended', () => {
-            this.playMinutes();
+            if (this.quartersPlaying) {
+                this.playQuarterHours();
+            } else {
+                this.playMinutes();
+            }
         });
     }
 
     stopAll() {
         this.hourElement.pause();
         this.hourElement.currentTime = 0;
-        this.fifteenMinuteElement.pause();
-        this.fifteenMinuteElementcurrentTime = 0;
+
+        if (this.chimes.quarter) {
+            this.fifteenMinuteElement.pause();
+            this.fifteenMinuteElementcurrentTime = 0;
+        }
+
         this.minuteElement.pause();
         this.minuteElementcurrentTime = 0;
 
         this.counter = 1;
         this.isPlaying = false;
+        this.quartersPlaying = false;
+        this.minutesPlaying = false;
     }
 
     togglePlaying() {
@@ -115,7 +132,27 @@ class MinuteRepeater {
             this.counter++;
         } else if (this.counter === this.hourChimes + 1) {
             this.counter = 1;
+            this.playQuarterHours();
+        }
+    }
+
+    playQuarterHours() {
+        if (this.chimes.quarter) {
             this.playFifteenMinutes();
+        } else {
+            if (this.counter <= this.fifteenMinuteChimes) {
+                this.quartersPlaying = true;
+                this.hourElement.play();
+                setTimeout(() => {
+                    this.minuteElement.play();
+                    this.counter++;
+                }, this.hourChimeDuration / 2 * 500);
+            } else {
+                this.quartersPlaying = false;
+                this.minutesPlaying = true;
+                this.counter = 1;
+                this.playMinutes();
+            }
         }
     }
 
@@ -134,7 +171,7 @@ class MinuteRepeater {
             this.minuteElement.play();
             this.counter++;
         } else if (this.counter === this.minuteChimes + 1) {
-            this.counter = 1;
+            this.stopAll();
         }
     }
 
@@ -143,9 +180,16 @@ class MinuteRepeater {
         this.hourElement.src = this.chimes.hour;
         document.body.appendChild(this.hourElement);
 
-        this.fifteenMinuteElement = document.createElement('audio');
-        this.fifteenMinuteElement.src = this.chimes.quarter;
-        document.body.appendChild(this.fifteenMinuteElement);
+        this.hourElement.addEventListener("loadedmetadata", () => {
+            this.hourChimeDuration = this.hourElement.duration;
+        }, false);
+
+        if (this.chimes.quarter) {
+            this.fifteenMinuteElement = document.createElement("audio");
+            this.fifteenMinuteElement.src = this.chimes.quarter;
+            document.body.appendChild(this.fifteenMinuteElement);
+        }
+
 
         this.minuteElement = document.createElement('audio');
         this.minuteElement.src = this.chimes.minute;

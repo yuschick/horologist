@@ -52,6 +52,9 @@
 	    var settings = {};
 	    var demo = null;
 
+	    /*
+	     * Dual Time Demo
+	     */
 	    settings = {
 	        dials: [{
 	            name: 'primary',
@@ -70,6 +73,30 @@
 	            sweep: true,
 	            timezone: 'America/New_York'
 	        }]
+	    };
+
+	    demo = new Watch(settings);
+
+	    /*
+	     * Minute Repeater Demo
+	     */
+	    settings = {
+	        dials: [{
+	            name: 'primary',
+	            hands: {
+	                hour: 'repeater-hour-hand',
+	                minute: 'repeater-minute-hand',
+	                second: 'repeater-second-hand'
+	            },
+	            sweep: true
+	        }],
+	        repeater: {
+	            id: 'repeater-btn',
+	            chimes: {
+	                hour: './dist/sounds/chime-01.mp4',
+	                minute: './dist/sounds/chime-02.mp4'
+	            }
+	        }
 	    };
 
 	    demo = new Watch(settings);
@@ -17556,8 +17583,11 @@
 
 	        this.trigger = document.getElementById(repeater.id);
 	        this.chimes = repeater.chimes;
+	        this.hourChimeDuration = 0;
 	        this.counter = 1;
 	        this.isPlaying = false;
+	        this.quartersPlaying = false;
+	        this.minutesPlaying = false;
 	        this.parent = parentWatch;
 	        this.init();
 	    }
@@ -17595,15 +17625,23 @@
 	            });
 
 	            this.hourElement.addEventListener('ended', function () {
-	                _this.playHours();
+	                if (!_this.quartersPlaying && !_this.minutesPlaying) {
+	                    _this.playHours();
+	                }
 	            });
 
-	            this.fifteenMinuteElement.addEventListener('ended', function () {
-	                _this.playFifteenMinutes();
-	            });
+	            if (this.chimes.quarter) {
+	                this.fifteenMinuteElement.addEventListener("ended", function () {
+	                    _this.playQuarterHours();
+	                });
+	            }
 
 	            this.minuteElement.addEventListener('ended', function () {
-	                _this.playMinutes();
+	                if (_this.quartersPlaying) {
+	                    _this.playQuarterHours();
+	                } else {
+	                    _this.playMinutes();
+	                }
 	            });
 	        }
 	    }, {
@@ -17611,13 +17649,19 @@
 	        value: function stopAll() {
 	            this.hourElement.pause();
 	            this.hourElement.currentTime = 0;
-	            this.fifteenMinuteElement.pause();
-	            this.fifteenMinuteElementcurrentTime = 0;
+
+	            if (this.chimes.quarter) {
+	                this.fifteenMinuteElement.pause();
+	                this.fifteenMinuteElementcurrentTime = 0;
+	            }
+
 	            this.minuteElement.pause();
 	            this.minuteElementcurrentTime = 0;
 
 	            this.counter = 1;
 	            this.isPlaying = false;
+	            this.quartersPlaying = false;
+	            this.minutesPlaying = false;
 	        }
 	    }, {
 	        key: "togglePlaying",
@@ -17641,7 +17685,30 @@
 	                this.counter++;
 	            } else if (this.counter === this.hourChimes + 1) {
 	                this.counter = 1;
+	                this.playQuarterHours();
+	            }
+	        }
+	    }, {
+	        key: "playQuarterHours",
+	        value: function playQuarterHours() {
+	            var _this2 = this;
+
+	            if (this.chimes.quarter) {
 	                this.playFifteenMinutes();
+	            } else {
+	                if (this.counter <= this.fifteenMinuteChimes) {
+	                    this.quartersPlaying = true;
+	                    this.hourElement.play();
+	                    setTimeout(function () {
+	                        _this2.minuteElement.play();
+	                        _this2.counter++;
+	                    }, this.hourChimeDuration / 2 * 500);
+	                } else {
+	                    this.quartersPlaying = false;
+	                    this.minutesPlaying = true;
+	                    this.counter = 1;
+	                    this.playMinutes();
+	                }
 	            }
 	        }
 	    }, {
@@ -17662,19 +17729,27 @@
 	                this.minuteElement.play();
 	                this.counter++;
 	            } else if (this.counter === this.minuteChimes + 1) {
-	                this.counter = 1;
+	                this.stopAll();
 	            }
 	        }
 	    }, {
 	        key: "buildAudioElements",
 	        value: function buildAudioElements() {
+	            var _this3 = this;
+
 	            this.hourElement = document.createElement('audio');
 	            this.hourElement.src = this.chimes.hour;
 	            document.body.appendChild(this.hourElement);
 
-	            this.fifteenMinuteElement = document.createElement('audio');
-	            this.fifteenMinuteElement.src = this.chimes.quarter;
-	            document.body.appendChild(this.fifteenMinuteElement);
+	            this.hourElement.addEventListener("loadedmetadata", function () {
+	                _this3.hourChimeDuration = _this3.hourElement.duration;
+	            }, false);
+
+	            if (this.chimes.quarter) {
+	                this.fifteenMinuteElement = document.createElement("audio");
+	                this.fifteenMinuteElement.src = this.chimes.quarter;
+	                document.body.appendChild(this.fifteenMinuteElement);
+	            }
 
 	            this.minuteElement = document.createElement('audio');
 	            this.minuteElement.src = this.chimes.minute;
