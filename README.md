@@ -91,7 +91,6 @@ const settings = {
     id: 'repeater-btn',
     chimes: {
       hour: './dist/sounds/chime-01.mp4',
-      quarter: './dist/sounds/chime-02.mp4',
       minute: './dist/sounds/chime-03.mp4'
     },
     dial: 1
@@ -168,7 +167,6 @@ let demo = new Watch(settings);
 - **id** (*String*): The id of the element that is to trigger playing the minute repeater on click. Clicking this element a second time will toggle the repeater off. The repeater will play back the time of the first dial passed into the dials array.
 - **chimes** {*Object*}:
   - **hour** (*String*): File path to the audio file to be played for every hour
-  - **quarter** (*String*): File path to the audio file to be played for every five minute increment
   - **minute** (*String*): File path to the audio file to be played for every remaining minute
 - **dial** (*Number*): *Default: 0* Specify an index from the dials array to define which dial will be read and played by the repeater.
 
