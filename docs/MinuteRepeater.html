@@ -80,6 +80,11 @@
                 </a>
               
                 
+                <a class="source" href="WeekIndicator.html">
+                  WeekIndicator.js
+                </a>
+              
+                
                 <a class="source" href="YearIndicator.html">
                   YearIndicator.js
                 </a>
@@ -180,7 +185,12 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
 
     bindEvents() {
         <span class="hljs-keyword">this</span>.trigger.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+            <span class="hljs-keyword">this</span>.toggleActiveState(<span class="hljs-keyword">this</span>.trigger);
             <span class="hljs-keyword">this</span>.togglePlaying();
+        });
+
+        <span class="hljs-keyword">this</span>.trigger.addEventListener(<span class="hljs-string">'transitionend'</span>, () =&gt; {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.trigger.classList.contains(<span class="hljs-string">'active'</span>)) <span class="hljs-keyword">this</span>.toggleActiveState(<span class="hljs-keyword">this</span>.trigger);
         });
 
         <span class="hljs-keyword">this</span>.hourElement.addEventListener(<span class="hljs-string">'ended'</span>, () =&gt; {
@@ -202,6 +212,10 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
                 <span class="hljs-keyword">this</span>.playMinutes();
             }
         });
+    }
+
+    toggleActiveState(btn) {
+        btn.classList.toggle(<span class="hljs-string">'active'</span>);
     }
 
     stopAll() {

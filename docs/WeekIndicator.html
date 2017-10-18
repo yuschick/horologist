@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>YearIndicator.js</title>
+  <title>WeekIndicator.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -98,7 +98,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>YearIndicator.js</h1>
+                  <h1>WeekIndicator.js</h1>
               </div>
           </li>
         
@@ -110,67 +110,65 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>YearIndicator Class
+              <p>Week Indicator Class
 @params settings: object
 @params parentWatch: Watch instance</p>
-<p>The year class accepts a Moment date object. The current year is stored and
-based upon its relationsbhip to the next leap year, an indicator is rotated
-to display that current relationship.</p>
+<p>The Week Class will rotate an element to depict the 
+current week of the year. By default, this class expects 
+52 weeks per year but an iso boolean can be passed
+to account for a 53rd week. The week indicator
+element can rotate either direction based on the 
+invert boolean as well.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YearIndicator</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeekIndicator</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Year Indicator class requires that an ID of the indicator element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">this</span>.errorChecking();
 
         <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
         <span class="hljs-keyword">this</span>.parent = parentWatch;
-        <span class="hljs-keyword">this</span>.year = <span class="hljs-keyword">this</span>.parent.rightNow.year();
-        <span class="hljs-keyword">this</span>.month = <span class="hljs-keyword">this</span>.parent.rightNow.month();
-        <span class="hljs-keyword">this</span>.offsetMonths = settings.offsetMonths || <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.iso = settings.iso || <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">this</span>.week = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.weekAmount = <span class="hljs-keyword">this</span>.iso ? <span class="hljs-number">53</span> : <span class="hljs-number">52</span>;
+        <span class="hljs-keyword">this</span>.increment = <span class="hljs-number">360</span> / <span class="hljs-keyword">this</span>.weekAmount;
 
         <span class="hljs-keyword">this</span>.init();
     }
 
-    getRotateValue() {
-        <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>;
-
-        <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">0</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">0</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">0</span>)) {
-            value = <span class="hljs-number">270</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">2</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">2</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">2</span>)) {
-            value = <span class="hljs-number">90</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (((<span class="hljs-keyword">this</span>.year % <span class="hljs-number">4</span> === <span class="hljs-number">3</span>) &amp;&amp; (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">100</span> !== <span class="hljs-number">3</span>)) || (<span class="hljs-keyword">this</span>.year % <span class="hljs-number">400</span> === <span class="hljs-number">3</span>)) {
-            value = <span class="hljs-number">180</span>;
+    errorChecking() {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!settings.id)
+                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Week Indicator class requires that an ID of the indicator element be provided."</span>;
+        } <span class="hljs-keyword">catch</span> (errorMsg) {
+            <span class="hljs-built_in">console</span>.error(errorMsg);
+            <span class="hljs-keyword">return</span>;
         }
-
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.offsetMonths) {
-            value += <span class="hljs-keyword">this</span>.month * <span class="hljs-number">7.5</span>;
-        }
-
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) value *= <span class="hljs-number">-1</span>;
-
-        <span class="hljs-keyword">return</span> value;
     }
 
-    rotateElement() {
-        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${<span class="hljs-keyword">this</span>.getRotateValue()}</span>deg)`</span>;
+    getWeekValue() {
+        <span class="hljs-keyword">const</span> rightNow = <span class="hljs-keyword">this</span>.parent.rightNow;
+        <span class="hljs-keyword">this</span>.week = <span class="hljs-keyword">this</span>.iso ? rightNow.isoWeek() - <span class="hljs-number">1</span> : rightNow.week() - <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">this</span>.rotateHands();
+    }
+
+    rotateHands() {
+        <span class="hljs-keyword">let</span> rotateVal = <span class="hljs-keyword">this</span>.week * <span class="hljs-keyword">this</span>.increment;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.invert) rotateVal *= <span class="hljs-number">-1</span>;
+
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${rotateVal}</span>deg)`</span>;
     }
 
     init() {
-        <span class="hljs-keyword">this</span>.rotateElement();
+        <span class="hljs-keyword">this</span>.getWeekValue();
     }
 }
 
-<span class="hljs-built_in">module</span>.exports = YearIndicator;</pre></div></div>
+<span class="hljs-built_in">module</span>.exports = WeekIndicator;</pre></div></div>
             
         </li>
         

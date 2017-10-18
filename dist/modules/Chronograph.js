@@ -128,7 +128,7 @@ var Chronograph = function () {
                 this.tripusher = true;
                 this.rattrapante = true;
             } else {
-                throw "The Chronograph class expects the hands to be added sequentially beginning with primary, secondary, and, lastly, tertiary.";
+                throw "The Chronograph class expects the buttons to be added sequentially beginning with primary, secondary, and, lastly, tertiary.";
             }
         }
     }, {
