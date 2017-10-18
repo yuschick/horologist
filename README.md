@@ -25,6 +25,7 @@ TickTock JS is a library for animating and rotating SVG elements to tell the tim
     - Retrograde Display
   - Month Indicator
     - Retrograde Display
+  - Week Indicator
   - Year Indicator
 - Foudroyante
 
@@ -117,8 +118,8 @@ const settings = {
   },
   chronograph: {
    buttons: {
-     start: 'start-pause-btn',
-     reset: 'reset-btn'
+     primary: 'start-pause-btn',
+     secondary: 'reset-btn'
    },
    hands: {
      tenth: 'chron-tenth-second-hand',
@@ -195,6 +196,11 @@ let demo = new Watch(settings);
 - **id** (*String*): The id of the month indicator element
 - **retrograde** (*Object*): Using a partial circle, display the date with an indicator that is reset to its original position upon reaching its max rotation value
   - **max** (*Number*): *Default: 180* Define the max angle of the indicator
+- **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
+
+#### week {Object}
+- **id** (*String*): The id of the week indicator element
+- **iso** (*Boolean*): *Default: false* Setting the `iso` peoperty to true will account for a 53rd week in the year
 - **invert** (*Boolean*): *Default: false* If false the dial will rotate clockwise. Set this property to *true* if it should rotate counterclockwise.
 
 #### year {Object}
