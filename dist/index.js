@@ -22,6 +22,7 @@ var DayNightIndicator = require('./modules/DayNightIndicator');
 var DayIndicator = require('./modules/DayIndicator');
 var DateIndicator = require('./modules/DateIndicator');
 var MonthIndicator = require('./modules/MonthIndicator');
+var WeekIndicator = require('./modules/WeekIndicator');
 var YearIndicator = require('./modules/YearIndicator');
 var Chronograph = require('./modules/Chronograph');
 var Foudroyante = require('./modules/Foudroyante');
@@ -83,6 +84,10 @@ var Watch = function () {
 
         if (settings.month) {
             this.monthIndicator = new MonthIndicator(settings.month, this);
+        }
+
+        if (settings.week) {
+            this.weekIndicator = new WeekIndicator(settings.week, this);
         }
 
         if (settings.year) {

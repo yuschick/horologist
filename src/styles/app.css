@@ -101,9 +101,9 @@ p {
     margin: 1rem 0;
 }
 
-ol,
 ul {
-    list-style: none;
+    list-style-position: inside;
+    padding: 10px;
 }
 
 blockquote,
@@ -132,7 +132,7 @@ img {
 }
 
 svg {
-    max-height: 250px;
+    max-height: 500px;
 }
 
 h2 {
@@ -246,6 +246,18 @@ a {
     transform-origin: 125px 179px;
 }
 
+.chronograph-left {
+    transform-origin: 78px 124px;
+}
+
+.chronograph-right {
+    transform-origin: 173px 124px;
+}
+
+.chronograph-bottom-center {
+    transform-origin: 125px 186px;
+}
+
 
 /**** Minute Repeater ****/
 
@@ -283,29 +295,245 @@ a {
 }
 
 
-/**** Split Chronograph ****/
+/**** Chronograph ****/
 
-.split-st0 {
+.chronograph-st0 {
     fill: #272727;
 }
 
-.split-st1 {
+.chronograph-st1 {
     fill: #FFFFFF;
 }
 
-.split-st2 {
+.chronograph-st2 {
     fill: none;
     stroke: #000000;
     stroke-width: 5;
     stroke-miterlimit: 10;
 }
 
-.split-st3 {
-    fill: #EFF1F3;
+.chronograph-st3 {
+    fill: #D6D6D6;
 }
 
-.split-st4 {
+.chronograph-st4 {
     fill: #007486;
+}
+
+.chronograph-st5 {
+    fill: none;
+    stroke: #007486;
+    stroke-miterlimit: 10;
+}
+
+.chronograph-st6 {
+    fill: none;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+}
+
+.chronograph-st7 {
+    fill: #4E4F4F;
+}
+
+#chronograph-primary-btn,
+#chronograph-secondary-btn,
+#chronograph-tertiary-btn {
+    transform: translate(0, 0);
+    transition: transform .25s ease;
+}
+
+#chronograph-primary-btn.active {
+    transform: translate(-3px, 2px);
+    transition: transform .1s ease;
+}
+
+#chronograph-secondary-btn.active {
+    transform: translate(-3px, -2px);
+    transition: transform .1s ease;
+}
+
+#chronograph-tertiary-btn.active {
+    transform: translate(3px, -2px);
+    transition: transform .1s ease;
+}
+
+
+/**** Grande Complication ****/
+
+.grande-primary-center {
+    transform-origin: 309px 309px;
+}
+
+.grande-left-center {
+    transform-origin: 198px 309px;
+}
+
+.grande-right-center {
+    transform-origin: 419px 309px;
+}
+
+.grande-bottom-center {
+    transform-origin: 309px 408px;
+}
+
+.grande-top-center {
+    transform-origin: 309px 178px;
+}
+
+.grande-month-center {
+    transform-origin: 357px 227px;
+}
+
+.grande-date-center {
+    transform-origin: 256.5px 219px;
+}
+
+.grande-st0 {
+    fill: #fff;
+}
+
+.grande-st1 {
+    fill: #606060;
+}
+
+.grande-st2 {
+    fill: #FFFFFF;
+}
+
+.grande-st3 {
+    fill: #AAA9A9;
+    stroke: #191919;
+    stroke-miterlimit: 10;
+}
+
+.grande-st4 {
+    fill: #313363;
+}
+
+.grande-st5 {
+    fill: #EFEDED;
+    stroke: #E5E5E5;
+    stroke-miterlimit: 10;
+}
+
+.grande-st6 {
+    fill: #F9F68A;
+}
+
+.grande-st7 {
+    fill: #AAA9A9;
+    stroke: #333333;
+    stroke-miterlimit: 10;
+}
+
+.grande-st8 {
+    fill: #15405B;
+}
+
+.grande-st9 {
+    fill: #B6D5EF;
+}
+
+.grande-st10 {
+    fill: #E5E1E1;
+    stroke: #191919;
+    stroke-miterlimit: 10;
+}
+
+.grande-st11 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+}
+
+.grande-st12 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+}
+
+.grande-st13 {
+    fill: none;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+}
+
+.grande-st14 {
+    fill: none;
+    stroke: #212121;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+}
+
+.grande-st15 {
+    fill: none;
+    stroke: #C40C0C;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+}
+
+.grande-st16 {
+    fill: none;
+    stroke: #333232;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+}
+
+.grande-st17 {
+    fill: none;
+    stroke: #212121;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+}
+
+.grande-st18 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 9;
+    stroke-miterlimit: 10;
+}
+
+.grande-st19 {
+    fill: none;
+    stroke: #f6f6f6;
+    stroke-width: 24;
+    stroke-miterlimit: 10;
+}
+
+.grande-st20 {
+    fill: none;
+    stroke: #F7FF4D;
+    stroke-width: 24;
+    stroke-miterlimit: 10;
+}
+
+.grande-st21 {
+    fill: none;
+}
+
+#grande-primary-button,
+#grande-secondary-button,
+#grande-repeater-button {
+    transform: translate(0, 0);
+    transition: transform .25s ease;
+}
+
+#grande-primary-button.active {
+    transform: translate(-3px, 2px);
+    transition: transform .1s ease;
+}
+
+#grande-secondary-button.active {
+    transform: translate(-3px, -2px);
+    transition: transform .1s ease;
+}
+
+#grande-repeater-button.active {
+    transform: translate(3px, -2px);
+    transition: transform .1s ease;
 }
 
 
@@ -384,30 +612,6 @@ a {
     fill: none;
     stroke: #007486;
     stroke-miterlimit: 10;
-}
-
-.primary-center {
-    transform-origin: 125px 125px;
-}
-
-.secondary-center {
-    transform-origin: 125px 180px;
-}
-
-.perpetual-day-center {
-    transform-origin: 176.2px 132.2px;
-}
-
-.perpetual-date-center {
-    transform-origin: 109.4px 132.1px;
-}
-
-.perpetual-month-center {
-    transform-origin: 124.4px 116.9px;
-}
-
-.perpetual-year-center {
-    transform-origin: 125px 190px;
 }
 
 .moonphase-st0 {

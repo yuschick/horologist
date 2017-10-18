@@ -55,7 +55,6 @@
         "consistent-return": "off",
         "consistent-this": "error",
         "curly": "off",
-        "default-case": "error",
         "dot-location": "error",
         "dot-notation": "error",
         "eol-last": [

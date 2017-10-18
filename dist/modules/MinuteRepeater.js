@@ -79,7 +79,12 @@ var MinuteRepeater = function () {
             var _this = this;
 
             this.trigger.addEventListener('click', function () {
+                _this.toggleActiveState(_this.trigger);
                 _this.togglePlaying();
+            });
+
+            this.trigger.addEventListener('transitionend', function () {
+                if (_this.trigger.classList.contains('active')) _this.toggleActiveState(_this.trigger);
             });
 
             this.hourElement.addEventListener('ended', function () {
@@ -101,6 +106,11 @@ var MinuteRepeater = function () {
                     _this.playMinutes();
                 }
             });
+        }
+    }, {
+        key: "toggleActiveState",
+        value: function toggleActiveState(btn) {
+            btn.classList.toggle('active');
         }
     }, {
         key: "stopAll",

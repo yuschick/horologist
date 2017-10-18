@@ -80,6 +80,11 @@
                 </a>
               
                 
+                <a class="source" href="WeekIndicator.html">
+                  WeekIndicator.js
+                </a>
+              
+                
                 <a class="source" href="YearIndicator.html">
                   YearIndicator.js
                 </a>
@@ -108,7 +113,7 @@
               <p>Dial Class
 @params settings: object
 @params parentWatch: Watch instance</p>
-<p>The Dial class also brings in Moment-Timezone to better support GMTOffsets and
+<p>The Dial class also brings in Moment-Timezone to better support 
 timezone values for dual-time displays. Based on the given time of the current
 or provided timezone, hour, minute, and second hands are rotated.
 The dial class supports telling time in 12 or 24 hour formats. Based on this
@@ -155,13 +160,9 @@ format, the hour hand is either rotated 30 or 15 degrees per hour.</p>
             settings.format :
             <span class="hljs-number">12</span>;
 
-        <span class="hljs-keyword">this</span>.gmtOffset;
         <span class="hljs-keyword">this</span>.timezone;
         <span class="hljs-keyword">if</span> (settings.timezone) {
             <span class="hljs-keyword">this</span>.timezone = settings.timezone;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!settings.timezone &amp;&amp; settings.offset) {
-            <span class="hljs-keyword">this</span>.timezone = <span class="hljs-literal">null</span>;
-            <span class="hljs-keyword">this</span>.gmtOffset = settings.offset ? settings.offset.toString() : <span class="hljs-literal">null</span>;
         } <span class="hljs-keyword">else</span> {
             <span class="hljs-keyword">this</span>.timezone = Timezone.tz.guess();
         }
@@ -265,27 +266,13 @@ format, the hour hand is either rotated 30 or 15 degrees per hour.</p>
     }
 
     getCurrentTime() {
-        <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">this</span>.gmtOffset &amp;&amp; !<span class="hljs-keyword">this</span>.timezone ? <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() : <span class="hljs-keyword">this</span>.parent.rightNow.tz(<span class="hljs-keyword">this</span>.timezone);
+        <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">this</span>.parent.rightNow.tz(<span class="hljs-keyword">this</span>.timezone);
         <span class="hljs-keyword">let</span> currentTime;
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.gmtOffset &amp;&amp; !<span class="hljs-keyword">this</span>.timezone) {
-            <span class="hljs-comment">/* passed in a gmtOffset like +8 */</span>
-            <span class="hljs-comment">/* Shouts to: http://www.techrepublic.com/article/convert-the-local-time-to-another-time-zone-with-this-javascript/6016329/ */</span>
-            <span class="hljs-keyword">const</span> gmt = <span class="hljs-keyword">this</span>.rightNow.getTime() + (<span class="hljs-keyword">this</span>.rightNow.getTimezoneOffset() * <span class="hljs-number">60000</span>);
-            <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(gmt + (<span class="hljs-number">3600000</span> * <span class="hljs-keyword">this</span>.gmtOffset));
-
-            currentTime = {
-                <span class="hljs-attr">hours</span>: <span class="hljs-keyword">this</span>.rightNow.getHours(),
-                <span class="hljs-attr">minutes</span>: <span class="hljs-keyword">this</span>.rightNow.getMinutes(),
-                <span class="hljs-attr">seconds</span>: <span class="hljs-keyword">this</span>.rightNow.getSeconds()
-            }
-        } <span class="hljs-keyword">else</span> {
-            <span class="hljs-comment">/* passed in a Moment Timezone valid string */</span>
-            currentTime = {
-                <span class="hljs-attr">hours</span>: <span class="hljs-keyword">this</span>.rightNow.hours(),
-                <span class="hljs-attr">minutes</span>: <span class="hljs-keyword">this</span>.rightNow.minutes(),
-                <span class="hljs-attr">seconds</span>: <span class="hljs-keyword">this</span>.rightNow.seconds()
-            }
+        currentTime = {
+            <span class="hljs-attr">hours</span>: <span class="hljs-keyword">this</span>.rightNow.hours(),
+            <span class="hljs-attr">minutes</span>: <span class="hljs-keyword">this</span>.rightNow.minutes(),
+            <span class="hljs-attr">seconds</span>: <span class="hljs-keyword">this</span>.rightNow.seconds()
         }
 
         <span class="hljs-keyword">this</span>.currentTime = currentTime;

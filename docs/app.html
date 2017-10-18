@@ -80,6 +80,11 @@
                 </a>
               
                 
+                <a class="source" href="WeekIndicator.html">
+                  WeekIndicator.js
+                </a>
+              
+                
                 <a class="source" href="YearIndicator.html">
                   YearIndicator.js
                 </a>
@@ -158,6 +163,98 @@
                 <span class="hljs-attr">hour</span>: <span class="hljs-string">'./dist/sounds/chime-01.mp4'</span>,
                 <span class="hljs-attr">minute</span>: <span class="hljs-string">'./dist/sounds/chime-02.mp4'</span>
             }
+        }
+    };
+
+    demo = <span class="hljs-keyword">new</span> Watch(settings);
+
+    <span class="hljs-comment">/*
+     * Chronograph  Demo
+     */</span>
+    settings = {
+        <span class="hljs-attr">dials</span>: [{
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'primary'</span>,
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'chronograph-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'chronograph-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'chronograph-second-hand'</span>,
+            },
+            <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
+        }],
+        <span class="hljs-attr">chronograph</span>: {
+            <span class="hljs-attr">buttons</span>: {
+                <span class="hljs-attr">primary</span>: <span class="hljs-string">'chronograph-primary-btn'</span>,
+                <span class="hljs-attr">secondary</span>: <span class="hljs-string">'chronograph-secondary-btn'</span>,
+                <span class="hljs-attr">tertiary</span>: <span class="hljs-string">'chronograph-tertiary-btn'</span>,
+
+            },
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">tenth</span>: <span class="hljs-string">'chrono-tenth-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'chrono-second-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'chrono-minute-hand'</span>,
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'chrono-hour-hand'</span>,
+                <span class="hljs-attr">lap</span>: <span class="hljs-string">'chrono-lap-hand'</span>,
+            },
+            <span class="hljs-attr">flyback</span>: <span class="hljs-literal">true</span>
+        }
+    };
+
+    demo = <span class="hljs-keyword">new</span> Watch(settings);
+
+    <span class="hljs-comment">/*
+     * Grande Complication  Demo
+     */</span>
+    settings = {
+        <span class="hljs-attr">dials</span>: [{
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'grande-hour-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'grande-minute-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'grande-second-hand'</span>,
+            },
+            <span class="hljs-attr">sweep</span>: <span class="hljs-literal">true</span>
+        }],
+        <span class="hljs-attr">chronograph</span>: {
+            <span class="hljs-attr">buttons</span>: {
+                <span class="hljs-attr">primary</span>: <span class="hljs-string">'grande-primary-button'</span>,
+                <span class="hljs-attr">secondary</span>: <span class="hljs-string">'grande-secondary-button'</span>
+            },
+            <span class="hljs-attr">hands</span>: {
+                <span class="hljs-attr">tenth</span>: <span class="hljs-string">'grande-chrono-tenth-second-hand'</span>,
+                <span class="hljs-attr">second</span>: <span class="hljs-string">'grande-chrono-second-hand'</span>,
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'grande-chrono-minute-hand'</span>,
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'grande-chrono-hour-hand'</span>
+            },
+            <span class="hljs-attr">flyback</span>: <span class="hljs-literal">true</span>
+        },
+        <span class="hljs-attr">repeater</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-repeater-button'</span>,
+            <span class="hljs-attr">chimes</span>: {
+                <span class="hljs-attr">minute</span>: <span class="hljs-string">'./../dist/sounds/chime-01.mp4'</span>,
+                <span class="hljs-attr">hour</span>: <span class="hljs-string">'./../dist/sounds/chime-02.mp4'</span>
+            }
+        },
+        <span class="hljs-attr">dayNightIndicator</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-daynight-disc'</span>
+        },
+        <span class="hljs-attr">moonphase</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-moonphase-disc'</span>
+        },
+        <span class="hljs-attr">day</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-day-disc'</span>,
+            <span class="hljs-attr">invert</span>: <span class="hljs-literal">true</span>
+        },
+        <span class="hljs-attr">date</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-date-disc'</span>
+        },
+        <span class="hljs-attr">month</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-month-disc'</span>,
+            <span class="hljs-attr">invert</span>: <span class="hljs-literal">true</span>
+        },
+        <span class="hljs-attr">week</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-week-display-ring'</span>
+        },
+        <span class="hljs-attr">year</span>: {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'grande-year-indicator-disc'</span>
         }
     };
 

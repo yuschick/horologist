@@ -71,7 +71,12 @@ class MinuteRepeater {
 
     bindEvents() {
         this.trigger.addEventListener('click', () => {
+            this.toggleActiveState(this.trigger);
             this.togglePlaying();
+        });
+
+        this.trigger.addEventListener('transitionend', () => {
+            if (this.trigger.classList.contains('active')) this.toggleActiveState(this.trigger);
         });
 
         this.hourElement.addEventListener('ended', () => {
@@ -93,6 +98,10 @@ class MinuteRepeater {
                 this.playMinutes();
             }
         });
+    }
+
+    toggleActiveState(btn) {
+        btn.classList.toggle('active');
     }
 
     stopAll() {
