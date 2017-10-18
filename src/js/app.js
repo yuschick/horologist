@@ -53,6 +53,39 @@ const Watch = require('./../index');
 
     demo = new Watch(settings);
 
+    /*
+     * Chronograph (Standard) Demo
+     */
+    settings = {
+        dials: [{
+            name: 'primary',
+            hands: {
+                hour: 'chronograph-hour-hand',
+                minute: 'chronograph-minute-hand',
+                second: 'chronograph-second-hand',
+            },
+            sweep: true
+        }],
+        chronograph: {
+            buttons: {
+                primary: 'chronograph-primary-btn',
+                secondary: 'chronograph-secondary-btn',
+                tertiary: 'chronograph-tertiary-btn',
+
+            },
+            hands: {
+                tenth: 'chrono-tenth-hand',
+                second: 'chrono-second-hand',
+                minute: 'chrono-minute-hand',
+                hour: 'chrono-hour-hand',
+                lap: 'chrono-lap-hand',
+            },
+            flyback: true
+        }
+    };
+
+    demo = new Watch(settings);
+
     // settings = {
     //     dials: [{
     //         hands: {

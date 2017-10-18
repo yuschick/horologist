@@ -22,8 +22,8 @@
                 </h2>
                 <nav class="primary-nav">
                     <ul class="flex-container">
-                        <li><a href="/TickTock/docs" target="_blank">Docs</a></li>
-                        <li><a href="/TickTock/guides" target="_blank">Guides</a></li>
+                        <li><a href="http://yuschick.github.io/TickTock/docs" target="_blank">Docs</a></li>
+                        <li><a href="http://yuschick.github.io/TickTock/guides" target="_blank">Guides</a></li>
                         <li><a href="https://github.com/yuschick/TickTock" target="_blank">Github</a></li>
                     </ul>
                 </nav>
@@ -104,6 +104,54 @@
                 </main>
             </section>
 
+            <section class="demo">
+                <header>
+                    <h3>Chronograph</h3>
+                </header>
+                <main class="flex-container is-spread">
+                    <aside>
+                        <p>The chronograph complication is to ultimately support three button variations, mono, dual, and tri pushers. The dual-pusher variation is by far the most common and is therefor the standard implementation in TickTock.</p>
+                        <p>This design includes all features of the Chronograph in order to easily test all variations.</p>
+                    </aside>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
+                          <g id="buttons">
+                            <path id="chronograph-primary-btn" class="chronograph-st0" d="M230.3 40.6l-15.5 15.5c-1.9 1.9-5.1 1.9-7.1 0l-11.4-11.4c-1.9-1.9-1.9-5.1 0-7.1l15.5-15.5c1.9-1.9 5.1-1.9 7.1 0l11.4 11.4C232.3 35.4 232.3 38.6 230.3 40.6z"/>
+                            <path id="chronograph-secondary-btn" class="chronograph-st0" d="M211.9 230.3l-15.5-15.5c-1.9-1.9-1.9-5.1 0-7.1l11.4-11.4c1.9-1.9 5.1-1.9 7.1 0l15.5 15.5c1.9 1.9 1.9 5.1 0 7.1l-11.4 11.4C217 232.2 213.8 232.2 211.9 230.3z"/>
+                            <path id="chronograph-tertiary-btn" class="chronograph-st0" d="M54.9 215.9l-15.5 15.5c-1.9 1.9-5.1 1.9-7.1 0L21 220.1c-1.9-1.9-1.9-5.1 0-7.1l15.5-15.5c1.9-1.9 5.1-1.9 7.1 0l11.4 11.4C56.9 210.8 56.9 214 54.9 215.9z"/>
+                          </g>
+                          <path class="chronograph-st1" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
+                          <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
+                          <line class="chronograph-st2" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
+                          <line class="chronograph-st2" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
+                          <line class="chronograph-st2" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
+                          <line class="chronograph-st2" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
+                          <line class="chronograph-st2" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
+                          <line class="chronograph-st2" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
+                          <line class="chronograph-st2" x1="250.1" y1="125" x2="221.1" y2="125"/>
+                          <line class="chronograph-st2" x1="29.6" y1="125" x2="0.6" y2="125"/>
+                          <line class="chronograph-st2" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
+                          <line class="chronograph-st2" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
+                          <line class="chronograph-st2" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
+                          <line class="chronograph-st2" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
+                          <circle class="chronograph-st3" cx="77.4" cy="125" r="25.9"/>
+                          <circle class="chronograph-st3" cx="173.2" cy="125" r="25.9"/>
+                          <circle class="chronograph-st3" cx="125" cy="187.4" r="25.9"/>
+                          <g id="chronograph-hands">
+                            <rect id="chrono-lap-hand" x="124" y="15.2" class="chronograph-st4 primary-center" width="2" height="110"/>
+                            <line id="chrono-tenth-hand" class="chronograph-st5 chronograph-left" x1="77.4" y1="124" x2="77.4" y2="99.1"/>
+                            <line id="chrono-second-hand" class="chronograph-st6 chronograph-left" x1="77.4" y1="124" x2="77.4" y2="99.1"/>
+                            <line id="chrono-minute-hand" class="chronograph-st6 chronograph-right" x1="173.2" y1="124" x2="173.2" y2="99.1"/>
+                            <line id="chrono-hour-hand" class="chronograph-st6 chronograph-bottom-center" x1="125.3" y1="186.4" x2="125.3" y2="161.5"/>
+                          </g>
+                          <rect id="chronograph-second-hand" x="124" y="15.2" class="chronograph-st7 primary-center" width="2" height="110"/>
+                          <rect id="chronograph-minute-hand" x="123" y="15.2" class="chronograph-st0 primary-center" width="4" height="110"/>
+                          <rect id="chronograph-hour-hand" x="121.5" y="46.3" class="primary-center" width="7" height="79"/>
+                        </svg>
+                    </div>
+                </main>
+            </section>
+
             <p>To be finished soon...</p>
             <!--             
             <section class="demo">
@@ -138,52 +186,6 @@
                           <line id="retrograde-second-hand-one" class="retro-st3" x1="92.5" y1="157.5" x2="107.5" y2="183.5"/>
                           <rect id="retrograde-sec-minute-hand" x="123" y="15.2" class="retro-st2 primary-center" width="4" height="110"/>
                           <rect id="retrograde-sec-hour-hand" x="121.5" y="46.3" width="7" height="79" class="primary-center"/>
-                        </svg>
-                    </div>
-                </main>
-            </section>
-
-            <section class="demo">
-                <header>
-                    <h3>Rattrapante Chronograph</h3>
-                </header>
-                <main class="flex-container is-spread">
-                    <aside>
-                        <p>Details</p>
-                    </aside>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0 0 250 250" xml:space="preserve">
-                          <path id="split-reset-btn" class="split-st0" d="M168.8 206.5l43.2 24.9c5.7 3.3 13.1 1.3 16.4-4.4l10.5-18.2c3.3-5.7 1.3-13.1-4.4-16.4l-43.2-24.9c-5.7-3.3-13.1-1.3-16.4 4.4l-10.5 18.2C161.1 195.8 163.1 203.2 168.8 206.5z"/>
-                          <path id="split-stop-btn" class="split-st0" d="M43 165.9L8.9 202.3c-4.5 4.8-4.2 12.5 0.6 17l15.3 14.4c4.8 4.5 12.5 4.2 17-0.6l34.1-36.4c4.5-4.8 4.2-12.5-0.6-17L60 165.3C55.2 160.8 47.5 161.1 43 165.9z"/>
-                          <path id="split-start-stop-btn" class="split-st0" d="M234.5 57.6l-43.2 24.9c-5.7 3.3-13.1 1.3-16.4-4.4l-10.5-18.2c-3.3-5.7-1.3-13.1 4.4-16.4L212 18.6c5.7-3.3 13.1-1.3 16.4 4.4l10.5 18.2C242.2 46.9 240.2 54.3 234.5 57.6z"/>
-                          <path class="split-st1" d="M125 245C58.8 245 5 191.2 5 125S58.8 5 125 5s120 53.8 120 120S191.2 245 125 245z"/>
-                          <path d="M125 10c30.7 0 59.6 12 81.3 33.7S240 94.3 240 125s-12 59.6-33.7 81.3S155.7 240 125 240s-59.6-12-81.3-33.7S10 155.7 10 125s12-59.6 33.7-81.3S94.3 10 125 10M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0L125 0z"/>
-                          <line class="split-st2" x1="125.3" y1="0.2" x2="125.3" y2="29.2"/>
-                          <line class="split-st2" x1="125.3" y1="220.8" x2="125.3" y2="249.8"/>
-                          <line class="split-st2" x1="187.7" y1="17" x2="173.2" y2="42.1"/>
-                          <line class="split-st2" x1="77.4" y1="207.9" x2="62.9" y2="233"/>
-                          <line class="split-st2" x1="233.4" y1="62.6" x2="208.2" y2="77.1"/>
-                          <line class="split-st2" x1="42.4" y1="172.9" x2="17.3" y2="187.4"/>
-                          <line class="split-st2" x1="250.1" y1="125" x2="221.1" y2="125"/>
-                          <line class="split-st2" x1="29.6" y1="125" x2="0.6" y2="125"/>
-                          <line class="split-st2" x1="233.4" y1="187.4" x2="208.2" y2="172.9"/>
-                          <line class="split-st2" x1="42.4" y1="77.1" x2="17.3" y2="62.6"/>
-                          <line class="split-st2" x1="187.7" y1="233" x2="173.2" y2="207.9"/>
-                          <line class="split-st2" x1="77.4" y1="42.1" x2="62.9" y2="17"/>
-                          <path class="split-st3" d="M70 162.3c-20.5 0-37.2-16.7-37.2-37.2S49.5 87.9 70 87.9s37.2 16.7 37.2 37.2S90.5 162.3 70 162.3z"/>
-                          <path class="split-st0" d="M70 88.4c20.2 0 36.6 16.4 36.6 36.6S90.2 161.6 70 161.6 33.4 145.2 33.4 125 49.8 88.4 70 88.4M70 87.2c-20.9 0-37.8 16.9-37.8 37.8s16.9 37.8 37.8 37.8 37.8-16.9 37.8-37.8S90.9 87.2 70 87.2L70 87.2z"/>
-                          <path class="split-st3" d="M180 162.3c-20.5 0-37.2-16.7-37.2-37.2s16.7-37.2 37.2-37.2 37.2 16.7 37.2 37.2S200.5 162.3 180 162.3z"/>
-                          <path class="split-st0" d="M180 88.4c20.2 0 36.6 16.4 36.6 36.6s-16.4 36.6-36.6 36.6 -36.6-16.4-36.6-36.6S159.8 88.4 180 88.4M180 87.2c-20.9 0-37.8 16.9-37.8 37.8s16.9 37.8 37.8 37.8 37.8-16.9 37.8-37.8S200.9 87.2 180 87.2L180 87.2z"/>
-                          <rect id="split-chrono-second-hand" x="124" y="15.2" class="split-st4 primary-center" width="2" height="110"/>
-                          <rect id="split-stop-second-hand" x="124" y="15.2" class="split-st0 primary-center" width="2" height="110"/>
-                          <rect id="split-minute-hand" x="123" y="15.2" class="split-st0 primary-center" width="4" height="110"/>
-                          <rect id="split-hour-hand" x="121.5" y="46.3" class="primary-center" width="7" height="79"/>
-                          <g id="running-second-hand" class="left-center">
-                            <path class="split-st0" d="M69.8 125c-0.2-3.1-0.4-6.1-0.6-9.1l-0.4-9.2c-0.1-3.1-0.5-6.1-0.3-9.1 0.2-3.1 0.5-6.1 1.3-9.2h0.3c0.8 3.1 1.1 6.1 1.3 9.2 0.2 3-0.2 6.1-0.3 9.1l-0.4 9.2c-0.2 3-0.4 6.1-0.6 9.1H69.8z"/>
-                          </g>
-                          <g id="split-chrono-minute-hand" class="right-center">
-                            <path class="split-st0" d="M179.9 123.8c-0.2-3.1-0.4-6.1-0.6-9.2l-0.4-9.1c-0.1-3.1-0.5-6.1-0.3-9.2 0.2-3 0.5-6.1 1.4-9.1h0.3c0.8 3.1 1.1 6.1 1.4 9.1 0.2 3.1-0.2 6.1-0.3 9.2l-0.4 9.1c-0.2 3.1-0.4 6.1-0.6 9.2H179.9z"/>
-                          </g>
                         </svg>
                     </div>
                 </main>
