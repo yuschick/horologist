@@ -96,7 +96,6 @@ const Watch = require('./../index');
                 minute: 'grande-minute-hand',
                 second: 'grande-second-hand',
             },
-            sweep: true
         }],
         chronograph: {
             buttons: {
@@ -140,6 +139,10 @@ const Watch = require('./../index');
         },
         year: {
             id: 'grande-year-indicator-disc'
+        },
+        eqTime: {
+            id: 'grande-equation-hand',
+            range: [-38, 38]
         }
     };
 

@@ -26,6 +26,7 @@ var WeekIndicator = require('./modules/WeekIndicator');
 var YearIndicator = require('./modules/YearIndicator');
 var Chronograph = require('./modules/Chronograph');
 var Foudroyante = require('./modules/Foudroyante');
+var EquationOfTime = require('./modules/EquationOfTime');
 
 var Watch = function () {
     function Watch(settings) {
@@ -100,6 +101,10 @@ var Watch = function () {
 
         if (settings.foudroyante) {
             this.foudroyante = new Foudroyante(settings.foudroyante, this);
+        }
+
+        if (settings.eqTime) {
+            this.equationOfTime = new EquationOfTime(settings.eqTime, this);
         }
 
         this.init();

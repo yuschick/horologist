@@ -11,7 +11,7 @@
 
 class WeekIndicator {
     constructor(settings, parentWatch) {
-        this.errorChecking();
+        this.errorChecking(settings);
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -25,7 +25,7 @@ class WeekIndicator {
         this.init();
     }
 
-    errorChecking() {
+    errorChecking(settings) {
         try {
             if (!settings.id)
                 throw "The Week Indicator class requires that an ID of the indicator element be provided.";

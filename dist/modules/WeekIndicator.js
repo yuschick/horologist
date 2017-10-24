@@ -19,7 +19,7 @@ var WeekIndicator = function () {
     function WeekIndicator(settings, parentWatch) {
         _classCallCheck(this, WeekIndicator);
 
-        this.errorChecking();
+        this.errorChecking(settings);
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -35,7 +35,7 @@ var WeekIndicator = function () {
 
     _createClass(WeekIndicator, [{
         key: "errorChecking",
-        value: function errorChecking() {
+        value: function errorChecking(settings) {
             try {
                 if (!settings.id) throw "The Week Indicator class requires that an ID of the indicator element be provided.";
             } catch (errorMsg) {

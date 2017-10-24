@@ -389,6 +389,10 @@ a {
     transform-origin: 256.5px 219px;
 }
 
+.grande-equation-center {
+    transform-origin: 309px 275px;
+}
+
 .grande-st0 {
     fill: #fff;
 }
@@ -512,6 +516,20 @@ a {
 
 .grande-st21 {
     fill: none;
+}
+
+.grande-st24 {
+    fill: #E5E1E1;
+}
+
+.grande-st25 {
+    fill: #191919;
+}
+
+.grande-st26 {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #F7FF4D;
 }
 
 #grande-primary-button,
