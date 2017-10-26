@@ -214,7 +214,7 @@ let demo = new Watch(settings);
 
 #### eqTime {Object}
 - **id** (*String*): The id of the Equation of Time indicator
-- **range** (*Array*): Accepts two values to define the min and max rotation angles
+- **range** (*Array*): *Default: [-45 45]* Accepts two values to define the min and max rotation angles
 
 #### chronograph {Object}
 - **buttons** (*Object*): An object containing the IDs of the start and reset buttons used to trigger and control the chronograph
