@@ -33,14 +33,8 @@ var Watch = function () {
 
         _classCallCheck(this, Watch);
 
-        if (settings.testing) return;
-
-        try {
-            if (!settings.dials) throw "At least one dial is required for the Watch class.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (settings.testing) this.testing = true;
+        if (!settings.dials) throw new ReferenceError('At least one dial is required for the Watch class.');
 
         this.dialInstances = [];
         this.activeDial = 0;
@@ -184,7 +178,7 @@ var Watch = function () {
             }, 1000);
 
             if (this.foudroyante) {
-                this.foudroyante.init();
+                if (!this.testing) this.foudroyante.init();
             }
         }
     }, {

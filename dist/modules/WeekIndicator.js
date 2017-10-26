@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19,7 +19,7 @@ var WeekIndicator = function () {
     function WeekIndicator(settings, parentWatch) {
         _classCallCheck(this, WeekIndicator);
 
-        this.errorChecking();
+        this.errorChecking(settings);
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -30,21 +30,16 @@ var WeekIndicator = function () {
         this.weekAmount = this.iso ? 53 : 52;
         this.increment = 360 / this.weekAmount;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(WeekIndicator, [{
-        key: "errorChecking",
-        value: function errorChecking() {
-            try {
-                if (!settings.id) throw "The Week Indicator class requires that an ID of the indicator element be provided.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
+        key: 'errorChecking',
+        value: function errorChecking(settings) {
+            if (!settings.id) throw new ReferenceError('The Week Indicator class requires that an ID of the element be provided.');
         }
     }, {
-        key: "getWeekValue",
+        key: 'getWeekValue',
         value: function getWeekValue() {
             var rightNow = this.parent.rightNow;
             this.week = this.iso ? rightNow.isoWeek() - 1 : rightNow.week() - 1;
@@ -52,15 +47,15 @@ var WeekIndicator = function () {
             this.rotateHands();
         }
     }, {
-        key: "rotateHands",
+        key: 'rotateHands',
         value: function rotateHands() {
             var rotateVal = this.week * this.increment;
             if (this.invert) rotateVal *= -1;
 
-            this.element.style.transform = "rotate(" + rotateVal + "deg)";
+            this.element.style.transform = 'rotate(' + rotateVal + 'deg)';
         }
     }, {
-        key: "init",
+        key: 'init',
         value: function init() {
             this.getWeekValue();
         }

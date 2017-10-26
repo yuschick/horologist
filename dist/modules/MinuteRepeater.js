@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18,12 +18,7 @@ var MinuteRepeater = function () {
     function MinuteRepeater(dial, repeater, parentWatch) {
         _classCallCheck(this, MinuteRepeater);
 
-        try {
-            if (!repeater) throw "The MinuteRepeater class requires that an ID of the repeater element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        this.errorChecking(dial, repeater);
 
         this.hands = dial.hands;
 
@@ -47,11 +42,18 @@ var MinuteRepeater = function () {
         this.quartersPlaying = false;
         this.minutesPlaying = false;
         this.parent = parentWatch;
-        this.init();
+
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(MinuteRepeater, [{
-        key: "convertAngleToIncrements",
+        key: 'errorChecking',
+        value: function errorChecking(dial, settings) {
+            if (!settings.id) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
+            if (!dial.hands.minute) throw new ReferenceError('The minute repeater, like, by definition, requires a dial which supports a minute hand.');
+        }
+    }, {
+        key: 'convertAngleToIncrements',
         value: function convertAngleToIncrements() {
             this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
             if (this.hourAngle > 360) {
@@ -59,12 +61,6 @@ var MinuteRepeater = function () {
             }
             this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor) || 12;
 
-            try {
-                if (!this.hands.minute) throw "The minute repeater, like, by definition, requires a dial which supports a minute hand.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
             this.minuteAngle = this.parent.getCurrentRotateValue(this.hands.minute);
             if (this.minuteAngle > 360) {
                 this.minuteAngle %= 360;
@@ -74,7 +70,7 @@ var MinuteRepeater = function () {
             this.minuteChimes = Math.floor(this.allMinutes - this.fifteenMinuteChimes * 15);
         }
     }, {
-        key: "bindEvents",
+        key: 'bindEvents',
         value: function bindEvents() {
             var _this = this;
 
@@ -108,12 +104,12 @@ var MinuteRepeater = function () {
             });
         }
     }, {
-        key: "toggleActiveState",
+        key: 'toggleActiveState',
         value: function toggleActiveState(btn) {
             btn.classList.toggle('active');
         }
     }, {
-        key: "stopAll",
+        key: 'stopAll',
         value: function stopAll() {
             this.hourElement.pause();
             this.hourElement.currentTime = 0;
@@ -132,7 +128,7 @@ var MinuteRepeater = function () {
             this.minutesPlaying = false;
         }
     }, {
-        key: "togglePlaying",
+        key: 'togglePlaying',
         value: function togglePlaying() {
             if (this.parent.globalInterval) {
                 this.isPlaying = !this.isPlaying;
@@ -146,7 +142,7 @@ var MinuteRepeater = function () {
             }
         }
     }, {
-        key: "playHours",
+        key: 'playHours',
         value: function playHours() {
             if (this.counter <= this.hourChimes) {
                 this.hourElement.play();
@@ -157,7 +153,7 @@ var MinuteRepeater = function () {
             }
         }
     }, {
-        key: "playQuarterHours",
+        key: 'playQuarterHours',
         value: function playQuarterHours() {
             var _this2 = this;
 
@@ -180,7 +176,7 @@ var MinuteRepeater = function () {
             }
         }
     }, {
-        key: "playFifteenMinutes",
+        key: 'playFifteenMinutes',
         value: function playFifteenMinutes() {
             if (this.counter <= this.fifteenMinuteChimes) {
                 this.fifteenMinuteElement.play();
@@ -191,7 +187,7 @@ var MinuteRepeater = function () {
             }
         }
     }, {
-        key: "playMinutes",
+        key: 'playMinutes',
         value: function playMinutes() {
             if (this.counter <= this.minuteChimes) {
                 this.minuteElement.play();
@@ -201,7 +197,7 @@ var MinuteRepeater = function () {
             }
         }
     }, {
-        key: "buildAudioElements",
+        key: 'buildAudioElements',
         value: function buildAudioElements() {
             var _this3 = this;
 
@@ -224,12 +220,12 @@ var MinuteRepeater = function () {
             document.body.appendChild(this.minuteElement);
         }
     }, {
-        key: "updateCursorForTrigger",
+        key: 'updateCursorForTrigger',
         value: function updateCursorForTrigger() {
             this.trigger.style.cursor = 'pointer';
         }
     }, {
-        key: "init",
+        key: 'init',
         value: function init() {
             this.buildAudioElements();
             this.bindEvents();

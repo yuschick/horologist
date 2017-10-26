@@ -356,14 +356,8 @@
 
 	        _classCallCheck(this, Watch);
 
-	        if (settings.testing) return;
-
-	        try {
-	            if (!settings.dials) throw "At least one dial is required for the Watch class.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (settings.testing) this.testing = true;
+	        if (!settings.dials) throw new ReferenceError('At least one dial is required for the Watch class.');
 
 	        this.dialInstances = [];
 	        this.activeDial = 0;
@@ -18721,7 +18715,7 @@
 /* 136 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18739,12 +18733,7 @@
 	    function YearIndicator(settings, parentWatch) {
 	        _classCallCheck(this, YearIndicator);
 
-	        try {
-	            if (!settings.id) throw "The Year Indicator class requires that an ID of the indicator element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (!settings.id) throw new ReferenceError('The Year Indicator class requires that an ID of the indicator element be provided.');
 
 	        this.element = document.getElementById(settings.id);
 	        this.parent = parentWatch;
@@ -18753,11 +18742,11 @@
 	        this.offsetMonths = settings.offsetMonths || false;
 	        this.invert = settings.invert || false;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(YearIndicator, [{
-	        key: "getRotateValue",
+	        key: 'getRotateValue',
 	        value: function getRotateValue() {
 	            var value = 0;
 
@@ -18778,12 +18767,12 @@
 	            return value;
 	        }
 	    }, {
-	        key: "rotateElement",
+	        key: 'rotateElement',
 	        value: function rotateElement() {
-	            this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	            this.element.style.transform = 'rotate(' + this.getRotateValue() + 'deg)';
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.rotateElement();
 	        }

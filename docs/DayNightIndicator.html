@@ -126,14 +126,7 @@ split into fourths and the indicator is rotated 25 degrees for each.</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DayNightIndicator</span> </span>{
     <span class="hljs-keyword">constructor</span>(dial, settings, parentWatch) {
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The DayNightIndicator class requires that an ID of the indiciator element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"The DayNightIndicstor class requires that an ID of the element be provided."</span>);
 
         <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
         <span class="hljs-keyword">this</span>.dial = dial;
@@ -149,7 +142,7 @@ split into fourths and the indicator is rotated 25 degrees for each.</p>
             <span class="hljs-number">30</span> :
             <span class="hljs-number">15</span>;
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
     toggleAMPM() {

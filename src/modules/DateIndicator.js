@@ -10,7 +10,7 @@
 
 class DateIndicator {
     constructor(settings, parentWatch) {
-        if (this.checkForErrors(settings)) return;
+        this.errorChecking(settings);
 
         if (settings.split) {
             this.split = true;
@@ -26,41 +26,14 @@ class DateIndicator {
         this.max = this.retrograde ? this.retrograde.max : 180;
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
-    checkForErrors(settings) {
-        try {
-            if (!settings.id && !settings.split)
-                throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return true;
-        }
-
-        try {
-            if (settings.id && settings.split)
-                throw "Choose EITHER a primary or split indicator.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return true;
-        }
-
-        try {
-            if (settings.retrograde && settings.split)
-                throw "Choose EITHER a retrograde or split indicator.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return true;
-        }
-
-        try {
-            if (settings.split && (!settings.split.ones || !settings.split.tenths))
-                throw "When choosing a split date display please provide the IDs for both the ones and tenths discs.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return true;
-        }
+    errorChecking(settings) {
+        if (!settings.id && !settings.split) throw new ReferenceError('The Date Indicator class requires that an ID of the indiciator element be provided.');
+        if (settings.id && settings.split) throw new ReferenceError('Choose EITHER a primary or split indicator.');
+        if (settings.retrograde && settings.split) throw new ReferenceError('Choose EITHER a retrograde or split indicator.');
+        if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw new ReferenceError('When choosing a split date display please provide the IDs for both the ones and tenths discs.');
     }
 
     getRotateValue(type = null) {

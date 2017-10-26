@@ -12,14 +12,7 @@
 
 class DayNightIndicator {
     constructor(dial, settings, parentWatch) {
-
-        try {
-            if (!settings.id)
-                throw "The DayNightIndicator class requires that an ID of the indiciator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError("The DayNightIndicstor class requires that an ID of the element be provided.");
 
         this.element = document.getElementById(settings.id);
         this.dial = dial;
@@ -35,7 +28,7 @@ class DayNightIndicator {
             30 :
             15;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     toggleAMPM() {

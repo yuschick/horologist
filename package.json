@@ -9,7 +9,7 @@
         "build": "babel ./src/modules/ --out-dir ./dist/modules/ --copy-files --presets=es2015,react",
         "postbuild": "babel ./src/index.js --out-file ./dist/index.js --presets=es2015,react",
         "docs": "docco -o ./docs/ ./src/**/*.js",
-        "test": "mocha"
+        "test": "mocha --exit"
     },
     "author": "Daniel Yuschick",
     "license": "No License",
@@ -22,13 +22,15 @@
         "babel-preset-react": "^6.24.1",
         "browser-sync": "^2.18.6",
         "browser-sync-webpack-plugin": "^1.1.3",
-        "chai": "^4.0.1",
+        "chai": "^4.1.2",
         "docco": "^0.7.0",
-        "mocha": "^3.4.2",
+        "mocha": "^4.0.1",
         "webpack": "^1.14.0",
         "yarn-run-all": "^3.1.1"
     },
     "dependencies": {
+        "jsdom": "^11.3.0",
+        "jsdom-global": "^3.0.2",
         "json-loader": "^0.5.7",
         "moment": "^2.18.1",
         "moment-timezone": "^0.5.13"

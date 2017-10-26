@@ -8,14 +8,7 @@
 
 class YearIndicator {
     constructor(settings, parentWatch) {
-
-        try {
-            if (!settings.id)
-                throw "The Year Indicator class requires that an ID of the indicator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError('The Year Indicator class requires that an ID of the indicator element be provided.');
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -24,7 +17,7 @@ class YearIndicator {
         this.offsetMonths = settings.offsetMonths || false;
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     getRotateValue() {

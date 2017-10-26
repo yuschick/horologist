@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18,7 +18,7 @@ var DateIndicator = function () {
     function DateIndicator(settings, parentWatch) {
         _classCallCheck(this, DateIndicator);
 
-        if (this.checkForErrors(settings)) return;
+        this.errorChecking(settings);
 
         if (settings.split) {
             this.split = true;
@@ -34,42 +34,19 @@ var DateIndicator = function () {
         this.max = this.retrograde ? this.retrograde.max : 180;
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(DateIndicator, [{
-        key: "checkForErrors",
-        value: function checkForErrors(settings) {
-            try {
-                if (!settings.id && !settings.split) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return true;
-            }
-
-            try {
-                if (settings.id && settings.split) throw "Choose EITHER a primary or split indicator.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return true;
-            }
-
-            try {
-                if (settings.retrograde && settings.split) throw "Choose EITHER a retrograde or split indicator.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return true;
-            }
-
-            try {
-                if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw "When choosing a split date display please provide the IDs for both the ones and tenths discs.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return true;
-            }
+        key: 'errorChecking',
+        value: function errorChecking(settings) {
+            if (!settings.id && !settings.split) throw new ReferenceError('The Date Indicator class requires that an ID of the indiciator element be provided.');
+            if (settings.id && settings.split) throw new ReferenceError('Choose EITHER a primary or split indicator.');
+            if (settings.retrograde && settings.split) throw new ReferenceError('Choose EITHER a retrograde or split indicator.');
+            if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw new ReferenceError('When choosing a split date display please provide the IDs for both the ones and tenths discs.');
         }
     }, {
-        key: "getRotateValue",
+        key: 'getRotateValue',
         value: function getRotateValue() {
             var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -99,17 +76,17 @@ var DateIndicator = function () {
             return value;
         }
     }, {
-        key: "rotateElement",
+        key: 'rotateElement',
         value: function rotateElement() {
             if (this.split) {
-                this.ones.style.transform = "rotate(" + this.getRotateValue('ones') + "deg)";
-                this.tenths.style.transform = "rotate(" + this.getRotateValue('tenths') + "deg)";
+                this.ones.style.transform = 'rotate(' + this.getRotateValue('ones') + 'deg)';
+                this.tenths.style.transform = 'rotate(' + this.getRotateValue('tenths') + 'deg)';
             } else {
-                this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+                this.element.style.transform = 'rotate(' + this.getRotateValue() + 'deg)';
             }
         }
     }, {
-        key: "init",
+        key: 'init',
         value: function init() {
             this.rotateElement();
         }

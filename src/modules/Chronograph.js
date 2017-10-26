@@ -68,49 +68,15 @@ class Chronograph {
         this.lapActive = false;
         this.parent = parentWatch;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     errorChecking(settings) {
-        try {
-            if (!settings.buttons || !settings.hands)
-                throw "The Chronograph requires a settings object containing both the buttons and hands.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (!settings.hands.second || !settings.hands.minute)
-                throw "The Chronograph requires at least a second and minute hands.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.rattrapante)
-                throw "A monopusher chronograph cannot support rattrapante functionality";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.flyback)
-                throw "A monopusher chronograph cannot support flyuback functionality";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (settings.rattrapante && !settings.hands.lap)
-                throw "A rattrapante Chronograph requires a 'lap' hand.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.buttons || !settings.hands) throw new ReferenceError("The Chronograph requires a settings object containing both the buttons and hands.");
+        if (!settings.hands.second || !settings.hands.minute) throw new ReferenceError("The Chronograph requires at least a second and minute hands.");
+        if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.rattrapante) throw new ReferenceError("A monopusher chronograph cannot support rattrapante functionality.");
+        if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.flyback) throw new ReferenceError("A monopusher chronograph cannot support flyuback functionality.");
+        if (settings.rattrapante && !settings.hands.lap) throw new ReferenceError("A rattrapante Chronograph requires a 'lap' hand.");
     }
 
     checkForChronographType() {

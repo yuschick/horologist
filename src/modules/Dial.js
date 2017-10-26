@@ -12,7 +12,6 @@ const Timezone = require('moment-timezone');
 
 class Dial {
     constructor(settings, parentWatch) {
-        this.error = false;
         this.errorChecking(settings);
 
         if (this.error) return;
@@ -73,54 +72,15 @@ class Dial {
         this.settingTime = false;
         this.transition = {};
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     errorChecking(settings) {
-        try {
-            if (!settings.hands)
-                throw "The Dial class needs an object containing the HTML elements for the hands.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            this.error = true;
-            return;
-        }
-
-        try {
-            if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id)
-                throw "The retrograde second requires an id property be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            this.error = true;
-            return;
-        }
-
-        try {
-            if (settings.retrograde && settings.hands.second && settings.retrograde.second)
-                throw "A dial can only support one second hand at a time - either traditional or retrograde.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            this.error = true;
-            return;
-        }
-
-        try {
-            if (settings.retrograde && settings.retrograde.second.duration < 5)
-                throw "The retrograde second hand requires a duration no less than 5.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            this.error = true;
-            return;
-        }
-
-        try {
-            if (settings.retrograde && 60 % settings.retrograde.second.duration != 0)
-                throw "The retrograde second hand requires a duration that is evenly divisble by 60.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            this.error = true;
-            return;
-        }
+        if (!settings.hands) throw new ReferenceError('The Dial class needs an object containing the HTML elements for the hands.');
+        if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id) throw new ReferenceError('The retrograde second requires an id property be provided.');
+        if (settings.retrograde && settings.hands.second && settings.retrograde.second) throw new ReferenceError('A dial can only support one second hand at a time - either traditional or retrograde.');
+        if (settings.retrograde && settings.retrograde.second.duration < 5) throw new ReferenceError('The retrograde second hand requires a duration no less than 5.');
+        if (settings.retrograde && 60 % settings.retrograde.second.duration != 0) throw new ReferenceError('The retrograde second hand requires a duration that is evenly divisble by 60.');
     }
 
     toggleActiveCrown() {

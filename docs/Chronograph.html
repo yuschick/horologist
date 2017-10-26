@@ -177,49 +177,15 @@ Pusher 1: Resets all hands to original position</p>
         <span class="hljs-keyword">this</span>.lapActive = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.parent = parentWatch;
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
     errorChecking(settings) {
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.hands.second || !settings.hands.minute)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Chronograph requires at least a second and minute hands."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.buttons.secondary &amp;&amp; !settings.buttons.tertiary &amp;&amp; settings.rattrapante)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"A monopusher chronograph cannot support rattrapante functionality"</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.buttons.secondary &amp;&amp; !settings.buttons.tertiary &amp;&amp; settings.flyback)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"A monopusher chronograph cannot support flyuback functionality"</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.rattrapante &amp;&amp; !settings.hands.lap)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"A rattrapante Chronograph requires a 'lap' hand."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">if</span> (!settings.buttons || !settings.hands) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"The Chronograph requires a settings object containing both the buttons and hands."</span>);
+        <span class="hljs-keyword">if</span> (!settings.hands.second || !settings.hands.minute) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"The Chronograph requires at least a second and minute hands."</span>);
+        <span class="hljs-keyword">if</span> (!settings.buttons.secondary &amp;&amp; !settings.buttons.tertiary &amp;&amp; settings.rattrapante) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"A monopusher chronograph cannot support rattrapante functionality."</span>);
+        <span class="hljs-keyword">if</span> (!settings.buttons.secondary &amp;&amp; !settings.buttons.tertiary &amp;&amp; settings.flyback) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"A monopusher chronograph cannot support flyuback functionality."</span>);
+        <span class="hljs-keyword">if</span> (settings.rattrapante &amp;&amp; !settings.hands.lap) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"A rattrapante Chronograph requires a 'lap' hand."</span>);
     }
 
     checkForChronographType() {

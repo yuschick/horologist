@@ -125,7 +125,7 @@ invert boolean as well.</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeekIndicator</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-        <span class="hljs-keyword">this</span>.errorChecking();
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
         <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
         <span class="hljs-keyword">this</span>.parent = parentWatch;
@@ -136,17 +136,11 @@ invert boolean as well.</p>
         <span class="hljs-keyword">this</span>.weekAmount = <span class="hljs-keyword">this</span>.iso ? <span class="hljs-number">53</span> : <span class="hljs-number">52</span>;
         <span class="hljs-keyword">this</span>.increment = <span class="hljs-number">360</span> / <span class="hljs-keyword">this</span>.weekAmount;
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
-    errorChecking() {
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Week Indicator class requires that an ID of the indicator element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+    errorChecking(settings) {
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Week Indicator class requires that an ID of the element be provided.'</span>);
     }
 
     getWeekValue() {

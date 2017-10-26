@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,26 +24,26 @@ var MoonPhase = function () {
     function MoonPhase(settings, parentWatch) {
         _classCallCheck(this, MoonPhase);
 
-        try {
-            if (!settings.id) throw "The MoonPhase class requires that an ID of the moonphase element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        this.errorChecking(settings);
 
         this.parent = parentWatch;
         this.rightNow = new Date();
         this.element = document.getElementById(settings.id);
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(MoonPhase, [{
-        key: "rotateDisc",
+        key: 'errorChecking',
+        value: function errorChecking(settings) {
+            if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+        }
+    }, {
+        key: 'rotateDisc',
         value: function rotateDisc(val) {
             val = this.invert ? val * -1 : val;
-            this.element.style.transform = "rotate(" + val + "deg)";
+            this.element.style.transform = 'rotate(' + val + 'deg)';
         }
 
         /*
@@ -51,7 +51,7 @@ var MoonPhase = function () {
         */
 
     }, {
-        key: "moon_day",
+        key: 'moon_day',
         value: function moon_day(today) {
             var GetFrac = function GetFrac(fr) {
                 return fr - Math.floor(fr);
@@ -108,12 +108,10 @@ var MoonPhase = function () {
         */
 
     }, {
-        key: "getCurrentPhase",
+        key: 'getCurrentPhase',
         value: function getCurrentPhase(phase) {
             var sweep = [];
             var mag = void 0;
-            // the "sweep-flag" and the direction of movement change every quarter moon
-            // zero and one are both new moon; 0.50 is full moon
 
             if (phase <= 0.25) {
                 sweep = [1, 0];
@@ -133,38 +131,9 @@ var MoonPhase = function () {
 
             phase = phase.toFixed(5) * 3.6;
             this.rotateDisc(phase * 100);
-
-            /*
-              if (phase <= 0.0625 || phase > 0.9375) {
-                if (this.invert) {
-                  this.rotateDisc(0); // new moon
-                } else {
-                  this.rotateDisc(180); // new moon
-                }
-                this.rotateDisc(phase * 3.6);
-              } else if (phase <= 0.1875) {
-                this.rotateDisc(40); // waxing crescent
-              } else if (phase <= 0.3125) {
-                this.rotateDisc(25); // first quarter
-              } else if (phase <= 0.4375) {
-                this.rotateDisc(13); // waxing gibbous
-              } else if (phase <= 0.5625) {
-                if (this.invert) {
-                  this.rotateDisc(180); // full moon
-                } else {
-                  this.rotateDisc(0); // full moon
-                }
-              } else if (phase <= 0.6875) {
-                this.rotateDisc(-13);// waning gibbous
-              } else if (phase <= 0.8125) {
-                this.rotateDisc(-25); // last quarter
-              } else if (phase <= 0.9375) {
-                this.rotateDisc(-40); // waning crescent
-              }
-            */
         }
     }, {
-        key: "init",
+        key: 'init',
         value: function init() {
             this.getCurrentPhase(this.moon_day(this.rightNow));
         }

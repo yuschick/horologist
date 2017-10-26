@@ -17,12 +17,7 @@ var DayIndicator = function () {
     function DayIndicator(settings, parentWatch) {
         _classCallCheck(this, DayIndicator);
 
-        try {
-            if (!settings.id) throw "The Day Indicator class requires that an ID of the indicator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError("The Day Indicator class requires that an ID of the element be provided.");
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -34,7 +29,7 @@ var DayIndicator = function () {
         this.max = this.retrograde ? this.retrograde.max : 180;
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(DayIndicator, [{
