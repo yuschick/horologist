@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>EquationOfTime.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="Chronograph.html">
+                  Chronograph.js
+                </a>
+              
+                
+                <a class="source" href="Crown.html">
+                  Crown.js
+                </a>
+              
+                
+                <a class="source" href="DateIndicator.html">
+                  DateIndicator.js
+                </a>
+              
+                
+                <a class="source" href="DayIndicator.html">
+                  DayIndicator.js
+                </a>
+              
+                
+                <a class="source" href="DayNightIndicator.html">
+                  DayNightIndicator.js
+                </a>
+              
+                
+                <a class="source" href="Dial.html">
+                  Dial.js
+                </a>
+              
+                
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
+                <a class="source" href="Foudroyante.html">
+                  Foudroyante.js
+                </a>
+              
+                
+                <a class="source" href="MinuteRepeater.html">
+                  MinuteRepeater.js
+                </a>
+              
+                
+                <a class="source" href="MonthIndicator.html">
+                  MonthIndicator.js
+                </a>
+              
+                
+                <a class="source" href="MoonPhase.html">
+                  MoonPhase.js
+                </a>
+              
+                
+                <a class="source" href="PowerReserve.html">
+                  PowerReserve.js
+                </a>
+              
+                
+                <a class="source" href="WeekIndicator.html">
+                  WeekIndicator.js
+                </a>
+              
+                
+                <a class="source" href="YearIndicator.html">
+                  YearIndicator.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>EquationOfTime.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Equation of Time Class
+@params settings: object
+@params parentWatch: Watch instance</p>
+<p>Notes
+Logic taken from: <a href="http://www2.arnes.si/~gljsentvid10/sunset_rise.html">http://www2.arnes.si/~gljsentvid10/sunset_rise.html</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">const</span> Timezone = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment-timezone'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EquationOfTime</span> </span>{
+    <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
+
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.parent = parentWatch;
+
+        <span class="hljs-keyword">this</span>.range = settings.range || [<span class="hljs-number">-45</span>, <span class="hljs-number">45</span>];
+        <span class="hljs-keyword">this</span>.minRange = <span class="hljs-keyword">this</span>.range[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">this</span>.maxRange = <span class="hljs-keyword">this</span>.range[<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">this</span>.minIncrement = <span class="hljs-keyword">this</span>.minRange / <span class="hljs-number">14</span>;
+        <span class="hljs-keyword">this</span>.maxIncrement = <span class="hljs-keyword">this</span>.maxRange / <span class="hljs-number">16</span>;
+
+        <span class="hljs-keyword">this</span>.timezone = Timezone.tz.guess();
+        <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">this</span>.parent.rightNow.tz(<span class="hljs-keyword">this</span>.timezone);
+
+        <span class="hljs-keyword">this</span>.dateObj = {
+            <span class="hljs-attr">hours</span>: <span class="hljs-keyword">this</span>.rightNow.hours(),
+            <span class="hljs-attr">minutes</span>: <span class="hljs-keyword">this</span>.rightNow.minutes(),
+            <span class="hljs-attr">seconds</span>: <span class="hljs-keyword">this</span>.rightNow.seconds(),
+            <span class="hljs-attr">date</span>: <span class="hljs-keyword">this</span>.rightNow.date(),
+            <span class="hljs-attr">month</span>: <span class="hljs-keyword">this</span>.rightNow.month() + <span class="hljs-number">1</span>,
+            <span class="hljs-attr">year</span>: <span class="hljs-keyword">this</span>.rightNow.year(),
+        };
+        <span class="hljs-keyword">this</span>.UT = <span class="hljs-keyword">this</span>.dateObj.hours + <span class="hljs-keyword">this</span>.dateObj.minutes / <span class="hljs-number">60</span> + <span class="hljs-keyword">this</span>.dateObj.seconds / <span class="hljs-number">3600</span>;
+        <span class="hljs-keyword">this</span>.RA = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.A = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.JD = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.eqTime = <span class="hljs-literal">null</span>;
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
+    }
+
+    errorChecking(settings) {
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Equation of Time Class requires that an ID of the indicator element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (settings.range &amp;&amp; settings.range.length &gt; <span class="hljs-number">2</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The range property requires two numericd values.'</span>);
+    }
+
+    getIncrement() {
+        <span class="hljs-keyword">const</span> increment = <span class="hljs-keyword">this</span>.eqTime &gt; <span class="hljs-number">0</span> ? <span class="hljs-keyword">this</span>.maxIncrement : <span class="hljs-keyword">this</span>.minIncrement;
+        <span class="hljs-keyword">const</span> rotateVal = <span class="hljs-keyword">this</span>.eqTime * increment;
+        <span class="hljs-keyword">return</span> rotateVal;
+    }
+
+    rotateHands() {
+        <span class="hljs-keyword">const</span> rotateVal = <span class="hljs-keyword">this</span>.getIncrement();
+        <span class="hljs-keyword">this</span>.element.style.transform = <span class="hljs-string">`rotate(<span class="hljs-subst">${rotateVal}</span>deg)`</span>;
+    }
+
+    JulDay() {
+        <span class="hljs-keyword">let</span> d = <span class="hljs-keyword">this</span>.dateObj.date;
+        <span class="hljs-keyword">let</span> m = <span class="hljs-keyword">this</span>.dateObj.month;
+        <span class="hljs-keyword">let</span> y = <span class="hljs-keyword">this</span>.dateObj.year;
+        <span class="hljs-keyword">let</span> u = <span class="hljs-keyword">this</span>.UT;
+
+        <span class="hljs-keyword">if</span> (y &lt; <span class="hljs-number">1900</span>) y = y + <span class="hljs-number">1900</span>
+        <span class="hljs-keyword">if</span> (m &lt;= <span class="hljs-number">2</span>) {
+            m = m + <span class="hljs-number">12</span>;
+            y = y - <span class="hljs-number">1</span>
+        }
+        <span class="hljs-keyword">this</span>.A = <span class="hljs-built_in">Math</span>.floor(y / <span class="hljs-number">100</span>);
+        <span class="hljs-keyword">this</span>.JD = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-number">365.25</span> * (y + <span class="hljs-number">4716</span>)) + <span class="hljs-built_in">Math</span>.floor(<span class="hljs-number">30.6001</span> * (m + <span class="hljs-number">1</span>)) + d - <span class="hljs-number">13</span> - <span class="hljs-number">1524.5</span> + u / <span class="hljs-number">24.0</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.JD;
+    }
+
+    EPS(T) {
+        <span class="hljs-keyword">let</span> K = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">180.0</span>;
+        <span class="hljs-keyword">let</span> LS = <span class="hljs-keyword">this</span>.sunL(T);
+        <span class="hljs-keyword">let</span> LM = <span class="hljs-number">218.3165</span> + <span class="hljs-number">481267.8813</span> * T;
+        <span class="hljs-keyword">let</span> eps0 = <span class="hljs-number">23.0</span> + <span class="hljs-number">26.0</span> / <span class="hljs-number">60.0</span> + <span class="hljs-number">21.448</span> / <span class="hljs-number">3600.0</span> - (<span class="hljs-number">46.8150</span> * T + <span class="hljs-number">0.00059</span> * T * T - <span class="hljs-number">0.001813</span> * T * T * T) / <span class="hljs-number">3600</span>;
+        <span class="hljs-keyword">let</span> omega = <span class="hljs-number">125.04452</span> - <span class="hljs-number">1934.136261</span> * T + <span class="hljs-number">0.0020708</span> * T * T + T * T * T / <span class="hljs-number">450000</span>;
+        <span class="hljs-keyword">let</span> deltaEps = (<span class="hljs-number">9.20</span> * <span class="hljs-built_in">Math</span>.cos(K * omega) + <span class="hljs-number">0.57</span> * <span class="hljs-built_in">Math</span>.cos(K * <span class="hljs-number">2</span> * LS) + <span class="hljs-number">0.10</span> * <span class="hljs-built_in">Math</span>.cos(K * <span class="hljs-number">2</span> * LM) - <span class="hljs-number">0.09</span> * <span class="hljs-built_in">Math</span>.cos(K * <span class="hljs-number">2</span> * omega)) / <span class="hljs-number">3600</span>;
+        <span class="hljs-keyword">return</span> eps0 + deltaEps;
+    }
+
+    sunL(T) {
+        <span class="hljs-keyword">let</span> L = <span class="hljs-number">280.46645</span> + <span class="hljs-number">36000.76983</span> * T + <span class="hljs-number">0.0003032</span> * T * T;
+        L = L % <span class="hljs-number">360</span>;
+        <span class="hljs-keyword">if</span> (L &lt; <span class="hljs-number">0</span>) L = L + <span class="hljs-number">360</span>;
+        <span class="hljs-keyword">return</span> L;
+    }
+
+    declination() {
+        <span class="hljs-keyword">let</span> K = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">180.0</span>;
+        <span class="hljs-keyword">let</span> jd = <span class="hljs-keyword">this</span>.JulDay();
+        <span class="hljs-keyword">let</span> T = (jd - <span class="hljs-number">2451545.0</span>) / <span class="hljs-number">36525.0</span>;
+        <span class="hljs-keyword">let</span> L0 = <span class="hljs-number">280.46645</span> + (<span class="hljs-number">36000.76983</span> + <span class="hljs-number">0.0003032</span> * T) * T;
+        <span class="hljs-keyword">let</span> M = <span class="hljs-number">357.52910</span> + (<span class="hljs-number">35999.05030</span> - (<span class="hljs-number">0.0001559</span> * T + <span class="hljs-number">0.00000048</span> * T) * T) * T;
+        M = K * M;
+        <span class="hljs-keyword">let</span> C = (<span class="hljs-number">1.914600</span> - <span class="hljs-number">0.004817</span> * T - <span class="hljs-number">0.000014</span> * T * T) * <span class="hljs-built_in">Math</span>.sin(M) + (<span class="hljs-number">0.019993</span> - <span class="hljs-number">0.000101</span> * T) * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">2</span> * M) + <span class="hljs-number">0.000290</span> * <span class="hljs-built_in">Math</span>.sin(<span class="hljs-number">3</span> * M);
+        <span class="hljs-keyword">let</span> theta = L0 + C;
+        <span class="hljs-keyword">let</span> omega = <span class="hljs-number">125.04</span> - <span class="hljs-number">1934.136</span> * T;
+        <span class="hljs-keyword">let</span> lambda = theta - <span class="hljs-number">0.00569</span> - <span class="hljs-number">0.00478</span> * <span class="hljs-built_in">Math</span>.sin(K * omega);
+        <span class="hljs-keyword">let</span> eps0 = <span class="hljs-number">23.0</span> + <span class="hljs-number">26.0</span> / <span class="hljs-number">60.0</span> + <span class="hljs-number">21.448</span> / <span class="hljs-number">3600.0</span> - (<span class="hljs-number">46.8150</span> * T + <span class="hljs-number">0.00059</span> * T * T - <span class="hljs-number">0.001813</span> * T * T * T) / <span class="hljs-number">3600</span>;
+        <span class="hljs-keyword">let</span> eps = eps0 + <span class="hljs-number">0.00256</span> * <span class="hljs-built_in">Math</span>.cos(K * omega);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>let declin = Math.sin(K <em> eps) </em> Math.sin(K * lambda);
+declin = Math.asin(declin) / K;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.RA = <span class="hljs-built_in">Math</span>.atan2(<span class="hljs-built_in">Math</span>.cos(K * eps) * <span class="hljs-built_in">Math</span>.sin(K * lambda), <span class="hljs-built_in">Math</span>.cos(K * lambda)) / K;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.RA &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">this</span>.RA = <span class="hljs-keyword">this</span>.RA + <span class="hljs-number">360</span>;
+    }
+
+    deltaPSI(T) {
+        <span class="hljs-keyword">let</span> K = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">180.0</span>;
+        <span class="hljs-keyword">let</span> deltaPsi, omega, LS, LM;
+        LS = <span class="hljs-keyword">this</span>.sunL(T);
+        LM = <span class="hljs-number">218.3165</span> + <span class="hljs-number">481267.8813</span> * T;
+        LM = LM % <span class="hljs-number">360</span>;
+        <span class="hljs-keyword">if</span> (LM &lt; <span class="hljs-number">0</span>) LM = LM + <span class="hljs-number">360</span>;
+        omega = <span class="hljs-number">125.04452</span> - <span class="hljs-number">1934.136261</span> * T + <span class="hljs-number">0.0020708</span> * T * T + T * T * T / <span class="hljs-number">450000</span>;
+        deltaPsi = <span class="hljs-number">-17.2</span> * <span class="hljs-built_in">Math</span>.sin(K * omega) - <span class="hljs-number">1.32</span> * <span class="hljs-built_in">Math</span>.sin(K * <span class="hljs-number">2</span> * LS) - <span class="hljs-number">0.23</span> * <span class="hljs-built_in">Math</span>.sin(K * <span class="hljs-number">2</span> * LM) + <span class="hljs-number">0.21</span> * <span class="hljs-built_in">Math</span>.sin(K * <span class="hljs-number">2</span> * omega);
+        deltaPsi = deltaPsi / <span class="hljs-number">3600.0</span>;
+        <span class="hljs-keyword">return</span> deltaPsi;
+    }
+
+    getEOT() {
+        <span class="hljs-keyword">let</span> K = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">180.0</span>;
+        <span class="hljs-keyword">let</span> T = (<span class="hljs-keyword">this</span>.JulDay() - <span class="hljs-number">2451545.0</span>) / <span class="hljs-number">36525.0</span>;
+        <span class="hljs-keyword">let</span> eps = <span class="hljs-keyword">this</span>.EPS(T);
+        <span class="hljs-keyword">this</span>.declination(<span class="hljs-keyword">this</span>.dateObj);
+        <span class="hljs-keyword">let</span> LS = <span class="hljs-keyword">this</span>.sunL(T);
+        <span class="hljs-keyword">let</span> deltaPsi = <span class="hljs-keyword">this</span>.deltaPSI(T);
+        <span class="hljs-keyword">let</span> E = LS - <span class="hljs-number">0.0057183</span> - <span class="hljs-keyword">this</span>.RA + deltaPsi * <span class="hljs-built_in">Math</span>.cos(K * eps);
+
+        <span class="hljs-keyword">if</span> (E &gt; <span class="hljs-number">5</span>) E = E - <span class="hljs-number">360.0</span>;
+        E = E * <span class="hljs-number">4</span>;
+        E = <span class="hljs-built_in">Math</span>.round(<span class="hljs-number">1000</span> * E) / <span class="hljs-number">1000</span>;
+
+        <span class="hljs-keyword">this</span>.eqTime = E.toFixed(<span class="hljs-number">2</span>);
+
+        <span class="hljs-keyword">this</span>.rotateHands();
+    }
+
+    init() {
+        <span class="hljs-keyword">this</span>.getEOT();
+    }
+
+}
+
+<span class="hljs-built_in">module</span>.exports = EquationOfTime;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

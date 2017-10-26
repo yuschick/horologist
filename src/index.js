@@ -20,6 +20,7 @@ const WeekIndicator = require('./modules/WeekIndicator');
 const YearIndicator = require('./modules/YearIndicator');
 const Chronograph = require('./modules/Chronograph');
 const Foudroyante = require('./modules/Foudroyante');
+const EquationOfTime = require('./modules/EquationOfTime');
 
 class Watch {
     constructor(settings) {
@@ -84,6 +85,10 @@ class Watch {
 
         if (settings.foudroyante) {
             this.foudroyante = new Foudroyante(settings.foudroyante, this);
+        }
+
+        if (settings.eqTime) {
+            this.equationOfTime = new EquationOfTime(settings.eqTime, this);
         }
 
         this.init();

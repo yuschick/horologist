@@ -143,8 +143,7 @@
 	                hour: 'grande-hour-hand',
 	                minute: 'grande-minute-hand',
 	                second: 'grande-second-hand'
-	            },
-	            sweep: true
+	            }
 	        }],
 	        chronograph: {
 	            buttons: {
@@ -188,6 +187,10 @@
 	        },
 	        year: {
 	            id: 'grande-year-indicator-disc'
+	        },
+	        eqTime: {
+	            id: 'grande-equation-hand',
+	            range: [-38, 38]
 	        }
 	    };
 
@@ -349,6 +352,7 @@
 	var YearIndicator = __webpack_require__(136);
 	var Chronograph = __webpack_require__(137);
 	var Foudroyante = __webpack_require__(138);
+	var EquationOfTime = __webpack_require__(139);
 
 	var Watch = function () {
 	    function Watch(settings) {
@@ -417,6 +421,10 @@
 
 	        if (settings.foudroyante) {
 	            this.foudroyante = new Foudroyante(settings.foudroyante, this);
+	        }
+
+	        if (settings.eqTime) {
+	            this.equationOfTime = new EquationOfTime(settings.eqTime, this);
 	        }
 
 	        this.init();
@@ -501,7 +509,7 @@
 	            }, 1000);
 
 	            if (this.foudroyante) {
-	                this.foudroyante.init();
+	                if (!this.testing) this.foudroyante.init();
 	            }
 	        }
 	    }, {
@@ -16739,7 +16747,7 @@
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16761,7 +16769,6 @@
 	    function Dial(settings, parentWatch) {
 	        _classCallCheck(this, Dial);
 
-	        this.error = false;
 	        this.errorChecking(settings);
 
 	        if (this.error) return;
@@ -16815,69 +16822,35 @@
 	        this.settingTime = false;
 	        this.transition = {};
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(Dial, [{
-	        key: "errorChecking",
+	        key: 'errorChecking',
 	        value: function errorChecking(settings) {
-	            try {
-	                if (!settings.hands) throw "The Dial class needs an object containing the HTML elements for the hands.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                this.error = true;
-	                return;
-	            }
-
-	            try {
-	                if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id) throw "The retrograde second requires an id property be provided.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                this.error = true;
-	                return;
-	            }
-
-	            try {
-	                if (settings.retrograde && settings.hands.second && settings.retrograde.second) throw "A dial can only support one second hand at a time - either traditional or retrograde.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                this.error = true;
-	                return;
-	            }
-
-	            try {
-	                if (settings.retrograde && settings.retrograde.second.duration < 5) throw "The retrograde second hand requires a duration no less than 5.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                this.error = true;
-	                return;
-	            }
-
-	            try {
-	                if (settings.retrograde && 60 % settings.retrograde.second.duration != 0) throw "The retrograde second hand requires a duration that is evenly divisble by 60.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                this.error = true;
-	                return;
-	            }
+	            if (!settings.hands) throw new ReferenceError('The Dial class needs an object containing the HTML elements for the hands.');
+	            if (settings.retrograde && settings.retrograde.second && !settings.retrograde.second.id) throw new ReferenceError('The retrograde second requires an id property be provided.');
+	            if (settings.retrograde && settings.hands.second && settings.retrograde.second) throw new ReferenceError('A dial can only support one second hand at a time - either traditional or retrograde.');
+	            if (settings.retrograde && settings.retrograde.second.duration < 5) throw new ReferenceError('The retrograde second hand requires a duration no less than 5.');
+	            if (settings.retrograde && 60 % settings.retrograde.second.duration != 0) throw new ReferenceError('The retrograde second hand requires a duration that is evenly divisble by 60.');
 	        }
 	    }, {
-	        key: "toggleActiveCrown",
+	        key: 'toggleActiveCrown',
 	        value: function toggleActiveCrown() {
 	            this.crownActive = !this.crownActive;
 	        }
 	    }, {
-	        key: "toggleSettingTime",
+	        key: 'toggleSettingTime',
 	        value: function toggleSettingTime() {
 	            this.settingTime = !this.settingTime;
 	        }
 	    }, {
-	        key: "updateToManualTime",
+	        key: 'updateToManualTime',
 	        value: function updateToManualTime() {
 	            this.manualTime = true;
 	        }
 	    }, {
-	        key: "startInterval",
+	        key: 'startInterval',
 	        value: function startInterval() {
 	            var _this = this;
 
@@ -16887,18 +16860,18 @@
 	            }, 1000);
 	        }
 	    }, {
-	        key: "stopInterval",
+	        key: 'stopInterval',
 	        value: function stopInterval() {
 	            clearInterval(this.interval);
 	            this.interval = null;
 	        }
 	    }, {
-	        key: "applySweepingTransition",
+	        key: 'applySweepingTransition',
 	        value: function applySweepingTransition() {
 	            this.hands.second.style.transition = 'transform 1s linear';
 	        }
 	    }, {
-	        key: "getCurrentTime",
+	        key: 'getCurrentTime',
 	        value: function getCurrentTime() {
 	            this.rightNow = this.parent.rightNow.tz(this.timezone);
 	            var currentTime = void 0;
@@ -16912,12 +16885,12 @@
 	            this.currentTime = currentTime;
 	        }
 	    }, {
-	        key: "checkForDayNightUpdates",
+	        key: 'checkForDayNightUpdates',
 	        value: function checkForDayNightUpdates() {
 	            this.parent.dayNightIndicator.convertAngleToHours(this.name);
 	        }
 	    }, {
-	        key: "rotateHands",
+	        key: 'rotateHands',
 	        value: function rotateHands() {
 	            var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -16951,7 +16924,7 @@
 	                    rotateVal -= 360;
 	                }
 
-	                this.hands.hour.style.transform = "rotate(" + rotateVal + "deg)";
+	                this.hands.hour.style.transform = 'rotate(' + rotateVal + 'deg)';
 	            }
 
 	            if (this.hands.minute) {
@@ -16977,7 +16950,7 @@
 	                    this.hands.minute.style.transition = this.transition.minute;
 	                }
 
-	                this.hands.minute.style.transform = "rotate(" + rotateVal + "deg)";
+	                this.hands.minute.style.transform = 'rotate(' + rotateVal + 'deg)';
 	            }
 
 	            if (this.hands.second) {
@@ -16998,13 +16971,13 @@
 	                    this.hands.second.style.transition = this.transition.second;
 	                }
 
-	                this.hands.second.style.transform = "rotate(" + rotateVal + "deg)";
+	                this.hands.second.style.transform = 'rotate(' + rotateVal + 'deg)';
 	            }
 
 	            if (this.parent.dayNightIndicator) this.checkForDayNightUpdates();
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            var _this2 = this;
 
@@ -17668,17 +17641,13 @@
 	    function Crown(settings, parentWatch) {
 	        _classCallCheck(this, Crown);
 
-	        try {
-	            if (!settings.id) throw "The Crown class requires that an ID of the crown element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (!settings.id) throw new ReferenceError("The Crown class requires that an ID of the crown element be provided.");
 
 	        this.crown = document.getElementById(settings.id);
 	        this.parent = parentWatch;
 	        this.crownActive = false;
-	        this.init();
+
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(Crown, [{
@@ -17731,7 +17700,7 @@
 /* 128 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -17751,12 +17720,7 @@
 	    function PowerReserve(settings, parentWatch) {
 	        _classCallCheck(this, PowerReserve);
 
-	        try {
-	            if (!settings.id) throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        this.errorChecking(settings);
 
 	        this.element = document.getElementById(settings.id);
 	        this.interval = null;
@@ -17764,11 +17728,18 @@
 	        this.minAngle = settings.range[0];
 	        this.maxAngle = settings.range[1];
 	        this.increment = 0.5;
-	        this.init();
+
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(PowerReserve, [{
-	        key: "decrementReserve",
+	        key: 'errorChecking',
+	        value: function errorChecking(settings) {
+	            if (!settings.id) throw new ReferenceError('The PowerReserve class requires that an ID of the power reserve element be provided.');
+	            if (!settings.range) throw new ReferenceError('The PowerReserve class requires that a range of the power reserve element be provided.');
+	        }
+	    }, {
+	        key: 'decrementReserve',
 	        value: function decrementReserve() {
 	            var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
@@ -17776,21 +17747,21 @@
 	                this.parent.stopInterval();
 	            } else {
 	                var newRotate = Number(currentRotate) - this.increment / 2;
-	                this.element.style.transform = "rotate(" + newRotate + "deg)";
+	                this.element.style.transform = 'rotate(' + newRotate + 'deg)';
 	            }
 	        }
 	    }, {
-	        key: "incrementReserve",
+	        key: 'incrementReserve',
 	        value: function incrementReserve() {
 	            var currentRotate = this.parent.getCurrentRotateValue(this.element);
 
 	            if (currentRotate <= this.maxAngle - this.increment && currentRotate >= this.minAngle) {
 	                var newRotate = Number(currentRotate) + this.increment;
-	                this.element.style.transform = "rotate(" + newRotate + "deg)";
+	                this.element.style.transform = 'rotate(' + newRotate + 'deg)';
 	            }
 	        }
 	    }, {
-	        key: "startInterval",
+	        key: 'startInterval',
 	        value: function startInterval() {
 	            var _this = this;
 
@@ -17799,15 +17770,15 @@
 	            }, 1000);
 	        }
 	    }, {
-	        key: "stopInterval",
+	        key: 'stopInterval',
 	        value: function stopInterval() {
 	            clearInterval(this.interval);
 	            this.interval = null;
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
-	            this.element.style.transform = "rotate(" + this.maxAngle + "deg)";
+	            this.element.style.transform = 'rotate(' + this.maxAngle + 'deg)';
 	        }
 	    }]);
 
@@ -17820,7 +17791,7 @@
 /* 129 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -17846,26 +17817,26 @@
 	    function MoonPhase(settings, parentWatch) {
 	        _classCallCheck(this, MoonPhase);
 
-	        try {
-	            if (!settings.id) throw "The MoonPhase class requires that an ID of the moonphase element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        this.errorChecking(settings);
 
 	        this.parent = parentWatch;
 	        this.rightNow = new Date();
 	        this.element = document.getElementById(settings.id);
 	        this.invert = settings.invert || false;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(MoonPhase, [{
-	        key: "rotateDisc",
+	        key: 'errorChecking',
+	        value: function errorChecking(settings) {
+	            if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+	        }
+	    }, {
+	        key: 'rotateDisc',
 	        value: function rotateDisc(val) {
 	            val = this.invert ? val * -1 : val;
-	            this.element.style.transform = "rotate(" + val + "deg)";
+	            this.element.style.transform = 'rotate(' + val + 'deg)';
 	        }
 
 	        /*
@@ -17873,7 +17844,7 @@
 	        */
 
 	    }, {
-	        key: "moon_day",
+	        key: 'moon_day',
 	        value: function moon_day(today) {
 	            var GetFrac = function GetFrac(fr) {
 	                return fr - Math.floor(fr);
@@ -17930,12 +17901,10 @@
 	        */
 
 	    }, {
-	        key: "getCurrentPhase",
+	        key: 'getCurrentPhase',
 	        value: function getCurrentPhase(phase) {
 	            var sweep = [];
 	            var mag = void 0;
-	            // the "sweep-flag" and the direction of movement change every quarter moon
-	            // zero and one are both new moon; 0.50 is full moon
 
 	            if (phase <= 0.25) {
 	                sweep = [1, 0];
@@ -17955,38 +17924,9 @@
 
 	            phase = phase.toFixed(5) * 3.6;
 	            this.rotateDisc(phase * 100);
-
-	            /*
-	              if (phase <= 0.0625 || phase > 0.9375) {
-	                if (this.invert) {
-	                  this.rotateDisc(0); // new moon
-	                } else {
-	                  this.rotateDisc(180); // new moon
-	                }
-	                this.rotateDisc(phase * 3.6);
-	              } else if (phase <= 0.1875) {
-	                this.rotateDisc(40); // waxing crescent
-	              } else if (phase <= 0.3125) {
-	                this.rotateDisc(25); // first quarter
-	              } else if (phase <= 0.4375) {
-	                this.rotateDisc(13); // waxing gibbous
-	              } else if (phase <= 0.5625) {
-	                if (this.invert) {
-	                  this.rotateDisc(180); // full moon
-	                } else {
-	                  this.rotateDisc(0); // full moon
-	                }
-	              } else if (phase <= 0.6875) {
-	                this.rotateDisc(-13);// waning gibbous
-	              } else if (phase <= 0.8125) {
-	                this.rotateDisc(-25); // last quarter
-	              } else if (phase <= 0.9375) {
-	                this.rotateDisc(-40); // waning crescent
-	              }
-	            */
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.getCurrentPhase(this.moon_day(this.rightNow));
 	        }
@@ -18001,7 +17941,7 @@
 /* 130 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18021,12 +17961,7 @@
 	    function MinuteRepeater(dial, repeater, parentWatch) {
 	        _classCallCheck(this, MinuteRepeater);
 
-	        try {
-	            if (!repeater) throw "The MinuteRepeater class requires that an ID of the repeater element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        this.errorChecking(dial, repeater);
 
 	        this.hands = dial.hands;
 
@@ -18050,11 +17985,18 @@
 	        this.quartersPlaying = false;
 	        this.minutesPlaying = false;
 	        this.parent = parentWatch;
-	        this.init();
+
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(MinuteRepeater, [{
-	        key: "convertAngleToIncrements",
+	        key: 'errorChecking',
+	        value: function errorChecking(dial, settings) {
+	            if (!settings.id) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
+	            if (!dial.hands.minute) throw new ReferenceError('The minute repeater, like, by definition, requires a dial which supports a minute hand.');
+	        }
+	    }, {
+	        key: 'convertAngleToIncrements',
 	        value: function convertAngleToIncrements() {
 	            this.hourAngle = this.parent.getCurrentRotateValue(this.hands.hour);
 	            if (this.hourAngle > 360) {
@@ -18062,12 +18004,6 @@
 	            }
 	            this.hourChimes = Math.floor(this.hourAngle / this.hourDivisor) || 12;
 
-	            try {
-	                if (!this.hands.minute) throw "The minute repeater, like, by definition, requires a dial which supports a minute hand.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
 	            this.minuteAngle = this.parent.getCurrentRotateValue(this.hands.minute);
 	            if (this.minuteAngle > 360) {
 	                this.minuteAngle %= 360;
@@ -18077,7 +18013,7 @@
 	            this.minuteChimes = Math.floor(this.allMinutes - this.fifteenMinuteChimes * 15);
 	        }
 	    }, {
-	        key: "bindEvents",
+	        key: 'bindEvents',
 	        value: function bindEvents() {
 	            var _this = this;
 
@@ -18111,12 +18047,12 @@
 	            });
 	        }
 	    }, {
-	        key: "toggleActiveState",
+	        key: 'toggleActiveState',
 	        value: function toggleActiveState(btn) {
 	            btn.classList.toggle('active');
 	        }
 	    }, {
-	        key: "stopAll",
+	        key: 'stopAll',
 	        value: function stopAll() {
 	            this.hourElement.pause();
 	            this.hourElement.currentTime = 0;
@@ -18135,7 +18071,7 @@
 	            this.minutesPlaying = false;
 	        }
 	    }, {
-	        key: "togglePlaying",
+	        key: 'togglePlaying',
 	        value: function togglePlaying() {
 	            if (this.parent.globalInterval) {
 	                this.isPlaying = !this.isPlaying;
@@ -18149,7 +18085,7 @@
 	            }
 	        }
 	    }, {
-	        key: "playHours",
+	        key: 'playHours',
 	        value: function playHours() {
 	            if (this.counter <= this.hourChimes) {
 	                this.hourElement.play();
@@ -18160,7 +18096,7 @@
 	            }
 	        }
 	    }, {
-	        key: "playQuarterHours",
+	        key: 'playQuarterHours',
 	        value: function playQuarterHours() {
 	            var _this2 = this;
 
@@ -18183,7 +18119,7 @@
 	            }
 	        }
 	    }, {
-	        key: "playFifteenMinutes",
+	        key: 'playFifteenMinutes',
 	        value: function playFifteenMinutes() {
 	            if (this.counter <= this.fifteenMinuteChimes) {
 	                this.fifteenMinuteElement.play();
@@ -18194,7 +18130,7 @@
 	            }
 	        }
 	    }, {
-	        key: "playMinutes",
+	        key: 'playMinutes',
 	        value: function playMinutes() {
 	            if (this.counter <= this.minuteChimes) {
 	                this.minuteElement.play();
@@ -18204,7 +18140,7 @@
 	            }
 	        }
 	    }, {
-	        key: "buildAudioElements",
+	        key: 'buildAudioElements',
 	        value: function buildAudioElements() {
 	            var _this3 = this;
 
@@ -18227,12 +18163,12 @@
 	            document.body.appendChild(this.minuteElement);
 	        }
 	    }, {
-	        key: "updateCursorForTrigger",
+	        key: 'updateCursorForTrigger',
 	        value: function updateCursorForTrigger() {
 	            this.trigger.style.cursor = 'pointer';
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.buildAudioElements();
 	            this.bindEvents();
@@ -18271,12 +18207,7 @@
 	    function DayNightIndicator(dial, settings, parentWatch) {
 	        _classCallCheck(this, DayNightIndicator);
 
-	        try {
-	            if (!settings.id) throw "The DayNightIndicator class requires that an ID of the indiciator element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (!settings.id) throw new ReferenceError("The DayNightIndicstor class requires that an ID of the element be provided.");
 
 	        this.element = document.getElementById(settings.id);
 	        this.dial = dial;
@@ -18290,7 +18221,7 @@
 	        this.hourAngle = 0;
 	        this.hourDivisor = dial.format === 12 ? 30 : 15;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(DayNightIndicator, [{
@@ -18380,12 +18311,7 @@
 	    function DayIndicator(settings, parentWatch) {
 	        _classCallCheck(this, DayIndicator);
 
-	        try {
-	            if (!settings.id) throw "The Day Indicator class requires that an ID of the indicator element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (!settings.id) throw new ReferenceError("The Day Indicator class requires that an ID of the element be provided.");
 
 	        this.element = document.getElementById(settings.id);
 	        this.parent = parentWatch;
@@ -18397,7 +18323,7 @@
 	        this.max = this.retrograde ? this.retrograde.max : 180;
 	        this.invert = settings.invert || false;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(DayIndicator, [{
@@ -18440,7 +18366,7 @@
 /* 133 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18460,7 +18386,7 @@
 	    function DateIndicator(settings, parentWatch) {
 	        _classCallCheck(this, DateIndicator);
 
-	        if (this.checkForErrors(settings)) return;
+	        this.errorChecking(settings);
 
 	        if (settings.split) {
 	            this.split = true;
@@ -18476,42 +18402,19 @@
 	        this.max = this.retrograde ? this.retrograde.max : 180;
 	        this.invert = settings.invert || false;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(DateIndicator, [{
-	        key: "checkForErrors",
-	        value: function checkForErrors(settings) {
-	            try {
-	                if (!settings.id && !settings.split) throw "The Date Indicator class requires that an ID of the indiciator element be provided.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return true;
-	            }
-
-	            try {
-	                if (settings.id && settings.split) throw "Choose EITHER a primary or split indicator.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return true;
-	            }
-
-	            try {
-	                if (settings.retrograde && settings.split) throw "Choose EITHER a retrograde or split indicator.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return true;
-	            }
-
-	            try {
-	                if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw "When choosing a split date display please provide the IDs for both the ones and tenths discs.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return true;
-	            }
+	        key: 'errorChecking',
+	        value: function errorChecking(settings) {
+	            if (!settings.id && !settings.split) throw new ReferenceError('The Date Indicator class requires that an ID of the indiciator element be provided.');
+	            if (settings.id && settings.split) throw new ReferenceError('Choose EITHER a primary or split indicator.');
+	            if (settings.retrograde && settings.split) throw new ReferenceError('Choose EITHER a retrograde or split indicator.');
+	            if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw new ReferenceError('When choosing a split date display please provide the IDs for both the ones and tenths discs.');
 	        }
 	    }, {
-	        key: "getRotateValue",
+	        key: 'getRotateValue',
 	        value: function getRotateValue() {
 	            var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -18541,17 +18444,17 @@
 	            return value;
 	        }
 	    }, {
-	        key: "rotateElement",
+	        key: 'rotateElement',
 	        value: function rotateElement() {
 	            if (this.split) {
-	                this.ones.style.transform = "rotate(" + this.getRotateValue('ones') + "deg)";
-	                this.tenths.style.transform = "rotate(" + this.getRotateValue('tenths') + "deg)";
+	                this.ones.style.transform = 'rotate(' + this.getRotateValue('ones') + 'deg)';
+	                this.tenths.style.transform = 'rotate(' + this.getRotateValue('tenths') + 'deg)';
 	            } else {
-	                this.element.style.transform = "rotate(" + this.getRotateValue() + "deg)";
+	                this.element.style.transform = 'rotate(' + this.getRotateValue() + 'deg)';
 	            }
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.rotateElement();
 	        }
@@ -18583,12 +18486,7 @@
 	    function MonthIndicator(settings, parentWatch) {
 	        _classCallCheck(this, MonthIndicator);
 
-	        try {
-	            if (!settings.id) throw "The Month Indicator class requires that an ID of the indicator element be provided.";
-	        } catch (errorMsg) {
-	            console.error(errorMsg);
-	            return;
-	        }
+	        if (!settings.id) throw new ReferenceError("The Month class requires that an ID of the element be provided.");
 
 	        this.element = document.getElementById(settings.id);
 	        this.parent = parentWatch;
@@ -18598,7 +18496,7 @@
 	        this.max = this.retrograde ? this.retrograde.max : 180;
 	        this.invert = settings.invert || false;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(MonthIndicator, [{
@@ -18638,7 +18536,7 @@
 /* 135 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18659,7 +18557,7 @@
 	    function WeekIndicator(settings, parentWatch) {
 	        _classCallCheck(this, WeekIndicator);
 
-	        this.errorChecking();
+	        this.errorChecking(settings);
 
 	        this.element = document.getElementById(settings.id);
 	        this.parent = parentWatch;
@@ -18670,21 +18568,16 @@
 	        this.weekAmount = this.iso ? 53 : 52;
 	        this.increment = 360 / this.weekAmount;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(WeekIndicator, [{
-	        key: "errorChecking",
-	        value: function errorChecking() {
-	            try {
-	                if (!settings.id) throw "The Week Indicator class requires that an ID of the indicator element be provided.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
+	        key: 'errorChecking',
+	        value: function errorChecking(settings) {
+	            if (!settings.id) throw new ReferenceError('The Week Indicator class requires that an ID of the element be provided.');
 	        }
 	    }, {
-	        key: "getWeekValue",
+	        key: 'getWeekValue',
 	        value: function getWeekValue() {
 	            var rightNow = this.parent.rightNow;
 	            this.week = this.iso ? rightNow.isoWeek() - 1 : rightNow.week() - 1;
@@ -18692,15 +18585,15 @@
 	            this.rotateHands();
 	        }
 	    }, {
-	        key: "rotateHands",
+	        key: 'rotateHands',
 	        value: function rotateHands() {
 	            var rotateVal = this.week * this.increment;
 	            if (this.invert) rotateVal *= -1;
 
-	            this.element.style.transform = "rotate(" + rotateVal + "deg)";
+	            this.element.style.transform = 'rotate(' + rotateVal + 'deg)';
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.getWeekValue();
 	        }
@@ -18865,46 +18758,17 @@
 	        this.lapActive = false;
 	        this.parent = parentWatch;
 
-	        this.init();
+	        if (!this.parent.testing) this.init();
 	    }
 
 	    _createClass(Chronograph, [{
 	        key: "errorChecking",
 	        value: function errorChecking(settings) {
-	            try {
-	                if (!settings.buttons || !settings.hands) throw "The Chronograph requires a settings object containing both the buttons and hands.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (!settings.hands.second || !settings.hands.minute) throw "The Chronograph requires at least a second and minute hands.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.rattrapante) throw "A monopusher chronograph cannot support rattrapante functionality";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.flyback) throw "A monopusher chronograph cannot support flyuback functionality";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (settings.rattrapante && !settings.hands.lap) throw "A rattrapante Chronograph requires a 'lap' hand.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
+	            if (!settings.buttons || !settings.hands) throw new ReferenceError("The Chronograph requires a settings object containing both the buttons and hands.");
+	            if (!settings.hands.second || !settings.hands.minute) throw new ReferenceError("The Chronograph requires at least a second and minute hands.");
+	            if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.rattrapante) throw new ReferenceError("A monopusher chronograph cannot support rattrapante functionality.");
+	            if (!settings.buttons.secondary && !settings.buttons.tertiary && settings.flyback) throw new ReferenceError("A monopusher chronograph cannot support flyuback functionality.");
+	            if (settings.rattrapante && !settings.hands.lap) throw new ReferenceError("A rattrapante Chronograph requires a 'lap' hand.");
 	        }
 	    }, {
 	        key: "checkForChronographType",
@@ -19111,7 +18975,7 @@
 /* 138 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19141,38 +19005,14 @@
 	    }
 
 	    _createClass(Foudroyante, [{
-	        key: "errorChecking",
+	        key: 'errorChecking',
 	        value: function errorChecking(settings) {
-	            try {
-	                if (!settings.id) throw "The Foudroyante class requires that an ID of the indiciator element be provided.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (!settings.steps) throw "The Foudroyante requires a steps value.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (settings.steps < 2) throw "The Foudroyante requires a minimum step value of 2.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
-
-	            try {
-	                if (settings.steps > 10) throw "The Foudroyante can support a maximum of 10 steps.";
-	            } catch (errorMsg) {
-	                console.error(errorMsg);
-	                return;
-	            }
+	            if (!settings.id) throw new ReferenceError('The Foudroyante class requires that an ID of the indiciator element be provided.');
+	            if (!settings.steps) throw new ReferenceError('The Foudroyante requires a steps value.');
+	            if (settings.steps < 2 || settings.steps > 10) throw new ReferenceError('The Foudroyante requires a step value between 2-10.');
 	        }
 	    }, {
-	        key: "defineInterval",
+	        key: 'defineInterval',
 	        value: function defineInterval() {
 	            var _this = this;
 
@@ -19181,7 +19021,7 @@
 	            }, 1000 / this.steps);
 	        }
 	    }, {
-	        key: "clearInterval",
+	        key: 'clearInterval',
 	        value: function (_clearInterval) {
 	            function clearInterval() {
 	                return _clearInterval.apply(this, arguments);
@@ -19197,17 +19037,17 @@
 	            this.interval = null;
 	        })
 	    }, {
-	        key: "rotateHand",
+	        key: 'rotateHand',
 	        value: function rotateHand() {
 	            if (this.currentAngle === 360 - this.degreeIncrement) {
 	                this.currentAngle = 0;
 	            } else {
 	                this.currentAngle += this.degreeIncrement;
 	            }
-	            this.element.style.transform = "rotate(" + this.currentAngle + "deg)";
+	            this.element.style.transform = 'rotate(' + this.currentAngle + 'deg)';
 	        }
 	    }, {
-	        key: "init",
+	        key: 'init',
 	        value: function init() {
 	            this.defineInterval();
 	        }
@@ -19217,6 +19057,182 @@
 	}();
 
 	module.exports = Foudroyante;
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	// Equation of Time Class
+	// @params settings: object
+	// @params parentWatch: Watch instance
+	//
+	// Notes
+	// Logic taken from: http://www2.arnes.si/~gljsentvid10/sunset_rise.html
+
+	var Timezone = __webpack_require__(124);
+
+	var EquationOfTime = function () {
+	    function EquationOfTime(settings, parentWatch) {
+	        _classCallCheck(this, EquationOfTime);
+
+	        this.errorChecking(settings);
+
+	        this.element = document.getElementById(settings.id);
+	        this.parent = parentWatch;
+
+	        this.range = settings.range || [-45, 45];
+	        this.minRange = this.range[0];
+	        this.maxRange = this.range[1];
+	        this.minIncrement = this.minRange / 14;
+	        this.maxIncrement = this.maxRange / 16;
+
+	        this.timezone = Timezone.tz.guess();
+	        this.rightNow = this.parent.rightNow.tz(this.timezone);
+
+	        this.dateObj = {
+	            hours: this.rightNow.hours(),
+	            minutes: this.rightNow.minutes(),
+	            seconds: this.rightNow.seconds(),
+	            date: this.rightNow.date(),
+	            month: this.rightNow.month() + 1,
+	            year: this.rightNow.year()
+	        };
+	        this.UT = this.dateObj.hours + this.dateObj.minutes / 60 + this.dateObj.seconds / 3600;
+	        this.RA = null;
+	        this.A = null;
+	        this.JD = null;
+	        this.eqTime = null;
+
+	        if (!this.parent.testing) this.init();
+	    }
+
+	    _createClass(EquationOfTime, [{
+	        key: 'errorChecking',
+	        value: function errorChecking(settings) {
+	            if (!settings.id) throw new ReferenceError('The Equation of Time Class requires that an ID of the indicator element be provided.');
+	        }
+	    }, {
+	        key: 'getIncrement',
+	        value: function getIncrement() {
+	            var increment = this.eqTime > 0 ? this.maxIncrement : this.minIncrement;
+	            var rotateVal = this.eqTime * increment;
+	            return rotateVal;
+	        }
+	    }, {
+	        key: 'rotateHands',
+	        value: function rotateHands() {
+	            var rotateVal = this.getIncrement();
+	            this.element.style.transform = 'rotate(' + rotateVal + 'deg)';
+	        }
+	    }, {
+	        key: 'JulDay',
+	        value: function JulDay() {
+	            var d = this.dateObj.date;
+	            var m = this.dateObj.month;
+	            var y = this.dateObj.year;
+	            var u = this.UT;
+
+	            if (y < 1900) y = y + 1900;
+	            if (m <= 2) {
+	                m = m + 12;
+	                y = y - 1;
+	            }
+	            this.A = Math.floor(y / 100);
+	            this.JD = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d - 13 - 1524.5 + u / 24.0;
+	            return this.JD;
+	        }
+	    }, {
+	        key: 'EPS',
+	        value: function EPS(T) {
+	            var K = Math.PI / 180.0;
+	            var LS = this.sunL(T);
+	            var LM = 218.3165 + 481267.8813 * T;
+	            var eps0 = 23.0 + 26.0 / 60.0 + 21.448 / 3600.0 - (46.8150 * T + 0.00059 * T * T - 0.001813 * T * T * T) / 3600;
+	            var omega = 125.04452 - 1934.136261 * T + 0.0020708 * T * T + T * T * T / 450000;
+	            var deltaEps = (9.20 * Math.cos(K * omega) + 0.57 * Math.cos(K * 2 * LS) + 0.10 * Math.cos(K * 2 * LM) - 0.09 * Math.cos(K * 2 * omega)) / 3600;
+	            return eps0 + deltaEps;
+	        }
+	    }, {
+	        key: 'sunL',
+	        value: function sunL(T) {
+	            var L = 280.46645 + 36000.76983 * T + 0.0003032 * T * T;
+	            L = L % 360;
+	            if (L < 0) L = L + 360;
+	            return L;
+	        }
+	    }, {
+	        key: 'declination',
+	        value: function declination() {
+	            var K = Math.PI / 180.0;
+	            var jd = this.JulDay();
+	            var T = (jd - 2451545.0) / 36525.0;
+	            var L0 = 280.46645 + (36000.76983 + 0.0003032 * T) * T;
+	            var M = 357.52910 + (35999.05030 - (0.0001559 * T + 0.00000048 * T) * T) * T;
+	            M = K * M;
+	            var C = (1.914600 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M) + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000290 * Math.sin(3 * M);
+	            var theta = L0 + C;
+	            var omega = 125.04 - 1934.136 * T;
+	            var lambda = theta - 0.00569 - 0.00478 * Math.sin(K * omega);
+	            var eps0 = 23.0 + 26.0 / 60.0 + 21.448 / 3600.0 - (46.8150 * T + 0.00059 * T * T - 0.001813 * T * T * T) / 3600;
+	            var eps = eps0 + 0.00256 * Math.cos(K * omega);
+	            // let declin = Math.sin(K * eps) * Math.sin(K * lambda);
+	            // declin = Math.asin(declin) / K;
+	            this.RA = Math.atan2(Math.cos(K * eps) * Math.sin(K * lambda), Math.cos(K * lambda)) / K;
+	            if (this.RA < 0) this.RA = this.RA + 360;
+	        }
+	    }, {
+	        key: 'deltaPSI',
+	        value: function deltaPSI(T) {
+	            var K = Math.PI / 180.0;
+	            var deltaPsi = void 0,
+	                omega = void 0,
+	                LS = void 0,
+	                LM = void 0;
+	            LS = this.sunL(T);
+	            LM = 218.3165 + 481267.8813 * T;
+	            LM = LM % 360;
+	            if (LM < 0) LM = LM + 360;
+	            omega = 125.04452 - 1934.136261 * T + 0.0020708 * T * T + T * T * T / 450000;
+	            deltaPsi = -17.2 * Math.sin(K * omega) - 1.32 * Math.sin(K * 2 * LS) - 0.23 * Math.sin(K * 2 * LM) + 0.21 * Math.sin(K * 2 * omega);
+	            deltaPsi = deltaPsi / 3600.0;
+	            return deltaPsi;
+	        }
+	    }, {
+	        key: 'getEOT',
+	        value: function getEOT() {
+	            var K = Math.PI / 180.0;
+	            var T = (this.JulDay() - 2451545.0) / 36525.0;
+	            var eps = this.EPS(T);
+	            this.declination(this.dateObj);
+	            var LS = this.sunL(T);
+	            var deltaPsi = this.deltaPSI(T);
+	            var E = LS - 0.0057183 - this.RA + deltaPsi * Math.cos(K * eps);
+
+	            if (E > 5) E = E - 360.0;
+	            E = E * 4;
+	            E = Math.round(1000 * E) / 1000;
+
+	            this.eqTime = E.toFixed(2);
+
+	            this.rotateHands();
+	        }
+	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.getEOT();
+	        }
+	    }]);
+
+	    return EquationOfTime;
+	}();
+
+	module.exports = EquationOfTime;
 
 /***/ })
 /******/ ]);
