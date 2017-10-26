@@ -55,6 +55,11 @@
                 </a>
               
                 
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
                 <a class="source" href="Foudroyante.html">
                   Foudroyante.js
                 </a>
@@ -122,7 +127,6 @@ if steps is set to 6, the hand will jump 60 (360 / 6) degrees every 1/6 of a sec
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foudroyante</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-
         <span class="hljs-keyword">this</span>.errorChecking(settings);
 
         <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
@@ -135,37 +139,9 @@ if steps is set to 6, the hand will jump 60 (360 / 6) degrees every 1/6 of a sec
     }
 
     errorChecking(settings) {
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante class requires that an ID of the indiciator element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.steps)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a steps value."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.steps &lt; <span class="hljs-number">2</span>)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante requires a minimum step value of 2."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.steps &gt; <span class="hljs-number">10</span>)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Foudroyante can support a maximum of 10 steps."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Foudroyante class requires that an ID of the indiciator element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (!settings.steps) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Foudroyante requires a steps value.'</span>);
+        <span class="hljs-keyword">if</span> (settings.steps &lt; <span class="hljs-number">2</span> || settings.steps &gt; <span class="hljs-number">10</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Foudroyante requires a step value between 2-10.'</span>);
     }
 
     defineInterval() {

@@ -15,17 +15,13 @@ var Crown = function () {
     function Crown(settings, parentWatch) {
         _classCallCheck(this, Crown);
 
-        try {
-            if (!settings.id) throw "The Crown class requires that an ID of the crown element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError("The Crown class requires that an ID of the crown element be provided.");
 
         this.crown = document.getElementById(settings.id);
         this.parent = parentWatch;
         this.crownActive = false;
-        this.init();
+
+        if (!this.parent.testing) this.init();
     }
 
     _createClass(Crown, [{

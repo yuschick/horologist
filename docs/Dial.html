@@ -55,6 +55,11 @@
                 </a>
               
                 
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
                 <a class="source" href="Foudroyante.html">
                   Foudroyante.js
                 </a>
@@ -126,7 +131,6 @@ format, the hour hand is either rotated 30 or 15 degrees per hour.</p>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dial</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-        <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.errorChecking(settings);
 
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.error) <span class="hljs-keyword">return</span>;
@@ -187,54 +191,15 @@ format, the hour hand is either rotated 30 or 15 degrees per hour.</p>
         <span class="hljs-keyword">this</span>.settingTime = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.transition = {};
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
     errorChecking(settings) {
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.hands)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Dial class needs an object containing the HTML elements for the hands."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.retrograde.second &amp;&amp; !settings.retrograde.second.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The retrograde second requires an id property be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.hands.second &amp;&amp; settings.retrograde.second)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"A dial can only support one second hand at a time - either traditional or retrograde."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.retrograde.second.duration &lt; <span class="hljs-number">5</span>)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The retrograde second hand requires a duration no less than 5."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; <span class="hljs-number">60</span> % settings.retrograde.second.duration != <span class="hljs-number">0</span>)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The retrograde second hand requires a duration that is evenly divisble by 60."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">if</span> (!settings.hands) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Dial class needs an object containing the HTML elements for the hands.'</span>);
+        <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.retrograde.second &amp;&amp; !settings.retrograde.second.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The retrograde second requires an id property be provided.'</span>);
+        <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.hands.second &amp;&amp; settings.retrograde.second) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'A dial can only support one second hand at a time - either traditional or retrograde.'</span>);
+        <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.retrograde.second.duration &lt; <span class="hljs-number">5</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The retrograde second hand requires a duration no less than 5.'</span>);
+        <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; <span class="hljs-number">60</span> % settings.retrograde.second.duration != <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The retrograde second hand requires a duration that is evenly divisble by 60.'</span>);
     }
 
     toggleActiveCrown() {

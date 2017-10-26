@@ -26,6 +26,7 @@ var WeekIndicator = require('./modules/WeekIndicator');
 var YearIndicator = require('./modules/YearIndicator');
 var Chronograph = require('./modules/Chronograph');
 var Foudroyante = require('./modules/Foudroyante');
+var EquationOfTime = require('./modules/EquationOfTime');
 
 var Watch = function () {
     function Watch(settings) {
@@ -33,14 +34,8 @@ var Watch = function () {
 
         _classCallCheck(this, Watch);
 
-        if (settings.testing) return;
-
-        try {
-            if (!settings.dials) throw "At least one dial is required for the Watch class.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (settings.testing) this.testing = true;
+        if (!settings.dials) throw new ReferenceError('At least one dial is required for the Watch class.');
 
         this.dialInstances = [];
         this.activeDial = 0;
@@ -100,6 +95,10 @@ var Watch = function () {
 
         if (settings.foudroyante) {
             this.foudroyante = new Foudroyante(settings.foudroyante, this);
+        }
+
+        if (settings.eqTime) {
+            this.equationOfTime = new EquationOfTime(settings.eqTime, this);
         }
 
         this.init();
@@ -184,7 +183,7 @@ var Watch = function () {
             }, 1000);
 
             if (this.foudroyante) {
-                this.foudroyante.init();
+                if (!this.testing) this.foudroyante.init();
             }
         }
     }, {

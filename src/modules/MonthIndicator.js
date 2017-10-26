@@ -7,14 +7,7 @@
 
 class MonthIndicator {
     constructor(settings, parentWatch) {
-
-        try {
-            if (!settings.id)
-                throw "The Month Indicator class requires that an ID of the indicator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError("The Month class requires that an ID of the element be provided.");
 
         this.element = document.getElementById(settings.id);
         this.parent = parentWatch;
@@ -24,7 +17,7 @@ class MonthIndicator {
         this.max = this.retrograde ? this.retrograde.max : 180;
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
     }
 
     getRotateValue() {

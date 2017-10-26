@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28,38 +28,14 @@ var Foudroyante = function () {
     }
 
     _createClass(Foudroyante, [{
-        key: "errorChecking",
+        key: 'errorChecking',
         value: function errorChecking(settings) {
-            try {
-                if (!settings.id) throw "The Foudroyante class requires that an ID of the indiciator element be provided.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
-
-            try {
-                if (!settings.steps) throw "The Foudroyante requires a steps value.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
-
-            try {
-                if (settings.steps < 2) throw "The Foudroyante requires a minimum step value of 2.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
-
-            try {
-                if (settings.steps > 10) throw "The Foudroyante can support a maximum of 10 steps.";
-            } catch (errorMsg) {
-                console.error(errorMsg);
-                return;
-            }
+            if (!settings.id) throw new ReferenceError('The Foudroyante class requires that an ID of the indiciator element be provided.');
+            if (!settings.steps) throw new ReferenceError('The Foudroyante requires a steps value.');
+            if (settings.steps < 2 || settings.steps > 10) throw new ReferenceError('The Foudroyante requires a step value between 2-10.');
         }
     }, {
-        key: "defineInterval",
+        key: 'defineInterval',
         value: function defineInterval() {
             var _this = this;
 
@@ -68,7 +44,7 @@ var Foudroyante = function () {
             }, 1000 / this.steps);
         }
     }, {
-        key: "clearInterval",
+        key: 'clearInterval',
         value: function (_clearInterval) {
             function clearInterval() {
                 return _clearInterval.apply(this, arguments);
@@ -84,17 +60,17 @@ var Foudroyante = function () {
             this.interval = null;
         })
     }, {
-        key: "rotateHand",
+        key: 'rotateHand',
         value: function rotateHand() {
             if (this.currentAngle === 360 - this.degreeIncrement) {
                 this.currentAngle = 0;
             } else {
                 this.currentAngle += this.degreeIncrement;
             }
-            this.element.style.transform = "rotate(" + this.currentAngle + "deg)";
+            this.element.style.transform = 'rotate(' + this.currentAngle + 'deg)';
         }
     }, {
-        key: "init",
+        key: 'init',
         value: function init() {
             this.defineInterval();
         }

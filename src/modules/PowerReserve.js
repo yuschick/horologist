@@ -10,14 +10,7 @@
 
 class PowerReserve {
     constructor(settings, parentWatch) {
-
-        try {
-            if (!settings.id)
-                throw "The PowerReserve class requires that an ID of the power reserve element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        this.errorChecking(settings);
 
         this.element = document.getElementById(settings.id);
         this.interval = null;
@@ -25,7 +18,13 @@ class PowerReserve {
         this.minAngle = settings.range[0];
         this.maxAngle = settings.range[1];
         this.increment = 0.5;
-        this.init();
+
+        if (!this.parent.testing) this.init();
+    }
+
+    errorChecking(settings) {
+        if (!settings.id) throw new ReferenceError('The PowerReserve class requires that an ID of the power reserve element be provided.');
+        if (!settings.range) throw new ReferenceError('The PowerReserve class requires that a range of the power reserve element be provided.');
     }
 
     decrementReserve() {

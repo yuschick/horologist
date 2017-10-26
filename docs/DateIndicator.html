@@ -55,6 +55,11 @@
                 </a>
               
                 
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
                 <a class="source" href="Foudroyante.html">
                   Foudroyante.js
                 </a>
@@ -124,7 +129,7 @@ The date can also optionally be indicated with a retrograde indicator</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateIndicator</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.checkForErrors(settings)) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
         <span class="hljs-keyword">if</span> (settings.split) {
             <span class="hljs-keyword">this</span>.split = <span class="hljs-literal">true</span>;
@@ -140,41 +145,14 @@ The date can also optionally be indicated with a retrograde indicator</p>
         <span class="hljs-keyword">this</span>.max = <span class="hljs-keyword">this</span>.retrograde ? <span class="hljs-keyword">this</span>.retrograde.max : <span class="hljs-number">180</span>;
         <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
-    checkForErrors(settings) {
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id &amp;&amp; !settings.split)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The Date Indicator class requires that an ID of the indiciator element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.id &amp;&amp; settings.split)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"Choose EITHER a primary or split indicator."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.split)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"Choose EITHER a retrograde or split indicator."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-        }
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (settings.split &amp;&amp; (!settings.split.ones || !settings.split.tenths))
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"When choosing a split date display please provide the IDs for both the ones and tenths discs."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-        }
+    errorChecking(settings) {
+        <span class="hljs-keyword">if</span> (!settings.id &amp;&amp; !settings.split) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Date Indicator class requires that an ID of the indiciator element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (settings.id &amp;&amp; settings.split) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'Choose EITHER a primary or split indicator.'</span>);
+        <span class="hljs-keyword">if</span> (settings.retrograde &amp;&amp; settings.split) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'Choose EITHER a retrograde or split indicator.'</span>);
+        <span class="hljs-keyword">if</span> (settings.split &amp;&amp; (!settings.split.ones || !settings.split.tenths)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'When choosing a split date display please provide the IDs for both the ones and tenths discs.'</span>);
     }
 
     getRotateValue(type = <span class="hljs-literal">null</span>) {

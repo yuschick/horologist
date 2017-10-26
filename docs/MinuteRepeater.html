@@ -55,6 +55,11 @@
                 </a>
               
                 
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
                 <a class="source" href="Foudroyante.html">
                   Foudroyante.js
                 </a>
@@ -124,14 +129,7 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinuteRepeater</span> </span>{
     <span class="hljs-keyword">constructor</span>(dial, repeater, parentWatch) {
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!repeater)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The MinuteRepeater class requires that an ID of the repeater element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">this</span>.errorChecking(dial, repeater);
 
         <span class="hljs-keyword">this</span>.hands = dial.hands;
 
@@ -157,7 +155,13 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
         <span class="hljs-keyword">this</span>.quartersPlaying = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.minutesPlaying = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">this</span>.parent = parentWatch;
-        <span class="hljs-keyword">this</span>.init();
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
+    }
+
+    errorChecking(dial, settings) {
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The MinuteRepeater class requires that an ID of the repeater element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (!dial.hands.minute) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The minute repeater, like, by definition, requires a dial which supports a minute hand.'</span>);
     }
 
     convertAngleToIncrements() {
@@ -167,13 +171,6 @@ these values, the class then plays back chimes to audibly indicate the time.</p>
         }
         <span class="hljs-keyword">this</span>.hourChimes = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.hourAngle / <span class="hljs-keyword">this</span>.hourDivisor) || <span class="hljs-number">12</span>;
 
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.hands.minute)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The minute repeater, like, by definition, requires a dial which supports a minute hand."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
         <span class="hljs-keyword">this</span>.minuteAngle = <span class="hljs-keyword">this</span>.parent.getCurrentRotateValue(<span class="hljs-keyword">this</span>.hands.minute);
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minuteAngle &gt; <span class="hljs-number">360</span>) {
             <span class="hljs-keyword">this</span>.minuteAngle %= <span class="hljs-number">360</span>;

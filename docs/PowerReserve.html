@@ -55,6 +55,11 @@
                 </a>
               
                 
+                <a class="source" href="EquationOfTime.html">
+                  EquationOfTime.js
+                </a>
+              
+                
                 <a class="source" href="Foudroyante.html">
                   Foudroyante.js
                 </a>
@@ -124,14 +129,7 @@ components, with the exception of the crown, are stopped.</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PowerReserve</span> </span>{
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
-
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">if</span> (!settings.id)
-                <span class="hljs-keyword">throw</span> <span class="hljs-string">"The PowerReserve class requires that an ID of the power reserve element be provided."</span>;
-        } <span class="hljs-keyword">catch</span> (errorMsg) {
-            <span class="hljs-built_in">console</span>.error(errorMsg);
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
         <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
         <span class="hljs-keyword">this</span>.interval = <span class="hljs-literal">null</span>;
@@ -139,7 +137,13 @@ components, with the exception of the crown, are stopped.</p>
         <span class="hljs-keyword">this</span>.minAngle = settings.range[<span class="hljs-number">0</span>];
         <span class="hljs-keyword">this</span>.maxAngle = settings.range[<span class="hljs-number">1</span>];
         <span class="hljs-keyword">this</span>.increment = <span class="hljs-number">0.5</span>;
-        <span class="hljs-keyword">this</span>.init();
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
+    }
+
+    errorChecking(settings) {
+        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The PowerReserve class requires that an ID of the power reserve element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (!settings.range) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The PowerReserve class requires that a range of the power reserve element be provided.'</span>);
     }
 
     decrementReserve() {

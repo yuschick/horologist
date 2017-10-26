@@ -8,7 +8,6 @@
 
 class Foudroyante {
     constructor(settings, parentWatch) {
-
         this.errorChecking(settings);
 
         this.element = document.getElementById(settings.id);
@@ -21,37 +20,9 @@ class Foudroyante {
     }
 
     errorChecking(settings) {
-        try {
-            if (!settings.id)
-                throw "The Foudroyante class requires that an ID of the indiciator element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (!settings.steps)
-                throw "The Foudroyante requires a steps value.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (settings.steps < 2)
-                throw "The Foudroyante requires a minimum step value of 2.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
-
-        try {
-            if (settings.steps > 10)
-                throw "The Foudroyante can support a maximum of 10 steps.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        if (!settings.id) throw new ReferenceError('The Foudroyante class requires that an ID of the indiciator element be provided.');
+        if (!settings.steps) throw new ReferenceError('The Foudroyante requires a steps value.');
+        if (settings.steps < 2 || settings.steps > 10) throw new ReferenceError('The Foudroyante requires a step value between 2-10.');
     }
 
     defineInterval() {

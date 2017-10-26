@@ -16,21 +16,18 @@ Date.prototype.getJulian = function() {
 
 class MoonPhase {
     constructor(settings, parentWatch) {
-
-        try {
-            if (!settings.id)
-                throw "The MoonPhase class requires that an ID of the moonphase element be provided.";
-        } catch (errorMsg) {
-            console.error(errorMsg);
-            return;
-        }
+        this.errorChecking(settings);
 
         this.parent = parentWatch;
         this.rightNow = new Date();
         this.element = document.getElementById(settings.id);
         this.invert = settings.invert || false;
 
-        this.init();
+        if (!this.parent.testing) this.init();
+    }
+
+    errorChecking(settings) {
+        if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
     }
 
     rotateDisc(val) {
@@ -92,8 +89,6 @@ class MoonPhase {
     getCurrentPhase(phase) {
         let sweep = [];
         let mag;
-        // the "sweep-flag" and the direction of movement change every quarter moon
-        // zero and one are both new moon; 0.50 is full moon
 
         if (phase <= 0.25) {
             sweep = [1, 0];
@@ -113,35 +108,6 @@ class MoonPhase {
 
         phase = phase.toFixed(5) * 3.6;
         this.rotateDisc(phase * 100);
-
-        /*
-          if (phase <= 0.0625 || phase > 0.9375) {
-            if (this.invert) {
-              this.rotateDisc(0); // new moon
-            } else {
-              this.rotateDisc(180); // new moon
-            }
-            this.rotateDisc(phase * 3.6);
-          } else if (phase <= 0.1875) {
-            this.rotateDisc(40); // waxing crescent
-          } else if (phase <= 0.3125) {
-            this.rotateDisc(25); // first quarter
-          } else if (phase <= 0.4375) {
-            this.rotateDisc(13); // waxing gibbous
-          } else if (phase <= 0.5625) {
-            if (this.invert) {
-              this.rotateDisc(180); // full moon
-            } else {
-              this.rotateDisc(0); // full moon
-            }
-          } else if (phase <= 0.6875) {
-            this.rotateDisc(-13);// waning gibbous
-          } else if (phase <= 0.8125) {
-            this.rotateDisc(-25); // last quarter
-          } else if (phase <= 0.9375) {
-            this.rotateDisc(-40); // waning crescent
-          }
-        */
     }
 
     init() {
