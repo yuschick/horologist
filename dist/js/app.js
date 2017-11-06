@@ -19072,7 +19072,12 @@
 	// @params settings: object
 	// @params parentWatch: Watch instance
 	//
-	// Notes
+	// The Equation of Time functions very similarly to the Power Reserve.
+	// An ID of the indicator is provided and based on the true solar time
+	// the indicator is adjusted to display the time variance.
+	// A range can be provided (defaults to [-45, 45])
+	// Each range is then split into 14 or 16 segments, one for each variant minute
+	//
 	// Logic taken from: http://www2.arnes.si/~gljsentvid10/sunset_rise.html
 
 	var Timezone = __webpack_require__(124);
@@ -19116,6 +19121,7 @@
 	        key: 'errorChecking',
 	        value: function errorChecking(settings) {
 	            if (!settings.id) throw new ReferenceError('The Equation of Time Class requires that an ID of the indicator element be provided.');
+	            if (settings.range && settings.range.length > 2) throw new ReferenceError('The range property requires two numericd values.');
 	        }
 	    }, {
 	        key: 'getIncrement',
