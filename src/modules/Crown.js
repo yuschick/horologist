@@ -7,13 +7,21 @@
 
 class Crown {
     constructor(settings, parentWatch) {
-        if (!settings.id) throw new ReferenceError("The Crown class requires that an ID of the crown element be provided.");
+        this.errorChecking(settings);
 
-        this.crown = document.getElementById(settings.id);
+        this.crown = document.getElementById(settings.id || settings);
         this.parent = parentWatch;
         this.crownActive = false;
 
         if (!this.parent.testing) this.init();
+    }
+
+    errorChecking(settings) {
+        if (typeof settings === 'object') {
+            if (!settings.id) throw new ReferenceError("The Crown class requires that an ID of the crown element be provided.");
+        } else if (typeof settings !== 'string') {
+            throw new ReferenceError('The Crown class expects either a settings object or a string containing the element\'s ID.');
+        }
     }
 
     toggleCrown() {

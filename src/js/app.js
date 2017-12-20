@@ -117,29 +117,19 @@ const Watch = require('./../index');
                 hour: './../dist/sounds/chime-02.mp4'
             }
         },
-        dayNightIndicator: {
-            id: 'grande-daynight-disc'
-        },
-        moonphase: {
-            id: 'grande-moonphase-disc'
-        },
+        dayNightIndicator: 'grande-daynight-disc',
+        moonphase: 'grande-moonphase-disc',
         day: {
             id: 'grande-day-disc',
             invert: true
         },
-        date: {
-            id: 'grande-date-disc'
-        },
+        date: 'grande-date-disc',
         month: {
             id: 'grande-month-disc',
             invert: true
         },
-        week: {
-            id: 'grande-week-display-ring'
-        },
-        year: {
-            id: 'grande-year-indicator-disc'
-        },
+        week: 'grande-week-display-ring',
+        year: 'grande-year-indicator-disc',
         eqTime: {
             id: 'grande-equation-hand',
             range: [-38, 38]

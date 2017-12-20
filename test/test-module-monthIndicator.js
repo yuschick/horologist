@@ -22,6 +22,20 @@ describe('Month Indicator', () => {
         test.should.have.property('monthIndicator');
     });
 
+    it('should return a Watch instance with a "month" property with only a string declaration.', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: 'chronograph-hour-hand',
+                },
+            }],
+            month: 'month-disc'
+        };
+        const test = new Watch(settings);
+        test.should.have.property('monthIndicator');
+    });
+
     it('should return an error from the Watch class for not providing a month element ID', () => {
         const settings = {
             testing: true,

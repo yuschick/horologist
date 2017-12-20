@@ -12,9 +12,9 @@
 
 class DayNightIndicator {
     constructor(dial, settings, parentWatch) {
-        if (!settings.id) throw new ReferenceError("The DayNightIndicstor class requires that an ID of the element be provided.");
+        this.errorChecking(settings);
 
-        this.element = document.getElementById(settings.id);
+        this.element = document.getElementById(settings.id || settings);
         this.dial = dial;
         this.hands = dial.hands;
         this.parent = parentWatch;
@@ -29,6 +29,14 @@ class DayNightIndicator {
             15;
 
         if (!this.parent.testing) this.init();
+    }
+
+    errorChecking(settings) {
+        if (typeof settings === 'object') {
+            if (!settings.id) throw new ReferenceError("The DayNightIndicstor class requires that an ID of the element be provided.");
+        } else if (typeof settings !== 'string') {
+            throw new ReferenceError('The Day/Night Indicator class expects either a settings object or a string containing the element\'s ID.');
+        }
     }
 
     toggleAMPM() {

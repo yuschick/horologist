@@ -134,7 +134,7 @@ Each range is then split into 14 or 16 segments, one for each variant minute</p>
     <span class="hljs-keyword">constructor</span>(settings, parentWatch) {
         <span class="hljs-keyword">this</span>.errorChecking(settings);
 
-        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id || settings);
         <span class="hljs-keyword">this</span>.parent = parentWatch;
 
         <span class="hljs-keyword">this</span>.range = settings.range || [<span class="hljs-number">-45</span>, <span class="hljs-number">45</span>];
@@ -164,8 +164,12 @@ Each range is then split into 14 or 16 segments, one for each variant minute</p>
     }
 
     errorChecking(settings) {
-        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Equation of Time Class requires that an ID of the indicator element be provided.'</span>);
-        <span class="hljs-keyword">if</span> (settings.range &amp;&amp; settings.range.length &gt; <span class="hljs-number">2</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The range property requires two numericd values.'</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings === <span class="hljs-string">'object'</span>) {
+            <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Equation of Time Class requires that an ID of the indicator element be provided.'</span>);
+            <span class="hljs-keyword">if</span> (settings.range &amp;&amp; settings.range.length &gt; <span class="hljs-number">2</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The range property requires two numericd values.'</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings !== <span class="hljs-string">'string'</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Equation of Time Indicator class expects either a settings object or a string containing the element\'s ID.'</span>);
+        }
     }
 
     getIncrement() {

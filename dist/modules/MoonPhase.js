@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28,7 +30,7 @@ var MoonPhase = function () {
 
         this.parent = parentWatch;
         this.rightNow = new Date();
-        this.element = document.getElementById(settings.id);
+        this.element = document.getElementById(settings.id || settings);
         this.invert = settings.invert || false;
 
         if (!this.parent.testing) this.init();
@@ -37,7 +39,11 @@ var MoonPhase = function () {
     _createClass(MoonPhase, [{
         key: 'errorChecking',
         value: function errorChecking(settings) {
-            if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+            if ((typeof settings === 'undefined' ? 'undefined' : _typeof(settings)) === 'object') {
+                if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+            } else if (typeof settings !== 'string') {
+                throw new ReferenceError('The Moonphase Indicator class expects either a settings object or a string containing the element\'s ID.');
+            }
         }
     }, {
         key: 'rotateDisc',

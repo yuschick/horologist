@@ -150,14 +150,18 @@ rotated.</p>
 
         <span class="hljs-keyword">this</span>.parent = parentWatch;
         <span class="hljs-keyword">this</span>.rightNow = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id || settings);
         <span class="hljs-keyword">this</span>.invert = settings.invert || <span class="hljs-literal">false</span>;
 
         <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
     }
 
     errorChecking(settings) {
-        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The MoonPhase class requires that an ID of the moonphase element be provided.'</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings === <span class="hljs-string">'object'</span>) {
+            <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The MoonPhase class requires that an ID of the moonphase element be provided.'</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings !== <span class="hljs-string">'string'</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Moonphase Indicator class expects either a settings object or a string containing the element\'s ID.'</span>);
+        }
     }
 
     rotateDisc(val) {

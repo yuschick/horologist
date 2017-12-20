@@ -22,6 +22,20 @@ describe('Day Indicator', () => {
         test.should.have.property('dayIndicator');
     });
 
+    it('should return a Watch instance with a "dayIndicator" property with only a string declaration.', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: 'chronograph-hour-hand',
+                },
+            }],
+            day: 'day-disc'
+        };
+        const test = new Watch(settings);
+        test.should.have.property('dayIndicator');
+    });
+
     it('should return an error from the Watch class for not providing a dayIndicator ID', () => {
         const settings = {
             testing: true,

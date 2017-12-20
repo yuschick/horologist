@@ -131,9 +131,9 @@ split into fourths and the indicator is rotated 25 degrees for each.</p>
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DayNightIndicator</span> </span>{
     <span class="hljs-keyword">constructor</span>(dial, settings, parentWatch) {
-        <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"The DayNightIndicstor class requires that an ID of the element be provided."</span>);
+        <span class="hljs-keyword">this</span>.errorChecking(settings);
 
-        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id);
+        <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">document</span>.getElementById(settings.id || settings);
         <span class="hljs-keyword">this</span>.dial = dial;
         <span class="hljs-keyword">this</span>.hands = dial.hands;
         <span class="hljs-keyword">this</span>.parent = parentWatch;
@@ -148,6 +148,14 @@ split into fourths and the indicator is rotated 25 degrees for each.</p>
             <span class="hljs-number">15</span>;
 
         <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parent.testing) <span class="hljs-keyword">this</span>.init();
+    }
+
+    errorChecking(settings) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings === <span class="hljs-string">'object'</span>) {
+            <span class="hljs-keyword">if</span> (!settings.id) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">"The DayNightIndicstor class requires that an ID of the element be provided."</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> settings !== <span class="hljs-string">'string'</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">ReferenceError</span>(<span class="hljs-string">'The Day/Night Indicator class expects either a settings object or a string containing the element\'s ID.'</span>);
+        }
     }
 
     toggleAMPM() {

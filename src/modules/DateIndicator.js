@@ -12,12 +12,12 @@ class DateIndicator {
     constructor(settings, parentWatch) {
         this.errorChecking(settings);
 
-        if (settings.split) {
+        if (typeof settings === 'object' && settings.split) {
             this.split = true;
             this.ones = document.getElementById(settings.split.ones);
             this.tenths = document.getElementById(settings.split.tenths);
         } else {
-            this.element = document.getElementById(settings.id);
+            this.element = document.getElementById(settings.id || settings);
         }
 
         this.parent = parentWatch;
@@ -30,10 +30,14 @@ class DateIndicator {
     }
 
     errorChecking(settings) {
-        if (!settings.id && !settings.split) throw new ReferenceError('The Date Indicator class requires that an ID of the indiciator element be provided.');
-        if (settings.id && settings.split) throw new ReferenceError('Choose EITHER a primary or split indicator.');
-        if (settings.retrograde && settings.split) throw new ReferenceError('Choose EITHER a retrograde or split indicator.');
-        if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw new ReferenceError('When choosing a split date display please provide the IDs for both the ones and tenths discs.');
+        if (typeof settings === 'object') {
+            if (!settings.id && !settings.split) throw new ReferenceError('The Date Indicator class requires that an ID of the indiciator element be provided.');
+            if (settings.id && settings.split) throw new ReferenceError('Choose EITHER a primary or split indicator.');
+            if (settings.retrograde && settings.split) throw new ReferenceError('Choose EITHER a retrograde or split indicator.');
+            if (settings.split && (!settings.split.ones || !settings.split.tenths)) throw new ReferenceError('When choosing a split date display please provide the IDs for both the ones and tenths discs.');
+        } else if (typeof settings !== 'string') {
+            throw new ReferenceError('The Date Indicator class expects either a settings object or a string containing the element\'s ID.');
+        }
     }
 
     getRotateValue(type = null) {

@@ -20,14 +20,18 @@ class MoonPhase {
 
         this.parent = parentWatch;
         this.rightNow = new Date();
-        this.element = document.getElementById(settings.id);
+        this.element = document.getElementById(settings.id || settings);
         this.invert = settings.invert || false;
 
         if (!this.parent.testing) this.init();
     }
 
     errorChecking(settings) {
-        if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+        if (typeof settings === 'object') {
+            if (!settings.id) throw new ReferenceError('The MoonPhase class requires that an ID of the moonphase element be provided.');
+        } else if (typeof settings !== 'string') {
+            throw new ReferenceError('The Moonphase Indicator class expects either a settings object or a string containing the element\'s ID.');
+        }
     }
 
     rotateDisc(val) {

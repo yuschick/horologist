@@ -7,9 +7,9 @@
 
 class MonthIndicator {
     constructor(settings, parentWatch) {
-        if (!settings.id) throw new ReferenceError("The Month class requires that an ID of the element be provided.");
+        this.errorChecking(settings);
 
-        this.element = document.getElementById(settings.id);
+        this.element = document.getElementById(settings.id || settings);
         this.parent = parentWatch;
         this.month = this.parent.rightNow.month();
 
@@ -18,6 +18,14 @@ class MonthIndicator {
         this.invert = settings.invert || false;
 
         if (!this.parent.testing) this.init();
+    }
+
+    errorChecking(settings) {
+        if (typeof settings === 'object') {
+            if (!settings.id) throw new ReferenceError("The Month class requires that an ID of the element be provided.");
+        } else if (typeof settings !== 'string') {
+            throw new ReferenceError('The Month Indicator class expects either a settings object or a string containing the element\'s ID.');
+        }
     }
 
     getRotateValue() {

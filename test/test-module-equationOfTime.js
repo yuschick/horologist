@@ -24,6 +24,22 @@ describe('Equation of Time', () => {
         test.should.have.property('equationOfTime');
     });
 
+    it('should return a Watch instance with a "equationOfTime" property with only a string declaration.', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: 'hour-hand',
+                    minute: 'minute-hand',
+                    second: 'second-hand',
+                }
+            }],
+            eqTime: 'eq-hand'
+        };
+        const test = new Watch(settings);
+        test.should.have.property('equationOfTime');
+    });
+
     it('should error with no ID key.', () => {
         const settings = {
             testing: true,

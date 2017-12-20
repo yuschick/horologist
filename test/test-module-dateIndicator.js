@@ -24,6 +24,22 @@ describe('Date Indicator', () => {
         test.should.have.property('dateIndicator');
     });
 
+    it('should return a Watch instance with a "dateIndicator" property with only a string declaration.', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: 'hour-hand',
+                    minute: 'minute-hand',
+                    second: 'second-hand',
+                }
+            }],
+            date: 'date-disc'
+        };
+        const test = new Watch(settings);
+        test.should.have.property('dateIndicator');
+    });
+
     it('should error with no ID key.', () => {
         const settings = {
             testing: true,

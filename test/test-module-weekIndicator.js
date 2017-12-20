@@ -24,6 +24,22 @@ describe('Week Indicator', () => {
         test.should.have.property('weekIndicator');
     });
 
+    it('should return a Watch instance with a "weekIndicator" property with only a string declaration.', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: 'hour-hand',
+                    minute: 'minute-hand',
+                    second: 'second-hand',
+                }
+            }],
+            week: 'week-hand'
+        };
+        const test = new Watch(settings);
+        test.should.have.property('weekIndicator');
+    });
+
     it('should error with no ID key.', () => {
         const settings = {
             testing: true,
