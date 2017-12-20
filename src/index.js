@@ -4,7 +4,6 @@
 // The master watch class brings in all other complication components to create
 // new instances as needed by the settings object.
 // The class also brings in Moment.js to handle dates, times, and timezones
-
 const Moment = require('moment');
 
 const Dial = require('./modules/Dial');
@@ -107,36 +106,36 @@ class Watch {
     keyBindings() {
         window.addEventListener('keydown', () => {
             switch (event.keyCode) {
-                case 37:
-                    if (this.powerReserve)
-                        this.powerReserve.incrementReserve();
-                    break;
-                case 13:
-                    if (this.crown)
-                        this.crown.toggleCrown();
-                    break;
+            case 37:
+                if (this.powerReserve)
+                    this.powerReserve.incrementReserve();
+                break;
+            case 13:
+                if (this.crown)
+                    this.crown.toggleCrown();
+                break;
             }
 
             if (this.crown) {
                 if (this.crown.crownActive) {
                     event.preventDefault();
                     switch (event.keyCode) {
-                        case 37:
-                            if (this.powerReserve)
-                                this.powerReserve.incrementReserve();
-                            break;
-                        case 38:
-                            this.dialInstances[this.activeDial].rotateHands();
-                            break;
-                        case 39:
-                            this.activeDial++;
+                    case 37:
+                        if (this.powerReserve)
+                            this.powerReserve.incrementReserve();
+                        break;
+                    case 38:
+                        this.dialInstances[this.activeDial].rotateHands();
+                        break;
+                    case 39:
+                        this.activeDial++;
 
-                            if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
+                        if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
 
-                            break;
-                        case 40:
-                            this.dialInstances[this.activeDial].rotateHands('back');
-                            break;
+                        break;
+                    case 40:
+                        this.dialInstances[this.activeDial].rotateHands('back');
+                        break;
                     }
                 }
             }

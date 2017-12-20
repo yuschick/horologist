@@ -10,7 +10,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // The master watch class brings in all other complication components to create
 // new instances as needed by the settings object.
 // The class also brings in Moment.js to handle dates, times, and timezones
-
 var Moment = require('moment');
 
 var Dial = require('./modules/Dial');

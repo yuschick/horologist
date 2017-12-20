@@ -6,8 +6,8 @@
     "scripts": {
         "watch": "webpack -w",
         "prebuild": "npm-run-all test docs",
-        "build": "babel ./src/modules/ --out-dir ./dist/modules/ --copy-files --presets=es2015,react",
-        "postbuild": "babel ./src/index.js --out-file ./dist/index.js --presets=es2015,react",
+        "build": "babel ./src/modules/ --out-dir ./dist/modules/ --copy-files --presets=env,react",
+        "postbuild": "babel ./src/index.js --out-file ./dist/index.js --presets=env,react",
         "docs": "docco -o ./docs/ ./src/**/*.js",
         "test": "mocha --exit"
     },
@@ -18,7 +18,6 @@
         "babel-cli": "^6.24.1",
         "babel-core": "^6.21.0",
         "babel-loader": "^6.2.10",
-        "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "browser-sync": "^2.18.6",
         "browser-sync-webpack-plugin": "^1.1.3",
@@ -29,14 +28,24 @@
         "yarn-run-all": "^3.1.1"
     },
     "dependencies": {
+        "babel-preset-env": "^1.6.1",
         "jsdom": "^11.3.0",
         "jsdom-global": "^3.0.2",
         "json-loader": "^0.5.7",
         "moment": "^2.18.1",
         "moment-timezone": "^0.5.13"
     },
-    "browserslist": [
-        "last 3 versions"
+    "presets": [
+        "@babel/preset-env",
+        {
+            "targets": {
+                "node": "current",
+                "browsers": [
+                    "last 3 versions"
+                ]
+            },
+            "modules": true
+        }
     ],
     "keywords": [
         "TickTock",
