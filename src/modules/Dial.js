@@ -19,9 +19,27 @@ class Dial {
         this.name = settings.name;
         this.hands = {};
         if (settings.hands.hour)
-            this.hands.hour = document.getElementById(settings.hands.hour);
+            if (typeof settings.hands.hour === 'string') {
+                this.hands.hour = document.getElementById(settings.hands.hour);
+            } else if (typeof settings.hands.hour === 'object') {
+                this.hands.hour = {};
+                this.splitHours = true;
+                this.hands.hour.ones = document.getElementById(settings.hands.hour.ones);
+                this.hands.hour.tenths = document.getElementById(settings.hands.hour.tenths);
+                this.hands.hour.invert = settings.hands.hour.invert;
+            }
+
         if (settings.hands.minute)
-            this.hands.minute = document.getElementById(settings.hands.minute);
+            if (typeof settings.hands.minute === 'string') {
+                this.hands.minute = document.getElementById(settings.hands.minute);
+            } else if (typeof settings.hands.minute === 'object') {
+                this.hands.minute = {};
+                this.splitMinutes = true;
+                this.hands.minute.ones = document.getElementById(settings.hands.minute.ones);
+                this.hands.minute.tenths = document.getElementById(settings.hands.minute.tenths);
+                this.hands.minute.invert = settings.hands.minute.invert;
+            }
+
         if (settings.hands.second)
             this.hands.second = document.getElementById(settings.hands.second);
 
@@ -58,11 +76,17 @@ class Dial {
         this.currentTime = {};
 
         this.rotateValues = {
-            hoursRotateVal: this.format === 12 ?
-                30 : 15,
-            hoursRotateValOffset: this.format === 12 ?
-                0.5 : 0.25,
+            hoursRotateVal: this.format === 12 ? 30 : 15,
+            hoursRotateValOffset: this.format === 12 ? 0.5 : 0.25,
             hourJump: 30,
+            hoursplit: {
+                ones: 36,
+                tenths: this.format === 12 ? 180 : 120
+            },
+            minutesplit: {
+                ones: 36,
+                tenths: 60
+            },
             minutesRotateVal: 6
         };
 
@@ -133,59 +157,173 @@ class Dial {
 
         if (this.hands.hour) {
             let hourOffset = this.rotateValues.hoursRotateValOffset;
-            rotateVal = this.parent.getCurrentRotateValue(this.hands.hour);
+            rotateVal = this.splitHours ? {
+                ones: this.parent.getCurrentRotateValue(this.hands.hour.ones),
+                tenths: this.parent.getCurrentRotateValue(this.hands.hour.tenths)
+            } : this.parent.getCurrentRotateValue(this.hands.hour);
             if (this.settingTime) {
                 if (dir) {
-                    rotateVal -= hourOffset;
+                    if (this.splitHours) {
+                        const minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+                        const minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+
+                        if (minuteOnes % 360 === 0 && minuteTenths % 360 === 0) {
+                            rotateVal.ones -= this.rotateValues.hoursplit.ones;
+                        }
+                    } else {
+                        rotateVal -= hourOffset;
+                    }
+                    
                 } else {
-                    rotateVal += hourOffset;
+                    if (this.splitHours) {
+                        const minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+                        const minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+
+                        if (minuteOnes === (360 - this.rotateValues.minutesplit.ones) &&
+                            minuteTenths === (360 - this.rotateValues.minutesplit.tenths)) {
+                            rotateVal.ones += this.rotateValues.hoursplit.ones;
+                        }
+                    } else {
+                        rotateVal += hourOffset;
+                    }
                 }
             } else if (this.manualTime) {
                 if (this.currentTime.seconds === 0) {
                     rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
                 }
+            } else if (this.splitHours) {
+                if (this.currentTime.hours < 10) {
+                    rotateVal.ones = this.currentTime.hours * this.rotateValues.hoursplit.ones;
+                } else {
+                    rotateVal.ones = (this.currentTime.hours - 10) * this.rotateValues.hoursplit.ones;
+                }
+
+                rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
+
+                if (this.hands.hour.invert) {
+                    rotateVal.ones *= -1;
+                    rotateVal.tenths *= -1;
+                }
             } else {
                 rotateVal = (this.currentTime.hours * this.rotateValues.hoursRotateVal) + (this.currentTime.minutes * this.rotateValues.hoursRotateValOffset);
             }
 
-            if (rotateVal === 0 || rotateVal >= 360) {
+            if (!this.splitHours && rotateVal === 0 || rotateVal >= 360) {
                 this.transition.hour = this.hands.hour.style.transition;
                 this.hands.hour.style.transition = 'none';
-            } else if (rotateVal > 0 && this.hands.hour.style.transition === 'none') {
+            } else if (!this.splitHours && rotateVal > 0 && this.hands.hour.style.transition === 'none') {
                 this.hands.hour.style.transition = this.transition.hour;
             }
 
-            if (rotateVal > 360) {
-                rotateVal -= 360;
+            if (this.splitHours) {
+                if (rotateVal.ones < 0) {
+                    rotateVal.ones += 360;
+                }
+                if (rotateVal.tenths < 360) {
+                    rotateVal.tenths += 360;
+                }
+                if (rotateVal.ones > 360) {
+                    rotateVal.ones -= 360;
+                }
+                if (rotateVal.tenths > 360) {
+                    rotateVal.tenths -= 360;
+                }
+            } else {
+                if (rotateVal > 360) {
+                    rotateVal -= 360;
+                }
             }
 
-            this.hands.hour.style.transform = `rotate(${rotateVal}deg)`;
+            if (this.splitHours) {
+                this.hands.hour.ones.style.transform = `rotate(${rotateVal.ones}deg)`;
+                this.hands.hour.tenths.style.transform = `rotate(${rotateVal.tenths}deg)`;
+            } else {
+                this.hands.hour.style.transform = `rotate(${rotateVal}deg)`;
+            }
         }
 
         if (this.hands.minute) {
-            rotateVal = this.parent.getCurrentRotateValue(this.hands.minute);
+            rotateVal = this.splitMinutes ? {
+                ones: this.parent.getCurrentRotateValue(this.hands.minute.ones),
+                tenths: this.parent.getCurrentRotateValue(this.hands.minute.tenths)
+            } : this.parent.getCurrentRotateValue(this.hands.minute);
             if (this.settingTime) {
                 if (dir) {
-                    rotateVal -= this.rotateValues.minutesRotateVal;
+                    if (this.splitMinutes) {
+                        rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+                        rotateVal.ones -= this.rotateValues.minutesplit.ones;
+                        rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
+
+                        if (rotateVal.ones === -this.rotateValues.minutesplit.ones) {
+                            rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+                            rotateVal.tenths -= this.rotateValues.minutesplit.tenths;
+                        }
+                    } else {
+                        rotateVal -= this.rotateValues.minutesRotateVal;
+                    }
                 } else {
-                    rotateVal += this.rotateValues.minutesRotateVal;
+                    if (this.splitMinutes) {
+                        rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+                        rotateVal.ones += this.rotateValues.minutesplit.ones;
+                        rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
+
+                        if (rotateVal.ones === 0) {
+                            rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+                            rotateVal.tenths += this.rotateValues.minutesplit.tenths;
+                        }
+                    } else {
+                        rotateVal += this.rotateValues.minutesRotateVal;
+                    }
                 }
             } else if (this.manualTime) {
                 if (this.currentTime.seconds === 0) {
                     rotateVal += this.rotateValues.minutesRotateVal;
                 }
+            } else if (this.splitMinutes) {
+                if (this.currentTime.minutes % 10) {
+                    rotateVal.ones = this.currentTime.minutes * this.rotateValues.minutesplit.ones;
+                } else {
+                    rotateVal = (this.currentTime.minutes - 10) * this.rotateValues.hminuteplit.ones;
+                }
+
+                rotateVal.tenths = Math.floor(this.currentTime.minutes / 10) * this.rotateValues.minutesplit.tenths;
+
+                if (this.hands.minute.invert) {
+                    rotateVal.ones *= -1;
+                    rotateVal.tenths *= -1;
+                }
             } else {
                 rotateVal = this.currentTime.minutes * this.rotateValues.minutesRotateVal;
             }
 
-            if (rotateVal === 0) {
+            if (!this.splitMinutes && rotateVal === 0) {
                 this.transition.minute = this.hands.minute.style.transition;
                 this.hands.minute.style.transition = 'none';
-            } else if (rotateVal > 0 && this.hands.minute.style.transition === 'none') {
+            } else if (!this.splitMinutes && rotateVal > 0 && this.hands.minute.style.transition === 'none') {
                 this.hands.minute.style.transition = this.transition.minute;
             }
 
-            this.hands.minute.style.transform = `rotate(${rotateVal}deg)`;
+            if (this.splitMinutes) {
+                if (rotateVal.ones < 0) {
+                    rotateVal.ones += 360;
+                }
+                if (rotateVal.tenths < 360) {
+                    rotateVal.tenths += 360;
+                }
+                if (rotateVal.ones > 360) {
+                    rotateVal.ones -= 360;
+                }
+                if (rotateVal.tenths > 360) {
+                    rotateVal.tenths -= 360;
+                }
+            }
+
+            if (this.splitMinutes) {
+                this.hands.minute.ones.style.transform = `rotate(${rotateVal.ones}deg)`;
+                this.hands.minute.tenths.style.transform = `rotate(${rotateVal.tenths}deg)`;
+            } else {
+                this.hands.minute.style.transform = `rotate(${rotateVal}deg)`;
+            }
         }
 
         if (this.hands.second) {

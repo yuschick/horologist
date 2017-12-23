@@ -28,7 +28,7 @@ class MinuteRepeater {
         this.minuteChimes = 0;
         this.minuteElement = null;
 
-        this.trigger = document.getElementById(repeater.id);
+        this.trigger = document.getElementById(repeater.id || repeater.trigger);
         this.chimes = repeater.chimes;
         this.hourChimeDuration = 0;
         this.counter = 1;

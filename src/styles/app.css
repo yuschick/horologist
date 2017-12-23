@@ -258,6 +258,21 @@ a {
     transform-origin: 125px 186px;
 }
 
+.split-hours-ones {
+    transform-origin: 85px 125px;
+}
+
+.split-hours-tenths {
+    transform-origin: 75px 125px;
+}
+
+.split-minutes-ones {
+    transform-origin: 115px 125px;
+}
+
+.split-minutes-tenths {
+    transform-origin: 105px 125px;
+}
 
 /**** Minute Repeater ****/
 
@@ -674,5 +689,16 @@ a {
 .moonphase-st8 {
     fill: none;
     stroke: #000000;
+    stroke-miterlimit: 10;
+}
+
+/* Split Times */
+.split-1 {
+    fill: #fff;
+}
+
+.split-2 {
+    fill: none;
+    stroke: #000;
     stroke-miterlimit: 10;
 }

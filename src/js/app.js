@@ -137,4 +137,29 @@ const Watch = require('./../index');
     };
 
     demo = new Watch(settings);
+
+    /*
+     * Split Times  Demo
+     */
+    settings = {
+        dials: [{
+            name: 'primary',
+            hands: {
+                hour: {
+                    ones: 'split-hours-ones',
+                    tenths: 'split-hours-tens'
+                },
+                minute: {
+                    ones: 'split-minutes-ones',
+                    tenths: 'split-minutes-tens'
+                },
+                second: 'split-second-hand',
+            },
+            sweep: true,
+            format: 24
+        }],
+        crown: 'crown-test'
+    };
+
+    demo = new Watch(settings);
 })();
