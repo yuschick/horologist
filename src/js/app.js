@@ -43,7 +43,7 @@ const Watch = require('./../index');
             sweep: true
         }],
         repeater: {
-            id: 'repeater-btn',
+            trigger: 'repeater-btn',
             chimes: {
                 hour: './dist/sounds/chime-01.mp4',
                 minute: './dist/sounds/chime-02.mp4'
@@ -111,7 +111,7 @@ const Watch = require('./../index');
             flyback: true
         },
         repeater: {
-            id: 'grande-repeater-button',
+            trigger: 'grande-repeater-button',
             chimes: {
                 minute: './../dist/sounds/chime-01.mp4',
                 hour: './../dist/sounds/chime-02.mp4'
@@ -143,7 +143,6 @@ const Watch = require('./../index');
      */
     settings = {
         dials: [{
-            name: 'primary',
             hands: {
                 hour: {
                     ones: 'split-hours-ones',
@@ -155,8 +154,7 @@ const Watch = require('./../index');
                 },
                 second: 'split-second-hand',
             },
-            sweep: true,
-            format: 24
+            sweep: true
         }],
         crown: 'crown-test'
     };

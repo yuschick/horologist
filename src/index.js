@@ -7,7 +7,7 @@
 const Moment = require('moment');
 
 const Dial = require('./modules/Dial');
-const Crown = require('./modules/Crown');
+// const Crown = require('./modules/Crown');
 const PowerReserve = require('./modules/PowerReserve');
 const MoonPhase = require('./modules/MoonPhase');
 const MinuteRepeater = require('./modules/MinuteRepeater');
@@ -36,9 +36,9 @@ class Watch {
             this.dialInstances.push(tempDial);
         });
 
-        if (settings.crown) {
-            this.crown = new Crown(settings.crown, this);
-        }
+        // if (settings.crown) {
+        //     this.crown = new Crown(settings.crown, this);
+        // }
 
         if (settings.reserve) {
             this.powerReserve = new PowerReserve(settings.reserve, this);
@@ -110,36 +110,35 @@ class Watch {
                 if (this.powerReserve)
                     this.powerReserve.incrementReserve();
                 break;
-            case 13:
-                if (this.crown)
-                    this.crown.toggleCrown();
-                break;
+            // case 13:
+            //     if (this.crown)
+            //         this.crown.toggleCrown();
+            //     break;
             }
 
-            if (this.crown) {
-                if (this.crown.crownActive) {
-                    event.preventDefault();
-                    switch (event.keyCode) {
-                    case 37:
-                        if (this.powerReserve)
-                            this.powerReserve.incrementReserve();
-                        break;
-                    case 38:
-                        this.dialInstances[this.activeDial].rotateHands();
-                        break;
-                    case 39:
-                        this.activeDial++;
+            // if (this.crown) {
+            //     if (this.crown.crownActive) {
+            //         event.preventDefault();
+            //         switch (event.keyCode) {
+            //         case 37:
+            //             if (this.powerReserve)
+            //                 this.powerReserve.incrementReserve();
+            //             break;
+            //         case 38:
+            //             this.dialInstances[this.activeDial].rotateHands();
+            //             break;
+            //         case 39:
+            //             this.activeDial++;
 
-                        if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
+            //             if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
 
-                        break;
-                    case 40:
-                        this.dialInstances[this.activeDial].rotateHands('back');
-                        break;
-                    }
-                }
-            }
-
+            //             break;
+            //         case 40:
+            //             this.dialInstances[this.activeDial].rotateHands('back');
+            //             break;
+            //         }
+            //     }
+            // }
         });
     }
 

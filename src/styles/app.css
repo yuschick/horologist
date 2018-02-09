@@ -188,6 +188,7 @@ a {
 
 .primary-nav li {
     color: #eff1f3;
+    list-style: none;
     padding: 0 1rem;
     text-transform: uppercase;
 }

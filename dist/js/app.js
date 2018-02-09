@@ -91,7 +91,7 @@
 	            sweep: true
 	        }],
 	        repeater: {
-	            id: 'repeater-btn',
+	            trigger: 'repeater-btn',
 	            chimes: {
 	                hour: './dist/sounds/chime-01.mp4',
 	                minute: './dist/sounds/chime-02.mp4'
@@ -159,7 +159,7 @@
 	            flyback: true
 	        },
 	        repeater: {
-	            id: 'grande-repeater-button',
+	            trigger: 'grande-repeater-button',
 	            chimes: {
 	                minute: './../dist/sounds/chime-01.mp4',
 	                hour: './../dist/sounds/chime-02.mp4'
@@ -191,7 +191,6 @@
 	     */
 	    settings = {
 	        dials: [{
-	            name: 'primary',
 	            hands: {
 	                hour: {
 	                    ones: 'split-hours-ones',
@@ -203,8 +202,7 @@
 	                },
 	                second: 'split-second-hand'
 	            },
-	            sweep: true,
-	            format: 24
+	            sweep: true
 	        }],
 	        crown: 'crown-test'
 	    };
@@ -231,19 +229,19 @@
 	var Moment = __webpack_require__(2);
 
 	var Dial = __webpack_require__(124);
-	var Crown = __webpack_require__(128);
-	var PowerReserve = __webpack_require__(129);
-	var MoonPhase = __webpack_require__(130);
-	var MinuteRepeater = __webpack_require__(131);
-	var DayNightIndicator = __webpack_require__(132);
-	var DayIndicator = __webpack_require__(133);
-	var DateIndicator = __webpack_require__(134);
-	var MonthIndicator = __webpack_require__(135);
-	var WeekIndicator = __webpack_require__(136);
-	var YearIndicator = __webpack_require__(137);
-	var Chronograph = __webpack_require__(138);
-	var Foudroyante = __webpack_require__(139);
-	var EquationOfTime = __webpack_require__(140);
+	// const Crown = require('./modules/Crown');
+	var PowerReserve = __webpack_require__(128);
+	var MoonPhase = __webpack_require__(129);
+	var MinuteRepeater = __webpack_require__(130);
+	var DayNightIndicator = __webpack_require__(131);
+	var DayIndicator = __webpack_require__(132);
+	var DateIndicator = __webpack_require__(133);
+	var MonthIndicator = __webpack_require__(134);
+	var WeekIndicator = __webpack_require__(135);
+	var YearIndicator = __webpack_require__(136);
+	var Chronograph = __webpack_require__(137);
+	var Foudroyante = __webpack_require__(138);
+	var EquationOfTime = __webpack_require__(139);
 
 	var Watch = function () {
 	    function Watch(settings) {
@@ -264,9 +262,9 @@
 	            _this.dialInstances.push(tempDial);
 	        });
 
-	        if (settings.crown) {
-	            this.crown = new Crown(settings.crown, this);
-	        }
+	        // if (settings.crown) {
+	        //     this.crown = new Crown(settings.crown, this);
+	        // }
 
 	        if (settings.reserve) {
 	            this.powerReserve = new PowerReserve(settings.reserve, this);
@@ -343,33 +341,35 @@
 	                    case 37:
 	                        if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
 	                        break;
-	                    case 13:
-	                        if (_this2.crown) _this2.crown.toggleCrown();
-	                        break;
+	                    // case 13:
+	                    //     if (this.crown)
+	                    //         this.crown.toggleCrown();
+	                    //     break;
 	                }
 
-	                if (_this2.crown) {
-	                    if (_this2.crown.crownActive) {
-	                        event.preventDefault();
-	                        switch (event.keyCode) {
-	                            case 37:
-	                                if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
-	                                break;
-	                            case 38:
-	                                _this2.dialInstances[_this2.activeDial].rotateHands();
-	                                break;
-	                            case 39:
-	                                _this2.activeDial++;
+	                // if (this.crown) {
+	                //     if (this.crown.crownActive) {
+	                //         event.preventDefault();
+	                //         switch (event.keyCode) {
+	                //         case 37:
+	                //             if (this.powerReserve)
+	                //                 this.powerReserve.incrementReserve();
+	                //             break;
+	                //         case 38:
+	                //             this.dialInstances[this.activeDial].rotateHands();
+	                //             break;
+	                //         case 39:
+	                //             this.activeDial++;
 
-	                                if (_this2.activeDial >= _this2.dialInstances.length) _this2.activeDial = 0;
+	                //             if (this.activeDial >= this.dialInstances.length) this.activeDial = 0;
 
-	                                break;
-	                            case 40:
-	                                _this2.dialInstances[_this2.activeDial].rotateHands('back');
-	                                break;
-	                        }
-	                    }
-	                }
+	                //             break;
+	                //         case 40:
+	                //             this.dialInstances[this.activeDial].rotateHands('back');
+	                //             break;
+	                //         }
+	                //     }
+	                // }
 	            });
 	        }
 	    }, {
@@ -16923,7 +16923,7 @@
 	// @params settings: object
 	// @params parentWatch: Watch instance
 	//
-	// The Dial class also brings in Moment-Timezone to better support 
+	// The Dial class also brings in Moment-Timezone to better support
 	// timezone values for dual-time displays. Based on the given time of the current
 	// or provided timezone, hour, minute, and second hands are rotated.
 	// The dial class supports telling time in 12 or 24 hour formats. Based on this
@@ -16989,6 +16989,7 @@
 	        }
 
 	        this.sweepingSeconds = settings.sweep || false;
+	        this.jumpingSeconds = settings.jumpingSeconds || false;
 
 	        this.rightNow = this.parent.rightNow;
 	        this.currentTime = {};
@@ -17013,6 +17014,7 @@
 	        this.manualTime = false;
 	        this.settingTime = false;
 	        this.transition = {};
+	        this.isSet - false;
 
 	        if (!this.parent.testing) this.init();
 	    }
@@ -17026,21 +17028,19 @@
 	            if (settings.retrograde && settings.retrograde.second.duration < 5) throw new ReferenceError('The retrograde second hand requires a duration no less than 5.');
 	            if (settings.retrograde && 60 % settings.retrograde.second.duration != 0) throw new ReferenceError('The retrograde second hand requires a duration that is evenly divisble by 60.');
 	        }
-	    }, {
-	        key: 'toggleActiveCrown',
-	        value: function toggleActiveCrown() {
-	            this.crownActive = !this.crownActive;
-	        }
-	    }, {
-	        key: 'toggleSettingTime',
-	        value: function toggleSettingTime() {
-	            this.settingTime = !this.settingTime;
-	        }
-	    }, {
-	        key: 'updateToManualTime',
-	        value: function updateToManualTime() {
-	            this.manualTime = true;
-	        }
+
+	        // toggleActiveCrown() {
+	        //     this.crownActive = !this.crownActive;
+	        // }
+
+	        // toggleSettingTime() {
+	        //     this.settingTime = !this.settingTime;
+	        // }
+
+	        // updateToManualTime() {
+	        //     this.manualTime = true;
+	        // }
+
 	    }, {
 	        key: 'startInterval',
 	        value: function startInterval() {
@@ -17060,7 +17060,15 @@
 	    }, {
 	        key: 'applySweepingTransition',
 	        value: function applySweepingTransition() {
-	            this.hands.second.style.transition = 'transform 1s linear';
+	            if (this.sweepingSeconds) {
+	                this.hands.second.style.transition = 'transform 1s linear';
+	            } else if (this.jumpingSeconds) {
+	                this.hands.second.style.transition = 'transform 1s';
+	                this.hands.second.style.transitionTimingFunction = "steps(1, start)";
+	            } else {
+	                this.hands.second.style.transition = 'transform 1s';
+	                this.hands.second.style.transitionTimingFunction = "steps(7, start)";
+	            }
 	        }
 	    }, {
 	        key: 'getCurrentTime',
@@ -17084,49 +17092,67 @@
 	    }, {
 	        key: 'rotateHands',
 	        value: function rotateHands() {
-	            var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
 	            var rotateVal = void 0;
 
 	            if (this.hands.hour) {
-	                var hourOffset = this.rotateValues.hoursRotateValOffset;
+	                // let hourOffset = this.rotateValues.hoursRotateValOffset;
 	                rotateVal = this.splitHours ? {
 	                    ones: this.parent.getCurrentRotateValue(this.hands.hour.ones),
 	                    tenths: this.parent.getCurrentRotateValue(this.hands.hour.tenths)
 	                } : this.parent.getCurrentRotateValue(this.hands.hour);
 	                if (this.settingTime) {
-	                    if (dir) {
-	                        if (this.splitHours) {
-	                            var minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
-	                            var minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+	                    // if (dir) {
+	                    //     if (this.splitHours) {
+	                    //         const minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+	                    //         const minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
 
-	                            if (minuteOnes % 360 === 0 && minuteTenths % 360 === 0) {
-	                                rotateVal.ones -= this.rotateValues.hoursplit.ones;
-	                            }
-	                        } else {
-	                            rotateVal -= hourOffset;
-	                        }
-	                    } else {
-	                        if (this.splitHours) {
-	                            var _minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
-	                            var _minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+	                    //         if (minuteOnes % 360 === 0 && minuteTenths % 360 === 0) {
+	                    //             rotateVal.ones -= this.rotateValues.hoursplit.ones;
+	                    //         }
 
-	                            if (_minuteOnes === 360 - this.rotateValues.minutesplit.ones && _minuteTenths === 360 - this.rotateValues.minutesplit.tenths) {
-	                                rotateVal.ones += this.rotateValues.hoursplit.ones;
-	                            }
-	                        } else {
-	                            rotateVal += hourOffset;
-	                        }
-	                    }
+	                    //         if (
+	                    //             (rotateVal.ones === -this.rotateValues.hoursplit.ones) &&
+	                    //             (minuteOnes === 0 || minuteOnes === 360) &&
+	                    //             (minuteTenths === 0 || minuteTenths === 360)) {
+	                    //             rotateVal.tenths -= this.rotateValues.hoursplit.tenths;
+	                    //         }
+	                    //     } else {
+	                    //         rotateVal -= hourOffset;
+	                    //     }
+
+	                    // } else {
+	                    //     if (this.splitHours) {
+	                    //         const minuteOnes = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+	                    //         const minuteTenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+
+	                    //         if (minuteOnes === (360 - this.rotateValues.minutesplit.ones) &&
+	                    //             minuteTenths === (360 - this.rotateValues.minutesplit.tenths)) {
+	                    //             rotateVal.ones += this.rotateValues.hoursplit.ones;
+	                    //         }
+
+	                    //         if (
+	                    //             (rotateVal.ones === (360 - this.rotateValues.hoursplit.ones)) &&
+	                    //             (minuteOnes === 0 || minuteOnes === 360) &&
+	                    //             (minuteTenths === 0 || minuteTenths === 360)) {
+	                    //             rotateVal.tenths += this.rotateValues.hoursplit.tenths;
+	                    //         }
+	                    //     } else {
+	                    //         rotateVal += hourOffset;
+	                    //     }
+	                    // }
 	                } else if (this.manualTime) {
-	                    if (this.currentTime.seconds === 0) {
-	                        rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
-	                    }
+	                    // if (this.currentTime.seconds === 0) {
+	                    //     rotateVal = this.parent.getCurrentRotateValue(this.hands.hour) + this.rotateValues.hoursRotateValOffset;
+	                    // }
 	                } else if (this.splitHours) {
 	                    if (this.currentTime.hours < 10) {
 	                        rotateVal.ones = this.currentTime.hours * this.rotateValues.hoursplit.ones;
 	                    } else {
-	                        rotateVal.ones = (this.currentTime.hours - 10) * this.rotateValues.hoursplit.ones;
+	                        if (this.format === 24) {
+	                            rotateVal.ones = (this.currentTime.hours - 10) * this.rotateValues.hoursplit.ones;
+	                        } else {
+	                            rotateVal.ones = (this.currentTime.hours - 12) * this.rotateValues.hoursplit.ones;
+	                        }
 	                    }
 
 	                    rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
@@ -17179,42 +17205,42 @@
 	                    tenths: this.parent.getCurrentRotateValue(this.hands.minute.tenths)
 	                } : this.parent.getCurrentRotateValue(this.hands.minute);
 	                if (this.settingTime) {
-	                    if (dir) {
-	                        if (this.splitMinutes) {
-	                            rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
-	                            rotateVal.ones -= this.rotateValues.minutesplit.ones;
-	                            rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
+	                    // if (dir) {
+	                    //     if (this.splitMinutes) {
+	                    //         rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+	                    //         rotateVal.ones -= this.rotateValues.minutesplit.ones;
+	                    //         rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
 
-	                            if (rotateVal.ones === -this.rotateValues.minutesplit.ones) {
-	                                rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
-	                                rotateVal.tenths -= this.rotateValues.minutesplit.tenths;
-	                            }
-	                        } else {
-	                            rotateVal -= this.rotateValues.minutesRotateVal;
-	                        }
-	                    } else {
-	                        if (this.splitMinutes) {
-	                            rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
-	                            rotateVal.ones += this.rotateValues.minutesplit.ones;
-	                            rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
+	                    //         if (rotateVal.ones === -this.rotateValues.minutesplit.ones) {
+	                    //             rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+	                    //             rotateVal.tenths -= this.rotateValues.minutesplit.tenths;
+	                    //         }
+	                    //     } else {
+	                    //         rotateVal -= this.rotateValues.minutesRotateVal;
+	                    //     }
+	                    // } else {
+	                    //     if (this.splitMinutes) {
+	                    //         rotateVal.ones = this.parent.getCurrentRotateValue(this.hands.minute.ones);
+	                    //         rotateVal.ones += this.rotateValues.minutesplit.ones;
+	                    //         rotateVal.ones = rotateVal.ones % 360 === 0 ? 0 : rotateVal.ones;
 
-	                            if (rotateVal.ones === 0) {
-	                                rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
-	                                rotateVal.tenths += this.rotateValues.minutesplit.tenths;
-	                            }
-	                        } else {
-	                            rotateVal += this.rotateValues.minutesRotateVal;
-	                        }
-	                    }
+	                    //         if (rotateVal.ones === 0) {
+	                    //             rotateVal.tenths = this.parent.getCurrentRotateValue(this.hands.minute.tenths);
+	                    //             rotateVal.tenths += this.rotateValues.minutesplit.tenths;
+	                    //         }
+	                    //     } else {
+	                    //         rotateVal += this.rotateValues.minutesRotateVal;
+	                    //     }
+	                    // }
 	                } else if (this.manualTime) {
-	                    if (this.currentTime.seconds === 0) {
-	                        rotateVal += this.rotateValues.minutesRotateVal;
-	                    }
+	                    // if (this.currentTime.seconds === 0) {
+	                    //     rotateVal += this.rotateValues.minutesRotateVal;
+	                    // }
 	                } else if (this.splitMinutes) {
 	                    if (this.currentTime.minutes % 10) {
 	                        rotateVal.ones = this.currentTime.minutes * this.rotateValues.minutesplit.ones;
 	                    } else {
-	                        rotateVal = (this.currentTime.minutes - 10) * this.rotateValues.hminuteplit.ones;
+	                        rotateVal = (this.currentTime.minutes - 10) * this.rotateValues.minuteplit.ones;
 	                    }
 
 	                    rotateVal.tenths = Math.floor(this.currentTime.minutes / 10) * this.rotateValues.minutesplit.tenths;
@@ -17258,22 +17284,36 @@
 	            }
 
 	            if (this.hands.second) {
-	                if (this.retrograde.second) {
-	                    rotateVal = this.currentTime.seconds * this.retrograde.second.increment;
-	                } else {
+	                if (!this.isSet) {
 	                    rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
+	                    this.isSet = true;
+	                } else {
+	                    rotateVal = this.parent.getCurrentRotateValue(this.hands.second) + this.rotateValues.minutesRotateVal;
 	                }
 
-	                if (this.retrograde.second && rotateVal > this.retrograde.second.max) {
-	                    rotateVal = rotateVal % this.retrograde.second.max || this.retrograde.second.max;
-	                }
+	                // if (this.retrograde.second) {
+	                //     rotateVal = this.currentTime.seconds * this.retrograde.second.increment;
+	                // } else {
+	                //     rotateVal = this.currentTime.seconds * this.rotateValues.minutesRotateVal;
+	                // }
 
-	                if (rotateVal === 0 || this.retrograde.second && rotateVal === this.retrograde.second.increment && this.hands.second.style.transition !== 'none') {
-	                    this.transition.second = this.hands.second.style.transition;
-	                    this.hands.second.style.transition = 'none';
-	                } else if (rotateVal > 0 && this.hands.second.style.transition === 'none') {
-	                    this.hands.second.style.transition = this.transition.second;
-	                }
+	                // if (this.retrograde.second && rotateVal > this.retrograde.second.max) {
+	                //     rotateVal = rotateVal % this.retrograde.second.max || this.retrograde.second.max;
+	                // }
+
+	                // if (
+	                //     rotateVal === 0 ||
+	                //     (
+	                //         this.retrograde.second &&
+	                //         rotateVal === this.retrograde.second.increment &&
+	                //         this.hands.second.style.transition !== 'none'
+	                //     )
+	                // ) {
+	                //     this.transition.second = this.hands.second.style.transition;
+	                //     this.hands.second.style.transition = 'none';
+	                // } else if (rotateVal > 0 && this.hands.second.style.transition === 'none') {
+	                //     this.hands.second.style.transition = this.transition.second;
+	                // }
 
 	                this.hands.second.style.transform = 'rotate(' + rotateVal + 'deg)';
 	            }
@@ -17290,7 +17330,7 @@
 	                _this2.rotateHands();
 
 	                setTimeout(function () {
-	                    if (_this2.hands.second && _this2.sweepingSeconds) {
+	                    if (_this2.hands.second) {
 	                        _this2.applySweepingTransition();
 	                    }
 	                }, 100);
@@ -17934,93 +17974,6 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	// Crown Class
-	// @params settings: object
-	// @params parentWatch: Watch instance
-	//
-	// The crown class allows a user to manually set the watche's time and wind a
-	// power reserve. The crown by default toggles an active class when triggered.
-
-	var Crown = function () {
-	    function Crown(settings, parentWatch) {
-	        _classCallCheck(this, Crown);
-
-	        this.errorChecking(settings);
-
-	        this.crown = document.getElementById(settings.id || settings);
-	        this.parent = parentWatch;
-	        this.crownActive = false;
-
-	        if (!this.parent.testing) this.init();
-	    }
-
-	    _createClass(Crown, [{
-	        key: 'errorChecking',
-	        value: function errorChecking(settings) {
-	            if ((typeof settings === 'undefined' ? 'undefined' : _typeof(settings)) === 'object') {
-	                if (!settings.id) throw new ReferenceError("The Crown class requires that an ID of the crown element be provided.");
-	            } else if (typeof settings !== 'string') {
-	                throw new ReferenceError('The Crown class expects either a settings object or a string containing the element\'s ID.');
-	            }
-	        }
-	    }, {
-	        key: 'toggleCrown',
-	        value: function toggleCrown() {
-	            this.crownActive = !this.crownActive;
-	            this.parent.dialInstances.forEach(function (instance) {
-	                if (instance.toggleActiveCrown) instance.toggleActiveCrown();
-	            });
-
-	            if (this.crownActive) {
-	                this.parent.stopInterval();
-	                this.crown.classList.add('active');
-	                this.parent.dialInstances.forEach(function (instance) {
-	                    if (instance.toggleSettingTime) instance.toggleSettingTime();
-	                });
-	            } else {
-	                this.parent.startInterval();
-	                this.parent.resetActiveDial();
-	                this.crown.classList.remove('active');
-	                this.parent.dialInstances.forEach(function (instance) {
-	                    if (instance.toggleSettingTime) instance.toggleSettingTime();
-	                    if (instance.updateToManualTime) instance.updateToManualTime();
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'updateCursorForTrigger',
-	        value: function updateCursorForTrigger() {
-	            this.crown.style.cursor = 'pointer';
-	        }
-	    }, {
-	        key: 'init',
-	        value: function init() {
-	            var _this = this;
-
-	            this.updateCursorForTrigger();
-	            this.crown.addEventListener('click', function () {
-	                _this.toggleCrown();
-	            });
-	        }
-	    }]);
-
-	    return Crown;
-	}();
-
-	module.exports = Crown;
-
-/***/ }),
-/* 129 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18107,7 +18060,7 @@
 	module.exports = PowerReserve;
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18263,7 +18216,7 @@
 	module.exports = MoonPhase;
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18317,7 +18270,7 @@
 	    _createClass(MinuteRepeater, [{
 	        key: 'errorChecking',
 	        value: function errorChecking(dial, settings) {
-	            if (!settings.id) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
+	            if (!settings.id && !settings.trigger) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
 	            if (!dial.hands.minute) throw new ReferenceError('The minute repeater, like, by definition, requires a dial which supports a minute hand.');
 	        }
 	    }, {
@@ -18507,7 +18460,7 @@
 	module.exports = MinuteRepeater;
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18625,7 +18578,7 @@
 	module.exports = DayNightIndicator;
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18710,7 +18663,7 @@
 	module.exports = DayIndicator;
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18819,7 +18772,7 @@
 	module.exports = DateIndicator;
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18897,7 +18850,7 @@
 	module.exports = MonthIndicator;
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -18975,7 +18928,7 @@
 	module.exports = WeekIndicator;
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -19058,7 +19011,7 @@
 	module.exports = YearIndicator;
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -19353,7 +19306,7 @@
 	module.exports = Chronograph;
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -19440,7 +19393,7 @@
 	module.exports = Foudroyante;
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

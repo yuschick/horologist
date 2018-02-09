@@ -41,7 +41,7 @@ class MinuteRepeater {
     }
 
     errorChecking(dial, settings) {
-        if (!settings.id) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
+        if (!settings.id && !settings.trigger) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
         if (!dial.hands.minute) throw new ReferenceError('The minute repeater, like, by definition, requires a dial which supports a minute hand.');
     }
 
