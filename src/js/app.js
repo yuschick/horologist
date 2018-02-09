@@ -152,9 +152,8 @@ const Watch = require('./../index');
                     ones: 'split-minutes-ones',
                     tenths: 'split-minutes-tens'
                 },
-                second: 'split-second-hand',
-            },
-            sweep: true
+                second: 'split-second-hand'
+            }
         }],
         crown: 'crown-test'
     };

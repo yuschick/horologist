@@ -150,4 +150,20 @@ describe('Dials', () => {
         const test = new Watch(settings);
         assert.equal(test.dialInstances[0].timezone, 'American/New_York');
     });
+
+    it('should return an error from the Watch class having a split display but missing a hand property', () => {
+        const settings = {
+            testing: true,
+            dials: [{
+                hands: {
+                    hour: {
+                        ones: 'test-hand'
+                    },
+                    minute: 'minute-hand',
+                }
+            }]
+        };
+        const test = () => new Watch(settings);
+        assert.throws(test, ReferenceError, 'A split display requires that the \'ones\' and \'tenths\' properties are both set.');
+    });
 });
