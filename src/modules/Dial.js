@@ -181,8 +181,13 @@ class Dial {
                         rotateVal.ones = (this.currentTime.hours - 10) * this.rotateValues.hoursplit.ones;
                         rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
                     } else {
-                        rotateVal.ones = (this.currentTime.hours % 10) * this.rotateValues.hoursplit.ones;
-                        rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
+                        if (this.currentTime.hours > 12) {
+                            rotateVal.ones = ((this.currentTime.hours - 12) % 10) * this.rotateValues.hoursplit.ones;
+                            rotateVal.tenths = Math.floor((this.currentTime.hours - 12) / 10) * this.rotateValues.hoursplit.tenths;
+                        } else {
+                            rotateVal.ones = (this.currentTime.hours % 10) * this.rotateValues.hoursplit.ones;
+                            rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
+                        }
                     }
                 }
 
