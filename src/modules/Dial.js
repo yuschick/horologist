@@ -89,7 +89,7 @@ class Dial {
             hourJump: 30,
             hoursplit: {
                 ones: 36,
-                tenths: this.format === 12 ? 180 : 120
+                tenths: 120
             },
             minutesplit: {
                 ones: 36,
@@ -168,23 +168,23 @@ class Dial {
         let rotateVal;
 
         if (this.hands.hour) {
-            // let hourOffset = this.rotateValues.hoursRotateValOffset;
             rotateVal = this.splitHours ? {
                 ones: this.parent.getCurrentRotateValue(this.hands.hour.ones),
                 tenths: this.parent.getCurrentRotateValue(this.hands.hour.tenths)
             } : this.parent.getCurrentRotateValue(this.hands.hour);
             if (this.splitHours) {
-                if (this.currentTime.hours < 10) {
+                if (this.currentTime.hours <= 10) {
                     rotateVal.ones = this.currentTime.hours * this.rotateValues.hoursplit.ones;
+                    rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
                 } else {
                     if (this.format === 24) {
                         rotateVal.ones = (this.currentTime.hours - 10) * this.rotateValues.hoursplit.ones;
+                        rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
                     } else {
                         rotateVal.ones = (this.currentTime.hours - 12) * this.rotateValues.hoursplit.ones;
+                        rotateVal.tenths = Math.floor((this.currentTime.hours - 12) / 10) * this.rotateValues.hoursplit.tenths;
                     }
                 }
-
-                rotateVal.tenths = Math.floor(this.currentTime.hours / 10) * this.rotateValues.hoursplit.tenths;
 
                 if (this.hands.hour.invert) {
                     rotateVal.ones *= -1;
@@ -237,7 +237,7 @@ class Dial {
                 if (this.currentTime.minutes % 10) {
                     rotateVal.ones = this.currentTime.minutes * this.rotateValues.minutesplit.ones;
                 } else {
-                    rotateVal = (this.currentTime.minutes - 10) * this.rotateValues.minuteplit.ones;
+                    rotateVal = (this.currentTime.minutes - 10) * this.rotateValues.minutesplit.ones;
                 }
 
                 rotateVal.tenths = Math.floor(this.currentTime.minutes / 10) * this.rotateValues.minutesplit.tenths;
