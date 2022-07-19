@@ -71,8 +71,7 @@ class PowerReserve {
   }
 
   init() {
-    const initAngle = this.invert ? this.maxAngle * -1 : this.maxAngle;
-    this.element.style.transform = `rotate(${initAngle}deg)`;
+    this.element.style.transform = `rotate(${this.maxAngle}deg)`;
   }
 }
 
