@@ -1,4 +1,5 @@
 import { Foudroyante } from '../Foudroyante';
+import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
 
 /*
@@ -9,13 +10,16 @@ export class Watch implements Types.WatchClass {
     foudroyante?: Foudroyante;
     id?: string;
     settings: Types.WatchSettings;
+    year?: YearIndicator;
 
     constructor(options: Types.WatchOptions) {
         this.id = options.id;
-        this.settings = {};
+        this.settings = {
+            now: new Date(),
+        };
 
-        // Complications
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
+        this.year = options.year && new YearIndicator(options.year, this.settings);
     }
 
     clearInterval() {
@@ -28,7 +32,7 @@ export class Watch implements Types.WatchClass {
 
     startInterval() {
         this.settings.interval = setInterval(() => {
-            this.settings.now = Date.now();
+            this.settings.now = new Date();
         }, 1000);
     }
 
@@ -37,5 +41,6 @@ export class Watch implements Types.WatchClass {
 
         // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
+        this.year?.init();
     }
 }
