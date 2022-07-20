@@ -22,7 +22,8 @@ class Dial {
       if (typeof settings.hands.hour === "string") {
         this.hands.hour = document.getElementById(settings.hands.hour);
       } else if (typeof settings.hands.hour === "object") {
-        this.hands.hour = settings.hands.hour.id || {};
+        this.hands.hour = {};
+        this.splitHours = true;
         this.hands.hour.ones = document.getElementById(
           settings.hands.hour.ones
         );
@@ -30,7 +31,6 @@ class Dial {
           settings.hands.hour.tenths
         );
         this.hands.hour.invert = settings.hands.hour.invert;
-        this.splitHours = this.hands.hour.ones && this.hands.hour.tenths;
       }
     }
 
@@ -38,14 +38,14 @@ class Dial {
       if (typeof settings.hands.minute === "string") {
         this.hands.minute = document.getElementById(settings.hands.minute);
       } else if (typeof settings.hands.minute === "object") {
-        this.hands.minute = settings.hands.minute.id || {};
+        this.hands.minute = {};
+        this.splitMinutes = true;
         this.hands.minute.ones = document.getElementById(
           settings.hands.minute.ones
         );
         this.hands.minute.tenths = document.getElementById(
           settings.hands.minute.tenths
         );
-        this.splitMinutes = this.hands.minute.ones && this.hands.minute.tenths;
         this.hands.minute.invert = settings.hands.minute.invert;
       }
     }
