@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("TEST"),new class{constructor(s){this.name=s.name}start(){console.log(`Init ${this.name}`)}}({name:"howie"}).start()})();
