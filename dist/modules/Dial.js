@@ -32,10 +32,10 @@ var Dial = function () {
       if (typeof settings.hands.hour === "string") {
         this.hands.hour = document.getElementById(settings.hands.hour);
       } else if (_typeof(settings.hands.hour) === "object") {
-        this.hands.hour = {};
-        this.splitHours = true;
+        this.hands.hour = settings.hands.hour.id || {};
         this.hands.hour.ones = document.getElementById(settings.hands.hour.ones);
         this.hands.hour.tenths = document.getElementById(settings.hands.hour.tenths);
+        this.splitHours = settings.hands.hour.ones && settings.hands.hour.tenths;
         this.hands.hour.invert = settings.hands.hour.invert;
       }
     }
@@ -44,10 +44,10 @@ var Dial = function () {
       if (typeof settings.hands.minute === "string") {
         this.hands.minute = document.getElementById(settings.hands.minute);
       } else if (_typeof(settings.hands.minute) === "object") {
-        this.hands.minute = {};
-        this.splitMinutes = true;
+        this.hands.minute = settings.hands.minute.id || {};
         this.hands.minute.ones = document.getElementById(settings.hands.minute.ones);
         this.hands.minute.tenths = document.getElementById(settings.hands.minute.tenths);
+        this.splitMinutes = settings.hands.minute.ones && settings.hands.minute.tenths;
         this.hands.minute.invert = settings.hands.minute.invert;
       }
     }
@@ -123,7 +123,7 @@ var Dial = function () {
         throw new ReferenceError("The Dial class needs an object containing the HTML elements for the hands.");
       }
 
-      if (_typeof(settings.hands.hour) === "object" && (!settings.hands.hour.id || !settings.hands.hour.ones || !settings.hands.hour.tenths) || _typeof(settings.hands.minute) === "object" && (!settings.hands.minute.id || !settings.hands.minute.ones || !settings.hands.minute.tenths)) {
+      if (_typeof(settings.hands.hour) === "object" && !settings.hands.hour.id && (!settings.hands.hour.ones || !settings.hands.hour.tenths) || _typeof(settings.hands.minute) === "object" && !settings.hands.minute.id && (!settings.hands.minute.ones || !settings.hands.minute.tenths)) {
         throw new ReferenceError("A split display requires that the 'ones' and 'tenths' properties are both set.");
       }
 
