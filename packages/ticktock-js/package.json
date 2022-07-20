@@ -12,6 +12,7 @@
         "access": "public"
     },
     "scripts": {
+        "prebuild": "yarn test",
         "build": "node esbuild.config.js && tsc",
         "test": "jest"
     },
