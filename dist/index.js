@@ -13,7 +13,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Moment = require('moment');
 
 var Dial = require('./modules/Dial');
-var Crown = require('./modules/Crown');
 var PowerReserve = require('./modules/PowerReserve');
 var MoonPhase = require('./modules/MoonPhase');
 var MinuteRepeater = require('./modules/MinuteRepeater');
@@ -45,10 +44,6 @@ var Watch = function () {
             var tempDial = new Dial(dial, _this);
             _this.dialInstances.push(tempDial);
         });
-
-        if (settings.crown) {
-            this.crown = new Crown(settings.crown, this);
-        }
 
         if (settings.reserve) {
             this.powerReserve = new PowerReserve(settings.reserve, this);
@@ -125,32 +120,6 @@ var Watch = function () {
                     case 37:
                         if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
                         break;
-                    case 13:
-                        if (_this2.crown) _this2.crown.toggleCrown();
-                        break;
-                }
-
-                if (_this2.crown) {
-                    if (_this2.crown.crownActive) {
-                        event.preventDefault();
-                        switch (event.keyCode) {
-                            case 37:
-                                if (_this2.powerReserve) _this2.powerReserve.incrementReserve();
-                                break;
-                            case 38:
-                                _this2.dialInstances[_this2.activeDial].rotateHands();
-                                break;
-                            case 39:
-                                _this2.activeDial++;
-
-                                if (_this2.activeDial >= _this2.dialInstances.length) _this2.activeDial = 0;
-
-                                break;
-                            case 40:
-                                _this2.dialInstances[_this2.activeDial].rotateHands('back');
-                                break;
-                        }
-                    }
                 }
             });
         }
@@ -183,20 +152,6 @@ var Watch = function () {
 
             if (this.foudroyante) {
                 if (!this.testing) this.foudroyante.init();
-            }
-        }
-    }, {
-        key: 'stopInterval',
-        value: function stopInterval() {
-            clearInterval(this.globalInterval);
-            this.globalInterval = null;
-
-            if (this.repeater) {
-                this.repeater.stopAll();
-            }
-
-            if (this.foudroyante) {
-                this.foudroyante.clearInterval();
             }
         }
     }, {

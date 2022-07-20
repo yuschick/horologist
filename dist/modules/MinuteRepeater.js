@@ -34,7 +34,7 @@ var MinuteRepeater = function () {
         this.minuteChimes = 0;
         this.minuteElement = null;
 
-        this.trigger = document.getElementById(repeater.id);
+        this.trigger = document.getElementById(repeater.id || repeater.trigger);
         this.chimes = repeater.chimes;
         this.hourChimeDuration = 0;
         this.counter = 1;
@@ -49,7 +49,7 @@ var MinuteRepeater = function () {
     _createClass(MinuteRepeater, [{
         key: 'errorChecking',
         value: function errorChecking(dial, settings) {
-            if (!settings.id) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
+            if (!settings.id && !settings.trigger) throw new ReferenceError('The MinuteRepeater class requires that an ID of the repeater element be provided.');
             if (!dial.hands.minute) throw new ReferenceError('The minute repeater, like, by definition, requires a dial which supports a minute hand.');
         }
     }, {
