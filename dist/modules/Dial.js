@@ -123,7 +123,7 @@ var Dial = function () {
         throw new ReferenceError("The Dial class needs an object containing the HTML elements for the hands.");
       }
 
-      if (_typeof(settings.hands.hour) === "object" && (!settings.hands.hour.ones || !settings.hands.hour.tenths) || _typeof(settings.hands.minute) === "object" && (!settings.hands.minute.ones || !settings.hands.minute.tenths)) {
+      if (_typeof(settings.hands.hour) === "object" && (!settings.hands.hour.id || !settings.hands.hour.ones || !settings.hands.hour.tenths) || _typeof(settings.hands.minute) === "object" && (!settings.hands.minute.id || !settings.hands.minute.ones || !settings.hands.minute.tenths)) {
         throw new ReferenceError("A split display requires that the 'ones' and 'tenths' properties are both set.");
       }
 

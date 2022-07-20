@@ -125,9 +125,13 @@ class Dial {
 
     if (
       (typeof settings.hands.hour === "object" &&
-        (!settings.hands.hour.ones || !settings.hands.hour.tenths)) ||
+        (!settings.hands.hour.id ||
+          !settings.hands.hour.ones ||
+          !settings.hands.hour.tenths)) ||
       (typeof settings.hands.minute === "object" &&
-        (!settings.hands.minute.ones || !settings.hands.minute.tenths))
+        (!settings.hands.minute.id ||
+          !settings.hands.minute.ones ||
+          !settings.hands.minute.tenths))
     ) {
       throw new ReferenceError(
         "A split display requires that the 'ones' and 'tenths' properties are both set."
