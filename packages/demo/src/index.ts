@@ -1,5 +1,7 @@
 import { Watch } from 'ticktock-js';
 
-console.log('TEST');
-const test = new Watch({ name: 'howie' });
+const test = new Watch({
+    id: 'demo-watch',
+    foudroyante: { steps: 3, id: 'foudroyante-id', reverse: true },
+});
 test.start();

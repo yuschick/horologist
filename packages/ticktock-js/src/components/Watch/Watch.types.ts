@@ -1,15 +1,17 @@
+import { FoudroyanteOptions } from '../Foudroyante/Foudroyante.types';
+
 export interface WatchClass {
-    readonly pauseInterval: () => void;
+    readonly clearInterval: () => void;
     readonly startInterval: () => void;
     start: () => void;
 }
 
 export interface WatchOptions {
+    foudroyante?: FoudroyanteOptions;
     id?: string;
-    settings: WatchSettings;
 }
 
 export type WatchSettings = {
-    now?: number;
     interval?: ReturnType<typeof setInterval>;
+    now?: number;
 };
