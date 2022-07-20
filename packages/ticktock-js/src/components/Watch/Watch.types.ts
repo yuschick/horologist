@@ -1,8 +1,15 @@
 export interface WatchClass {
+    readonly pauseInterval: () => void;
+    readonly startInterval: () => void;
     start: () => void;
 }
 
 export interface WatchOptions {
-    moonphase?: string | { id?: string; reverse?: boolean };
-    name?: string;
+    id?: string;
+    settings: WatchSettings;
 }
+
+export type WatchSettings = {
+    now?: number;
+    interval?: ReturnType<typeof setInterval>;
+};

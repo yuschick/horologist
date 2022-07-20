@@ -5,13 +5,25 @@ import * as Types from './Watch.types';
     and event triggers for any child components.
 */
 export class Watch implements Types.WatchClass {
-    name?: string;
+    id?: string;
+    settings: Types.WatchSettings;
 
     constructor(options: Types.WatchOptions) {
-        this.name = options.name;
+        this.id = options.id;
+        this.settings = {};
+    }
+
+    pauseInterval() {
+        clearInterval(this.settings.interval);
+    }
+
+    startInterval() {
+        this.settings.interval = setInterval(() => {
+            this.settings.now = Date.now();
+        }, 1000);
     }
 
     start() {
-        console.log(`Init ${this.name}`);
+        console.log(`Init ${this.id}`);
     }
 }
