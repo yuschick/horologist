@@ -1,4 +1,5 @@
 import { FoudroyanteClass, FoudroyanteOptions } from './Foudroyante.types';
+import content from '../../content';
 import { rotate } from '../../utils';
 
 /*
@@ -34,7 +35,7 @@ export class Foudroyante implements FoudroyanteClass {
     errorChecking() {
         if (!this.element) {
             this.hasError = true;
-            throw new ReferenceError('Foudroyante element could not be found.');
+            throw new Error(content.foudroyante.errors.element_not_found);
         }
     }
 
