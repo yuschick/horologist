@@ -4,5 +4,5 @@ export function rotate({ element, value }: { element: HTMLElement; value: number
     const transform = element.style.transform
         .split(' ')
         .filter((prop) => !prop.startsWith('rotate'));
-    element.style.transform = `${transform} rotate(${value}deg)`;
+    element.style.transform = `${transform} rotate(${value}deg)`.trim();
 }
