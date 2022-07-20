@@ -23,7 +23,7 @@ class Dial {
         this.hands.hour = document.getElementById(settings.hands.hour);
       } else if (typeof settings.hands.hour === "object") {
         this.hands.hour = settings.hands.hour.id
-          ? document.getElementById(settings.hands.hour)
+          ? document.getElementById(settings.hands.hour.id)
           : {};
         this.hands.hour.ones = document.getElementById(
           settings.hands.hour.ones
@@ -42,7 +42,7 @@ class Dial {
         this.hands.minute = document.getElementById(settings.hands.minute);
       } else if (typeof settings.hands.minute === "object") {
         this.hands.minute = settings.hands.minute.id
-          ? document.getElementById(settings.hands.minute)
+          ? document.getElementById(settings.hands.minute.id)
           : {};
         this.hands.minute.ones = document.getElementById(
           settings.hands.minute.ones
