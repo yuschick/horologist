@@ -1,3 +1,5 @@
+import { differenceInCalendarYears } from 'date-fns';
+
 import { Foudroyante } from '../Foudroyante';
 import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
@@ -40,7 +42,13 @@ export class Watch implements Types.WatchClass {
      */
     startInterval() {
         this.settings.interval = setInterval(() => {
+            const oldDate = this.settings.now;
             this.settings.now = new Date();
+
+            // If the calendar year has changed, update the year indicator
+            if (differenceInCalendarYears(oldDate, this.settings.now)) {
+                this.year?.init();
+            }
         }, 1000);
     }
 
