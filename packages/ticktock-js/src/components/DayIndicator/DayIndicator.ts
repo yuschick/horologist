@@ -1,3 +1,5 @@
+import { getDay, getHours } from 'date-fns';
+
 import content from '../../content';
 import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
@@ -19,9 +21,9 @@ export class DayIndicator implements DayIndicatorClass {
     reverse: boolean;
 
     constructor(options: DayIndicatorOptions, settings: WatchSettings) {
-        this.day = settings.now.getDay(); // 0-6
+        this.day = getDay(settings.now); // 0-6
         this.element = document.getElementById(options.id);
-        this.hour = settings.now.getHours(); // 0-23
+        this.hour = getHours(settings.now); // 0-23
         this.offsetHours = options.offsetHours || false;
         this.reverse = options.reverse || false;
 

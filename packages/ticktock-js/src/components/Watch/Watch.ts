@@ -1,7 +1,8 @@
-import { differenceInCalendarYears, isSameDay, isSameHour } from 'date-fns';
+import { isSameDay, isSameHour, isSameMonth } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
 import { Foudroyante } from '../Foudroyante';
+import { MonthIndicator } from '../MonthIndicator';
 import { WeekIndicator } from '../WeekIndicator';
 import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
@@ -15,6 +16,7 @@ export class Watch implements Types.WatchClass {
     foudroyante?: Foudroyante;
     id?: string;
     settings: Types.WatchSettings;
+    month?: MonthIndicator;
     week?: WeekIndicator;
     year?: YearIndicator;
 
@@ -26,6 +28,7 @@ export class Watch implements Types.WatchClass {
 
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
+        this.month = options.month && new MonthIndicator(options.month, this.settings);
         this.week = options.week && new WeekIndicator(options.week, this.settings);
         this.year = options.year && new YearIndicator(options.year, this.settings);
     }
@@ -56,13 +59,14 @@ export class Watch implements Types.WatchClass {
                 this.day?.init();
             }
 
-            // If the day has changed, update the week indicator
+            // If the day has changed, update the dependent indicators
             if (!isSameDay(oldDate, this.settings.now)) {
+                this.month?.init();
                 this.week?.init();
             }
 
-            // If the calendar year has changed, update the year indicator
-            if (differenceInCalendarYears(oldDate, this.settings.now)) {
+            // If the month has changed, update the year indicator
+            if (isSameMonth(oldDate, this.settings.now)) {
                 this.year?.init();
             }
         }, 1000);
@@ -77,6 +81,7 @@ export class Watch implements Types.WatchClass {
         this.day?.init();
         // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
+        this.month?.init();
         this.week?.init();
         this.year?.init();
     }
