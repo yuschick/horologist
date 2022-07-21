@@ -10,11 +10,15 @@ import { YearIndicatorClass, YearIndicatorOptions } from './YearIndicator.types'
 export class YearIndicator implements YearIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
+    offsetMonths: boolean;
+    month: number;
     reverse: boolean;
     year: number;
 
     constructor(options: YearIndicatorOptions, settings: WatchSettings) {
         this.element = document.getElementById(options.id);
+        this.month = settings.now.getMonth();
+        this.offsetMonths = options.offsetMonths || false;
         this.reverse = options.reverse || false;
         this.year = settings.now.getFullYear();
 
@@ -55,10 +59,13 @@ export class YearIndicator implements YearIndicatorClass {
             3: 180,
             4: 270,
         });
-
         let value = yearRotationMap[cycle];
-        value *= this.reverse ? -1 : 1;
 
+        if (this.offsetMonths) {
+            value += this.month * 7.5; // 90deg / 12months
+        }
+
+        value *= this.reverse ? -1 : 1;
         return value;
     }
 
@@ -68,7 +75,7 @@ export class YearIndicator implements YearIndicatorClass {
      * Given a specified year, determine if that year is a leap year
      * and if not, determine its proximity within the leap year cycle
      */
-    getYearInCycle(year: number) {
+    getYearInCycle(year: number): 1 | 2 | 3 | 4 {
         if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
             return 4; // leap year
         } else if ((year % 4 === 2 && year % 100 !== 2) || year % 400 === 2) {
