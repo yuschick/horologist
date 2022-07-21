@@ -4,6 +4,11 @@ export default {
             element_not_found: 'Day Indicator element could not be found.',
         },
     },
+    day_night_indicator: {
+        errors: {
+            element_not_found: 'Day Night Indicator element could not be found.',
+        },
+    },
     foudroyante: {
         errors: {
             element_not_found: 'Foudroyante element could not be found.',
