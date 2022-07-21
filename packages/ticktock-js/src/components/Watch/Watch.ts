@@ -1,6 +1,7 @@
 import { isSameDay, isSameHour, isSameMonth } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
+import { DayNightIndicator } from '../DayNightIndicator';
 import { Foudroyante } from '../Foudroyante';
 import { MonthIndicator } from '../MonthIndicator';
 import { WeekIndicator } from '../WeekIndicator';
@@ -13,6 +14,7 @@ import * as Types from './Watch.types';
  */
 export class Watch implements Types.WatchClass {
     day?: DayIndicator;
+    dayNight?: DayNightIndicator;
     foudroyante?: Foudroyante;
     id?: string;
     settings: Types.WatchSettings;
@@ -27,6 +29,7 @@ export class Watch implements Types.WatchClass {
         };
 
         this.day = options.day && new DayIndicator(options.day, this.settings);
+        this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
         this.week = options.week && new WeekIndicator(options.week, this.settings);
@@ -54,9 +57,10 @@ export class Watch implements Types.WatchClass {
             const oldDate = this.settings.now;
             this.settings.now = new Date();
 
-            // If the hour has changed, update the day indicator
+            // If the hour has changed, update the dependent indicators
             if (!isSameHour(oldDate, this.settings.now)) {
                 this.day?.init();
+                this.dayNight?.init();
             }
 
             // If the day has changed, update the dependent indicators
@@ -66,7 +70,7 @@ export class Watch implements Types.WatchClass {
             }
 
             // If the month has changed, update the year indicator
-            if (isSameMonth(oldDate, this.settings.now)) {
+            if (!isSameMonth(oldDate, this.settings.now)) {
                 this.year?.init();
             }
         }, 1000);
@@ -79,8 +83,11 @@ export class Watch implements Types.WatchClass {
         this.startInterval();
 
         this.day?.init();
+        this.dayNight?.init();
+
         // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
+
         this.month?.init();
         this.week?.init();
         this.year?.init();
