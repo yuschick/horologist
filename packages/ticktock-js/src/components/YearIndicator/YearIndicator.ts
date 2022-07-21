@@ -94,9 +94,9 @@ export class YearIndicator implements YearIndicatorClass {
         if (this.hasError) return;
 
         const cycle = this.getYearInCycle(this.year);
-        const rotationValue = this.getRotationValue(cycle);
+        const value = this.getRotationValue(cycle);
 
         // Can cast this.element here since the error checking passed
-        rotate({ element: this.element as HTMLElement, value: rotationValue });
+        rotate({ element: this.element as HTMLElement, value });
     }
 }
