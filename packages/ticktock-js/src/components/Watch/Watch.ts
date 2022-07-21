@@ -4,6 +4,7 @@ import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
 import { Foudroyante } from '../Foudroyante';
 import { MonthIndicator } from '../MonthIndicator';
+import { Moonphase } from '../Moonphase';
 import { WeekIndicator } from '../WeekIndicator';
 import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
@@ -19,6 +20,7 @@ export class Watch implements Types.WatchClass {
     id?: string;
     settings: Types.WatchSettings;
     month?: MonthIndicator;
+    moonphase?: Moonphase;
     week?: WeekIndicator;
     year?: YearIndicator;
 
@@ -32,6 +34,7 @@ export class Watch implements Types.WatchClass {
         this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
+        this.moonphase = options.moonphase && new Moonphase(options.moonphase, this.settings);
         this.week = options.week && new WeekIndicator(options.week, this.settings);
         this.year = options.year && new YearIndicator(options.year, this.settings);
     }
@@ -66,6 +69,7 @@ export class Watch implements Types.WatchClass {
             // If the day has changed, update the dependent indicators
             if (!isSameDay(oldDate, this.settings.now)) {
                 this.month?.init();
+                this.moonphase?.init();
                 this.week?.init();
             }
 
@@ -89,6 +93,7 @@ export class Watch implements Types.WatchClass {
         this.foudroyante?.init();
 
         this.month?.init();
+        this.moonphase?.init();
         this.week?.init();
         this.year?.init();
     }
