@@ -12,6 +12,7 @@ body {
 div {
     display: flex;
     place-items: center;
+    transform-origin: 50%;
 }
 
 #foudroyante-id {
@@ -30,6 +31,12 @@ div {
 #day-id {
     background: #cfcfcf;
     border-right: 10px solid black;
+    height: 20px;
+    width: 100px;
+}
+#month-id {
+    background: #666;
+    border-right: 10px solid red;
     height: 20px;
     width: 100px;
 }
