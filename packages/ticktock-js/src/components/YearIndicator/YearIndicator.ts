@@ -1,3 +1,5 @@
+import { getMonth, getYear } from 'date-fns';
+
 import content from '../../content';
 import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
@@ -17,10 +19,10 @@ export class YearIndicator implements YearIndicatorClass {
 
     constructor(options: YearIndicatorOptions, settings: WatchSettings) {
         this.element = document.getElementById(options.id);
-        this.month = settings.now.getMonth();
+        this.month = getMonth(settings.now);
         this.offsetMonths = options.offsetMonths || false;
         this.reverse = options.reverse || false;
-        this.year = settings.now.getFullYear();
+        this.year = getYear(settings.now);
 
         this.hasError = false;
         this.errorChecking();

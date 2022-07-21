@@ -9,6 +9,11 @@ export default {
             element_not_found: 'Foudroyante element could not be found.',
         },
     },
+    month_indicator: {
+        errors: {
+            element_not_found: 'Month Indicator element could not be found.',
+        },
+    },
     week_indicator: {
         errors: {
             element_not_found: 'Week Indicator element could not be found.',
