@@ -38,11 +38,11 @@ describe('Year Indicator', () => {
     });
 
     it('should return correct rotational value with offset months', () => {
-        const test = new Watch({ year: { id, offsetMonths: true } });
+        const date = new Date('1999/3/20');
+        const test = new Watch({ year: { id, offsetMonths: true }, settings: { date } });
 
-        const now = new Date();
-        const nowYear = now.getFullYear();
-        const nowMonth = now.getMonth();
+        const nowYear = date.getFullYear();
+        const nowMonth = date.getMonth();
         const monthIncrement = 7.5;
 
         const cycleYear = (test.year as YearIndicatorClass).getYearInCycle(nowYear);
@@ -51,6 +51,7 @@ describe('Year Indicator', () => {
         const yearRotateValue = (cycleYear - 1) * 90;
         const monthOffsetValue = nowMonth * monthIncrement;
 
+        expect(cycleYear).toEqual(3);
         expect(value).toEqual(yearRotateValue + monthOffsetValue);
     });
 

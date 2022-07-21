@@ -4,11 +4,12 @@ import { Watch } from '../Watch';
 
 describe('Week Indicator', () => {
     const id = 'test-id';
+    const date = new Date('2022/7/20 13:30:10');
     let test: Watch;
 
     beforeAll(() => {
         document.body.innerHTML = `<div id="${id}" />`;
-        test = new Watch({ week: { id } });
+        test = new Watch({ week: { id }, settings: { date } });
     });
 
     it('should return a watch object with a week property', () => {
@@ -22,46 +23,43 @@ describe('Week Indicator', () => {
     });
 
     it('should return the correct rotational value', () => {
-        const now = new Date();
-        const week = getWeek(now);
+        const week = getWeek(date);
         const weekIncrement = 360 / 52;
         const value = test.week?.getRotationValue();
         expect(value).toEqual(week * weekIncrement);
     });
 
     it('should return the correct rotational value for ISO week', () => {
-        const test = new Watch({ week: { id, iso: true } });
+        const test = new Watch({ week: { id, iso: true }, settings: { date } });
 
-        const now = new Date();
-        const week = getISOWeek(now);
+        const week = getISOWeek(date);
         const weekIncrement = 360 / 53;
         const value = test.week?.getRotationValue();
         expect(value).toEqual(week * weekIncrement);
     });
 
     it('should return the correct rotational value when reversed', () => {
-        const test = new Watch({ week: { id, reverse: true } });
+        const test = new Watch({ week: { id, reverse: true }, settings: { date } });
 
-        const now = new Date();
-        const week = getWeek(now);
+        const week = getWeek(date);
         const weekIncrement = 360 / 52;
         const value = test.week?.getRotationValue();
         expect(value).toEqual(week * weekIncrement * -1);
     });
 
     it('should return the correct rotational value with offset days', () => {
-        const test = new Watch({ week: { id, offsetDays: true } });
+        const date = new Date('2013/7/9');
+        const test = new Watch({ week: { id, offsetDays: true }, settings: { date } });
 
-        const now = new Date();
-        const week = getWeek(now);
-        const day = getDay(now);
         const weekIncrement = 360 / 52;
         const dayIncrement = weekIncrement / 7;
-        const weekValue = week * weekIncrement;
-        const dayValue = day * dayIncrement;
+        const weekValue = 28 * weekIncrement;
+        const dayValue = 2 * dayIncrement;
 
         const value = test.week?.getRotationValue();
 
+        expect(getWeek(date)).toEqual(28);
+        expect(getDay(date)).toEqual(2);
         expect(value).toEqual(weekValue + dayValue);
     });
 });

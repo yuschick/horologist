@@ -1,4 +1,4 @@
-import { isSameDay, isSameHour, isSameMonth } from 'date-fns';
+import { addSeconds, isSameDay, isSameHour, isSameMonth } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
@@ -25,7 +25,7 @@ export class Watch implements Types.WatchClass {
     constructor(options: Types.WatchOptions) {
         this.id = options.id;
         this.settings = {
-            now: new Date(),
+            now: options.settings?.date || new Date(),
         };
 
         this.day = options.day && new DayIndicator(options.day, this.settings);
@@ -55,7 +55,7 @@ export class Watch implements Types.WatchClass {
     startInterval() {
         this.settings.interval = setInterval(() => {
             const oldDate = this.settings.now;
-            this.settings.now = new Date();
+            this.settings.now = addSeconds(oldDate, 1);
 
             // If the hour has changed, update the dependent indicators
             if (!isSameHour(oldDate, this.settings.now)) {

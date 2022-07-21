@@ -17,6 +17,7 @@ export interface WatchOptions {
     foudroyante?: FoudroyanteOptions;
     id?: string;
     month?: MonthIndicatorOptions;
+    settings?: WatchCustomSettings;
     week?: WeekIndicatorOptions;
     year?: YearIndicatorOptions;
 }
@@ -24,4 +25,8 @@ export interface WatchOptions {
 export type WatchSettings = {
     interval?: ReturnType<typeof setInterval>;
     now: Date;
+};
+
+export type WatchCustomSettings = {
+    date?: Date;
 };

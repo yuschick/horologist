@@ -71,7 +71,7 @@ export class DayNightIndicator implements DayNightIndicatorClass {
 
         if (this.offsetHours) {
             // Each quarter consists of 6 hours
-            const hourIncrement = quarterIncrement / (24 / 4);
+            const hourIncrement = quarterIncrement / 6;
             value += hourOffset * hourIncrement;
         }
 

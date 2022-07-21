@@ -3,11 +3,12 @@ import { Watch } from '../Watch';
 
 describe('Day Indicator', () => {
     const id = 'test-id';
+    const date = new Date('2022/7/20 13:30:10');
     let test: Watch;
 
     beforeAll(() => {
         document.body.innerHTML = `<div id="${id}" />`;
-        test = new Watch({ day: { id } });
+        test = new Watch({ day: { id }, settings: { date } });
     });
 
     it('should return a watch object with a day property', () => {
@@ -21,29 +22,30 @@ describe('Day Indicator', () => {
     });
 
     it('should return the correct rotational value', () => {
-        const now = new Date();
-        const day = now.getDay();
+        const day = date.getDay();
         const dayIncrement = 360 / 7;
         const value = test.day?.getRotationValue();
+
+        expect(day).toEqual(3);
         expect(value).toEqual(day * dayIncrement);
     });
 
     it('should return the correct rotational value when reversed', () => {
-        const test = new Watch({ day: { id, reverse: true } });
+        const test = new Watch({ day: { id, reverse: true }, settings: { date } });
 
-        const now = new Date();
-        const day = now.getDay();
+        const day = date.getDay();
         const dayIncrement = 360 / 7;
         const value = test.day?.getRotationValue();
+
+        expect(day).toEqual(3);
         expect(value).toEqual(day * dayIncrement * -1);
     });
 
     it('should return the correct rotational value with offset hours', () => {
-        const test = new Watch({ day: { id, offsetHours: true } });
+        const test = new Watch({ day: { id, offsetHours: true }, settings: { date } });
 
-        const now = new Date();
-        const day = now.getDay();
-        const hour = now.getHours();
+        const day = date.getDay();
+        const hour = date.getHours();
         const dayIncrement = 360 / 7;
         const hourIncrement = dayIncrement / 24;
         const dayValue = day * dayIncrement;
@@ -51,6 +53,8 @@ describe('Day Indicator', () => {
 
         const value = test.day?.getRotationValue();
 
+        expect(day).toEqual(3);
+        expect(hour).toEqual(13);
         expect(value).toEqual(dayValue + hourValue);
     });
 });
