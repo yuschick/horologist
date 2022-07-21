@@ -27,3 +27,9 @@ div {
     height: 20px;
     width: 100px;
 }
+#day-id {
+    background: #cfcfcf;
+    border-right: 10px solid black;
+    height: 20px;
+    width: 100px;
+}
