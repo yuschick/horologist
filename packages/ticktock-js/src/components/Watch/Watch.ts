@@ -1,7 +1,8 @@
-import { differenceInCalendarYears, isSameHour } from 'date-fns';
+import { differenceInCalendarYears, isSameDay, isSameHour } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
 import { Foudroyante } from '../Foudroyante';
+import { WeekIndicator } from '../WeekIndicator';
 import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
 
@@ -14,6 +15,7 @@ export class Watch implements Types.WatchClass {
     foudroyante?: Foudroyante;
     id?: string;
     settings: Types.WatchSettings;
+    week?: WeekIndicator;
     year?: YearIndicator;
 
     constructor(options: Types.WatchOptions) {
@@ -24,6 +26,7 @@ export class Watch implements Types.WatchClass {
 
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
+        this.week = options.week && new WeekIndicator(options.week, this.settings);
         this.year = options.year && new YearIndicator(options.year, this.settings);
     }
 
@@ -49,8 +52,13 @@ export class Watch implements Types.WatchClass {
             this.settings.now = new Date();
 
             // If the hour has changed, update the day indicator
-            if (isSameHour(oldDate, this.settings.now)) {
+            if (!isSameHour(oldDate, this.settings.now)) {
                 this.day?.init();
+            }
+
+            // If the day has changed, update the week indicator
+            if (!isSameDay(oldDate, this.settings.now)) {
+                this.week?.init();
             }
 
             // If the calendar year has changed, update the year indicator
@@ -69,6 +77,7 @@ export class Watch implements Types.WatchClass {
         this.day?.init();
         // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
+        this.week?.init();
         this.year?.init();
     }
 }
