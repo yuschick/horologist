@@ -10,7 +10,7 @@ describe('Day Indicator', () => {
         test = new Watch({ day: { id } });
     });
 
-    it('should return a watch object with a year property', () => {
+    it('should return a watch object with a day property', () => {
         expect(test).toHaveProperty('day');
     });
 

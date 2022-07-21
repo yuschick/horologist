@@ -1,5 +1,6 @@
 import { DayIndicatorOptions } from '../DayIndicator';
 import { FoudroyanteOptions } from '../Foudroyante';
+import { WeekIndicatorOptions } from '../WeekIndicator';
 import { YearIndicatorOptions } from '../YearIndicator';
 
 export interface WatchClass {
@@ -12,6 +13,7 @@ export interface WatchOptions {
     day?: DayIndicatorOptions;
     foudroyante?: FoudroyanteOptions;
     id?: string;
+    week?: WeekIndicatorOptions;
     year?: YearIndicatorOptions;
 }
 
