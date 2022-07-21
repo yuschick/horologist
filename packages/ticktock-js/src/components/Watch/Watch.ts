@@ -3,9 +3,9 @@ import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
 
 /*
-    The top-level Watch class which manages timeouts, complications
-    and event triggers for any child components.
-*/
+ * The top-level Watch class which manages timeouts, complications
+ * and event triggers for any child components.
+ */
 export class Watch implements Types.WatchClass {
     foudroyante?: Foudroyante;
     id?: string;
@@ -22,6 +22,11 @@ export class Watch implements Types.WatchClass {
         this.year = options.year && new YearIndicator(options.year, this.settings);
     }
 
+    /*
+     * Clear the global interval.
+     * This effect will pause all child complication intervals, as well,
+     * to pause the entire watch
+     */
     clearInterval() {
         clearInterval(this.settings.interval);
 
@@ -30,12 +35,18 @@ export class Watch implements Types.WatchClass {
         this.foudroyante?.clearInterval();
     }
 
+    /*
+     * Start the global interval, effectively starting the watch
+     */
     startInterval() {
         this.settings.interval = setInterval(() => {
             this.settings.now = new Date();
         }, 1000);
     }
 
+    /*
+     * Start the global Watch instance and any child complications
+     */
     start() {
         this.startInterval();
 

@@ -4,61 +4,50 @@ import { WatchSettings } from '../Watch';
 import { YearIndicatorClass, YearIndicatorOptions } from './YearIndicator.types';
 
 /*
-The year indicator complication receives a date, and displays
-that date's year's placement within the cycle of leap years.
-*/
-
+ * The year indicator complication receives a date, and displays
+ * that date's year's placement within the cycle of leap years.
+ */
 export class YearIndicator implements YearIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
     reverse: boolean;
-    year?: number;
+    year: number;
 
     constructor(options: YearIndicatorOptions, settings: WatchSettings) {
         this.element = document.getElementById(options.id);
         this.reverse = options.reverse || false;
-        this.year = settings.now?.getFullYear();
+        this.year = settings.now.getFullYear();
 
         this.hasError = false;
         this.errorChecking();
     }
 
+    /*
+     * @return boolean
+     * Check for any critical errors within the setup of the complication
+     * and set this.hasError accordingly
+     */
     errorChecking() {
+        this.hasError = false;
         if (!this.element) {
             this.hasError = true;
             throw new Error(content.year_indicator.errors.element_not_found);
         }
-
         if (!this.year) {
             this.hasError = true;
             throw new Error(content.year_indicator.errors.year_invalid);
         }
+        return this.hasError;
     }
 
-    getYearInCycle(year?: number) {
-        const cycleYear = year;
-        if (!cycleYear) return 1;
-
-        if ((cycleYear % 4 === 0 && cycleYear % 100 !== 0) || cycleYear % 400 === 0) {
-            return 4;
-        } else if ((cycleYear % 4 === 2 && cycleYear % 100 !== 2) || cycleYear % 400 === 2) {
-            return 2;
-        } else if ((cycleYear % 4 === 3 && cycleYear % 100 !== 3) || cycleYear % 400 === 3) {
-            return 3;
-        }
-
-        return 1;
-    }
-
-    init() {
-        if (!this.hasError) {
-            const cycle = this.getYearInCycle(this.year);
-            this.rotate(cycle);
-        }
-    }
-
-    rotate(cycle: 1 | 2 | 3 | 4) {
-        if (!this.element) return;
+    /*
+     * @param cycle: 1|2|3|4
+     * @return number
+     * Based on the cycle position and options, return the appropriate
+     * rotational value for this.element
+     */
+    getRotationValue(cycle: 1 | 2 | 3 | 4) {
+        if (!this.element) return 0;
 
         const yearRotationMap = Object.freeze({
             1: 0,
@@ -66,9 +55,41 @@ export class YearIndicator implements YearIndicatorClass {
             3: 180,
             4: 270,
         });
+
         let value = yearRotationMap[cycle];
         value *= this.reverse ? -1 : 1;
 
-        rotate({ element: this.element, value });
+        return value;
+    }
+
+    /*
+     * @param year: number
+     * @return 1|2|3|4
+     * Given a specified year, determine if that year is a leap year
+     * and if not, determine its proximity within the leap year cycle
+     */
+    getYearInCycle(year: number) {
+        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+            return 4; // leap year
+        } else if ((year % 4 === 2 && year % 100 !== 2) || year % 400 === 2) {
+            return 2; // year 2 of 4
+        } else if ((year % 4 === 3 && year % 100 !== 3) || year % 400 === 3) {
+            return 3; // year 3 of 4
+        }
+
+        return 1; // year 1 of 4
+    }
+
+    /*
+     * If no errors are thrown, start the complication
+     */
+    init() {
+        if (this.hasError) return;
+
+        const cycle = this.getYearInCycle(this.year);
+        const rotationValue = this.getRotationValue(cycle);
+
+        // Can cast this.element here since the error checking passed
+        rotate({ element: this.element as HTMLElement, value: rotationValue });
     }
 }

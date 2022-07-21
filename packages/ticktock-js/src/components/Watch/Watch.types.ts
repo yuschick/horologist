@@ -15,5 +15,5 @@ export interface WatchOptions {
 
 export type WatchSettings = {
     interval?: ReturnType<typeof setInterval>;
-    now?: Date;
+    now: Date;
 };
