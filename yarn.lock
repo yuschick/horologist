@@ -3438,6 +3438,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lunarphase-js@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/lunarphase-js/-/lunarphase-js-1.0.10.tgz#338a2d28282d6c0818497bf396e5cbe99eb5f072"
+  integrity sha512-+A+G3WzB2y+xcCfhVRLxbdOnTe/Ujmbx/ptS0cjUnb9zRAEfRpu6U3D1o+IaStpRu91++kFoVqOYKhyT1m3ywg==
+
 make-dir@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"

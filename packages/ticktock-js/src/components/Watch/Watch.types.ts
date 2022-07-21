@@ -2,6 +2,7 @@ import { DayIndicatorOptions } from '../DayIndicator';
 import { DayNightIndicatorOptions } from '../DayNightIndicator';
 import { FoudroyanteOptions } from '../Foudroyante';
 import { MonthIndicatorOptions } from '../MonthIndicator';
+import { MoonphaseOptions } from '../Moonphase';
 import { WeekIndicatorOptions } from '../WeekIndicator';
 import { YearIndicatorOptions } from '../YearIndicator';
 
@@ -17,6 +18,7 @@ export interface WatchOptions {
     foudroyante?: FoudroyanteOptions;
     id?: string;
     month?: MonthIndicatorOptions;
+    moonphase?: MoonphaseOptions;
     settings?: WatchCustomSettings;
     week?: WeekIndicatorOptions;
     year?: YearIndicatorOptions;

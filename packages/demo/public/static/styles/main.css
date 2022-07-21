@@ -40,3 +40,10 @@ div {
     height: 20px;
     width: 100px;
 }
+#moon-id {
+    background: #111;
+    border-right: 10px solid red;
+    color: #fff;
+    height: 20px;
+    width: 100px;
+}

@@ -19,6 +19,11 @@ export default {
             element_not_found: 'Month Indicator element could not be found.',
         },
     },
+    moonphase: {
+        errors: {
+            element_not_found: 'Moonphase element could not be found.',
+        },
+    },
     week_indicator: {
         errors: {
             element_not_found: 'Week Indicator element could not be found.',
