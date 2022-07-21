@@ -3,11 +3,10 @@ import content from '../../content';
 import { rotate } from '../../utils';
 
 /*
-Often on a Chronograph, a Foudroyante is a hand that makes one rotation every
-second, pausing four, five, even eight times (steps) to indicate quarters,
-fifths or eighths of a second.
-*/
-
+ * Often on a Chronograph, a Foudroyante is a hand that makes one rotation every
+ * second, pausing four, five, even eight times (steps) to indicate quarters,
+ * fifths or eighths of a second.
+ */
 export class Foudroyante implements FoudroyanteClass {
     currentRotation: number;
     element: HTMLElement | null;
@@ -32,21 +31,39 @@ export class Foudroyante implements FoudroyanteClass {
         this.errorChecking();
     }
 
+    /*
+     * @return boolean
+     * Check for any critical errors within the setup of the complication
+     * and set this.hasError accordingly
+     */
     errorChecking() {
+        this.hasError = false;
         if (!this.element) {
             this.hasError = true;
             throw new Error(content.foudroyante.errors.element_not_found);
         }
+        return this.hasError;
     }
 
+    /*
+     * If no errors are thrown, start the complication
+     */
     init() {
-        if (!this.hasError) this.startInterview();
+        if (this.hasError) return;
+        this.startInterview();
     }
 
+    /*
+     * Clear the interval and pause the component
+     */
     clearInterval() {
         clearInterval(this.interval);
     }
 
+    /*
+     * Based on the current rotation value and settings,
+     * calculate the next rotational value and rotate this.element
+     */
     rotate() {
         if (!this.element) return;
 
@@ -60,6 +77,9 @@ export class Foudroyante implements FoudroyanteClass {
         rotate({ element: this.element, value: this.currentRotation });
     }
 
+    /*
+     * Start the interval, effectively running the complication
+     */
     startInterview() {
         this.interval = setInterval(() => {
             this.rotate();

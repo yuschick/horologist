@@ -1,5 +1,5 @@
 export interface FoudroyanteClass {
-    readonly errorChecking: () => void;
+    readonly errorChecking: () => boolean;
     readonly init: () => void;
     readonly clearInterval: () => void;
     readonly rotate: () => void;

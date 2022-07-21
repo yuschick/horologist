@@ -1,3 +1,29 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, 100px);
+    padding: 1rem;
+}
+
+div {
+    display: flex;
+    place-items: center;
+}
+
+#foudroyante-id {
+    background: #ededed;
+    border-right: 10px solid black;
+    height: 20px;
+    width: 100px;
+}
+
+#year-id {
+    background: #dedede;
+    border-right: 10px solid black;
+    height: 20px;
+    width: 100px;
+}
