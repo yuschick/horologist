@@ -1,49 +1,75 @@
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 body {
+    height: 100vh;
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, 100px);
-    padding: 1rem;
-}
-
-div {
-    display: flex;
     place-items: center;
+}
+
+#dial {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+#one,
+#two,
+#three,
+#four,
+#five,
+#six,
+#seven,
+#eight,
+#nine,
+#ten,
+#eleven,
+#twelve {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
     transform-origin: 50%;
+    height: 200px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
 }
 
-#foudroyante-id {
-    background: #ededed;
-    border-right: 10px solid black;
-    height: 20px;
-    width: 100px;
+#one {
+    transform: rotate(30deg);
 }
-
-#year-id {
-    background: #dedede;
-    border-right: 10px solid black;
-    height: 20px;
-    width: 100px;
+#two {
+    transform: rotate(60deg);
 }
-#day-id {
-    background: #cfcfcf;
-    border-right: 10px solid black;
-    height: 20px;
-    width: 100px;
+#three {
+    transform: rotate(90deg);
 }
-#month-id {
-    background: #666;
-    border-right: 10px solid red;
-    height: 20px;
-    width: 100px;
+#four {
+    transform: rotate(120deg);
 }
-#moon-id {
-    background: #111;
-    border-right: 10px solid red;
-    color: #fff;
-    height: 20px;
-    width: 100px;
+#five {
+    transform: rotate(150deg);
+}
+#six {
+    transform: rotate(180deg);
+}
+#seven {
+    transform: rotate(210deg);
+}
+#eight {
+    transform: rotate(240deg);
+}
+#nine {
+    transform: rotate(270deg);
+}
+#ten {
+    transform: rotate(300deg);
+}
+#eleven {
+    transform: rotate(330deg);
 }
