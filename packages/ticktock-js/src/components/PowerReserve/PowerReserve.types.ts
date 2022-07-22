@@ -10,6 +10,7 @@ export interface PowerReserveClass {
 
 export interface PowerReserveOptions {
     id: string;
+    onEmpty?: () => void;
     range: PowerReserveRange;
     rate?: number;
     windingKey?: string;

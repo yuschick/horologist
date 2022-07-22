@@ -19,6 +19,7 @@ export class PowerReserve implements PowerReserveClass {
     element: HTMLElement | null;
     hasError: boolean;
     invert: boolean;
+    onEmpty?: () => void;
     range: PowerReserveRange;
     rate: number;
     watch: WatchClass;
@@ -28,6 +29,7 @@ export class PowerReserve implements PowerReserveClass {
     constructor(options: PowerReserveOptions, watch: ParentWatch) {
         this.currentRotation = options.range.full;
         this.element = document.getElementById(options.id);
+        this.onEmpty = options.onEmpty;
         this.range = options.range;
         this.rate = options.rate || 0.5;
         this.windingKey = options.windingKey || 'ArrowUp';
@@ -135,6 +137,7 @@ export class PowerReserve implements PowerReserveClass {
             } else {
                 // The power reserve is empty, clear the parent
                 // watch interval to stop functionality
+                this.onEmpty?.();
                 this.watch.clearInterval();
                 this.watchSettings.interval = undefined;
             }

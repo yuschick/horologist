@@ -121,4 +121,16 @@ describe('Power Reserve', () => {
 
         expect(test.reserve?.rotate).toHaveBeenCalledTimes(1);
     });
+
+    it('should call the onEmpty function when emptied', () => {
+        const onEmpty = jest.fn();
+        const test = new Watch({ reserve: { id, range, rate: 180, onEmpty } });
+
+        test.reserve?.rotate('decrement');
+        expect(test.reserve?.currentRotation).toEqual(-90);
+
+        test.reserve?.rotate('decrement');
+        expect(test.reserve?.currentRotation).toEqual(-90);
+        expect(onEmpty).toHaveBeenCalledTimes(1);
+    });
 });
