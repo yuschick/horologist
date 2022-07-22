@@ -9,6 +9,11 @@ export default {
             element_not_found: 'Day Night Indicator element could not be found.',
         },
     },
+    eq_time: {
+        errors: {
+            element_not_found: 'Equation of Time element could not be found.',
+        },
+    },
     foudroyante: {
         errors: {
             element_not_found: 'Foudroyante element could not be found.',

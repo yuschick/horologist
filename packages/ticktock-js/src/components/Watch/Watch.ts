@@ -2,6 +2,7 @@ import { addSeconds, isSameDay, isSameHour, isSameMonth } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
+import { EquationOfTime } from '../EquationOfTime';
 import { Foudroyante } from '../Foudroyante';
 import { MonthIndicator } from '../MonthIndicator';
 import { Moonphase } from '../Moonphase';
@@ -17,6 +18,7 @@ import * as Types from './Watch.types';
 export class Watch implements Types.WatchClass {
     day?: DayIndicator;
     dayNight?: DayNightIndicator;
+    eq?: EquationOfTime;
     foudroyante?: Foudroyante;
     id?: string;
     settings: Types.WatchSettings;
@@ -34,6 +36,7 @@ export class Watch implements Types.WatchClass {
 
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
+        this.eq = options.eq && new EquationOfTime(options.eq, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
         this.moonphase = options.moonphase && new Moonphase(options.moonphase, this.settings);
@@ -75,6 +78,7 @@ export class Watch implements Types.WatchClass {
 
             // If the day has changed, update the dependent indicators
             if (!isSameDay(oldDate, this.settings.now)) {
+                this.eq?.init();
                 this.month?.init();
                 this.moonphase?.init();
                 this.week?.init();
@@ -95,6 +99,7 @@ export class Watch implements Types.WatchClass {
 
         this.day?.init();
         this.dayNight?.init();
+        this.eq?.init();
 
         // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
