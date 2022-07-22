@@ -24,6 +24,11 @@ export default {
             element_not_found: 'Moonphase element could not be found.',
         },
     },
+    power_reserve: {
+        errors: {
+            element_not_found: 'Power Reserve element could not be found.',
+        },
+    },
     week_indicator: {
         errors: {
             element_not_found: 'Week Indicator element could not be found.',

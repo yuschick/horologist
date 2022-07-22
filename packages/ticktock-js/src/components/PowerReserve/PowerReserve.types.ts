@@ -1,0 +1,26 @@
+import { WatchClass, WatchSettings } from '../Watch';
+
+export interface PowerReserveClass {
+    readonly addKeyBindings: () => void;
+    readonly errorChecking: () => boolean;
+    readonly getRotationValue: (direction?: 'increment' | 'decrement', rotation?: number) => number;
+    readonly init: () => void;
+    readonly rotate: (direction?: 'increment' | 'decrement') => void;
+}
+
+export interface PowerReserveOptions {
+    id: string;
+    range: PowerReserveRange;
+    rate?: number;
+    windingKey?: string;
+}
+
+export type PowerReserveRange = {
+    empty: number;
+    full: number;
+};
+
+export type ParentWatch = {
+    settings: WatchSettings;
+    parent: WatchClass;
+};

@@ -5,6 +5,7 @@ import { DayNightIndicator } from '../DayNightIndicator';
 import { Foudroyante } from '../Foudroyante';
 import { MonthIndicator } from '../MonthIndicator';
 import { Moonphase } from '../Moonphase';
+import { PowerReserve } from '../PowerReserve';
 import { WeekIndicator } from '../WeekIndicator';
 import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
@@ -21,6 +22,7 @@ export class Watch implements Types.WatchClass {
     settings: Types.WatchSettings;
     month?: MonthIndicator;
     moonphase?: Moonphase;
+    reserve?: PowerReserve;
     week?: WeekIndicator;
     year?: YearIndicator;
 
@@ -35,6 +37,9 @@ export class Watch implements Types.WatchClass {
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
         this.moonphase = options.moonphase && new Moonphase(options.moonphase, this.settings);
+        this.reserve =
+            options.reserve &&
+            new PowerReserve(options.reserve, { settings: this.settings, parent: this });
         this.week = options.week && new WeekIndicator(options.week, this.settings);
         this.year = options.year && new YearIndicator(options.year, this.settings);
     }
@@ -59,6 +64,8 @@ export class Watch implements Types.WatchClass {
         this.settings.interval = setInterval(() => {
             const oldDate = this.settings.now;
             this.settings.now = addSeconds(oldDate, 1);
+
+            this.reserve?.rotate('decrement');
 
             // If the hour has changed, update the dependent indicators
             if (!isSameHour(oldDate, this.settings.now)) {
@@ -94,6 +101,7 @@ export class Watch implements Types.WatchClass {
 
         this.month?.init();
         this.moonphase?.init();
+        this.reserve?.init();
         this.week?.init();
         this.year?.init();
     }
