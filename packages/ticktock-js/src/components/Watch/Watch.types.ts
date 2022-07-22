@@ -3,6 +3,7 @@ import { DayNightIndicatorOptions } from '../DayNightIndicator';
 import { FoudroyanteOptions } from '../Foudroyante';
 import { MonthIndicatorOptions } from '../MonthIndicator';
 import { MoonphaseOptions } from '../Moonphase';
+import { PowerReserveOptions } from '../PowerReserve/PowerReserve.types';
 import { WeekIndicatorOptions } from '../WeekIndicator';
 import { YearIndicatorOptions } from '../YearIndicator';
 
@@ -19,6 +20,7 @@ export interface WatchOptions {
     id?: string;
     month?: MonthIndicatorOptions;
     moonphase?: MoonphaseOptions;
+    reserve?: PowerReserveOptions;
     settings?: WatchCustomSettings;
     week?: WeekIndicatorOptions;
     year?: YearIndicatorOptions;
