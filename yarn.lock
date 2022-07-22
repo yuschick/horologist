@@ -4413,6 +4413,11 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
+suntimes@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/suntimes/-/suntimes-6.0.2.tgz#71562f531ca44255a728d629c447edccecd27a51"
+  integrity sha512-5KC1IfOXSd9AGE0noLLyrNi7r9SrqMEri1UwnPC2X6zDWrR0rZuw2AeAgutazG17xJQvzFFAwO2LfL9swo5n/w==
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
