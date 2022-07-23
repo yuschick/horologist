@@ -1,9 +1,10 @@
-import { addSeconds, isSameDay, isSameHour, isSameMonth } from 'date-fns';
+import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
 
 import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
 import { EquationOfTime } from '../EquationOfTime';
 import { Foudroyante } from '../Foudroyante';
+import { MinuteRepeater } from '../MinuteRepeater';
 import { MonthIndicator } from '../MonthIndicator';
 import { Moonphase } from '../Moonphase';
 import { PowerReserve } from '../PowerReserve';
@@ -24,6 +25,7 @@ export class Watch implements Types.WatchClass {
     settings: Types.WatchSettings;
     month?: MonthIndicator;
     moonphase?: Moonphase;
+    repeater?: MinuteRepeater;
     reserve?: PowerReserve;
     week?: WeekIndicator;
     year?: YearIndicator;
@@ -31,6 +33,7 @@ export class Watch implements Types.WatchClass {
     constructor(options: Types.WatchOptions) {
         this.id = options.id;
         this.settings = {
+            activeClass: options.settings?.activeClass,
             now: options.settings?.date || new Date(),
         };
 
@@ -40,6 +43,7 @@ export class Watch implements Types.WatchClass {
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
         this.moonphase = options.moonphase && new Moonphase(options.moonphase, this.settings);
+        this.repeater = options.repeater && new MinuteRepeater(options.repeater, this.settings);
         this.reserve =
             options.reserve &&
             new PowerReserve(options.reserve, { settings: this.settings, parent: this });
@@ -55,9 +59,10 @@ export class Watch implements Types.WatchClass {
     clearInterval() {
         clearInterval(this.settings.interval);
 
-        // Complications that rely on an interval also are cleared
-        // TODO: If foudroyante isn't tied to a chronograph, clearInterval();
+        // Complications that run outside of the Watch interval
+        // that still need to stop when cleared
         this.foudroyante?.clearInterval();
+        this.repeater?.stopAndResetAllAudio();
     }
 
     /*
@@ -69,6 +74,11 @@ export class Watch implements Types.WatchClass {
             this.settings.now = addSeconds(oldDate, 1);
 
             this.reserve?.rotate('decrement');
+
+            // If the minute has changed, update the dependant complications
+            if (!isSameMinute(oldDate, this.settings.now)) {
+                this.repeater!.now = this.settings.now;
+            }
 
             // If the hour has changed, update the dependent indicators
             if (!isSameHour(oldDate, this.settings.now)) {
@@ -100,12 +110,10 @@ export class Watch implements Types.WatchClass {
         this.day?.init();
         this.dayNight?.init();
         this.eq?.init();
-
-        // TODO: If the foudroyante isn't tied to a chronograph, init()
         this.foudroyante?.init();
-
         this.month?.init();
         this.moonphase?.init();
+        this.repeater?.init();
         this.reserve?.init();
         this.week?.init();
         this.year?.init();

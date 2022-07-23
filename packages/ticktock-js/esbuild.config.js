@@ -5,4 +5,5 @@ require('esbuild').buildSync({
     outdir: 'dist',
     external: [],
     format: 'esm',
+    loader: { '.mp4': 'copy' },
 });

@@ -2,10 +2,14 @@ import { Watch } from 'ticktock-js';
 
 const test = new Watch({
     id: 'demo-watch',
-    day: { id: 'day-id' },
-    month: { id: 'month-id', offsetDate: true, reverse: true },
-    moonphase: { id: 'moon-id' },
-    foudroyante: { steps: 5, id: 'foudroyante-id', reverse: true },
-    year: { id: 'year-id', offsetMonths: true },
+    settings: {
+        activeClass: 'booger',
+    },
+    repeater: {
+        id: 'repeater-id',
+        onPlay: () => console.log('PLAY'),
+        onStop: () => console.log('STOP'),
+        onEnd: () => console.log('END'),
+    },
 });
 test.start();
