@@ -16,16 +16,16 @@ export class EquationOfTime implements EquationOfTimeClass {
     maxIncrement: number;
     minIncrement: number;
     now: Date;
-    range: EquationOfTimeRange;
+    options: EquationOfTimeOptions;
 
     constructor(options: EquationOfTimeOptions, settings: WatchSettings) {
+        this.options = options;
         this.element = document.getElementById(options.id);
         this.now = settings.now;
         this.eq = this.getEquationOfTime();
 
-        this.range = options.range;
-        this.maxIncrement = this.range.max / 16;
-        this.minIncrement = this.range.min / 14;
+        this.maxIncrement = this.options.range.max / 16;
+        this.minIncrement = this.options.range.min / 14;
 
         this.hasError = false;
         this.errorChecking();

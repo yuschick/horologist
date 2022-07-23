@@ -12,19 +12,16 @@ export class Foudroyante implements FoudroyanteClass {
     element: HTMLElement | null;
     hasError: boolean;
     interval?: ReturnType<typeof setInterval>;
-    reverse?: boolean;
+    options: FoudroyanteOptions;
     stepDuration: number;
     stepRotation: number;
-    steps: number;
 
     constructor(options: FoudroyanteOptions) {
-        // Component properties
+        this.options = options;
         this.currentRotation = 0;
         this.element = document.getElementById(options.id);
-        this.reverse = options.reverse || false;
-        this.steps = options.steps;
-        this.stepDuration = 1000 / this.steps;
-        this.stepRotation = 360 / this.steps;
+        this.stepDuration = 1000 / this.options.steps;
+        this.stepRotation = 360 / this.options.steps;
 
         // Error properties and checking
         this.hasError = false;
@@ -71,7 +68,7 @@ export class Foudroyante implements FoudroyanteClass {
             this.currentRotation = 0;
         } else {
             this.currentRotation = Math.abs(this.currentRotation) + this.stepRotation;
-            this.currentRotation *= this.reverse ? -1 : 1;
+            this.currentRotation *= this.options.reverse ? -1 : 1;
         }
 
         rotate({ element: this.element, value: this.currentRotation });

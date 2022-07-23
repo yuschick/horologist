@@ -13,12 +13,12 @@ export class Moonphase implements MoonphaseClass {
     date: Date;
     element: HTMLElement | null;
     hasError: boolean;
-    reverse: boolean;
+    options: MoonphaseOptions;
 
     constructor(options: MoonphaseOptions, settings: WatchSettings) {
+        this.options = options;
         this.date = settings.now;
         this.element = document.getElementById(options.id);
-        this.reverse = options.reverse || false;
 
         this.hasError = false;
         this.errorChecking();
@@ -57,7 +57,7 @@ export class Moonphase implements MoonphaseClass {
         });
 
         let value = phaseMap[phase];
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 

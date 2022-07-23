@@ -19,22 +19,20 @@ export class PowerReserve implements PowerReserveClass {
     element: HTMLElement | null;
     hasError: boolean;
     invert: boolean;
-    onEmpty?: () => void;
-    range: PowerReserveRange;
+    options: PowerReserveOptions;
     rate: number;
     watch: WatchClass;
     watchSettings: WatchSettings;
     windingKey: string;
 
     constructor(options: PowerReserveOptions, watch: ParentWatch) {
-        this.currentRotation = options.range.full;
+        this.options = options;
+        this.currentRotation = this.options.range.full;
         this.element = document.getElementById(options.id);
-        this.onEmpty = options.onEmpty;
-        this.range = options.range;
-        this.rate = options.rate || 0.5;
-        this.windingKey = options.windingKey || 'ArrowUp';
+        this.rate = this.options.rate || 0.5;
+        this.windingKey = this.options.windingKey || 'ArrowUp';
 
-        this.invert = this.range.empty > this.range.full;
+        this.invert = this.options.range.empty > this.options.range.full;
 
         this.watch = watch.parent;
         this.watchSettings = watch.settings;
@@ -113,31 +111,31 @@ export class PowerReserve implements PowerReserveClass {
         if (direction === 'increment') {
             // Restart the watch if the reserve has emptied
             if (
-                (!this.invert && this.currentRotation <= this.range.empty) ||
-                (this.invert && this.currentRotation >= this.range.empty)
+                (!this.invert && this.currentRotation <= this.options.range.empty) ||
+                (this.invert && this.currentRotation >= this.options.range.empty)
             ) {
                 this.watch.startInterval();
             }
 
             // Only increment if the power reserve is not 'full'
             if (
-                (!this.invert && currentValue + this.rate <= this.range.full) ||
-                (this.invert && currentValue - this.rate >= this.range.full)
+                (!this.invert && currentValue + this.rate <= this.options.range.full) ||
+                (this.invert && currentValue - this.rate >= this.options.range.full)
             ) {
                 this.currentRotation = value;
                 rotate({ element: this.element as HTMLElement, value });
             }
         } else {
             if (
-                (!this.invert && currentValue - this.rate >= this.range.empty) ||
-                (this.invert && currentValue + this.rate <= this.range.empty)
+                (!this.invert && currentValue - this.rate >= this.options.range.empty) ||
+                (this.invert && currentValue + this.rate <= this.options.range.empty)
             ) {
                 this.currentRotation = value;
                 rotate({ element: this.element as HTMLElement, value });
             } else {
                 // The power reserve is empty, clear the parent
                 // watch interval to stop functionality
-                this.onEmpty?.();
+                this.options.onEmpty?.();
                 this.watch.clearInterval();
                 this.watchSettings.interval = undefined;
             }

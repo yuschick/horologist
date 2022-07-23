@@ -8,14 +8,12 @@ export class DayNightIndicator implements DayNightIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
     hour: number;
-    offsetHours: boolean;
-    reverse: boolean;
+    options: DayNightIndicatorOptions;
 
     constructor(options: DayNightIndicatorOptions, settings: WatchSettings) {
+        this.options = options;
         this.element = document.getElementById(options.id);
         this.hour = getHours(settings.now); // 0-23
-        this.offsetHours = options.offsetHours || false;
-        this.reverse = options.reverse || false;
 
         this.hasError = false;
         this.errorChecking();
@@ -69,13 +67,13 @@ export class DayNightIndicator implements DayNightIndicatorClass {
             hourOffset = this.hour - 18;
         }
 
-        if (this.offsetHours) {
+        if (this.options.offsetHours) {
             // Each quarter consists of 6 hours
             const hourIncrement = quarterIncrement / 6;
             value += hourOffset * hourIncrement;
         }
 
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 
