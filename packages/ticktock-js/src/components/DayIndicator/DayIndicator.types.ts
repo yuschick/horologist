@@ -7,5 +7,10 @@ export interface DayIndicatorClass {
 export interface DayIndicatorOptions {
     id: string;
     offsetHours?: boolean;
+    retrograde?: DayIndicatorRetrograde;
     reverse?: boolean;
 }
+
+export type DayIndicatorRetrograde = {
+    max: number;
+};

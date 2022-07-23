@@ -12,6 +12,8 @@ export default {
     day_indicator: {
         errors: {
             element_not_found: 'Day Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     day_night_indicator: {

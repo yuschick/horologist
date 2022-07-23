@@ -21,6 +21,12 @@ describe('Day Indicator', () => {
         }).toThrow(content.day_indicator.errors.element_not_found);
     });
 
+    it('should throw an error if the retrograde max exceeds 360', () => {
+        expect(() => {
+            new Watch({ day: { id, retrograde: { max: 400 } } });
+        }).toThrow(content.day_indicator.errors.retrograde_exceeds_max);
+    });
+
     it('should return the correct rotational value', () => {
         const day = date.getDay();
         const dayIncrement = 360 / 7;
@@ -47,6 +53,51 @@ describe('Day Indicator', () => {
         const day = date.getDay();
         const hour = date.getHours();
         const dayIncrement = 360 / 7;
+        const hourIncrement = dayIncrement / 24;
+        const dayValue = day * dayIncrement;
+        const hourValue = hour * hourIncrement;
+
+        const value = test.day?.getRotationValue();
+
+        expect(day).toEqual(3);
+        expect(hour).toEqual(13);
+        expect(value).toEqual(dayValue + hourValue);
+    });
+
+    it('should return the correct rotational value for a retrograde display', () => {
+        const max = 180;
+        const test = new Watch({ day: { id, retrograde: { max } }, settings: { date } });
+        const day = date.getDay();
+        const dayIncrement = max / 7;
+        const value = test.day?.getRotationValue();
+
+        expect(day).toEqual(3);
+        expect(value).toEqual(day * dayIncrement);
+    });
+
+    it('should return the correct rotational value for a retrograde display when reversed', () => {
+        const max = 180;
+        const test = new Watch({
+            day: { id, retrograde: { max }, reverse: true },
+            settings: { date },
+        });
+        const day = date.getDay();
+        const dayIncrement = max / 7;
+        const value = test.day?.getRotationValue();
+
+        expect(day).toEqual(3);
+        expect(value).toEqual(day * dayIncrement * -1);
+    });
+
+    it('should return the correct rotational value for a retrograde display with offset hours', () => {
+        const max = 180;
+        const test = new Watch({
+            day: { id, retrograde: { max }, offsetHours: true },
+            settings: { date },
+        });
+        const day = date.getDay();
+        const hour = date.getHours();
+        const dayIncrement = max / 7;
         const hourIncrement = dayIncrement / 24;
         const dayValue = day * dayIncrement;
         const hourValue = hour * hourIncrement;
