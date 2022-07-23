@@ -16,16 +16,14 @@ export class MonthIndicator implements MonthIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
     month: number;
-    offsetDate: boolean;
-    reverse: boolean;
+    options: MonthIndicatorOptions;
 
     constructor(options: MonthIndicatorOptions, settings: WatchSettings) {
+        this.options = options;
         this.date = getDate(settings.now);
         this.daysInMonth = getDaysInMonth(settings.now);
         this.element = document.getElementById(options.id);
         this.month = getMonth(settings.now);
-        this.offsetDate = options.offsetDate || false;
-        this.reverse = options.reverse || false;
 
         this.hasError = false;
         this.errorChecking();
@@ -42,6 +40,10 @@ export class MonthIndicator implements MonthIndicatorClass {
             this.hasError = true;
             throw new Error(content.month_indicator.errors.element_not_found);
         }
+        if (this.options.retrograde && this.options.retrograde.max > 360) {
+            this.hasError = true;
+            throw new Error(content.month_indicator.errors.retrograde_exceeds_max);
+        }
         return this.hasError;
     }
 
@@ -51,15 +53,16 @@ export class MonthIndicator implements MonthIndicatorClass {
      * Optionally, adjust the rotation to offset the current date
      */
     getRotationValue() {
-        const monthIncrement = 360 / 12;
+        const baseIncrementValue = this.options.retrograde ? this.options.retrograde.max : 360;
+        const monthIncrement = baseIncrementValue / 12;
         let value = this.month * monthIncrement;
 
-        if (this.offsetDate) {
+        if (this.options.offsetDate) {
             const dateIncrement = monthIncrement / this.daysInMonth;
             value += this.date * dateIncrement;
         }
 
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 

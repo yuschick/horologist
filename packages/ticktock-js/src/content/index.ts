@@ -7,11 +7,15 @@ export default {
             incompatible_displays:
                 'A retrograde Date display can only be used with an id property.',
             incompatible_elements: 'An id cannot be used at the same time as a split Date display.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     day_indicator: {
         errors: {
             element_not_found: 'Day Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     day_night_indicator: {
@@ -37,6 +41,8 @@ export default {
     month_indicator: {
         errors: {
             element_not_found: 'Month Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     moonphase: {
@@ -52,11 +58,15 @@ export default {
     week_indicator: {
         errors: {
             element_not_found: 'Week Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     year_indicator: {
         errors: {
             element_not_found: 'Year Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
             year_invalid: 'The year value provided to the Year Indicator is invalid.',
         },
     },

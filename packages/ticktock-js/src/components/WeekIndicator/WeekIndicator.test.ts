@@ -22,9 +22,25 @@ describe('Week Indicator', () => {
         }).toThrow(content.week_indicator.errors.element_not_found);
     });
 
+    it('should throw an error if the retrograde max exceeds 360', () => {
+        expect(() => {
+            new Watch({ week: { id, retrograde: { max: 400 } } });
+        }).toThrow(content.week_indicator.errors.retrograde_exceeds_max);
+    });
+
     it('should return the correct rotational value', () => {
         const week = getWeek(date);
         const weekIncrement = 360 / 52;
+        const value = test.week?.getRotationValue();
+        expect(value).toEqual(week * weekIncrement);
+    });
+
+    it('should return the correct rotational value when retrograde display', () => {
+        const max = 180;
+        const test = new Watch({ week: { id, retrograde: { max } }, settings: { date } });
+
+        const week = getWeek(date);
+        const weekIncrement = max / 52;
         const value = test.week?.getRotationValue();
         expect(value).toEqual(week * weekIncrement);
     });

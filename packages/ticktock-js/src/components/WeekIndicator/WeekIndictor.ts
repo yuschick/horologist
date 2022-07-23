@@ -15,20 +15,16 @@ export class WeekIndicator implements WeekIndicatorClass {
     day: number;
     element: HTMLElement | null;
     hasError: boolean;
-    iso: boolean;
     maxWeeks: 52 | 53;
-    offsetDays: boolean;
-    reverse: boolean;
+    options: WeekIndicatorOptions;
     week: number;
 
     constructor(options: WeekIndicatorOptions, settings: WatchSettings) {
+        this.options = options;
         this.day = options.iso ? getISODay(settings.now) : getDay(settings.now);
         this.element = document.getElementById(options.id);
-        this.iso = options.iso || false;
-        this.maxWeeks = this.iso ? 53 : 52;
-        this.offsetDays = options.offsetDays || false;
-        this.reverse = options.reverse || false;
-        this.week = this.iso ? getISOWeek(settings.now) : getWeek(settings.now);
+        this.maxWeeks = this.options.iso ? 53 : 52;
+        this.week = this.options.iso ? getISOWeek(settings.now) : getWeek(settings.now);
 
         this.hasError = false;
         this.errorChecking();
@@ -45,6 +41,10 @@ export class WeekIndicator implements WeekIndicatorClass {
             this.hasError = true;
             throw new Error(content.week_indicator.errors.element_not_found);
         }
+        if (this.options.retrograde && this.options.retrograde.max > 360) {
+            this.hasError = true;
+            throw new Error(content.week_indicator.errors.retrograde_exceeds_max);
+        }
         return this.hasError;
     }
 
@@ -55,15 +55,16 @@ export class WeekIndicator implements WeekIndicatorClass {
      * can account for offsetting the current day of the week.
      */
     getRotationValue() {
-        const weekIncrement = 360 / this.maxWeeks;
+        const baseIncrementValue = this.options.retrograde ? this.options.retrograde.max : 360;
+        const weekIncrement = baseIncrementValue / this.maxWeeks;
         let value = this.week * weekIncrement;
 
-        if (this.offsetDays) {
+        if (this.options.offsetDays) {
             const dayIncrement = weekIncrement / 7;
             value += this.day * dayIncrement;
         }
 
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 

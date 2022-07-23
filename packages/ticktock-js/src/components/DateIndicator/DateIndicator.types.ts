@@ -1,3 +1,5 @@
+import { RetrogradeOptions } from '../../types/retrograde';
+
 export interface DateIndicatorClass {
     readonly errorChecking: () => boolean;
     readonly init: () => void;
@@ -14,7 +16,7 @@ type DateIndicatorSingle = {
     id: string;
     ones?: never;
     tenths?: never;
-    retrograde?: DateIndicatorRetrograde;
+    retrograde?: RetrogradeOptions;
 };
 
 type DateIndicatorSplit = {
@@ -22,8 +24,4 @@ type DateIndicatorSplit = {
     ones: string;
     tenths: string;
     retrograde?: never;
-};
-
-export type DateIndicatorRetrograde = {
-    max: number;
 };

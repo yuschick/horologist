@@ -11,21 +11,26 @@ import { DayIndicatorClass, DayIndicatorOptions } from './DayIndicator.types';
  * th display can offset the hours of the current day, in which case,
  * an additional 2.14deg are added to the rotation value.
  * Sunday is treated as the first day of the week, by default
+ * The Day Indicator supports two display types.
+ *
+ * Single Display
+ * Most common, where the days are shown either with a single disc or hand
+ *
+ * Retrograde Display
+ * Generally shown in a half circle, but indicated still with a single hand
  */
 export class DayIndicator implements DayIndicatorClass {
     day: number;
     element: HTMLElement | null;
     hasError: boolean;
     hour: number;
-    offsetHours: boolean;
-    reverse: boolean;
+    options: DayIndicatorOptions;
 
     constructor(options: DayIndicatorOptions, settings: WatchSettings) {
+        this.options = options;
         this.day = getDay(settings.now); // 0-6
         this.element = document.getElementById(options.id);
         this.hour = getHours(settings.now); // 0-23
-        this.offsetHours = options.offsetHours || false;
-        this.reverse = options.reverse || false;
 
         this.hasError = false;
         this.errorChecking();
@@ -42,6 +47,10 @@ export class DayIndicator implements DayIndicatorClass {
             this.hasError = true;
             throw new Error(content.day_indicator.errors.element_not_found);
         }
+        if (this.options.retrograde && this.options.retrograde.max > 360) {
+            this.hasError = true;
+            throw new Error(content.day_indicator.errors.retrograde_exceeds_max);
+        }
         return this.hasError;
     }
 
@@ -51,15 +60,16 @@ export class DayIndicator implements DayIndicatorClass {
      * Optionally, adjust the rotation to offset the current hours
      */
     getRotationValue() {
-        const dayIncrement = 360 / 7;
+        const baseIncrementValue = this.options.retrograde ? this.options.retrograde.max : 360;
+        const dayIncrement = baseIncrementValue / 7;
         let value = this.day * dayIncrement;
 
-        if (this.offsetHours) {
+        if (this.options.offsetHours) {
             const hourIncrement = dayIncrement / 24;
             value += this.hour * hourIncrement;
         }
 
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 
