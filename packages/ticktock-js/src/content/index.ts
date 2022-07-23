@@ -7,6 +7,8 @@ export default {
             incompatible_displays:
                 'A retrograde Date display can only be used with an id property.',
             incompatible_elements: 'An id cannot be used at the same time as a split Date display.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     day_indicator: {

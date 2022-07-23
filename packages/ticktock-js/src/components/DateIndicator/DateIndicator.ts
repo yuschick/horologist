@@ -78,6 +78,10 @@ export class DateIndicator implements DateIndicatorClass {
             this.hasError = true;
             throw new Error(content.date_indicator.errors.incompatible_displays);
         }
+        if (this.options.retrograde && this.options.retrograde.max > 360) {
+            this.hasError = true;
+            throw new Error(content.date_indicator.errors.retrograde_exceeds_max);
+        }
         return this.hasError;
     }
 

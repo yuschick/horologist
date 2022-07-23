@@ -22,6 +22,12 @@ describe('Date Indicator', () => {
         }).toThrow(content.date_indicator.errors.element_not_found);
     });
 
+    it('should throw an error if the retrograde max exceeds 360', () => {
+        expect(() => {
+            new Watch({ date: { id, retrograde: { max: 400 } } });
+        }).toThrow(content.date_indicator.errors.retrograde_exceeds_max);
+    });
+
     it('should throw an error if the ones element cannot be found', () => {
         expect(() => {
             new Watch({ date: { ones: 'error', tenths: id } });
