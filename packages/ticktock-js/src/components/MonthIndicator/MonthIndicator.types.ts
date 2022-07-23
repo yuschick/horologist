@@ -1,3 +1,5 @@
+import { RetrogradeOptions } from '../../types/retrograde';
+
 export interface MonthIndicatorClass {
     readonly errorChecking: () => boolean;
     readonly init: () => void;
@@ -7,10 +9,6 @@ export interface MonthIndicatorClass {
 export interface MonthIndicatorOptions {
     id: string;
     offsetDate?: boolean;
-    retrograde?: MonthIndicatorRetrograde;
+    retrograde?: RetrogradeOptions;
     reverse?: boolean;
 }
-
-export type MonthIndicatorRetrograde = {
-    max: number;
-};
