@@ -12,6 +12,13 @@ import {
 } from './MinuteRepeater.types';
 import { getHours, getMinutes } from 'date-fns';
 
+/*
+ * The Minute Repeater complication is one of the most impressive watchmaking feats.
+ * When pressing the trigger, the watch audibly communicates the time with a series
+ * of chimes. Hours are denoted with one chime, while minutes are denoted with a second.
+ * Quarter hours (or 15 minutes) are denoted with a combination of the two chimes.
+ * For example: the time 08:17 would have 8 hour chimes, 1 quarter hour chime, and 2 minute chimes.
+ */
 export class MinuteRepeater implements MinuteRepeaterClass {
     chimes: MinuteRepeaterChimes;
     element: HTMLElement | null;

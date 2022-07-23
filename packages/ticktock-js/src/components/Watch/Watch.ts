@@ -1,4 +1,5 @@
 import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
+import { DateIndicator } from '../DateIndicator';
 
 import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
@@ -17,6 +18,7 @@ import * as Types from './Watch.types';
  * and event triggers for any child components.
  */
 export class Watch implements Types.WatchClass {
+    date?: DateIndicator;
     day?: DayIndicator;
     dayNight?: DayNightIndicator;
     eq?: EquationOfTime;
@@ -37,6 +39,7 @@ export class Watch implements Types.WatchClass {
             now: options.settings?.date || new Date(),
         };
 
+        this.date = options.date && new DateIndicator(options.date, this.settings);
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
         this.eq = options.eq && new EquationOfTime(options.eq, this.settings);
@@ -88,6 +91,7 @@ export class Watch implements Types.WatchClass {
 
             // If the day has changed, update the dependent indicators
             if (!isSameDay(oldDate, this.settings.now)) {
+                this.date?.init();
                 this.eq?.init();
                 this.month?.init();
                 this.moonphase?.init();
@@ -107,6 +111,7 @@ export class Watch implements Types.WatchClass {
     start() {
         this.startInterval();
 
+        this.date?.init();
         this.day?.init();
         this.dayNight?.init();
         this.eq?.init();
