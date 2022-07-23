@@ -22,9 +22,24 @@ describe('Month Indicator', () => {
         }).toThrow(content.month_indicator.errors.element_not_found);
     });
 
+    it('should throw an error if the retrograde max exceeds 360', () => {
+        expect(() => {
+            new Watch({ month: { id, retrograde: { max: 400 } } });
+        }).toThrow(content.month_indicator.errors.retrograde_exceeds_max);
+    });
+
     it('should return the correct rotational value', () => {
         const month = getMonth(date);
         const monthIncrement = 360 / 12;
+        const value = test.month?.getRotationValue();
+        expect(value).toEqual(month * monthIncrement);
+    });
+
+    it('should return the correct rotational value when retrograde display', () => {
+        const max = 180;
+        const test = new Watch({ month: { id, retrograde: { max } }, settings: { date } });
+        const month = getMonth(date);
+        const monthIncrement = max / 12;
         const value = test.month?.getRotationValue();
         expect(value).toEqual(month * monthIncrement);
     });

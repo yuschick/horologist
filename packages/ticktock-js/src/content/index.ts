@@ -41,6 +41,8 @@ export default {
     month_indicator: {
         errors: {
             element_not_found: 'Month Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
         },
     },
     moonphase: {
