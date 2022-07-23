@@ -19,6 +19,11 @@ export default {
             element_not_found: 'Foudroyante element could not be found.',
         },
     },
+    minute_repeater: {
+        errors: {
+            element_not_found: 'Minute Repeater element could not be found.',
+        },
+    },
     month_indicator: {
         errors: {
             element_not_found: 'Month Indicator element could not be found.',
