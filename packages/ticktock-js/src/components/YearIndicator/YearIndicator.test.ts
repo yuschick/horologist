@@ -21,6 +21,12 @@ describe('Year Indicator', () => {
         }).toThrow(content.year_indicator.errors.element_not_found);
     });
 
+    it('should throw an error if the retrograde max exceeds 360', () => {
+        expect(() => {
+            new Watch({ year: { id, retrograde: { max: 400 } } });
+        }).toThrow(content.year_indicator.errors.retrograde_exceeds_max);
+    });
+
     it('should return cycle position 1 for 2021', () => {
         const cycleYear = test.year?.getYearInCycle(2021);
         expect(cycleYear).toEqual(1);
@@ -29,6 +35,13 @@ describe('Year Indicator', () => {
     it('should return the correct rotational value', () => {
         const value = test.year?.getRotationValue(3);
         expect(value).toEqual(180);
+    });
+
+    it('should return the correct rotational value with retrograde display', () => {
+        const max = 180;
+        const test = new Watch({ year: { id, retrograde: { max } } });
+        const value = test.year?.getRotationValue(3);
+        expect(value).toEqual(max / 2);
     });
 
     it('should return the correct rotational value when reversed', () => {

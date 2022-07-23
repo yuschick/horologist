@@ -1,3 +1,5 @@
+import { RetrogradeOptions } from '../../types/retrograde';
+
 export interface YearIndicatorClass {
     readonly errorChecking: () => boolean;
     readonly getRotationValue: (cycle: 1 | 2 | 3 | 4) => number;
@@ -8,5 +10,6 @@ export interface YearIndicatorClass {
 export interface YearIndicatorOptions {
     id: string;
     offsetMonths?: boolean;
+    retrograde?: RetrogradeOptions;
     reverse?: boolean;
 }

@@ -65,6 +65,8 @@ export default {
     year_indicator: {
         errors: {
             element_not_found: 'Year Indicator element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
             year_invalid: 'The year value provided to the Year Indicator is invalid.',
         },
     },

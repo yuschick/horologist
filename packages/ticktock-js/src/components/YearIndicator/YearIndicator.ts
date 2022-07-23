@@ -12,16 +12,14 @@ import { YearIndicatorClass, YearIndicatorOptions } from './YearIndicator.types'
 export class YearIndicator implements YearIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
-    offsetMonths: boolean;
     month: number;
-    reverse: boolean;
+    options: YearIndicatorOptions;
     year: number;
 
     constructor(options: YearIndicatorOptions, settings: WatchSettings) {
+        this.options = options;
         this.element = document.getElementById(options.id);
         this.month = getMonth(settings.now);
-        this.offsetMonths = options.offsetMonths || false;
-        this.reverse = options.reverse || false;
         this.year = getYear(settings.now);
 
         this.hasError = false;
@@ -43,6 +41,10 @@ export class YearIndicator implements YearIndicatorClass {
             this.hasError = true;
             throw new Error(content.year_indicator.errors.year_invalid);
         }
+        if (this.options.retrograde && this.options.retrograde.max > 360) {
+            this.hasError = true;
+            throw new Error(content.year_indicator.errors.retrograde_exceeds_max);
+        }
         return this.hasError;
     }
 
@@ -54,20 +56,21 @@ export class YearIndicator implements YearIndicatorClass {
      */
     getRotationValue(cycle: 1 | 2 | 3 | 4) {
         if (!this.element) return 0;
+        const baseIncrementValue = this.options.retrograde ? this.options.retrograde.max : 360;
 
         const yearRotationMap = Object.freeze({
             1: 0,
-            2: 90,
-            3: 180,
-            4: 270,
+            2: baseIncrementValue / 4, // 360 -> 90
+            3: baseIncrementValue / 2, // 360 -> 180
+            4: baseIncrementValue * 0.75, // 360 -> 270
         });
         let value = yearRotationMap[cycle];
 
-        if (this.offsetMonths) {
-            value += this.month * 7.5; // 90deg / 12months
+        if (this.options.offsetMonths) {
+            value += this.month * (baseIncrementValue / 4 / 12); // 360 -> 90deg / 12months
         }
 
-        value *= this.reverse ? -1 : 1;
+        value *= this.options.reverse ? -1 : 1;
         return value;
     }
 
