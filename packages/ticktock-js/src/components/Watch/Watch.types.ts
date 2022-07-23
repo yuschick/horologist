@@ -1,3 +1,4 @@
+import { DateIndicatorOptions } from '../DateIndicator';
 import { DayIndicatorOptions } from '../DayIndicator';
 import { DayNightIndicatorOptions } from '../DayNightIndicator';
 import { EquationOfTimeOptions } from '../EquationOfTime';
@@ -16,6 +17,7 @@ export interface WatchClass {
 }
 
 export interface WatchOptions {
+    date?: DateIndicatorOptions;
     day?: DayIndicatorOptions;
     dayNight?: DayNightIndicatorOptions;
     eq?: EquationOfTimeOptions;

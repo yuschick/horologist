@@ -10,66 +10,215 @@ body {
     place-items: center;
 }
 
-#dial {
+#date {
     border-radius: 50%;
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
     position: relative;
+    transform-origin: 50%;
 }
 
-#one,
-#two,
-#three,
-#four,
-#five,
-#six,
-#seven,
-#eight,
-#nine,
-#ten,
-#eleven,
-#twelve {
+#ones-disc,
+#tens-disc {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    transform-origin: 50%;
+}
+#ones-disc {
+    background: #efefef;
+}
+#div-t-0 {
     align-content: flex-start;
     align-items: flex-start;
     display: flex;
     transform-origin: 50%;
-    height: 200px;
+    height: 300px;
     justify-content: center;
     position: absolute;
     top: 0;
     left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-0deg);
 }
 
-#one {
-    transform: rotate(30deg);
+#div-t-1 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-90deg);
 }
-#two {
-    transform: rotate(60deg);
+
+#div-t-2 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-180deg);
 }
-#three {
-    transform: rotate(90deg);
+
+#div-t-3 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-270deg);
 }
-#four {
-    transform: rotate(120deg);
+
+#div-0 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-0deg);
 }
-#five {
-    transform: rotate(150deg);
+
+#div-1 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-36deg);
 }
-#six {
-    transform: rotate(180deg);
+
+#div-2 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-72deg);
 }
-#seven {
-    transform: rotate(210deg);
+
+#div-3 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-108deg);
 }
-#eight {
-    transform: rotate(240deg);
+
+#div-4 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-144deg);
 }
-#nine {
-    transform: rotate(270deg);
+
+#div-5 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-180deg);
 }
-#ten {
-    transform: rotate(300deg);
+
+#div-6 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-216deg);
 }
-#eleven {
-    transform: rotate(330deg);
+
+#div-7 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-252deg);
+}
+
+#div-8 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-288deg);
+}
+#div-9 {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    transform-origin: 50%;
+    height: 300px;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 50%;
+    transform: rotate(-324deg);
 }

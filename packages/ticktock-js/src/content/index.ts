@@ -1,4 +1,14 @@
 export default {
+    date_indicator: {
+        errors: {
+            element_not_found: 'Date Indicator element could not be found.',
+            ones_element_not_found: 'Date Indicator Ones element could not be found.',
+            tenths_element_not_found: 'Date Indicator Tenths element could not be found.',
+            incompatible_displays:
+                'A retrograde Date display can only be used with an id property.',
+            incompatible_elements: 'An id cannot be used at the same time as a split Date display.',
+        },
+    },
     day_indicator: {
         errors: {
             element_not_found: 'Day Indicator element could not be found.',
