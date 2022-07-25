@@ -15,7 +15,7 @@ describe('Power Reserve', () => {
         test = new Watch({ reserve: { id, range } });
     });
 
-    it('should return a watch object with a week property', () => {
+    it('should return a watch object with a reserve property', () => {
         expect(test).toHaveProperty('reserve');
     });
 

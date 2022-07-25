@@ -10,215 +10,43 @@ body {
     place-items: center;
 }
 
-#date {
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-    position: relative;
-    transform-origin: 50%;
+.container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 5rem;
+    gap: 1rem;
 }
 
-#ones-disc,
-#tens-disc {
-    height: 300px;
-    width: 300px;
-    position: relative;
-    transform-origin: 50%;
+#tri-pusher.active,
+#dual-pusher.active,
+#mono-pusher.active {
+    background: red;
+    transition: all 0.15s ease;
 }
-#ones-disc {
+
+#tenths-hand,
+#seconds-hand,
+#minutes-hand,
+#hours-hand,
+#split-seconds-hand,
+#split-minutes-hand,
+#split-hours-hand {
     background: #efefef;
-}
-#div-t-0 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
+    border-top: 3px solid black;
     transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-0deg);
+    height: 100px;
+    width: 5px;
+    transition: none;
 }
 
-#div-t-1 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
+#split-seconds-hand,
+#split-minutes-hand,
+#split-hours-hand {
+    background: teal;
+    border-top: 3px solid orange;
     transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-90deg);
-}
-
-#div-t-2 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-180deg);
-}
-
-#div-t-3 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-270deg);
-}
-
-#div-0 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-0deg);
-}
-
-#div-1 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-36deg);
-}
-
-#div-2 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-72deg);
-}
-
-#div-3 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-108deg);
-}
-
-#div-4 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-144deg);
-}
-
-#div-5 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-180deg);
-}
-
-#div-6 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-216deg);
-}
-
-#div-7 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-252deg);
-}
-
-#div-8 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-288deg);
-}
-#div-9 {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    transform-origin: 50%;
-    height: 300px;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 50%;
-    transform: rotate(-324deg);
+    height: 100px;
+    width: 5px;
+    transition: none;
 }

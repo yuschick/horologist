@@ -1,7 +1,7 @@
 import { WatchClass, WatchSettings } from '../Watch';
 
 export interface PowerReserveClass {
-    readonly addKeyBindings: () => void;
+    readonly bindEvents: () => void;
     readonly errorChecking: () => boolean;
     readonly getRotationValue: (direction?: 'increment' | 'decrement', rotation?: number) => number;
     readonly init: () => void;

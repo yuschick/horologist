@@ -9,6 +9,11 @@ import {
     EquationOfTimeRange,
 } from './EquationOfTime.types';
 
+/*
+ * TODO: Write overview of complication
+ * Design Expectations
+ * TickTock expects the eq hand to be drawn at an eq value of 0
+ */
 export class EquationOfTime implements EquationOfTimeClass {
     element: HTMLElement | null;
     eq: number;

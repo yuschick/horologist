@@ -1,3 +1,4 @@
+import { ChronographOptions } from '../Chronograph';
 import { DateIndicatorOptions } from '../DateIndicator';
 import { DayIndicatorOptions } from '../DayIndicator';
 import { DayNightIndicatorOptions } from '../DayNightIndicator';
@@ -17,6 +18,7 @@ export interface WatchClass {
 }
 
 export interface WatchOptions {
+    chronograph?: ChronographOptions;
     date?: DateIndicatorOptions;
     day?: DayIndicatorOptions;
     dayNight?: DayNightIndicatorOptions;

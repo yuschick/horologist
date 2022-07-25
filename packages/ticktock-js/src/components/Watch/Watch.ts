@@ -1,4 +1,5 @@
 import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
+import { Chronograph } from '../Chronograph';
 import { DateIndicator } from '../DateIndicator';
 
 import { DayIndicator } from '../DayIndicator';
@@ -18,6 +19,7 @@ import * as Types from './Watch.types';
  * and event triggers for any child components.
  */
 export class Watch implements Types.WatchClass {
+    chronograph?: Chronograph;
     date?: DateIndicator;
     day?: DayIndicator;
     dayNight?: DayNightIndicator;
@@ -39,6 +41,8 @@ export class Watch implements Types.WatchClass {
             now: options.settings?.date || new Date(),
         };
 
+        this.chronograph =
+            options.chronograph && new Chronograph(options.chronograph, this.settings);
         this.date = options.date && new DateIndicator(options.date, this.settings);
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
@@ -66,6 +70,9 @@ export class Watch implements Types.WatchClass {
         // that still need to stop when cleared
         this.foudroyante?.clearInterval();
         this.repeater?.stopAndResetAllAudio();
+
+        // TODO: Disable chronograph event listeners
+        // TODO: Clear any chronograph intervals (without resetting hands)
     }
 
     /*
@@ -73,8 +80,8 @@ export class Watch implements Types.WatchClass {
      */
     startInterval() {
         this.settings.interval = setInterval(() => {
-            const oldDate = this.settings.now;
-            this.settings.now = addSeconds(oldDate, 1);
+            const oldDate = this.settings?.now;
+            this.settings!.now = addSeconds(oldDate, 1);
 
             this.reserve?.rotate('decrement');
 
@@ -111,6 +118,7 @@ export class Watch implements Types.WatchClass {
     start() {
         this.startInterval();
 
+        this.chronograph?.init();
         this.date?.init();
         this.day?.init();
         this.dayNight?.init();
