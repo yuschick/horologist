@@ -2,9 +2,24 @@ import { Watch } from 'ticktock-js';
 
 const test = new Watch({
     id: 'demo-watch',
-    date: {
-        ones: 'ones-disc',
-        tenths: 'tens-disc',
+    chronograph: {
+        hands: {
+            tenths: 'tenths-hand',
+            seconds: 'seconds-hand',
+            minutes: 'minutes-hand',
+            hours: 'hours-hand',
+            rattrapante: {
+                seconds: 'split-seconds-hand',
+                minutes: 'split-minutes-hand',
+                hours: 'split-hours-hand',
+            },
+        },
+        pushers: {
+            mono: 'mono-pusher',
+            dual: 'dual-pusher',
+        },
+        flyback: true,
     },
 });
+
 test.start();

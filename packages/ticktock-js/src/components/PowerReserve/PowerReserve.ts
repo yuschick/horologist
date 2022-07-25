@@ -45,7 +45,7 @@ export class PowerReserve implements PowerReserveClass {
      * Apply an event listener to the window to allow
      * manual 'winding' of the power reserve
      */
-    addKeyBindings() {
+    bindEvents() {
         document.addEventListener('keydown', (e: KeyboardEvent) => {
             const key = e.key;
             if (key === this.windingKey) {
@@ -90,7 +90,7 @@ export class PowerReserve implements PowerReserveClass {
     init() {
         if (this.hasError) return;
 
-        this.addKeyBindings();
+        this.bindEvents();
         rotate({ element: this.element as HTMLElement, value: this.currentRotation });
     }
 

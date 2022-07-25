@@ -1,4 +1,24 @@
 export default {
+    chronograph: {
+        errors: {
+            mono_pusher_not_found: 'The Chronograph Mono Pusher element could not be found.',
+            dual_pusher_not_found: 'The Chronograph Dual Pusher element could not be found.',
+            incompatible_pushers: 'The use of a Tri Pusher requires that a Dual Pusher be defined.',
+            hours_hand_not_found: 'The Chronograph Hours Hand element could not be found.',
+            minutes_hand_not_found: 'The Chronograph Minutes Hand element could not be found.',
+            mono_pusher_cannot_support_rattrapante:
+                'A Mono Pusher chronograph cannot support Rattrapante functionality. The watch much be either a Dual or Tri Pusher."',
+            seconds_hand_not_found: 'The Chronograph Seconds Hand element could not be found.',
+            split_hours_hand_not_found:
+                'The Chronograph Rattrapante Hours Hand element could not be found.',
+            split_minutes_hand_not_found:
+                'The Chronograph Rattrapante Minutes Hand element could not be found.',
+            split_seconds_hand_not_found:
+                'The Chronograph Rattrapante Seconds Hand element could not be found.',
+            tenth_seconds_hand_not_found: 'The Chronograph Tenths Hand element could not be found.',
+            tri_pusher_not_found: 'The Chronograph Tri Pusher element could not be found.',
+        },
+    },
     date_indicator: {
         errors: {
             element_not_found: 'Date Indicator element could not be found.',

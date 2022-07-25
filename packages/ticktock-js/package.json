@@ -14,7 +14,9 @@
     "scripts": {
         "prebuild": "yarn test",
         "build": "node esbuild.config.js && tsc",
-        "test": "jest"
+        "build:dev": "node esbuild.config.js && tsc",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "author": "Daniel Yuschick <daniel.yuschick@gmail.com>",
     "license": "ISC",
