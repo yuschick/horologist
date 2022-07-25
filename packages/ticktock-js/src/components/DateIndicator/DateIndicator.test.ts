@@ -30,13 +30,13 @@ describe('Date Indicator', () => {
 
     it('should throw an error if the ones element cannot be found', () => {
         expect(() => {
-            new Watch({ date: { ones: 'error', tenths: id } });
+            new Watch({ date: { split: { ones: 'error', tenths: id } } });
         }).toThrow(content.date_indicator.errors.ones_element_not_found);
     });
 
     it('should throw an error if the tenths element cannot be found', () => {
         expect(() => {
-            new Watch({ date: { tenths: 'error', ones: id } });
+            new Watch({ date: { split: { tenths: 'error', ones: id } } });
         }).toThrow(content.date_indicator.errors.tenths_element_not_found);
     });
 
@@ -57,7 +57,7 @@ describe('Date Indicator', () => {
     it('should return the correct rotational values for a split display', () => {
         document.body.innerHTML = `<div id="ones-id" /><div id="tenths-id" />`;
         const test = new Watch({
-            date: { ones: 'ones-id', tenths: 'tenths-id' },
+            date: { split: { ones: 'ones-id', tenths: 'tenths-id' } },
             settings: { date },
         });
         const onesIncrement = 360 / 10;
@@ -73,7 +73,7 @@ describe('Date Indicator', () => {
     it('should return the correct rotational values for a split display when reversed', () => {
         document.body.innerHTML += `<div id="ones-id" /><div id="tenths-id" />`;
         const test = new Watch({
-            date: { ones: 'ones-id', tenths: 'tenths-id', reverse: true },
+            date: { split: { ones: 'ones-id', tenths: 'tenths-id' }, reverse: true },
             settings: { date },
         });
         const onesIncrement = 360 / 10;

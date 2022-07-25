@@ -37,10 +37,10 @@ export class DateIndicator implements DateIndicatorClass {
         this.options = options;
         this.settings = settings;
         this.split =
-            options.ones && options.tenths
+            options.split?.ones && options.split?.tenths
                 ? {
-                      onesElement: document.getElementById(options.ones),
-                      tenthsElement: document.getElementById(options.tenths),
+                      onesElement: document.getElementById(options.split.ones),
+                      tenthsElement: document.getElementById(options.split.tenths),
                   }
                 : undefined;
 

@@ -1,4 +1,5 @@
 import { RetrogradeOptions } from '../../types/retrograde';
+import { SplitDisplay } from '../../types/splitdisplay';
 
 export interface DateIndicatorClass {
     readonly errorChecking: () => boolean;
@@ -14,14 +15,12 @@ export type DateIndicatorOptions = (DateIndicatorSingle | DateIndicatorSplit) & 
 
 type DateIndicatorSingle = {
     id: string;
-    ones?: never;
-    tenths?: never;
+    split?: never;
     retrograde?: RetrogradeOptions;
 };
 
 type DateIndicatorSplit = {
     id?: never;
-    ones: string;
-    tenths: string;
+    split: SplitDisplay;
     retrograde?: never;
 };
