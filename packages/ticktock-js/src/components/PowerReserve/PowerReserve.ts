@@ -1,12 +1,7 @@
 import content from '../../content';
 import { rotate } from '../../utils';
 import { WatchClass, WatchSettings } from '../Watch';
-import {
-    PowerReserveClass,
-    PowerReserveOptions,
-    PowerReserveRange,
-    ParentWatch,
-} from './PowerReserve.types';
+import { PowerReserveClass, PowerReserveOptions, ParentWatch } from './PowerReserve.types';
 
 /*
  * The Power Reserve class indicates the current power level of the watch.

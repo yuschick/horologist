@@ -4,6 +4,15 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { DayNightIndicatorClass, DayNightIndicatorOptions } from './DayNightIndicator.types';
 
+/*
+ * More like an AM/PM Indicator, the Day Night Indicator generally has
+ * four states - all day, half day half night, all night, half night half day.
+ * These four states map to each quarter of the day.
+ * 00-06 - all day
+ * 06-12 - half day half night
+ * 12-18 - all night
+ * 18-00 - half night half day
+ */
 export class DayNightIndicator implements DayNightIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;

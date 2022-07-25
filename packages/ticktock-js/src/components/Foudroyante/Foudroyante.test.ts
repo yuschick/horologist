@@ -4,13 +4,17 @@ import content from '../../content';
 describe('Foudroyante', () => {
     const id = 'test-id';
     const steps = 5;
+    let test: Watch;
 
     beforeAll(() => {
         document.body.innerHTML = `<div id="${id}" />`;
     });
 
+    beforeEach(() => {
+        test = new Watch({ foudroyante: { id, steps } });
+    });
+
     it('should return a watch object with a foudroyante property', () => {
-        const test = new Watch({ foudroyante: { id, steps } });
         expect(test).toHaveProperty('foudroyante');
     });
 
@@ -21,13 +25,10 @@ describe('Foudroyante', () => {
     });
 
     it('should calculate the correct step increment', () => {
-        const test = new Watch({ foudroyante: { id, steps } });
         expect(test.foudroyante?.stepRotation).toEqual(360 / steps);
     });
 
     it('should set the correct rotation value', () => {
-        const test = new Watch({ foudroyante: { id, steps } });
-
         test.foudroyante?.rotate();
         expect(test.foudroyante?.currentRotation).toEqual(360 / steps);
 

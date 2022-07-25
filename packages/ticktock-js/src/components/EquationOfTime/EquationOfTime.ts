@@ -3,14 +3,15 @@ import { equationOfTime } from 'suntimes';
 import content from '../../content';
 import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
-import {
-    EquationOfTimeClass,
-    EquationOfTimeOptions,
-    EquationOfTimeRange,
-} from './EquationOfTime.types';
+import { EquationOfTimeClass, EquationOfTimeOptions } from './EquationOfTime.types';
 
 /*
- * TODO: Write overview of complication
+ * The Equation of Time functions very similarly to the Power Reserve.
+ * An ID of the indicator is provided and based on the true solar time
+ * the indicator is adjusted to display the time variance.
+ * A range can be provided (defaults to [-45, 45])
+ * Each range is then split into 14 or 16 segments, one for each variant minute
+ *
  * Design Expectations
  * TickTock expects the eq hand to be drawn at an eq value of 0
  */
