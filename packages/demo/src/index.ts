@@ -3,8 +3,14 @@ import { Watch } from 'ticktock-js';
 const test = new Watch({
     id: 'demo-watch',
     chronograph: {
+        dialDurations: {
+            subSeconds: 10,
+            seconds: 30,
+            minutes: 10,
+            hours: 1,
+        },
         hands: {
-            tenths: 'tenths-hand',
+            subSeconds: 'tenths-hand',
             seconds: 'seconds-hand',
             minutes: 'minutes-hand',
             hours: 'hours-hand',

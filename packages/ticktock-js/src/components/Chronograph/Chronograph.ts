@@ -3,9 +3,164 @@ import { rotate, setupTriggerEvents } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { ChronographClass, ChronographOptions, ChronographState } from './Chronograph.types';
 
+/*
+ * The chronograph complication requires a buttons and hands object
+ * the buttons object contains the start and reset buttons which control the hands
+ * The hands are designed and used to indicate tenth seconds, seconds, and minutes
+ * for timing events. Flyback and Split-Second (rattrapante) functionality is supported for timing laps.
+ *
+ * MONO-PUSHER
+ *  READY STATE
+ *      Pusher 1: Go to ACTIVE STATE
+ *  ACTIVE STATE
+ *      Pusher 1: Go to PAUSED STATE
+ *  PAUSED STATE
+ *      Pusher 1: Go to READY STATE
+ *
+ *
+ * DUAL PUSHER - STANDARD
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUsED STATE
+ *      Pusher 2 - Go to READY STATE
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Go to READY STATE
+ *
+ *
+ * DUAL PUSHER - FLYBACK
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUsED STATE
+ *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
+ *  PAUSED STATE
+ *      Pushed 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Go to READY STATE
+ *
+ *
+ * DUAL PUSHER - RATTRAPANTE
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Go to SPLIT SET STATE
+ *  SPLIT SET STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Leave SPLIT SET STATE, Remain in ACTIVE STATE
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pushed 2 - Go to READY STATE
+ *  PAUSED STATE & SPLIT SET STATE
+ *      Pusher 1 - RESET HANDS, stay in SPLIT SET STATE
+ *      Pusher 2 - Go to READY STATE
+ *
+ *
+ * DUAL PUSHER - FLYBACK & RATTRAPANTE
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Go to ACTIVE SPLIT SET STATE, RESET STATE (FLYBACK)
+ *  ACTIVE STATE & SPLIT SET STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Leave SPLIT SET STATE (RESET HANDS), Remain in ACTIVE STATE
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pushed 2 - Go to READY STATE
+ *  PAUSED STATE & SPLIT SET STATE
+ *      Pusher 1 - RESET HANDS, stay in SPLIT SET STATE
+ *      Pusher 2 - Go to READY STATE
+ *
+ * TRI PUSHER - STANDARD
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUsED STATE
+ *      Pusher 2 - Go to READY STATE
+ *      Pusher 3 - Nothing
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Go to READY STATE
+ *      Pusher 3 - Nothing
+ *
+ *
+ * TRI PUSHER - FLYBACK
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUsED STATE
+ *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
+ *      Pusher 3 - Nothing
+ *  PAUSED STATE
+ *      Pushed 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Go to READY STATE
+ *      Pusher 3 - Nothing
+ *
+ *
+ * TRI PUSHER - RATTRAPANTE
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Go to SPLIT SET STATE
+ *      Pusher 3 - Nothing
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 . Go to READY STATE
+ *  PAUSED STATE WITH SPLIT SET STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - RESET HANDS, stay in PAUSED STATE
+ *      Pusher 3 - Go to READY STATE
+ *  SPIT SET STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
+ *      Pusher 3 - Nothing
+ *
+ *
+ * TRI PUSHER - FLYBACK & RATTRAPANTE
+ *  READY STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 - Nothing
+ *  ACTIVE STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - Go to SPLIT SET STATE
+ *      Pusher 3 - Go to RESET STATE (FLYBACK)
+ *  PAUSED STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - Nothing
+ *      Pusher 3 - Go to READY STATE
+ *  PAUSED STATE WITH SPLIT SET STATE
+ *      Pusher 1 - Go to ACTIVE STATE
+ *      Pusher 2 - RESET HANDS, stay in PAUSED STATE
+ *      Pusher 3 - Go to READY STATE
+ *  ACTIVE STATE WITH SPLIT SET STATE
+ *      Pusher 1 - Go to PAUSED STATE
+ *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
+ *      Pusher 3 - Go to RESET STATE (FLYBACK)
+ */
 export class Chronograph implements ChronographClass {
+    durations: {
+        subSeconds: number;
+        seconds: number;
+        minutes: number;
+        hours: number;
+    };
     hands: {
-        tenths?: HTMLElement | null;
+        subSeconds?: HTMLElement | null;
         seconds: HTMLElement | null;
         minutes: HTMLElement | null;
         hours?: HTMLElement | null;
@@ -17,6 +172,7 @@ export class Chronograph implements ChronographClass {
     };
     hasError: boolean;
     iterationCount: number;
+    iterationMax: number;
     interval?: ReturnType<typeof setInterval>;
     options: ChronographOptions;
     pushers: {
@@ -25,7 +181,7 @@ export class Chronograph implements ChronographClass {
         tri?: HTMLElement | null;
     };
     rotations: {
-        tenths: number;
+        subSeconds: number;
         seconds: number;
         minutes: number;
         hours: number;
@@ -50,9 +206,15 @@ export class Chronograph implements ChronographClass {
 
     constructor(options: ChronographOptions, settings: WatchSettings) {
         this.options = options;
+        this.durations = {
+            subSeconds: this.options.dialDurations?.subSeconds || 10,
+            seconds: this.options.dialDurations?.seconds || 60,
+            minutes: this.options.dialDurations?.minutes || 60,
+            hours: this.options.dialDurations?.hours || 12,
+        };
         this.hands = {
-            tenths: this.options.hands.tenths
-                ? document.getElementById(this.options.hands.tenths)
+            subSeconds: this.options.hands.subSeconds
+                ? document.getElementById(this.options.hands.subSeconds)
                 : undefined,
             seconds: document.getElementById(this.options.hands.seconds),
             minutes: document.getElementById(this.options.hands.minutes),
@@ -82,8 +244,9 @@ export class Chronograph implements ChronographClass {
         };
         // This increments each interval to determine when seconds/minutes/hours hands are to be rotated
         this.iterationCount = 1;
+        this.iterationMax = this.durations.subSeconds * 60;
         this.rotations = {
-            tenths: 0,
+            subSeconds: 0,
             seconds: 0,
             minutes: 0,
             hours: 0,
@@ -236,6 +399,14 @@ export class Chronograph implements ChronographClass {
     errorChecking() {
         this.hasError = false;
 
+        if (
+            this.options.dialDurations?.subSeconds &&
+            (this.options.dialDurations?.subSeconds < 2 ||
+                this.options.dialDurations?.subSeconds > 30)
+        ) {
+            this.hasError = true;
+            throw new Error(content.chronograph.errors.invalid_sub_seconds_duration);
+        }
         if (!this.pushers.mono) {
             this.hasError = true;
             throw new Error(content.chronograph.errors.mono_pusher_not_found);
@@ -252,7 +423,7 @@ export class Chronograph implements ChronographClass {
             this.hasError = true;
             throw new Error(content.chronograph.errors.incompatible_pushers);
         }
-        if (this.options.hands.tenths && !this.hands.tenths) {
+        if (this.options.hands.subSeconds && !this.hands.subSeconds) {
             this.hasError = true;
             throw new Error(content.chronograph.errors.tenth_seconds_hand_not_found);
         }
@@ -334,16 +505,16 @@ export class Chronograph implements ChronographClass {
         let increment = 0;
 
         // SUB-SECONDS HAND
-        if (this.hands.tenths) {
-            increment = 360 / 600; // When 1/10th second, 60*10=600
-            this.rotations.tenths += increment;
-            this.rotations.tenths -= this.rotations.tenths > 360 ? 360 : 0;
-            rotate({ element: this.hands.tenths, value: this.rotations.tenths });
+        if (this.hands.subSeconds) {
+            increment = 360 / this.iterationMax; // When 1/10th second, 60*10=600
+            this.rotations.subSeconds += increment;
+            this.rotations.subSeconds -= this.rotations.subSeconds > 360 ? 360 : 0;
+            rotate({ element: this.hands.subSeconds, value: this.rotations.subSeconds });
         }
 
         // SECONDS HANDS - Rotates every 10 iterations
-        if (this.hands.seconds && this.iterationCount % 10 === 0) {
-            increment = 360 / 60; // 60 Seconds per rotation
+        if (this.hands.seconds && this.iterationCount % this.durations.subSeconds === 0) {
+            increment = 360 / this.durations.seconds; // X || 60 Seconds per rotation
             this.rotations.seconds += increment;
             this.rotations.seconds -= this.rotations.seconds > 360 ? 360 : 0;
             rotate({ element: this.hands.seconds, value: this.rotations.seconds });
@@ -354,8 +525,8 @@ export class Chronograph implements ChronographClass {
         }
 
         // MINUTES HANDS - Rotates every 600 iterations (10 = 1 seconds, 600 = 1 minute)
-        if (this.hands.minutes && this.iterationCount === 600) {
-            increment = 360 / 60; // 60 Minutes per rotation // TODO: Support custom value here
+        if (this.hands.minutes && this.iterationCount === this.iterationMax) {
+            increment = 360 / this.durations.minutes; // X || 60 Minutes per rotation
             this.rotations.minutes += increment;
             this.rotations.minutes -= this.rotations.minutes > 360 ? 360 : 0;
             rotate({ element: this.hands.minutes, value: this.rotations.minutes });
@@ -366,8 +537,8 @@ export class Chronograph implements ChronographClass {
         }
 
         // HOURS HANDS - Rotates every 600 iterations (10 = 1 seconds, 600 = 1 minute)
-        if (this.hands.hours && this.iterationCount === 600) {
-            increment = 360 / 12 / 60; // 12 hours per rotation, 60 steps per hour // TODO: Support custom value here
+        if (this.hands.hours && this.iterationCount === this.iterationMax) {
+            increment = 360 / this.durations.hours / 60; // X || 12 hours per rotation / 60 steps per hour
             this.rotations.hours += increment;
             this.rotations.hours -= this.rotations.hours > 360 ? 360 : 0;
             rotate({ element: this.hands.hours, value: this.rotations.hours });
@@ -384,9 +555,9 @@ export class Chronograph implements ChronographClass {
     }
 
     resetHands() {
-        if (this.hands.tenths) {
-            this.rotations.tenths = 0;
-            rotate({ element: this.hands.tenths, value: 0 });
+        if (this.hands.subSeconds) {
+            this.rotations.subSeconds = 0;
+            rotate({ element: this.hands.subSeconds, value: 0 });
         }
 
         if (this.hands.seconds) {
@@ -420,15 +591,16 @@ export class Chronograph implements ChronographClass {
     }
 
     startChronograph() {
+        const rate = 1000 / this.durations.subSeconds;
         this.interval = setInterval(() => {
             this.incrementHands();
 
-            if (this.iterationCount === 600) {
+            if (this.iterationCount === this.iterationMax) {
                 this.iterationCount = 1;
             } else {
                 this.iterationCount++;
             }
-        }, 100);
+        }, rate);
     }
 
     stopChronograph() {

@@ -12,12 +12,8 @@ export interface ChronographClass {
 
 export type ChronographState = 'active' | 'paused' | 'ready' | 'setSplit' | 'unsetSplit';
 
-export type ResetProps = {
-    reset?: boolean;
-    splitReset?: boolean;
-};
-
 export interface ChronographOptions {
+    dialDurations?: ChronographDialDurations;
     flyback?: boolean;
     hands: ChronographHands;
     pushers: ChronographPushers;
@@ -30,7 +26,7 @@ export type ChronographPushers = {
 };
 
 export type ChronographHands = {
-    tenths?: string;
+    subSeconds?: string;
     seconds: string;
     minutes: string;
     hours?: string;
@@ -43,7 +39,9 @@ export type ChronographRattrapanteHands = {
     hours?: string;
 };
 
-// export type ChronographSettings = {
-//     minutesPerRotation?: number;
-//     hoursPerRotation?: number;
-// };
+export type ChronographDialDurations = {
+    subSeconds?: number;
+    seconds?: number;
+    minutes?: number;
+    hours?: number;
+};

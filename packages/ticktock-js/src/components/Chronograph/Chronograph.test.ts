@@ -6,7 +6,7 @@ const monoPusherId = 'mono-pusher';
 const dualPusherId = 'dual-pusher';
 const triPusherId = 'tri-pusher';
 
-const tenthsSecondsHandId = 'tenths-seconds-hand';
+const tenthsSecondsHandId = 'subSeconds-seconds-hand';
 const secondsHandId = 'seconds-hand';
 const minutesHandId = 'minutes-hand';
 const hoursHandId = 'hours-hand';
@@ -15,8 +15,13 @@ const splitSecondsHandId = 'split-seconds-id';
 const splitMinutesHandId = 'split-minutes-id';
 const splitHoursHandId = 'split-hours-id';
 
+const customSubSecondsDuration = 20;
+const customSecondsDuration = 30;
+const customMinutesDuration = 30;
+const customHoursDuration = 6;
+
 const hands = {
-    tenths: tenthsSecondsHandId,
+    subSeconds: tenthsSecondsHandId,
     seconds: secondsHandId,
     minutes: minutesHandId,
     hours: hoursHandId,
@@ -41,6 +46,12 @@ describe('Chronograph - Mono Pusher', () => {
     beforeEach(() => {
         test = new Watch({
             chronograph: {
+                dialDurations: {
+                    subSeconds: customSubSecondsDuration,
+                    seconds: customSecondsDuration,
+                    minutes: customMinutesDuration,
+                    hours: customHoursDuration,
+                },
                 hands,
                 pushers: {
                     mono: monoPusherId,
@@ -85,6 +96,39 @@ describe('Chronograph - Mono Pusher', () => {
         element?.dispatchEvent(event);
         expect(test.chronograph?.state.isPaused).toBe(false);
         expect(test.chronograph?.state.isReady).toBe(true);
+    });
+
+    it('should correctly handle custom dial durations', () => {
+        const element = document.getElementById(monoPusherId);
+        const event = new MouseEvent('click');
+
+        expect(element).toBeDefined();
+        expect(test.chronograph?.state.isReady).toEqual(true);
+        element?.dispatchEvent(event);
+
+        repeatAction(1, () => {
+            test.chronograph!.iterationCount += 1;
+            test.chronograph?.incrementHands();
+        });
+
+        expect(
+            getDOMElementRotateValue(test.chronograph?.hands?.subSeconds as HTMLElement),
+        ).toEqual(360 / test.chronograph!.iterationMax);
+
+        repeatAction(customSubSecondsDuration, () => {
+            test.chronograph!.iterationCount += 1;
+            test.chronograph?.incrementHands();
+        });
+
+        expect(test.chronograph?.rotations.seconds).toEqual(360 / customSecondsDuration);
+
+        repeatAction(customSubSecondsDuration * 60 * 10, () => {
+            test.chronograph!.iterationCount += 1;
+            test.chronograph?.incrementHands();
+        });
+
+        expect(test.chronograph?.rotations.minutes).toEqual(360 / customMinutesDuration);
+        expect(test.chronograph?.rotations.hours).toEqual(360 / customHoursDuration / 60);
     });
 });
 
