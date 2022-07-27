@@ -47,3 +47,26 @@ describe('repeatAction', () => {
     utils.repeatAction(10, () => count++);
     expect(count).toEqual(11);
 });
+
+describe('setElementTransition', () => {
+    let element: HTMLElement | undefined;
+    const baseTransition = 'all 1s ease';
+    const newTransition = 'rotate 1s ease';
+
+    beforeEach(() => {
+        element = document.createElement('div');
+    });
+
+    it('should add the transition to an element with no existing transition', () => {
+        utils.setElementTransition(element as HTMLElement, newTransition);
+        expect((element as HTMLElement).style.transition).toEqual(newTransition);
+    });
+
+    it('should append the new transition to an existing transition', () => {
+        (element as HTMLElement).style.transition = baseTransition;
+        utils.setElementTransition(element as HTMLElement, newTransition);
+        expect((element as HTMLElement).style.transition).toEqual(
+            `${baseTransition}, ${newTransition}`,
+        );
+    });
+});

@@ -44,6 +44,24 @@ export default {
             element_not_found: 'Day Night Indicator element could not be found.',
         },
     },
+    dial: {
+        errors: {
+            hours_hand_not_found: 'The Dial Hours Hand element could not be found.',
+            hours_ones_hand_not_found: 'The Dial Split Hours Ones element could not be found.',
+            hours_tenths_hand_not_found: 'The Dial Split Hours Tenths element could not be found.',
+            incompatible_display_types:
+                'A Dial Hand cannot have a split property at the same time as id and/or retrograde properties.',
+            minutes_hand_not_found: 'The Dial Minutes Hand element could not be found.',
+            minutes_ones_hand_not_found: 'The Dial Split Minutes Ones element could not be found.',
+            minutes_tenths_hand_not_found:
+                'The Dial Split Minutes Tenths element could not be found.',
+            retrograde_exceeds_max:
+                'A retrograde display cannot have a max value greater than 360.',
+            seconds_hand_not_found: 'The Dial Seconds Hand element could not be found.',
+            seconds_retrograde_out_of_range:
+                'A Seconds Retrograde Duration must be between 10-60 seconds.',
+        },
+    },
     eq_time: {
         errors: {
             element_not_found: 'Equation of Time element could not be found.',

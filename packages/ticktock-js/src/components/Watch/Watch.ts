@@ -1,9 +1,11 @@
 import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 import { Chronograph } from '../Chronograph';
 import { DateIndicator } from '../DateIndicator';
 
 import { DayIndicator } from '../DayIndicator';
 import { DayNightIndicator } from '../DayNightIndicator';
+import { Dial } from '../Dial';
 import { EquationOfTime } from '../EquationOfTime';
 import { Foudroyante } from '../Foudroyante';
 import { MinuteRepeater } from '../MinuteRepeater';
@@ -23,6 +25,7 @@ export class Watch implements Types.WatchClass {
     date?: DateIndicator;
     day?: DayIndicator;
     dayNight?: DayNightIndicator;
+    dials?: Dial[];
     eq?: EquationOfTime;
     foudroyante?: Foudroyante;
     id?: string;
@@ -46,6 +49,7 @@ export class Watch implements Types.WatchClass {
         this.date = options.date && new DateIndicator(options.date, this.settings);
         this.day = options.day && new DayIndicator(options.day, this.settings);
         this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
+        this.dials = options.dials && options.dials.map((d) => new Dial(d, this.settings));
         this.eq = options.eq && new EquationOfTime(options.eq, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
@@ -68,11 +72,9 @@ export class Watch implements Types.WatchClass {
 
         // Complications that run outside of the Watch interval
         // that still need to stop when cleared
+        this.chronograph?.stopChronograph();
         this.foudroyante?.clearInterval();
         this.repeater?.stopAndResetAllAudio();
-
-        // TODO: Disable chronograph event listeners
-        // TODO: Clear any chronograph intervals (without resetting hands)
     }
 
     /*
@@ -80,14 +82,30 @@ export class Watch implements Types.WatchClass {
      */
     startInterval() {
         this.settings.interval = setInterval(() => {
-            const oldDate = this.settings?.now;
-            this.settings!.now = addSeconds(oldDate, 1);
+            const oldDate = this.settings.now;
+            this.settings.now = addSeconds(oldDate, 1);
 
+            // Update any seconds-dependant complication
             this.reserve?.rotate('decrement');
 
-            // If the minute has changed, update the dependant complications
-            if (!isSameMinute(oldDate, this.settings.now)) {
-                this.repeater!.now = this.settings.now;
+            if (isSameMinute(oldDate, this.settings.now)) {
+                this.dials?.forEach((dial) => {
+                    if (dial.hands.seconds) {
+                        dial.rotateHands();
+                    }
+                });
+            } else {
+                // If the minute has changed, update the dependant complications
+                if (this.repeater) this.repeater.now = this.settings.now;
+
+                this.dials?.forEach((dial) => {
+                    dial.settings.now = dial.options.timezone
+                        ? utcToZonedTime(this.settings.now, dial.options.timezone)
+                        : this.settings.now;
+                    if (dial.options.hands.minutes || dial.options.hands.hours) {
+                        dial.rotateHands({ minutes: true, hours: true });
+                    }
+                });
             }
 
             // If the hour has changed, update the dependent indicators
@@ -122,6 +140,7 @@ export class Watch implements Types.WatchClass {
         this.date?.init();
         this.day?.init();
         this.dayNight?.init();
+        this.dials?.forEach((d) => d.init());
         this.eq?.init();
         this.foudroyante?.init();
         this.month?.init();
