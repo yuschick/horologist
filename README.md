@@ -7,7 +7,9 @@ many of the world's greatest haute horologist watchmakers. It supports and enabl
 different watchmaking complications and variations such as chronographs, minute repeaters, multiple
 time zones, perpetual calendars and more.
 
-[![npm version](https://badge.fury.io/js/horologist.svg)](https://badge.fury.io/js/horologist)
+![NPM Version](https://badgen.net/badge/npm/v/horologist)
+![Package Types](https://badgen.net/badge/npm/types/horologist)
+![Package License](https://badgen.net/badge/github/license/horologist)
 
 ## Demos
 
