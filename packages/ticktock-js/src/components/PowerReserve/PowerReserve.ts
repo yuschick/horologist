@@ -1,5 +1,5 @@
 import content from '../../content';
-import { rotate } from '../../utils';
+import { rotate, setElementTransition } from '../../utils';
 import { WatchClass, WatchSettings } from '../Watch';
 import { PowerReserveClass, PowerReserveOptions, ParentWatch } from './PowerReserve.types';
 
@@ -86,6 +86,7 @@ export class PowerReserve implements PowerReserveClass {
         if (this.hasError) return;
 
         this.bindEvents();
+        setElementTransition(this.element as HTMLElement, 'transform 1s linear');
         rotate({ element: this.element as HTMLElement, value: this.currentRotation });
     }
 
