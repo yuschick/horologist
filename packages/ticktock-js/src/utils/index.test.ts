@@ -58,13 +58,13 @@ describe('setElementTransition', () => {
     });
 
     it('should add the transition to an element with no existing transition', () => {
-        utils.setElementTransition(element as HTMLElement, newTransition);
+        utils.setElementTransition({ element: element as HTMLElement, value: newTransition });
         expect((element as HTMLElement).style.transition).toEqual(newTransition);
     });
 
     it('should append the new transition to an existing transition', () => {
         (element as HTMLElement).style.transition = baseTransition;
-        utils.setElementTransition(element as HTMLElement, newTransition);
+        utils.setElementTransition({ element: element as HTMLElement, value: newTransition });
         expect((element as HTMLElement).style.transition).toEqual(
             `${baseTransition}, ${newTransition}`,
         );

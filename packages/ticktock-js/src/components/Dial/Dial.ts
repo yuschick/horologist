@@ -185,11 +185,23 @@ export class Dial implements DialClass {
         if (!this.hands.seconds) return;
 
         if (this.options.hands.seconds?.sweep) {
-            setElementTransition(this.hands.seconds, transitions.sweep, { remove: props?.reset });
+            setElementTransition({
+                element: this.hands.seconds,
+                value: transitions.sweep,
+                settings: { remove: props?.reset },
+            });
         } else if (this.options.hands.seconds?.jump) {
-            setElementTransition(this.hands.seconds, transitions.jump, { remove: props?.reset });
+            setElementTransition({
+                element: this.hands.seconds,
+                value: transitions.jump,
+                settings: { remove: props?.reset },
+            });
         } else {
-            setElementTransition(this.hands.seconds, transitions.default, { remove: props?.reset });
+            setElementTransition({
+                element: this.hands.seconds,
+                value: transitions.default,
+                settings: { remove: props?.reset },
+            });
         }
     }
 

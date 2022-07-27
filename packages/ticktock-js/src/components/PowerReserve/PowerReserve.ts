@@ -14,6 +14,7 @@ export class PowerReserve implements PowerReserveClass {
     element: HTMLElement | null;
     hasError: boolean;
     invert: boolean;
+    isEmpty: boolean;
     options: PowerReserveOptions;
     rate: number;
     watch: WatchClass;
@@ -24,6 +25,7 @@ export class PowerReserve implements PowerReserveClass {
         this.options = options;
         this.currentRotation = this.options.range.full;
         this.element = document.getElementById(options.id);
+        this.isEmpty = false;
         this.rate = this.options.rate || 0.5;
         this.windingKey = this.options.windingKey || 'ArrowUp';
 
@@ -83,11 +85,11 @@ export class PowerReserve implements PowerReserveClass {
      * If no errors are thrown, start the complication
      */
     init() {
-        if (this.hasError) return;
+        if (this.hasError || !this.element) return;
 
         this.bindEvents();
-        setElementTransition(this.element as HTMLElement, 'transform 1s linear');
-        rotate({ element: this.element as HTMLElement, value: this.currentRotation });
+        setElementTransition({ element: this.element, value: 'transform 1s linear' });
+        rotate({ element: this.element, value: this.currentRotation });
     }
 
     /*
@@ -106,11 +108,9 @@ export class PowerReserve implements PowerReserveClass {
 
         if (direction === 'increment') {
             // Restart the watch if the reserve has emptied
-            if (
-                (!this.invert && this.currentRotation <= this.options.range.empty) ||
-                (this.invert && this.currentRotation >= this.options.range.empty)
-            ) {
+            if (this.isEmpty) {
                 this.watch.startInterval();
+                this.isEmpty = false;
             }
 
             // Only increment if the power reserve is not 'full'
@@ -134,6 +134,7 @@ export class PowerReserve implements PowerReserveClass {
                 this.options.onEmpty?.();
                 this.watch.clearInterval();
                 this.watchSettings.interval = undefined;
+                this.isEmpty = true;
             }
         }
     }

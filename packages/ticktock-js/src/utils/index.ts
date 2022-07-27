@@ -59,11 +59,17 @@ export function repeatAction(count: number, action: () => unknown) {
 }
 
 // Set or append a transition value to an element, commonly for sweeping/jumping hands
-export function setElementTransition(
-    element: HTMLElement,
-    value: string,
-    settings?: { remove?: boolean },
-) {
+export function setElementTransition({
+    element,
+    value,
+    settings,
+}: {
+    element: HTMLElement;
+    value: string;
+    settings?: {
+        remove?: boolean;
+    };
+}) {
     let transition = element.style.transition;
 
     if (settings?.remove) {

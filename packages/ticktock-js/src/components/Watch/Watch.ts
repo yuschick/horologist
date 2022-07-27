@@ -83,7 +83,7 @@ export class Watch implements Types.WatchClass {
     startInterval() {
         this.settings.interval = setInterval(() => {
             const oldDate = this.settings.now;
-            this.settings.now = addSeconds(oldDate, 1);
+            this.settings.now = new Date();
 
             // Update any seconds-dependant complication
             this.reserve?.rotate('decrement');
@@ -128,6 +128,11 @@ export class Watch implements Types.WatchClass {
                 this.year?.init();
             }
         }, 1000);
+
+        // If the Chronograph died due to the power reserve, restart it
+        if (this.chronograph?.state.isActive && !this.chronograph.interval) {
+            this.chronograph.startChronograph();
+        }
     }
 
     /*

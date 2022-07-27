@@ -3,6 +3,55 @@
     padding: 0;
     margin: 0;
 }
+svg {
+    width: 1000px;
+}
+#hour-hand,
+#minute-hand,
+#chrono-second-hand {
+    transform-origin: 50%;
+}
+
+#date-ones-disc {
+    transform-origin: 311px 439px;
+}
+
+#date-tenth-disc {
+    transform-origin: 279.9px 397.3px;
+}
+
+#month-hand,
+#year-disc,
+#chrono-hours-hand {
+    transform-origin: 367px 492px;
+}
+
+#moonphase-disc {
+    transform-origin: 50% 553.5px;
+}
+
+#day-hand,
+#day-night-indicator-disc,
+#chrono-minute-hand {
+    transform-origin: 224.4px 492px;
+}
+
+#power-reserve-disc {
+    transform-origin: 182px 425.3px;
+}
+
+#chrono-primary {
+    transition: transform 0.05s ease;
+}
+#chrono-primary.active {
+    transform: translate(-2px, 1px);
+}
+#chrono-secondary {
+    transition: transform 0.05s ease;
+}
+#chrono-secondary.active {
+    transform: translate(-2px, -1px);
+}
 
 body {
     height: 100vh;
