@@ -2,6 +2,7 @@ import { ChronographOptions } from '../Chronograph';
 import { DateIndicatorOptions } from '../DateIndicator';
 import { DayIndicatorOptions } from '../DayIndicator';
 import { DayNightIndicatorOptions } from '../DayNightIndicator';
+import { DialOptions } from '../Dial';
 import { EquationOfTimeOptions } from '../EquationOfTime';
 import { FoudroyanteOptions } from '../Foudroyante';
 import { MinuteRepeaterOptions } from '../MinuteRepeater';
@@ -22,6 +23,7 @@ export interface WatchOptions {
     date?: DateIndicatorOptions;
     day?: DayIndicatorOptions;
     dayNight?: DayNightIndicatorOptions;
+    dials?: DialOptions[];
     eq?: EquationOfTimeOptions;
     foudroyante?: FoudroyanteOptions;
     id?: string;

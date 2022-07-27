@@ -32,7 +32,7 @@ body {
 #split-seconds-hand,
 #split-minutes-hand,
 #split-hours-hand {
-    background: #efefef;
+    background: #e0e0e0;
     border-top: 3px solid black;
     transform-origin: 50%;
     height: 100px;
@@ -49,4 +49,91 @@ body {
     height: 100px;
     width: 5px;
     transition: none;
+}
+
+#hours-ones,
+#hours-tenths,
+#ones,
+#tenths {
+    transform-origin: 50%;
+    position: relative;
+    height: 200px;
+    width: 200px;
+}
+#hours-tenths-0,
+#hours-tenths-1,
+#hours-tenths-2,
+#tenths-0,
+#tenths-1,
+#tenths-2,
+#tenths-3,
+#tenths-4,
+#tenths-5,
+.ones-0,
+.ones-1,
+.ones-2,
+.ones-3,
+.ones-4,
+.ones-5,
+.ones-6,
+.ones-7,
+.ones-8,
+.ones-9 {
+    position: absolute;
+    top: 0;
+    height: 200px;
+    transform-origin: 50%;
+    width: 5px;
+    text-align: center;
+}
+
+.ones-1 {
+    transform: rotate(36deg);
+}
+.ones-2 {
+    transform: rotate(calc(36deg * 2));
+}
+.ones-3 {
+    transform: rotate(calc(36deg * 3));
+}
+.ones-4 {
+    transform: rotate(calc(36deg * 4));
+}
+.ones-5 {
+    transform: rotate(calc(36deg * 5));
+}
+.ones-6 {
+    transform: rotate(calc(36deg * 6));
+}
+.ones-7 {
+    transform: rotate(calc(36deg * 7));
+}
+.ones-8 {
+    transform: rotate(calc(36deg * 8));
+}
+.ones-9 {
+    transform: rotate(calc(36deg * 9));
+}
+
+#tenths-1 {
+    transform: rotate(60deg);
+}
+#tenths-2 {
+    transform: rotate(calc(60deg * 2));
+}
+#tenths-3 {
+    transform: rotate(calc(60deg * 3));
+}
+#tenths-4 {
+    transform: rotate(calc(60deg * 4));
+}
+#tenths-5 {
+    transform: rotate(calc(60deg * 5));
+}
+
+#hours-tenths-1 {
+    transform: rotate(180deg);
+}
+#hours-tenths-2 {
+    transform: rotate(calc(120deg * 2));
 }

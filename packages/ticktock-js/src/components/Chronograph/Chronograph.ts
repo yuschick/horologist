@@ -267,6 +267,11 @@ export class Chronograph implements ChronographClass {
         this.determineChronographType();
     }
 
+    /*
+     * The core of the entire complication.
+     * Bind the events to each of the potential chronograph pushers
+     * and assign their functionality for each of the complication variations.
+     */
     bindEvents() {
         setupTriggerEvents(
             {
@@ -363,6 +368,10 @@ export class Chronograph implements ChronographClass {
         );
     }
 
+    /*
+     * Based on this.options, define the chronograph type to determine how the
+     * complication should work.
+     */
     determineChronographType() {
         if (this.options.pushers.mono && !this.options.pushers.dual && !this.options.pushers.tri) {
             this.type.isMonoPusher = true;
@@ -396,6 +405,11 @@ export class Chronograph implements ChronographClass {
         }
     }
 
+    /*
+     * @return boolean
+     * Check for any critical errors within the setup of the complication
+     * and set this.hasError accordingly
+     */
     errorChecking() {
         this.hasError = false;
 
@@ -460,6 +474,13 @@ export class Chronograph implements ChronographClass {
         return this.hasError;
     }
 
+    /*
+     * @param state: ChronographState
+     * The Chronograph is controlled by different states
+     * Ready, Active, Paused, and Split Set
+     * These states are used to manage the flow of events and actions
+     * and (hopefully) make visiting this file later a bit easier to follow.
+     */
     goToState(state: ChronographState) {
         switch (state) {
             case 'ready':
@@ -501,6 +522,10 @@ export class Chronograph implements ChronographClass {
         }
     }
 
+    /*
+     * The core method to handle progressing the chronograph hands.
+     * This method deals with moving the hands forward, and not resetting.
+     */
     incrementHands() {
         let increment = 0;
 
@@ -549,11 +574,20 @@ export class Chronograph implements ChronographClass {
         }
     }
 
+    /*
+     * If no errors are thrown, start the complication
+     */
     init() {
         if (this.hasError) return;
         this.bindEvents();
     }
 
+    /*
+     * To reset the chronograph hands is to return them to their
+     * starting positions at 0deg. This wil reset all hands, including rattrapante
+     * hands, UNLESS, the chronograph is in the SplitSet state. In which case,
+     * rattrapante hands aren't affected and only the constant hands are reset.
+     */
     resetHands() {
         if (this.hands.subSeconds) {
             this.rotations.subSeconds = 0;
@@ -590,7 +624,14 @@ export class Chronograph implements ChronographClass {
         this.iterationCount = 1;
     }
 
+    /*
+     * Start the central interval and iteration counter which
+     * runs the entire complication.
+     */
     startChronograph() {
+        // The parent watch is not running
+        if (!this.settings.interval) return;
+
         const rate = 1000 / this.durations.subSeconds;
         this.interval = setInterval(() => {
             this.incrementHands();
@@ -603,6 +644,10 @@ export class Chronograph implements ChronographClass {
         }, rate);
     }
 
+    /*
+     * Clear the core interval for the chronograph to
+     * stop the entire complication
+     */
     stopChronograph() {
         clearInterval(this.interval);
         this.interval = undefined;
