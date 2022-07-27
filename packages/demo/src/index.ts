@@ -25,7 +25,7 @@ const test = new Watch({
     month: {
         id: 'month-hand',
     },
-    year: {
+    leapYear: {
         id: 'year-disc',
     },
     moonphase: {

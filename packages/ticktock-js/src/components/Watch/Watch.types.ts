@@ -10,7 +10,7 @@ import { MonthIndicatorOptions } from '../MonthIndicator';
 import { MoonphaseOptions } from '../Moonphase';
 import { PowerReserveOptions } from '../PowerReserve';
 import { WeekIndicatorOptions } from '../WeekIndicator';
-import { YearIndicatorOptions } from '../YearIndicator';
+import { LeapYearIndicatorOptions } from '../LeapYearIndicator';
 
 export interface WatchClass {
     readonly clearInterval: () => void;
@@ -27,13 +27,13 @@ export interface WatchOptions {
     eq?: EquationOfTimeOptions;
     foudroyante?: FoudroyanteOptions;
     id?: string;
+    leapYear?: LeapYearIndicatorOptions;
     month?: MonthIndicatorOptions;
     moonphase?: MoonphaseOptions;
     repeater?: MinuteRepeaterOptions;
     reserve?: PowerReserveOptions;
     settings?: WatchCustomSettings;
     week?: WeekIndicatorOptions;
-    year?: YearIndicatorOptions;
 }
 
 export type WatchSettings = {

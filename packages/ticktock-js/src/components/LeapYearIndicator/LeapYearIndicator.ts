@@ -3,20 +3,20 @@ import { getMonth, getYear } from 'date-fns';
 import content from '../../content';
 import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
-import { YearIndicatorClass, YearIndicatorOptions } from './YearIndicator.types';
+import { LeapYearIndicatorClass, LeapYearIndicatorOptions } from './LeapYearIndicator.types';
 
 /*
- * The year indicator complication receives a date, and displays
+ * The leap year indicator complication receives a date, and displays
  * that date's year's placement within the cycle of leap years.
  */
-export class YearIndicator implements YearIndicatorClass {
+export class LeapYearIndicator implements LeapYearIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
     month: number;
-    options: YearIndicatorOptions;
+    options: LeapYearIndicatorOptions;
     year: number;
 
-    constructor(options: YearIndicatorOptions, settings: WatchSettings) {
+    constructor(options: LeapYearIndicatorOptions, settings: WatchSettings) {
         this.options = options;
         this.element = document.getElementById(options.id);
         this.month = getMonth(settings.now);

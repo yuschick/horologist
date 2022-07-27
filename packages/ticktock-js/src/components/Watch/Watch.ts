@@ -1,4 +1,4 @@
-import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
+import { isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import { Chronograph } from '../Chronograph';
 import { DateIndicator } from '../DateIndicator';
@@ -8,12 +8,12 @@ import { DayNightIndicator } from '../DayNightIndicator';
 import { Dial } from '../Dial';
 import { EquationOfTime } from '../EquationOfTime';
 import { Foudroyante } from '../Foudroyante';
+import { LeapYearIndicator } from '../LeapYearIndicator';
 import { MinuteRepeater } from '../MinuteRepeater';
 import { MonthIndicator } from '../MonthIndicator';
 import { Moonphase } from '../Moonphase';
 import { PowerReserve } from '../PowerReserve';
 import { WeekIndicator } from '../WeekIndicator';
-import { YearIndicator } from '../YearIndicator';
 import * as Types from './Watch.types';
 
 /*
@@ -29,13 +29,13 @@ export class Watch implements Types.WatchClass {
     eq?: EquationOfTime;
     foudroyante?: Foudroyante;
     id?: string;
+    leapYear?: LeapYearIndicator;
     settings: Types.WatchSettings;
     month?: MonthIndicator;
     moonphase?: Moonphase;
     repeater?: MinuteRepeater;
     reserve?: PowerReserve;
     week?: WeekIndicator;
-    year?: YearIndicator;
 
     constructor(options: Types.WatchOptions) {
         this.id = options.id;
@@ -59,7 +59,7 @@ export class Watch implements Types.WatchClass {
             options.reserve &&
             new PowerReserve(options.reserve, { settings: this.settings, parent: this });
         this.week = options.week && new WeekIndicator(options.week, this.settings);
-        this.year = options.year && new YearIndicator(options.year, this.settings);
+        this.leapYear = options.leapYear && new LeapYearIndicator(options.leapYear, this.settings);
     }
 
     /*
@@ -125,7 +125,7 @@ export class Watch implements Types.WatchClass {
 
             // If the month has changed, update the year indicator
             if (!isSameMonth(oldDate, this.settings.now)) {
-                this.year?.init();
+                this.leapYear?.init();
             }
         }, 1000);
 
@@ -153,6 +153,6 @@ export class Watch implements Types.WatchClass {
         this.repeater?.init();
         this.reserve?.init();
         this.week?.init();
-        this.year?.init();
+        this.leapYear?.init();
     }
 }
