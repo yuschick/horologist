@@ -18,9 +18,9 @@ durations down to the fractions of a second.
         <th>Description</th>
     </thead>
     <tbody>
-        <tr style="vertical-align:top">
+        <tr>
             <td>durations</td>
-<td style="white-space: nowrap;">
+<td>
 
 ```ts
 {
@@ -31,7 +31,7 @@ durations down to the fractions of a second.
 ```
 
 </td>
-<td style="white-space: nowrap;">
+<td>
 
 ```ts
 {
@@ -44,8 +44,44 @@ durations down to the fractions of a second.
 </td>
             <td>The amount of seconds/minutes/hours to complete one full rotation of a chronograph sub-dial.</td>
         </tr>
+        <tr>
+        <td>flyback</td>
+<td>
+
+```ts
+boolean;
+```
+
+</td>
+<td>
+        
+```ts
+false
+```
+        
+</td>
+        <td>A chronograph variation in which the seconds hand can be reset to zero and immediately started again by pressing only once on the pusher.</td>
+        </tr>
+        <tr>
+        <td>pushers</td>
+<td>
+
+```ts
+{
+    mono: string;
+    dual?: string;
+    tri?: string
+}
+```
+
+</td>
+        <td> Required </td>
+        <td>A pusher is the button or trigger on a watch case that controls the chronograph. While the mono property is required, Horologist can optionally support tri-pusher chronographs by providing a string ID to each pusher's corresponding DOM element.</td>
+        </tr>
     </tbody>
 </table>
+
+`boolean`
 
 ## Design Considerations
 
