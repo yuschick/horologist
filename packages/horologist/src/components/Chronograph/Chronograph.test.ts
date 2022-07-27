@@ -46,7 +46,7 @@ describe('Chronograph - Mono Pusher', () => {
     beforeEach(() => {
         test = new Watch({
             chronograph: {
-                dialDurations: {
+                durations: {
                     subSeconds: customSubSecondsDuration,
                     seconds: customSecondsDuration,
                     minutes: customMinutesDuration,

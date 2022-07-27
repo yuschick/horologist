@@ -13,7 +13,7 @@ export interface ChronographClass {
 export type ChronographState = 'active' | 'paused' | 'ready' | 'setSplit' | 'unsetSplit';
 
 export interface ChronographOptions {
-    dialDurations?: ChronographDialDurations;
+    durations?: ChronographDialDurations;
     flyback?: boolean;
     hands: ChronographHands;
     pushers: ChronographPushers;

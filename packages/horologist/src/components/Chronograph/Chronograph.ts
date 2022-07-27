@@ -207,10 +207,10 @@ export class Chronograph implements ChronographClass {
     constructor(options: ChronographOptions, settings: WatchSettings) {
         this.options = options;
         this.durations = {
-            subSeconds: this.options.dialDurations?.subSeconds || 10,
-            seconds: this.options.dialDurations?.seconds || 60,
-            minutes: this.options.dialDurations?.minutes || 60,
-            hours: this.options.dialDurations?.hours || 12,
+            subSeconds: this.options.durations?.subSeconds || 10,
+            seconds: this.options.durations?.seconds || 60,
+            minutes: this.options.durations?.minutes || 60,
+            hours: this.options.durations?.hours || 12,
         };
         this.hands = {
             subSeconds: this.options.hands.subSeconds
@@ -414,9 +414,8 @@ export class Chronograph implements ChronographClass {
         this.hasError = false;
 
         if (
-            this.options.dialDurations?.subSeconds &&
-            (this.options.dialDurations?.subSeconds < 2 ||
-                this.options.dialDurations?.subSeconds > 30)
+            this.options.durations?.subSeconds &&
+            (this.options.durations?.subSeconds < 2 || this.options.durations?.subSeconds > 30)
         ) {
             this.hasError = true;
             throw new Error(content.chronograph.errors.invalid_sub_seconds_duration);

@@ -35,7 +35,7 @@ const test = new Watch({
         id: 'day-night-indicator-disc',
     },
     chronograph: {
-        dialDurations: {
+        durations: {
             hours: 30,
         },
         flyback: true,
