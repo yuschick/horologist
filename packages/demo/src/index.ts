@@ -1,4 +1,4 @@
-import { Watch } from 'ticktock-js';
+import { Watch } from 'horologist';
 
 const test = new Watch({
     dials: [

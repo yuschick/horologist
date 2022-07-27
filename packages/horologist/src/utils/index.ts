@@ -1,5 +1,3 @@
-import content from '../content';
-
 // Rotate a given HTML element the a specific degree value.
 export function rotate({ element, value }: { element: HTMLElement; value: number }): void {
     // Append new rotate() value to existing transform string

@@ -1,8 +1,8 @@
 {
-    "name": "ticktock",
+    "name": "horologist-js",
     "version": "0.0.0",
     "private": true,
-    "description": "TickTock-JS is a timekeeping library for animating and adding interactions to digital watch designs.",
+    "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
     "main": "index.js",
     "packageManager": "yarn@3.1.1",
     "workspaces": [
@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "demo": "yarn workspace demo",
-        "ticktock": "yarn workspace ticktock-js",
+        "horologist": "yarn workspace horologist",
         "lint": "eslint",
         "lint:fix": "yarn lint -- --fix",
         "prettier": "prettier ./ --check",
@@ -21,10 +21,15 @@
     "license": "UNLICENSED",
     "keywords": [
         "ticktock",
+        "ticktock-js",
         "svg",
         "animation",
-        "ticktock-js",
-        "watchmaking"
+        "watchmaking",
+        "horologist",
+        "horology",
+        "haute",
+        "typescript",
+        "javascript"
     ],
     "devDependencies": {},
     "dependencies": {}

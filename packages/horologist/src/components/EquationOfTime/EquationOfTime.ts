@@ -13,7 +13,7 @@ import { EquationOfTimeClass, EquationOfTimeOptions } from './EquationOfTime.typ
  * Each range is then split into 14 or 16 segments, one for each variant minute
  *
  * Design Expectations
- * TickTock expects the eq hand to be drawn at an eq value of 0
+ * Horologist expects the eq hand to be drawn at an eq value of 0
  */
 export class EquationOfTime implements EquationOfTimeClass {
     element: HTMLElement | null;

@@ -1,7 +1,7 @@
 {
-    "name": "ticktock-js",
-    "version": "4.0.0",
-    "description": "TickTock-JS is a timekeeping library for animating and adding interactions to digital watch designs.",
+    "name": "horologist",
+    "version": "1.0.0",
+    "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -22,41 +22,45 @@
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/yuschick/TickTock.git"
+        "url": "git+https://github.com/yuschick/Horologist.git"
     },
     "bugs": {
-        "url": "https://github.com/yuschick/TickTock/issues"
+        "url": "https://github.com/yuschick/Horologist/issues"
     },
-    "homepage": "https://github.com/yuschick/TickTock",
+    "homepage": "https://github.com/yuschick/Horologist",
     "keywords": [
         "ticktock",
+        "ticktock-js",
         "svg",
         "animation",
-        "ticktock-js",
-        "watchmaking"
+        "watchmaking",
+        "horologist",
+        "horology",
+        "haute",
+        "typescript",
+        "javascript"
     ],
     "devDependencies": {
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
         "@types/date-fns": "^2.6.0",
         "@types/jest": "^28.1.6",
+        "date-fns-tz": "^1.3.6",
+        "date-fns": "^2.28.0",
         "esbuild": "^0.14.49",
-        "eslint": "^8.19.0",
         "eslint-config-prettier": "^8.5.0",
+        "eslint": "^8.19.0",
         "husky": "^8.0.1",
-        "jest": "^28.1.3",
         "jest-environment-jsdom": "^28.1.3",
+        "jest": "^28.1.3",
         "lint-staged": "^13.0.3",
-        "prettier": "^2.7.1",
-        "prettier-eslint": "^15.0.1",
+        "lunarphase-js": "^1.0.10",
         "prettier-eslint-cli": "^6.0.1",
+        "prettier-eslint": "^15.0.1",
+        "prettier": "^2.7.1",
+        "suntimes": "^6.0.2",
         "ts-jest": "^28.0.7",
         "typescript": "^4.7.4"
     },
-    "dependencies": {
-        "date-fns": "^2.28.0",
-        "date-fns-tz": "^1.3.6",
-        "lunarphase-js": "^1.0.10",
-        "suntimes": "^6.0.2"
-    }
+    "dependencies": {}
 }

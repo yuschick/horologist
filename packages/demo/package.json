@@ -13,7 +13,7 @@
     "license": "ISC",
     "dependencies": {
         "file-loader": "^6.2.0",
-        "ticktock-js": "*",
+        "horologist": "*",
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "webpack": "^5.73.0",
