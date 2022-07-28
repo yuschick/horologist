@@ -52,8 +52,6 @@ The amount of seconds/minutes/hours to complete one full rotation of a chronogra
 | `durations.minutes`    | No       | number | 60      | > 2      |
 | `durations.hours`      | No       | number | 12      | > 2      |
 
----
-
 ### `flyback`
 
 A chronograph variation in which the seconds hand can be reset to zero and immediately started again
@@ -62,8 +60,6 @@ with only one press of the pusher.
 | Props     | Required | Type    | Default | Value(s)     |
 | --------- | -------- | ------- | ------- | ------------ |
 | `flyback` | No       | boolean | False   | True / False |
-
----
 
 ### `hands` | Required
 
@@ -77,8 +73,6 @@ The hand elements to be rotated for each of the chronograph sub-dials and variat
 | `hands.hours`       | No       | string | -       | DOM Element ID |
 | `hands.rattrapante` | No       | { }    | -       | See Below      |
 
----
-
 ### `hands.rattrapante`
 
 A chronograph with an additional seconds, minutes or hour hands (and pusher) that can time two
@@ -89,8 +83,6 @@ events simultaneously that start together, but end at different times.
 | `rattrapante.seconds` | Yes      | string | -       | DOM Element ID |
 | `rattrapante.minutes` | No       | string | -       | DOM Element ID |
 | `rattrapante.hours`   | No       | string | -       | DOM Element ID |
-
----
 
 ### `pushers` | Required
 
