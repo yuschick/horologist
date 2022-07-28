@@ -3,155 +3,6 @@ import { rotate, setupTriggerEvents } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { ChronographClass, ChronographOptions, ChronographState } from './Chronograph.types';
 
-/*
- * The chronograph complication requires a buttons and hands object
- * the buttons object contains the start and reset buttons which control the hands
- * The hands are designed and used to indicate tenth seconds, seconds, and minutes
- * for timing events. Flyback and Split-Second (rattrapante) functionality is supported for timing laps.
- *
- * MONO-PUSHER
- *  READY STATE
- *      Pusher 1: Go to ACTIVE STATE
- *  ACTIVE STATE
- *      Pusher 1: Go to PAUSED STATE
- *  PAUSED STATE
- *      Pusher 1: Go to READY STATE
- *
- *
- * DUAL PUSHER - STANDARD
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUsED STATE
- *      Pusher 2 - Go to READY STATE
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Go to READY STATE
- *
- *
- * DUAL PUSHER - FLYBACK
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUsED STATE
- *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
- *  PAUSED STATE
- *      Pushed 1 - Go to ACTIVE STATE
- *      Pusher 2 - Go to READY STATE
- *
- *
- * DUAL PUSHER - RATTRAPANTE
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Go to SPLIT SET STATE
- *  SPLIT SET STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Leave SPLIT SET STATE, Remain in ACTIVE STATE
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pushed 2 - Go to READY STATE
- *  PAUSED STATE & SPLIT SET STATE
- *      Pusher 1 - RESET HANDS, stay in SPLIT SET STATE
- *      Pusher 2 - Go to READY STATE
- *
- *
- * DUAL PUSHER - FLYBACK & RATTRAPANTE
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Go to ACTIVE SPLIT SET STATE, RESET STATE (FLYBACK)
- *  ACTIVE STATE & SPLIT SET STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Leave SPLIT SET STATE (RESET HANDS), Remain in ACTIVE STATE
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pushed 2 - Go to READY STATE
- *  PAUSED STATE & SPLIT SET STATE
- *      Pusher 1 - RESET HANDS, stay in SPLIT SET STATE
- *      Pusher 2 - Go to READY STATE
- *
- * TRI PUSHER - STANDARD
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUsED STATE
- *      Pusher 2 - Go to READY STATE
- *      Pusher 3 - Nothing
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Go to READY STATE
- *      Pusher 3 - Nothing
- *
- *
- * TRI PUSHER - FLYBACK
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUsED STATE
- *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
- *      Pusher 3 - Nothing
- *  PAUSED STATE
- *      Pushed 1 - Go to ACTIVE STATE
- *      Pusher 2 - Go to READY STATE
- *      Pusher 3 - Nothing
- *
- *
- * TRI PUSHER - RATTRAPANTE
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Go to SPLIT SET STATE
- *      Pusher 3 - Nothing
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 . Go to READY STATE
- *  PAUSED STATE WITH SPLIT SET STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - RESET HANDS, stay in PAUSED STATE
- *      Pusher 3 - Go to READY STATE
- *  SPIT SET STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
- *      Pusher 3 - Nothing
- *
- *
- * TRI PUSHER - FLYBACK & RATTRAPANTE
- *  READY STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 - Nothing
- *  ACTIVE STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - Go to SPLIT SET STATE
- *      Pusher 3 - Go to RESET STATE (FLYBACK)
- *  PAUSED STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - Nothing
- *      Pusher 3 - Go to READY STATE
- *  PAUSED STATE WITH SPLIT SET STATE
- *      Pusher 1 - Go to ACTIVE STATE
- *      Pusher 2 - RESET HANDS, stay in PAUSED STATE
- *      Pusher 3 - Go to READY STATE
- *  ACTIVE STATE WITH SPLIT SET STATE
- *      Pusher 1 - Go to PAUSED STATE
- *      Pusher 2 - RESET HANDS, stay in ACTIVE STATE
- *      Pusher 3 - Go to RESET STATE (FLYBACK)
- */
 export class Chronograph implements ChronographClass {
     durations: {
         subSeconds: number;
@@ -355,7 +206,9 @@ export class Chronograph implements ChronographClass {
                 element: this.pushers.tri,
             },
             () => {
-                if (this.type.isSplit) {
+                if (this.type.isFlyback && !this.type.isSplit) {
+                    if (this.state.isActive || this.state.isPaused) return this.goToState('ready');
+                } else if (this.type.isSplit) {
                     if (this.type.isFlyback) {
                         if (this.state.isActive) return this.resetHands();
                         if (this.state.isPaused) return this.goToState('ready');
@@ -468,6 +321,11 @@ export class Chronograph implements ChronographClass {
         if (this.options.hands.rattrapante && !this.options.pushers.dual) {
             this.hasError = true;
             throw new Error(content.chronograph.errors.mono_pusher_cannot_support_rattrapante);
+        }
+
+        if (this.durations.hours < 3 || this.durations.minutes < 3 || this.durations.seconds < 3) {
+            this.hasError = true;
+            throw new Error(content.chronograph.errors.invalid_duration);
         }
 
         return this.hasError;

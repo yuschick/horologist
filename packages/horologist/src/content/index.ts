@@ -4,7 +4,7 @@ export default {
             mono_pusher_not_found: 'The Chronograph Mono Pusher element could not be found.',
             dual_pusher_not_found: 'The Chronograph Dual Pusher element could not be found.',
             incompatible_pushers: 'The use of a Tri Pusher requires that a Dual Pusher be defined.',
-            invalid_sub_seconds_duration: 'The Sub Seconds Dial Duration must be between 2-30.',
+            invalid_sub_seconds_duration: 'The Sub Seconds Duration must be between 2-30.',
             hours_hand_not_found: 'The Chronograph Hours Hand element could not be found.',
             minutes_hand_not_found: 'The Chronograph Minutes Hand element could not be found.',
             mono_pusher_cannot_support_rattrapante:
@@ -18,6 +18,7 @@ export default {
                 'The Chronograph Rattrapante Seconds Hand element could not be found.',
             tenth_seconds_hand_not_found: 'The Chronograph Tenths Hand element could not be found.',
             tri_pusher_not_found: 'The Chronograph Tri Pusher element could not be found.',
+            invalid_duration: 'Durations must be a valid number greater than 2.',
         },
     },
     date_indicator: {
