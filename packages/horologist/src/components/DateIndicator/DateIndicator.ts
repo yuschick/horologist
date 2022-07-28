@@ -4,22 +4,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { DateIndicatorClass, DateIndicatorOptions } from './DateIndicator.types';
 
-/*
- * The Date Indicator is a common watch complication. However, it can come in different forms.
- * The Date display can support multiple variations.
- *
- * Single Display:
- * When dates 1-31 are shown on a single disc or with a single hand.
- * Single displays expect the designs / elements to begin at 1
- *
- * Split Display
- * When the date is shown in two pieces, tenths (0-3) and ones (0-9)
- * Split displays expect the designs / elements to begin at 00
- *
- * Retrograde
- * Typically a half circle indicating dates 1-31 with a single hand
- * Retrograde displays expect the designs / elements to begin at 1
- */
 export class DateIndicator implements DateIndicatorClass {
     element?: HTMLElement | null;
     hasError: boolean;
