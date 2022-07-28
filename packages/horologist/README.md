@@ -64,7 +64,7 @@ its features and settings API.
 | Dial                  | [Docs](./src/components/Dial/)              | A dial serves to indicate hours, minutes and seconds.                                                                             |
 | Equation of Time      | [Docs](./src/components/EquationOfTime/)    | The equation of time is the difference between true solar time and mean time.                                                     |
 | Foudroyante           | [Docs](./src/components/Foudroyante/)       | A hand that makes one rotation every second, pausing two thru ten times to indicate fractions of a second.                        |
-| Leap Year Indicator   | [Docs](./src/components/YearIndicator/)     | A mechanism to indicate the current year's relationships to the next leap year.                                                   |
+| Leap Year Indicator   | [Docs](./src/components/LeapYearIndicator/) | A mechanism to indicate the current year's relationships to the next leap year.                                                   |
 | Minute Repeater       | [Docs](./src/components/MinuteRepeater/)    | A highly complicated watch function that audibly strikes the time in hours, quarter hours, and/or minutes.                        |
 | Moonphase             | [Docs](./src/components/Moonphase/)         | Displays new moon, first quarter moon, full moon, and last quarter moon by means of a disk that rotates beneath a small aperture. |
 | Power Reserve         | [Docs](./src/components/PowerReserve/)      | A subdial or gauge used to display how much power remains before the watch stops.                                                 |
