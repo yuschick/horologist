@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../../../assets/logo-horologist.svg" alt="Horologist Logo - Making digital time mechanical" width="500" />
+  <img src="/assets/logo-horologist.svg" alt="Horologist Logo - Making digital time mechanical" width="500" />
 </p>
 
 # Chronograph
