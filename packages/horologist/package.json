@@ -19,7 +19,7 @@
         "test:watch": "jest --watch"
     },
     "author": "Daniel Yuschick <daniel.yuschick@gmail.com>",
-    "license": "ISC",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/yuschick/Horologist.git"
