@@ -8,6 +8,9 @@ A chronograph is a specific type of clock or watch that is used as a stopwatch c
 display watch. With a series of hands and/or sub dials, chronographs allow the measuring of
 durations down to the fractions of a second.
 
+[Settings](#chronograph-settings) | [Design Considerations](#design-considerations) |
+[Chronograph Functionality](#chronograph-functionality)
+
 ## Chronograph Settings
 
 ```ts
