@@ -5,11 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { MonthIndicatorClass, MonthIndicatorOptions } from './MonthIndicator.types';
 
-/*
- * The Month Indicator rotates an element to reflect the current
- * month of the year. Optionally, the element can be rotated an
- * additional amount to offset the current date of the month.
- */
 export class MonthIndicator implements MonthIndicatorClass {
     date: number;
     daysInMonth: number;

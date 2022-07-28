@@ -5,10 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { MoonphaseClass, MoonphaseOptions, Phase } from './Moonphase.types';
 
-/*
- * The moonphase component determines the moon's position for a given
- * date, and rotates an element to correspond to the phase.
- */
 export class Moonphase implements MoonphaseClass {
     date: Date;
     element: HTMLElement | null;

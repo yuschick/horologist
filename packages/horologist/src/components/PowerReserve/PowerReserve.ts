@@ -3,12 +3,6 @@ import { rotate, setElementTransition } from '../../utils';
 import { WatchClass, WatchSettings } from '../Watch';
 import { PowerReserveClass, PowerReserveOptions, ParentWatch } from './PowerReserve.types';
 
-/*
- * The Power Reserve class indicates the current power level of the watch.
- * Similarly to a battery, the watch runs as long as there is power.
- * If the power reserve empties, the interval of the parent watch is cleared
- * effectively stopping the entire watch until it is 'wound' with ArrowUp.
- */
 export class PowerReserve implements PowerReserveClass {
     currentRotation: number;
     element: HTMLElement | null;

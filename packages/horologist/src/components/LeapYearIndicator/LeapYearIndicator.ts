@@ -5,10 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { LeapYearIndicatorClass, LeapYearIndicatorOptions } from './LeapYearIndicator.types';
 
-/*
- * The leap year indicator complication receives a date, and displays
- * that date's year's placement within the cycle of leap years.
- */
 export class LeapYearIndicator implements LeapYearIndicatorClass {
     element: HTMLElement | null;
     hasError: boolean;
