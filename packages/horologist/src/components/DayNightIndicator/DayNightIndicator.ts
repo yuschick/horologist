@@ -1,6 +1,7 @@
 import { getHours } from 'date-fns';
 import content from '../../content';
 import { rotate } from '../../utils';
+import { Dial } from '../Dial';
 import { WatchSettings } from '../Watch';
 import { DayNightIndicatorClass, DayNightIndicatorOptions } from './DayNightIndicator.types';
 
@@ -9,11 +10,13 @@ export class DayNightIndicator implements DayNightIndicatorClass {
     hasError: boolean;
     hour: number;
     options: DayNightIndicatorOptions;
+    targetDial?: Dial;
 
-    constructor(options: DayNightIndicatorOptions, settings: WatchSettings) {
+    constructor(options: DayNightIndicatorOptions, settings: WatchSettings, dials: Dial[]) {
         this.options = options;
         this.element = document.getElementById(options.id);
-        this.hour = getHours(settings.now); // 0-23
+        this.targetDial = options.dial ? dials.find((dial) => dial.id === options.dial) : dials[0];
+        this.hour = getHours(this.targetDial?.settings.now || settings.now); // 0-23
 
         this.hasError = false;
         this.errorChecking();

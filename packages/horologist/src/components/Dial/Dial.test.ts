@@ -6,7 +6,9 @@ let test: Watch;
 const secondsHandsId = 'seconds-hand-id';
 const minutesHandsId = 'minutes-hand-id';
 const hoursHandsId = 'hours-hand-id';
+const id = 'test-id';
 const dial1 = {
+    id,
     hands: {
         seconds: {
             id: secondsHandsId,
@@ -39,7 +41,9 @@ describe('Dial - General', () => {
     it('should throw an error if the retrograde max exceeds 360', () => {
         expect(() => {
             new Watch({
-                dials: [{ hands: { seconds: { id: secondsHandsId, retrograde: { max: 400 } } } }],
+                dials: [
+                    { id, hands: { seconds: { id: secondsHandsId, retrograde: { max: 400 } } } },
+                ],
             });
         }).toThrow(content.dial.errors.retrograde_exceeds_max);
     });
@@ -47,7 +51,7 @@ describe('Dial - General', () => {
     it('should throw an error if seconds hand element cannot be found', () => {
         expect(() => {
             new Watch({
-                dials: [{ hands: { seconds: { id: 'error' } } }],
+                dials: [{ id, hands: { seconds: { id: 'error' } } }],
             });
         }).toThrow(content.dial.errors.seconds_hand_not_found);
     });
@@ -55,7 +59,7 @@ describe('Dial - General', () => {
     it('should throw an error if minutes hand element cannot be found', () => {
         expect(() => {
             new Watch({
-                dials: [{ hands: { minutes: { id: 'error' } } }],
+                dials: [{ id, hands: { minutes: { id: 'error' } } }],
             });
         }).toThrow(content.dial.errors.minutes_hand_not_found);
     });
@@ -64,7 +68,10 @@ describe('Dial - General', () => {
         expect(() => {
             new Watch({
                 dials: [
-                    { hands: { minutes: { split: { ones: 'error', tenths: minutesHandsId } } } },
+                    {
+                        id,
+                        hands: { minutes: { split: { ones: 'error', tenths: minutesHandsId } } },
+                    },
                 ],
             });
         }).toThrow(content.dial.errors.minutes_ones_hand_not_found);
@@ -74,7 +81,10 @@ describe('Dial - General', () => {
         expect(() => {
             new Watch({
                 dials: [
-                    { hands: { minutes: { split: { tenths: 'error', ones: minutesHandsId } } } },
+                    {
+                        id,
+                        hands: { minutes: { split: { tenths: 'error', ones: minutesHandsId } } },
+                    },
                 ],
             });
         }).toThrow(content.dial.errors.minutes_tenths_hand_not_found);
@@ -83,7 +93,7 @@ describe('Dial - General', () => {
     it('should throw an error if hours hand element cannot be found', () => {
         expect(() => {
             new Watch({
-                dials: [{ hands: { hours: { id: 'error' } } }],
+                dials: [{ id, hands: { hours: { id: 'error' } } }],
             });
         }).toThrow(content.dial.errors.hours_hand_not_found);
     });
@@ -93,6 +103,7 @@ describe('Dial - General', () => {
             new Watch({
                 dials: [
                     {
+                        id,
                         hands: {
                             hours: { split: { ones: 'error', tenths: hoursHandsId } },
                         },
@@ -107,6 +118,7 @@ describe('Dial - General', () => {
             new Watch({
                 dials: [
                     {
+                        id,
                         hands: {
                             hours: { split: { tenths: 'error', ones: hoursHandsId } },
                         },
@@ -127,7 +139,7 @@ describe('Dial - General', () => {
         const secondsId = 'seconds-hand-sweep';
         document.body.innerHTML = `<div id="${secondsId}" />`;
         const test = new Watch({
-            dials: [{ hands: { seconds: { id: secondsId, sweep: true } } }],
+            dials: [{ id, hands: { seconds: { id: secondsId, sweep: true } } }],
         });
         test.start();
         const hand = document.getElementById(secondsId);
@@ -140,7 +152,7 @@ describe('Dial - General', () => {
         const secondsId = 'seconds-hand-jump';
         document.body.innerHTML = `<div id="${secondsId}" />`;
         const test = new Watch({
-            dials: [{ hands: { seconds: { id: secondsId, jump: true } } }],
+            dials: [{ id, hands: { seconds: { id: secondsId, jump: true } } }],
         });
         test.start();
         const hand = document.getElementById(secondsId);
@@ -162,6 +174,7 @@ describe('Dial - Standard Display', () => {
         test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: { id: secondsHandsId },
                         minutes: { id: minutesHandsId },
@@ -199,6 +212,7 @@ describe('Dial - Standard Display', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: { id: secondsHandsId },
                         minutes: { id: minutesHandsId },
@@ -220,6 +234,7 @@ describe('Dial - Standard Display', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     format: 24,
                     hands: {
                         seconds: { id: secondsHandsId },
@@ -242,6 +257,7 @@ describe('Dial - Standard Display', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     format: 24,
                     hands: {
                         seconds: { id: secondsHandsId },
@@ -264,6 +280,7 @@ describe('Dial - Standard Display', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         minutes: { id: minutesHandsId, reverse: true },
                         hours: { id: hoursHandsId, reverse: true },
@@ -297,6 +314,7 @@ describe('Dial - Retrograde Displays', () => {
         test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: { id: secondsHandsId, retrograde: { max: 180 } },
                         minutes: { id: minutesHandsId, retrograde: { max: 180 } },
@@ -334,6 +352,7 @@ describe('Dial - Retrograde Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         hours: { id: hoursHandsId, jump: true, retrograde: { max: 180 } },
                     },
@@ -354,6 +373,7 @@ describe('Dial - Retrograde Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: {
                             id: secondsHandsId,
@@ -378,6 +398,7 @@ describe('Dial - Retrograde Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: {
                             id: secondsHandsId,
@@ -402,6 +423,7 @@ describe('Dial - Retrograde Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         seconds: {
                             id: secondsHandsId,
@@ -438,6 +460,7 @@ describe('Dial - Split Displays', () => {
         test = new Watch({
             dials: [
                 {
+                    id,
                     hands: {
                         minutes: { split: { ones: minutesOnes, tenths: minutesTenths } },
                         hours: { split: { ones: hoursOnes, tenths: hoursTenths } },
@@ -473,6 +496,7 @@ describe('Dial - Split Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     format: 24,
                     hands: {
                         hours: { split: { ones: hoursOnes, tenths: hoursTenths } },
@@ -495,6 +519,7 @@ describe('Dial - Split Displays', () => {
         const test = new Watch({
             dials: [
                 {
+                    id,
                     format: 24,
                     hands: {
                         hours: { split: { ones: hoursOnes, tenths: hoursTenths }, reverse: true },

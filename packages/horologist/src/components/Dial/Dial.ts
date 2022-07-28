@@ -27,6 +27,7 @@ export class Dial implements DialClass {
         };
     };
     hasError: boolean;
+    id: string;
     isReset: boolean;
     interval?: ReturnType<typeof setInterval>;
     options: DialOptions;
@@ -68,6 +69,7 @@ export class Dial implements DialClass {
                     : undefined,
             },
         };
+        this.id = options.id;
         this.isReset = false;
         this.rotations = {
             seconds: 0,

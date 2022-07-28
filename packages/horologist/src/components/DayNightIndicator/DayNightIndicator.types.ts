@@ -5,6 +5,7 @@ export interface DayNightIndicatorClass {
 }
 
 export interface DayNightIndicatorOptions {
+    dial?: string;
     id: string;
     offsetHours?: boolean;
     reverse?: boolean;

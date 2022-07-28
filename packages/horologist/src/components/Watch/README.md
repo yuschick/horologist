@@ -18,7 +18,7 @@ new Watch({
     date?: DateIndicatorOptions;
     day?: DayIndicatorOptions;
     dayNight?: DayNightIndicatorOptions;
-    dials?: DialOptions[];
+    dials: DialOptions[];
     eq?: EquationOfTimeOptions;
     foudroyante?: FoudroyanteOptions;
     leapYear?: LeapYearIndicatorOptions;
@@ -38,7 +38,7 @@ new Watch({
 
 ### `dayNight` - [View Day / Night Indicator Documentation](../DayNightIndicator/)
 
-### `dials` - [View Dials Documentation](../Dial/)
+### `dials` | Required - [View Dials Documentation](../Dial/)
 
 ### `eq` - [View Equation of Time Documentation](../EquationOfTime/)
 

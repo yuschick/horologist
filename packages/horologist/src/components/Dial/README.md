@@ -52,6 +52,7 @@ dials: [{
             };
         }
     };
+    id: string;
     timezone?: string;
 }]
 ```
@@ -124,6 +125,14 @@ without offsetting the minutes. **Note:** This is the default behavior for split
 | `reverse`        | No       | boolean | False   | True / False                                                                                |
 | `split.ones`     | Yes      | string  | -       | DOM Element ID                                                                              |
 | `split.tenths`   | Yes      | string  | -       | DOM Element ID                                                                              |
+
+### `id` | Required
+
+An ID to associate with each Dial for references between complications.
+
+| Props | Required | Type   | Default | Value(s) |
+| ----- | -------- | ------ | ------- | -------- |
+| `id`  | Yes      | string | -       | -        |
 
 ### `timezone`
 

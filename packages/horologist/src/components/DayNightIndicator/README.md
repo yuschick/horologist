@@ -16,11 +16,22 @@ works in tandem with a moon phase complication.
 
 ```ts
 dayNights: {
+    dial?: string;
     id: string;
     offsetHours?: boolean;
     reverse?: boolean;
 }
 ```
+
+### `dial`
+
+Day / Night Indicators are often paired with dual timezone displays. By default, the Day / Night
+Indicator will be relative to the first Dial in the Dials array. However, the Day / Night Indicator
+can target a specific Dial by providing the Dial ID.
+
+| Props  | Required | Type   | Default | Value(s) |
+| ------ | -------- | ------ | ------- | -------- |
+| `dial` | No       | string | -       | Dial ID  |
 
 ### `id` | Required
 
