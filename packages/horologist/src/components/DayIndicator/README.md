@@ -42,7 +42,7 @@ By default, the Day Indicator will rotate to the the appropriate day. However, w
 
 ### `retrograde`
 
-The DOM element ID of the retrograde date indicator hand or disc.
+The DOM element ID of the retrograde day indicator hand or disc.
 
 | Props            | Required | Type   | Default | Value(s)                                                                                    |
 | ---------------- | -------- | ------ | ------- | ------------------------------------------------------------------------------------------- |

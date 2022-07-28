@@ -46,7 +46,7 @@ additional amount corresponding the current month of the year.
 
 ### `retrograde`
 
-The DOM element ID of the retrograde date indicator hand or disc.
+The DOM element ID of the retrograde leap year indicator hand or disc.
 
 | Props            | Required | Type   | Default | Value(s)                                                                                      |
 | ---------------- | -------- | ------ | ------- | --------------------------------------------------------------------------------------------- |
