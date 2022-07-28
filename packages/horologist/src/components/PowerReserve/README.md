@@ -61,9 +61,9 @@ If the Power Reserve indicator is drawn in its `full` position, then `range.full
 
 The rate of degrees at which the Power Reserve indicator will drain per second.
 
-| Props  | Required | Type   | Default | Value(s)                                                                   |
-| ------ | -------- | ------ | ------- | -------------------------------------------------------------------------- |
-| `rate` | No       | number | 0.5     | How many degrees should the Power Reserve indicator be drained per second. |
+| Props  | Required | Type   | Default | Value(s)                                                          |
+| ------ | -------- | ------ | ------- | ----------------------------------------------------------------- |
+| `rate` | No       | number | 0.5     | How many degrees the Power Reserve indicator 'drains' per second. |
 
 ### `windingKey`
 
