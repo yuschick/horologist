@@ -48,7 +48,7 @@ describe('Day/Night Indicator', () => {
     });
 
     it('should return the correct rotational value with offset hours', () => {
-        const date = new Date('2000/6/28 10:25:00');
+        const date = new Date('2000/6/28 10:25:00 GMT+3:00');
         const test = new Watch({ dials, dayNight: { id, offsetHours: true }, settings: { date } });
 
         const offsetIncrement = rotateIncrement / 6;
