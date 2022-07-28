@@ -54,7 +54,7 @@ rotate the elements counter-clockwise.
 
 | Props     | Required | Type    | Default | Value(s)     |
 | --------- | -------- | ------- | ------- | ------------ |
-| `reverse` | No       | Boolean | False   | True / False |
+| `reverse` | No       | boolean | False   | True / False |
 
 ### `split` | Required
 

@@ -2,11 +2,6 @@ import { FoudroyanteClass, FoudroyanteOptions } from './Foudroyante.types';
 import content from '../../content';
 import { rotate } from '../../utils';
 
-/*
- * Often on a Chronograph, a Foudroyante is a hand that makes one rotation every
- * second, pausing four, five, even eight times (steps) to indicate quarters,
- * fifths or eighths of a second.
- */
 export class Foudroyante implements FoudroyanteClass {
     currentRotation: number;
     element: HTMLElement | null;
@@ -68,7 +63,6 @@ export class Foudroyante implements FoudroyanteClass {
             this.currentRotation = 0;
         } else {
             this.currentRotation = Math.abs(this.currentRotation) + this.stepRotation;
-            this.currentRotation *= this.options.reverse ? -1 : 1;
         }
 
         rotate({ element: this.element, value: this.currentRotation });

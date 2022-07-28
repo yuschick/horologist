@@ -8,6 +8,5 @@ export interface FoudroyanteClass {
 
 export interface FoudroyanteOptions {
     id: string;
-    reverse?: boolean;
     steps: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 }

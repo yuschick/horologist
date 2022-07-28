@@ -35,14 +35,4 @@ describe('Foudroyante', () => {
         test.foudroyante?.rotate();
         expect(test.foudroyante?.currentRotation).toEqual((360 / steps) * 2);
     });
-
-    it('should set the correct rotation value when reversed', () => {
-        const test = new Watch({ foudroyante: { id, steps, reverse: true } });
-
-        test.foudroyante?.rotate();
-        expect(test.foudroyante?.currentRotation).toEqual((360 / steps) * -1);
-
-        test.foudroyante?.rotate();
-        expect(test.foudroyante?.currentRotation).toEqual((360 / steps) * 2 * -1);
-    });
 });
