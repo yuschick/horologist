@@ -9,6 +9,7 @@ time zones, perpetual calendars and more.
 
 ![Horologist License](https://img.shields.io/github/license/yuschick/horologist?style=for-the-badge)
 ![NPM Version](https://img.shields.io/npm/v/horologist?style=for-the-badge)
+![Github Build Status](https://img.shields.io/github/workflow/status/yuschick/Horologist/horologist-ci?style=for-the-badge)
 
 ## Demos
 
