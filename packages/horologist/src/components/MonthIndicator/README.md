@@ -44,7 +44,7 @@ date of the month.
 
 ### `retrograde`
 
-The DOM element ID of the retrograde month indicator hand or disc.
+The DOM element ID of the retrograde Month Indicator hand or disc.
 
 | Props            | Required | Type   | Default | Value(s)                                                                                      |
 | ---------------- | -------- | ------ | ------- | --------------------------------------------------------------------------------------------- |

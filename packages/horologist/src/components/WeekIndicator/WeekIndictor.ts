@@ -5,12 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { WeekIndicatorClass, WeekIndicatorOptions } from './WeekIndicator.types';
 
-/*
- * The week indicator receives a date object and rotates an element
- * to depict the current week of the year, whether standard or iso week.
- * If iso, the getISODay is used where Monday is 1 and Sunday is 7.
- * Otherwise, getDay is used, where Sunday is 0 and Saturday is 6.
- */
 export class WeekIndicator implements WeekIndicatorClass {
     day: number;
     element: HTMLElement | null;

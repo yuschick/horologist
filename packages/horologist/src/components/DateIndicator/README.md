@@ -41,7 +41,7 @@ The DOM element ID of the date indicator hand or disc.
 
 > **Note:** A `retrograde` prop is not compatible with `split` displays.
 
-The DOM element ID of the retrograde date indicator hand or disc.
+The DOM element ID of the retrograde Date Indicator hand or disc.
 
 | Props            | Required | Type   | Default | Value(s)                                                                                     |
 | ---------------- | -------- | ------ | ------- | -------------------------------------------------------------------------------------------- |
