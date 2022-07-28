@@ -259,7 +259,7 @@ A chronograph with three pushers to support `flyback` and/or `rattrapante` varia
 | ACTIVE STATE             | Tri    | ACTIVE STATE               | Flyback - Resets all hands to their starting positions.     |
 | SPLIT SET STATE          | Mono   | PAUSED STATE               | -                                                           |
 | SPLIT SET STATE          | Dual   | UNSET SPLIT & ACTIVE STATE | Rattrapante - Rattrapante hands catch up to constant hands. |
-| SPLIT SET STATE          | Tri    | UNSET SPLIT & ACTIVE STATE | FLyback - Resets all hands to their starting positions.     |
+| SPLIT SET STATE          | Tri    | UNSET SPLIT & ACTIVE STATE | Flyback - Resets all hands to their starting positions.     |
 | PAUSED STATE             | Mono   | ACTIVE STATE               | -                                                           |
 | PAUSED STATE             | Dual   | -                          | The dual pusher has no effect in this state.                |
 | PAUSED STATE             | Tri    | READY STATE                | -                                                           |
