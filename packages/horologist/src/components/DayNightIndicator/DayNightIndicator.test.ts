@@ -61,7 +61,11 @@ describe('Day/Night Indicator', () => {
         document.body.innerHTML += `<div id="two-seconds-hand" />`;
         let test = new Watch({
             dials: [
-                { id: 'one', hands: { seconds: { id: 'seconds-hand' } } },
+                {
+                    id: 'one',
+                    hands: { seconds: { id: 'seconds-hand' } },
+                    timezone: 'Europe/Helsinki',
+                },
                 {
                     id: 'two',
                     hands: { seconds: { id: 'two-seconds-hand' } },
@@ -96,7 +100,7 @@ describe('Day/Night Indicator', () => {
             dayNight: {
                 id,
             },
-            settings: { date: new Date('2022/7/13 13:30:00') },
+            settings: { date },
         });
 
         test.start();
