@@ -20,8 +20,8 @@ export interface MinuteRepeaterOptions {
 }
 
 export type MinuteRepeaterOptionsChimes = {
-    hour?: string;
-    minute?: string;
+    hours?: string;
+    minutes?: string;
 };
 
 export type MinuteRepeaterChimesAudio = {

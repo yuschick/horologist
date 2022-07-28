@@ -32,8 +32,8 @@ export class MinuteRepeater implements MinuteRepeaterClass {
     constructor(options: MinuteRepeaterOptions, settings: WatchSettings) {
         this.chimes = {
             audio: {
-                hour: options.chimes?.hour || ChimesHour,
-                minute: options.chimes?.minute || ChimesMinute,
+                hour: options.chimes?.hours || ChimesHour,
+                minute: options.chimes?.minutes || ChimesMinute,
             },
             counter: 1,
             counts: {
