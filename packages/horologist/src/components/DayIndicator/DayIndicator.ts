@@ -5,20 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { DayIndicatorClass, DayIndicatorOptions } from './DayIndicator.types';
 
-/*
- * The Day Indicator rotates an element based on the current day
- * of the week with each day equalling 51.43deg rotation. Additionally,
- * th display can offset the hours of the current day, in which case,
- * an additional 2.14deg are added to the rotation value.
- * Sunday is treated as the first day of the week, by default
- * The Day Indicator supports two display types.
- *
- * Single Display
- * Most common, where the days are shown either with a single disc or hand
- *
- * Retrograde Display
- * Generally shown in a half circle, but indicated still with a single hand
- */
 export class DayIndicator implements DayIndicatorClass {
     day: number;
     element: HTMLElement | null;

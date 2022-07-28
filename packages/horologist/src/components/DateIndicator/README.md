@@ -7,7 +7,7 @@
 A date complication is common in the world of watchmaking, but comes in several different
 variations, such as single displays, split displays, and retrograde indicators.
 
-[Date Indicator Settings](#date-indicstor-settings) |
+[Date Indicator Settings](#date-indicator-settings) |
 [Design Considerations](#design-considerations) |
 [Date Indicator Functionality](#date-indicator-functionality)
 

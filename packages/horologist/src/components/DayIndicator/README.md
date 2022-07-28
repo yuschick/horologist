@@ -4,10 +4,10 @@
 
 # Day Indicator
 
-A date complication is common in the world of watchmaking, but comes in several different
-variations, such as single displays, split displays, and retrograde indicators.
+A day complication is common in the world of watchmaking, but comes in several different variations,
+such as single displays, split displays, and retrograde indicators.
 
-[Day Indicator Settings](#day-indicstor-settings) | [Design Considerations](#design-considerations)
+[Day Indicator Settings](#day-indicator-settings) | [Design Considerations](#design-considerations)
 | [Day Indicator Functionality](#day-indicator-functionality)
 
 ## Day Indicator Settings
@@ -25,7 +25,7 @@ date?: {
 
 ### `id` | Required
 
-The DOM element ID of the date indicator hand or disc.
+The DOM element ID of the day indicator hand or disc.
 
 | Props | Required | Type   | Default | Value(s)       |
 | ----- | -------- | ------ | ------- | -------------- |
