@@ -14,7 +14,7 @@ variations, such as single displays, split displays, and retrograde indicators.
 ## Date Indicator Settings
 
 ```ts
-date?: {
+date: {
     id: string;
     retrograde?: {
         max: number;

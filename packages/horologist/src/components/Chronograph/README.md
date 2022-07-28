@@ -14,7 +14,7 @@ and hours. Complex chronographs can time multiple events simultaneously.
 ## Chronograph Settings
 
 ```ts
-chronograph?: {
+chronograph: {
     durations?: {
         subSeconds?: number;
         seconds?: number;

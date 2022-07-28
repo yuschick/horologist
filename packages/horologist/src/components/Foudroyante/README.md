@@ -13,9 +13,9 @@ Also known as a flying seconds hand, it’s a sub-dial that indicates fractions 
 ## Foudroyante Settings
 
 ```ts
-foudroyante?: {
+foudroyante: {
     id: string;
-    steps: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    steps: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 }
 ```
 

@@ -13,7 +13,7 @@ such as single displays, split displays, and retrograde indicators.
 ## Day Indicator Settings
 
 ```ts
-day?: {
+day: {
     id: string;
     offsetHours?: boolean;
     retrograde?. {

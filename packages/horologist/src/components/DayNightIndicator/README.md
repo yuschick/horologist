@@ -15,7 +15,7 @@ works in tandem with a moon phase complication.
 ## Day / Night Indicator Settings
 
 ```ts
-dayNight?: {
+dayNights: {
     id: string;
     offsetHours?: boolean;
     reverse?: boolean;

@@ -18,12 +18,12 @@ equation of time is the offset between mean time and solar time.
 ## Equation of Time Settings
 
 ```ts
-eq?: {
+eq: {
     id: string;
     range: {
         max: number;
         min: number;
-    };
+    }
 }
 ```
 
