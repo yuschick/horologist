@@ -10,10 +10,12 @@ describe('Day/Night Indicator', () => {
                     id: 'seconds',
                 },
             },
+            timezone: 'Europe/Helsinki',
         },
     ];
     const id = 'test-id';
-    const date = new Date('2022/7/20 13:30:10');
+    const date = new Date('2022/7/20 13:30:10 GMT+3:00');
+    const rotateIncrement = 360 / 4;
     let test: Watch;
 
     beforeAll(() => {
@@ -32,7 +34,6 @@ describe('Day/Night Indicator', () => {
     });
 
     it('should return the correct rotational value', () => {
-        const rotateIncrement = 360 / 4;
         const value = test.dayNight?.getRotationValue();
 
         expect(value).toEqual(rotateIncrement * 2);
@@ -41,17 +42,15 @@ describe('Day/Night Indicator', () => {
     it('should return the correct rotational value when reversed', () => {
         const date = new Date('2000/6/28 19:25:00');
         const test = new Watch({ dials, dayNight: { id, reverse: true }, settings: { date } });
-        const rotateIncrement = 360 / 4;
         const value = test.dayNight?.getRotationValue();
 
         expect(value).toEqual(rotateIncrement * 3 * -1);
     });
 
     it('should return the correct rotational value with offset hours', () => {
-        const date = new Date('2000/6/28 10:25:00');
+        const date = new Date('2000/6/28 10:25:00 GMT+3:00');
         const test = new Watch({ dials, dayNight: { id, offsetHours: true }, settings: { date } });
 
-        const rotateIncrement = 360 / 4;
         const offsetIncrement = rotateIncrement / 6;
         const value = test.dayNight?.getRotationValue();
 
@@ -63,7 +62,11 @@ describe('Day/Night Indicator', () => {
         document.body.innerHTML += `<div id="two-seconds-hand" />`;
         let test = new Watch({
             dials: [
-                { id: 'one', hands: { seconds: { id: 'seconds-hand' } } },
+                {
+                    id: 'one',
+                    hands: { seconds: { id: 'seconds-hand' } },
+                    timezone: 'Europe/Helsinki',
+                },
                 {
                     id: 'two',
                     hands: { seconds: { id: 'two-seconds-hand' } },
@@ -84,7 +87,11 @@ describe('Day/Night Indicator', () => {
 
         test = new Watch({
             dials: [
-                { id: 'one', hands: { seconds: { id: 'seconds-hand' } } },
+                {
+                    id: 'one',
+                    hands: { seconds: { id: 'seconds-hand' } },
+                    timezone: 'Europe/Helsinki',
+                },
                 {
                     id: 'two',
                     hands: { seconds: { id: 'two-seconds-hand' } },
@@ -99,9 +106,7 @@ describe('Day/Night Indicator', () => {
 
         test.start();
 
-        const rotateIncrement = 360 / 4;
         value = test.dayNight?.getRotationValue();
-
         expect(value).toEqual(rotateIncrement * 2);
     });
 });
