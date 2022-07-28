@@ -6,9 +6,8 @@
 
 Also known as a flying seconds hand, it’s a sub-dial that indicates fractions of a second.
 
-[Foudroyante Settings](#foudroyante-of-time-settings) |
-[Design Considerations](#design-considerations) |
-[Foudroyante Functionality](#foudroyante-of-time-functionality)
+[Foudroyante Settings](#foudroyante-settings) | [Design Considerations](#design-considerations) |
+[Foudroyante Functionality](#foudroyante-functionality)
 
 ## Foudroyante Settings
 
