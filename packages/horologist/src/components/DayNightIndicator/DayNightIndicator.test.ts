@@ -10,6 +10,7 @@ describe('Day/Night Indicator', () => {
                     id: 'seconds',
                 },
             },
+            timezone: 'Europe/Helsinki',
         },
     ];
     const id = 'test-id';
