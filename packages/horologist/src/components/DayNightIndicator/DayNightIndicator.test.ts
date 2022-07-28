@@ -13,7 +13,7 @@ describe('Day/Night Indicator', () => {
         },
     ];
     const id = 'test-id';
-    const date = new Date('2022/7/20 13:30:10');
+    const date = new Date('2022/7/20 13:30:10 GMT+03:00');
     let test: Watch;
 
     beforeAll(() => {
