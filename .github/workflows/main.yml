@@ -1,21 +1,21 @@
-name: Horologist CI
+name: horologist-ci
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v3
+    build:
+        runs-on: ubuntu-latest
 
-      - name: Install Dependencies
-        run: yarn
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Run Horologist Tests
-        run: yarn horologist test
+            - name: Install Dependencies
+              run: yarn
+
+            - name: Run Horologist Tests
+              run: yarn horologist test
