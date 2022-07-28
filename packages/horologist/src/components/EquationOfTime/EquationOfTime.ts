@@ -5,16 +5,6 @@ import { rotate } from '../../utils';
 import { WatchSettings } from '../Watch';
 import { EquationOfTimeClass, EquationOfTimeOptions } from './EquationOfTime.types';
 
-/*
- * The Equation of Time functions very similarly to the Power Reserve.
- * An ID of the indicator is provided and based on the true solar time
- * the indicator is adjusted to display the time variance.
- * A range can be provided (defaults to [-45, 45])
- * Each range is then split into 14 or 16 segments, one for each variant minute
- *
- * Design Expectations
- * Horologist expects the eq hand to be drawn at an eq value of 0
- */
 export class EquationOfTime implements EquationOfTimeClass {
     element: HTMLElement | null;
     eq: number;

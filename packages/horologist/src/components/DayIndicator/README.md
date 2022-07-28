@@ -13,7 +13,7 @@ such as single displays, split displays, and retrograde indicators.
 ## Day Indicator Settings
 
 ```ts
-date?: {
+day?: {
     id: string;
     offsetHours?: boolean;
     retrograde?. {
@@ -25,7 +25,7 @@ date?: {
 
 ### `id` | Required
 
-The DOM element ID of the day indicator hand or disc.
+The DOM element ID of the Day Indicator hand or disc.
 
 | Props | Required | Type   | Default | Value(s)       |
 | ----- | -------- | ------ | ------- | -------------- |
@@ -36,9 +36,9 @@ The DOM element ID of the day indicator hand or disc.
 By default, the Day Indicator will rotate to the the appropriate day. However, when `offsetHours` is
 `true`, the indicator will rotate an additional amount corresponding the current hour of the day.
 
-| Props | Required | Type   | Default | Value(s)       |
-| ----- | -------- | ------ | ------- | -------------- |
-| `id`  | Yes      | string | -       | DOM Element ID |
+| Props         | Required | Type    | Default | Value(s)     |
+| ------------- | -------- | ------- | ------- | ------------ |
+| `offsetHours` | No       | boolean | False   | True / False |
 
 ### `retrograde`
 

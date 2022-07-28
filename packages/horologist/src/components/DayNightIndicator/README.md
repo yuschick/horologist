@@ -24,7 +24,7 @@ dayNight?: {
 
 ### `id` | Required
 
-The DOM element ID of the day / night indicator hand or disc.
+The DOM element ID of the Day / Night Indicator hand or disc.
 
 | Props | Required | Type   | Default | Value(s)       |
 | ----- | -------- | ------ | ------- | -------------- |
@@ -36,9 +36,9 @@ By default, the Day / Night Indicator will rotate in 25% increments to the the a
 block of the day. However, when `offsetHours` is `true`, the indicator will rotate an additional
 amount corresponding the current hour.
 
-| Props | Required | Type   | Default | Value(s)       |
-| ----- | -------- | ------ | ------- | -------------- |
-| `id`  | Yes      | string | -       | DOM Element ID |
+| Props         | Required | Type    | Default | Value(s)     |
+| ------------- | -------- | ------- | ------- | ------------ |
+| `offsetHours` | No       | boolean | False   | True / False |
 
 ### `reverse`
 
