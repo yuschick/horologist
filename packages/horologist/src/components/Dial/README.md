@@ -155,4 +155,9 @@ When designing a Dial to work with Horologist, there are a few considerations to
 
 ## Dial Functionality
 
-Coming Soon.
+The Dial runs off of the parent Watch class interval. Each second, if a seconds hand exists, it will
+be updated. Otherwise, each minute the hands will be updated to the current time.
+
+If the Watch contains a Power Reserve and the Power Reserve empties, the Dials will no longer update
+until the Watch is 'wound'. At which time, the hands will be updated to the current time again. This
+isn't how real watches work, but whatever.
