@@ -19,3 +19,6 @@ jobs:
 
             - name: Run Horologist Tests
               run: yarn horologist test
+
+            - name: Jest Code Coverage Badge
+              uses: luk-schweizer/jest-code-coverage-badge-action@v1.0.1
