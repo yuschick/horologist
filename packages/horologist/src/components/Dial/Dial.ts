@@ -12,21 +12,6 @@ export const transitions = {
     sweep: 'transform 1s linear 0s',
 };
 
-/*
- * The Dial class is likely the core class of the Watch.
- * This handles various display types and timezones, using date-fns-tz.
- * The Dial supports standard displays with seconds, minutes and hours hands
- * but also supports retrograde displays for all three hands and
- * split displays for minutes and hours. Dials also support 24-hour formats.
- *
- * Design Considerations:
- *  Standard Display
- *      All hands are drawn at 12:00
- *  Retrograde Displays
- *      All hands are drawn within the retrograde range
- *  Split Displays
- *      All display dials are drawn at 0 / 0 position
- */
 export class Dial implements DialClass {
     hands: {
         seconds?: HTMLElement | null;
