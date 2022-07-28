@@ -200,6 +200,10 @@ can support `flyback` and/or `rattrapante` variations.
 | PAUSED & SPLIT SET STATE | Mono   | ACTIVE STATE               | Reset constant hands to their starting positions.                                                                   |
 | PAUSED & SPLIT SET STATE | Dual   | READY STATE                |  -                                                                                                                  |
 
+### Tri-Pusher
+
+A chronograph with three pushers to support `flyback` and/or `rattrapante` variations.
+
 #### Tri-Pusher - Standard
 
 | Current State | Pusher | Next State   | Details                                      |
