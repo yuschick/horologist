@@ -3,6 +3,7 @@ import { Watch } from 'horologist';
 const test = new Watch({
     dials: [
         {
+            id: 'primary',
             hands: {
                 hours: {
                     id: 'hour-hand',
