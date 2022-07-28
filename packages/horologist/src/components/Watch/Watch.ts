@@ -48,8 +48,11 @@ export class Watch implements Types.WatchClass {
             options.chronograph && new Chronograph(options.chronograph, this.settings);
         this.date = options.date && new DateIndicator(options.date, this.settings);
         this.day = options.day && new DayIndicator(options.day, this.settings);
-        this.dayNight = options.dayNight && new DayNightIndicator(options.dayNight, this.settings);
         this.dials = options.dials && options.dials.map((d) => new Dial(d, this.settings));
+        this.dayNight =
+            options.dayNight &&
+            this.dials &&
+            new DayNightIndicator(options.dayNight, this.settings, this.dials);
         this.eq = options.eq && new EquationOfTime(options.eq, this.settings);
         this.foudroyante = options.foudroyante && new Foudroyante(options.foudroyante);
         this.month = options.month && new MonthIndicator(options.month, this.settings);
