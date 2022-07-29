@@ -15,7 +15,7 @@ export interface DialOptions {
         minutes?: DialHand;
         hours?: DialHand & DialJumpHand;
     };
-    id: string;
+    id?: string;
     timezone?: string;
 }
 
