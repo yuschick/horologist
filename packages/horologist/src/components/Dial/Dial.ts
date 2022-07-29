@@ -27,7 +27,7 @@ export class Dial implements DialClass {
         };
     };
     hasError: boolean;
-    id: string;
+    id?: string;
     isReset: boolean;
     interval?: ReturnType<typeof setInterval>;
     options: DialOptions;

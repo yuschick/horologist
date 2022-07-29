@@ -52,7 +52,7 @@ dials: [{
             };
         }
     };
-    id: string;
+    id?: string;
     timezone?: string;
 }]
 ```
@@ -126,7 +126,7 @@ without offsetting the minutes. **Note:** This is the default behavior for split
 | `split.ones`     | Yes      | string  | -       | DOM Element ID                                                                              |
 | `split.tenths`   | Yes      | string  | -       | DOM Element ID                                                                              |
 
-### `id` | Required
+### `id`
 
 An ID to associate with each Dial for references between complications.
 
