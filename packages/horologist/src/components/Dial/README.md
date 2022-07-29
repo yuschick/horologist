@@ -132,7 +132,7 @@ An ID to associate with each Dial for references between complications.
 
 | Props | Required | Type   | Default | Value(s) |
 | ----- | -------- | ------ | ------- | -------- |
-| `id`  | Yes      | string | -       | -        |
+| `id`  | No       | string | -       | -        |
 
 ### `timezone`
 

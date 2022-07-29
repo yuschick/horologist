@@ -1,9 +1,6 @@
 import content from '../../content';
 import { setupTriggerEvents } from '../../utils';
 import { WatchSettings } from '../Watch';
-// Audio files from www.freesound.org
-import ChimesHour from '../../assets/sounds/chime-hour.mp4';
-import ChimesMinute from '../../assets/sounds/chime-minute.mp4';
 import {
     MinuteRepeaterChimeCounts,
     MinuteRepeaterChimes,
@@ -12,13 +9,6 @@ import {
 } from './MinuteRepeater.types';
 import { getHours, getMinutes } from 'date-fns';
 
-/*
- * The Minute Repeater complication is one of the most impressive watchmaking feats.
- * When pressing the trigger, the watch audibly communicates the time with a series
- * of chimes. Hours are denoted with one chime, while minutes are denoted with a second.
- * Quarter hours (or 15 minutes) are denoted with a combination of the two chimes.
- * For example: the time 08:17 would have 8 hour chimes, 1 quarter hour chime, and 2 minute chimes.
- */
 export class MinuteRepeater implements MinuteRepeaterClass {
     chimes: MinuteRepeaterChimes;
     element: HTMLElement | null;
@@ -32,8 +22,8 @@ export class MinuteRepeater implements MinuteRepeaterClass {
     constructor(options: MinuteRepeaterOptions, settings: WatchSettings) {
         this.chimes = {
             audio: {
-                hour: options.chimes?.hours || ChimesHour,
-                minute: options.chimes?.minutes || ChimesMinute,
+                hour: options.chimes.hours,
+                minute: options.chimes.minutes,
             },
             counter: 1,
             counts: {
