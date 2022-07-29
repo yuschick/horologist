@@ -12,7 +12,7 @@ export interface MinuteRepeaterClass {
 }
 
 export interface MinuteRepeaterOptions {
-    chimes?: MinuteRepeaterOptionsChimes;
+    chimes: MinuteRepeaterOptionsChimes;
     id: string;
     onPlay?: () => void;
     onStop?: () => void;
@@ -20,8 +20,8 @@ export interface MinuteRepeaterOptions {
 }
 
 export type MinuteRepeaterOptionsChimes = {
-    hours?: string;
-    minutes?: string;
+    hours: string;
+    minutes: string;
 };
 
 export type MinuteRepeaterChimesAudio = {

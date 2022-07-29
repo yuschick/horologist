@@ -5,6 +5,7 @@ import { MinuteRepeaterChimeCounts } from './MinuteRepeater.types';
 describe('Minute Repeater', () => {
     const date = new Date('2022/7/13 7:17:00');
     const id = 'test-id';
+    const chimes = { hours: '../', minutes: '../' };
     let test: Watch;
 
     beforeAll(() => {
@@ -13,7 +14,7 @@ describe('Minute Repeater', () => {
         jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(async () => {});
 
         document.body.innerHTML = `<div id="${id}" />`;
-        test = new Watch({ repeater: { id }, settings: { date } });
+        test = new Watch({ repeater: { chimes, id }, settings: { date } });
     });
 
     it('should return a watch object with a repeater property', () => {
@@ -22,7 +23,7 @@ describe('Minute Repeater', () => {
 
     it('should throw an error if the element cannot be found', () => {
         expect(() => {
-            new Watch({ repeater: { id: 'error' } });
+            new Watch({ repeater: { chimes, id: 'error' } });
         }).toThrow(content.minute_repeater.errors.element_not_found);
     });
 
@@ -39,7 +40,7 @@ describe('Minute Repeater', () => {
 
     it('should return the correct evening chime counts', () => {
         const date = new Date('2000/12/5 19:57:00');
-        const test = new Watch({ repeater: { id }, settings: { date } });
+        const test = new Watch({ repeater: { chimes, id }, settings: { date } });
         const target: MinuteRepeaterChimeCounts = {
             hour: 7,
             minute: 12,
@@ -52,7 +53,7 @@ describe('Minute Repeater', () => {
 
     it('should execute the onPlay callback', () => {
         const onPlay = jest.fn();
-        const test = new Watch({ repeater: { id, onPlay }, settings: { date } });
+        const test = new Watch({ repeater: { chimes, id, onPlay }, settings: { date } });
         const element = document.getElementById(id);
         const event = new MouseEvent('click');
 
@@ -64,7 +65,7 @@ describe('Minute Repeater', () => {
 
     it('should execute the onStop callback', () => {
         const onStop = jest.fn();
-        const test = new Watch({ repeater: { id, onStop }, settings: { date } });
+        const test = new Watch({ repeater: { chimes, id, onStop }, settings: { date } });
         const element = document.getElementById(id);
         const event = new MouseEvent('click');
 
@@ -86,7 +87,7 @@ describe('Minute Repeater', () => {
 
     it('should add the correct custom activeClass', () => {
         const activeClass = 'unicorn';
-        const test = new Watch({ repeater: { id }, settings: { activeClass } });
+        const test = new Watch({ repeater: { chimes, id }, settings: { activeClass } });
         const element = document.getElementById(id);
         const event = new MouseEvent('click');
 

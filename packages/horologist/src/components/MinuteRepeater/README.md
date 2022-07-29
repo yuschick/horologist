@@ -15,9 +15,9 @@ pressed, audibly indicating the time by first striking the hours, then quarters 
 
 ```ts
 repeater: {
-    chimes?: {
-        hours?: string;
-        minutes?: string;
+    chimes: {
+        hours: string;
+        minutes: string;
     };
     id: string;
     onEnd?: () => void;
@@ -26,17 +26,16 @@ repeater: {
 }
 ```
 
-### `chimes`
+### `chimes` | Required
 
 > **Note:** The quarter-hour chimes are played as a combination of the hour and minute chimes.
 
-The audible chimes to be played when indicating the time. While Horologist packages default chimes,
-these files can be overwritten with custom audio files.
+The audible chimes to be played when indicating the time.
 
 | Props            | Required | Type   | Default | Value(s)                |
 | ---------------- | -------- | ------ | ------- | ----------------------- |
-| `chimes.hours`   | No       | string | -       | Filepath to audio file. |
-| `chimes.minutes` | No       | string | -       | Filepath to audio file. |
+| `chimes.hours`   | Yes      | string | -       | Filepath to audio file. |
+| `chimes.minutes` | Yes      | string | -       | Filepath to audio file. |
 
 ### `id` | Required
 
