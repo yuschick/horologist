@@ -1,5 +1,5 @@
 import { isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
+import DateFnzTz from 'date-fns-tz';
 import { Chronograph } from '../Chronograph';
 import { DateIndicator } from '../DateIndicator';
 
@@ -103,7 +103,7 @@ export class Watch implements Types.WatchClass {
 
                 this.dials?.forEach((dial) => {
                     dial.settings.now = dial.options.timezone
-                        ? utcToZonedTime(this.settings.now, dial.options.timezone)
+                        ? DateFnzTz.utcToZonedTime(this.settings.now, dial.options.timezone)
                         : this.settings.now;
                     if (dial.options.hands.minutes || dial.options.hands.hours) {
                         dial.rotateHands({ minutes: true, hours: true });
