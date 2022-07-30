@@ -1,6 +1,6 @@
 {
     "name": "horologist",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
     "main": "dist/index.js",
     "module": "dist/index.js",

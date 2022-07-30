@@ -1,5 +1,5 @@
 import { addSeconds, getHours, getMinutes, getSeconds } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
+import DateFnsTz from 'date-fns-tz';
 
 import content from '../../content';
 import { rotate, setElementTransition } from '../../utils';
@@ -40,7 +40,9 @@ export class Dial implements DialClass {
         this.options = options;
         this.settings = {
             ...settings,
-            now: options.timezone ? utcToZonedTime(settings.now, options.timezone) : settings.now,
+            now: options.timezone
+                ? DateFnsTz.utcToZonedTime(settings.now, options.timezone)
+                : settings.now,
         };
         this.hands = {
             seconds: options.hands.seconds
