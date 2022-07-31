@@ -32,6 +32,16 @@
         "typescript",
         "javascript"
     ],
-    "devDependencies": {},
+    "devDependencies": {
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint": "^8.19.0",
+        "husky": "^8.0.1",
+        "lint-staged": "^13.0.3",
+        "prettier-eslint-cli": "^6.0.1",
+        "prettier-eslint": "^15.0.1",
+        "prettier": "^2.7.1"
+    },
     "dependencies": {}
 }
