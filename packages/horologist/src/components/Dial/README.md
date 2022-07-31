@@ -17,6 +17,7 @@ timepieces.
 
 ```ts
 dials: [{
+    date?: date;
     format?: 12 | 24;
     hands: {
         seconds?: {
@@ -53,9 +54,17 @@ dials: [{
         }
     };
     id?: string;
-    timezone?: string;
 }]
 ```
+
+### `date`
+
+By default, the Dial will show the current system time. However, this can be adjusted by passing a
+`new Date()` with a specific time.
+
+| Props  | Required | Type | Default | Value(s) |
+| ------ | -------- | ---- | ------- | -------- |
+| `date` | No       | date | -       | -        |
 
 ### `format`
 
@@ -133,15 +142,6 @@ An ID to associate with each Dial for references between complications.
 | Props | Required | Type   | Default | Value(s) |
 | ----- | -------- | ------ | ------- | -------- |
 | `id`  | No       | string | -       | -        |
-
-### `timezone`
-
-By default, the Dial will show the current location's time. However, this can be adjusted by passing
-an IANA `timezone` string, like `Europe/Helsinki` to force the dial into a specific timezone.
-
-| Props      | Required | Type   | Default | Value(s)                                                                      |
-| ---------- | -------- | ------ | ------- | ----------------------------------------------------------------------------- |
-| `timezone` | No       | string | -       | [IANA timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
 
 ## Design Considerations
 
