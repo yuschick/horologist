@@ -3,6 +3,6 @@ require('esbuild').buildSync({
     bundle: true,
     minify: true,
     outdir: 'dist',
-    external: ['date-fns', 'date-fns-tz', 'suntimes', 'lunarphase-js'],
+    external: ['date-fns', 'suntimes', 'lunarphase-js'],
     format: 'esm',
 });

@@ -9,6 +9,7 @@ export interface DialClass {
 }
 
 export interface DialOptions {
+    date?: Date;
     format?: 12 | 24;
     hands: {
         seconds?: DialSecondsHand;
@@ -16,7 +17,6 @@ export interface DialOptions {
         hours?: DialHand & DialJumpHand;
     };
     id?: string;
-    timezone?: string;
 }
 
 export type DialSecondsHand = DialSecondsHandSweep | DialSecondsHandJump;
