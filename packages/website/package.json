@@ -1,0 +1,42 @@
+{
+    "name": "horologist-docs",
+    "version": "1.0.0",
+    "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
+    "main": "index.js",
+    "scripts": {
+        "build": "eleventy",
+        "start": "eleventy --serve"
+    },
+    "author": "Daniel Yuschick <daniel.yuschick@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yuschick/horologist.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yuschick/horologist/issues"
+    },
+    "homepage": "https://github.com/yuschick/horologist",
+    "keywords": [
+        "ticktock",
+        "ticktock-js",
+        "svg",
+        "animation",
+        "watchmaking",
+        "horologist",
+        "horology",
+        "haute",
+        "typescript",
+        "javascript"
+    ],
+    "dependencies": {
+        "@11ty/eleventy": "^1.0.1",
+        "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
+        "@orchidjs/eleventy-plugin-ids": "^0.1.1",
+        "@organicss/scss": "^1.2.0",
+        "autoprefixer": "^10.4.8",
+        "cssnano": "^5.1.12",
+        "eleventy-sass": "^2.1.0",
+        "postcss": "^8.4.14"
+    }
+}

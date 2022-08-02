@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        {% include 'meta.njk' %}
+
+        <link rel="shortcut icon" type="image/svg" href="/assets/icon-horologist.svg"/>
+
+        <title>Horologist | {{ title }}</title>
+        <link rel="stylesheet" href="/styles/main.css"/>
+    </head>
+    <body>
+        <main>{{ content | safe }}</main>
+        <footer>
+            <span>Horologist © {{ getYear() }}</span>
+        </footer>
+    </body>
+</html>

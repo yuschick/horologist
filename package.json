@@ -10,6 +10,7 @@
     ],
     "scripts": {
         "demo": "yarn workspace demo",
+        "docs": "yarn workspace horologist-docs",
         "horologist": "yarn workspace horologist",
         "lint": "eslint",
         "lint:fix": "yarn lint -- --fix",
