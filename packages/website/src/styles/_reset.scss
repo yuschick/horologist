@@ -25,21 +25,23 @@ html {
 
 html,
 body {
-    background: var(--o-color-aux-950);
-    color: var(--o-color-aux-50);
-    font-family: var(--o-font-primary);
-    font-size: var(--o-font-size-base-unit);
+    @include layout($minBlockSize: 100%);
+
+    color: var(--h-color-aux-50);
+    font-family: var(--h-font-primary);
+    font-size: var(--h-font-size-base-unit);
 }
 
 body {
-    @include border($blockStart: 1.5rem solid var(--o-color-primary));
     @include layout($blockSize: 100%);
 
     -webkit-font-smoothing: antialiased;
-    accent-color: var(--o-color-primary);
+    accent-color: var(--h-color-primary);
+    background: var(--h-color-aux-950);
+    background: radial-gradient(circle, var(--h-color-aux-950) 0%, var(--h-color-aux-900) 100%);
     line-height: 1.65;
     scrollbar-width: thin;
-    scrollbar-color: var(--o-color-primary) var(--o-color-aux-50);
+    scrollbar-color: var(--h-color-primary) var(--h-color-aux-50);
 }
 
 body::-webkit-scrollbar {
@@ -47,12 +49,12 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-    background: var(--o-color-aux-50);
+    background: var(--h-color-aux-50);
 }
 body::-webkit-scrollbar-thumb {
-    background-color: var(--o-color-primary);
+    background-color: var(--h-color-primary);
     border-radius: 6px;
-    border: 3px solid var(--o-color-aux-50);
+    border: 3px solid var(--h-color-aux-50);
 }
 
 img,
@@ -84,7 +86,7 @@ h3,
 h4,
 h5,
 h6 {
-    @include layout($maxInlineSize: var(--o-max-content-length));
+    @include layout($maxInlineSize: var(--h-max-content-length));
     overflow-wrap: break-word;
 }
 
@@ -99,21 +101,21 @@ h6 {
 }
 
 h1 {
-    font-size: var(--o-font-size-5);
+    font-size: var(--h-font-size-5);
 }
 
 h2 {
-    font-size: var(--o-font-size-3);
+    font-size: var(--h-font-size-3);
 }
 
 h3 {
-    font-size: var(--o-font-size-2);
+    font-size: var(--h-font-size-2);
 }
 
 h4,
 h5,
 h6 {
-    font-size: var(--o-font-size-1);
+    font-size: var(--h-font-size-1);
 }
 
 svg {
