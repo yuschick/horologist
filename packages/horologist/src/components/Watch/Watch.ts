@@ -1,4 +1,4 @@
-import { isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
+import { addSeconds, isSameDay, isSameHour, isSameMinute, isSameMonth } from 'date-fns';
 import { Chronograph } from '../Chronograph';
 import { DateIndicator } from '../DateIndicator';
 
@@ -89,22 +89,22 @@ export class Watch implements Types.WatchClass {
 
             // Update any seconds-dependant complication
             this.reserve?.rotate('decrement');
+            this.dials?.forEach((dial) => {
+                dial.settings.now = dial.options.date
+                    ? addSeconds(dial.settings.now, 1)
+                    : this.settings.now;
+                if (dial.hands.seconds) dial.rotateHands();
+            });
 
-            if (isSameMinute(oldDate, this.settings.now)) {
-                this.dials?.forEach((dial) => {
-                    if (dial.hands.seconds) {
-                        dial.rotateHands();
-                    }
-                });
-            } else {
+            if (!isSameMinute(oldDate, this.settings.now)) {
                 // If the minute has changed, update the dependant complications
                 if (this.repeater) this.repeater.now = this.settings.now;
 
                 this.dials?.forEach((dial) => {
-                    dial.settings.now = dial.options.date || this.settings.now;
-                    if (dial.options.hands.minutes || dial.options.hands.hours) {
-                        dial.rotateHands({ minutes: true, hours: true });
-                    }
+                    dial.rotateHands({
+                        minutes: !!dial.options.hands.minutes,
+                        hours: !!dial.options.hands.hours,
+                    });
                 });
             }
 
