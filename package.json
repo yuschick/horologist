@@ -17,8 +17,7 @@
         "prettier": "prettier ./ --check",
         "prettier:fix": "yarn prettier -- --write",
         "format": "yarn prettier:fix && yarn lint:fix",
-        "reset": "rm -rf node_modules */**/node_modules yarn.lock && yarn",
-        "postinstall": "yarn workspace horologist build"
+        "reset": "rm -rf node_modules */**/node_modules yarn.lock && yarn"
     },
     "author": "Daniel Yuschick <daniel.yuschick@gmail.com>",
     "license": "UNLICENSED",
@@ -45,5 +44,7 @@
         "prettier-eslint": "^15.0.1",
         "prettier": "^2.7.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "horologist": "^1.1.1"
+    }
 }
