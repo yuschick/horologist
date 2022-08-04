@@ -3,6 +3,6 @@ require('esbuild').buildSync({
     bundle: true,
     minify: true,
     outdir: '_site/js',
-    external: [],
+    external: ['horologist'],
     format: 'esm',
 });
