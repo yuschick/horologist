@@ -1,0 +1,66 @@
+{
+    "name": "horologist-docs",
+    "version": "1.0.0",
+    "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
+    "scripts": {
+        "clean": "rimraf _site",
+        "build": "npm-run-all clean build:ts build:11ty",
+        "build:11ty": "eleventy --quiet",
+        "build:ts": "node esbuild.config.js && tsc",
+        "dev": "NODE_ENV=dev npm-run-all clean build:ts -p watch:* -- --watch",
+        "watch:11ty": "eleventy --serve --quiet",
+        "watch:ts": "yarn build:ts --watch"
+    },
+    "author": "Daniel Yuschick <daniel.yuschick@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yuschick/horologist.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yuschick/horologist/issues"
+    },
+    "homepage": "https://github.com/yuschick/horologist",
+    "keywords": [
+        "ticktock",
+        "ticktock-js",
+        "svg",
+        "animation",
+        "watchmaking",
+        "horologist",
+        "horology",
+        "haute",
+        "typescript",
+        "javascript"
+    ],
+    "devDependencies": {
+        "@11ty/eleventy": "^1.0.1",
+        "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "@organicss/scss": "^1.1.2",
+        "@types/jest": "^28.1.6",
+        "autoprefixer": "^10.4.7",
+        "cssnano": "^5.1.12",
+        "eleventy-sass": "^1.3.1",
+        "esbuild": "^0.14.49",
+        "eslint": "^8.19.0",
+        "eslint-config-prettier": "^8.5.0",
+        "husky": "^8.0.1",
+        "jest": "^28.1.3",
+        "jest-environment-jsdom": "^28.1.3",
+        "lint-staged": "^13.0.3",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.14",
+        "prettier": "^2.7.1",
+        "prettier-eslint": "^15.0.1",
+        "prettier-eslint-cli": "^6.0.1",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^28.0.7",
+        "typescript": "^4.7.4"
+    },
+    "dependencies": {
+        "@11ty/eleventy": "^1.0.1",
+        "horologist": "^1.1.1"
+    }
+}

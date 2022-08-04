@@ -1,0 +1,23 @@
+code {
+    @include layout($maxInlineSize: calc(100vw - var(--h-space-base-8x) * 2.5));
+    @include padding($block: var(--h-space-base-3x));
+
+    background: var(--h-color-aux-50);
+    color: var(--h-color-aux-950);
+    font-family: var(--h-font-mono);
+}
+
+pre {
+    @include layout($maxInlineSize: calc(100vw - var(--h-space-base-8x) * 2.5));
+    @include margin($block: var(--h-space-base-6x));
+    @include padding($block: var(--h-space-base-6x));
+
+    background: var(--h-color-aux-50);
+    font-family: var(--h-font-mono);
+    overflow: auto;
+
+    code {
+        @include layout($maxInlineSize: unset);
+        padding: 0;
+    }
+}
