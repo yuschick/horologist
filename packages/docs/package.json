@@ -60,6 +60,6 @@
         "typescript": "^4.7.4"
     },
     "dependencies": {
-        "horologist": "workspace:^1.1.1"
+        "horologist": "^1.1.1"
     }
 }
