@@ -38,6 +38,7 @@
         "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
+        "@orchidjs/eleventy-plugin-ids": "^0.1.1",
         "@organicss/scss": "^1.1.2",
         "@types/jest": "^28.1.6",
         "autoprefixer": "^10.4.7",

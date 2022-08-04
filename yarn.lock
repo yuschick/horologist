@@ -845,6 +845,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@orchidjs/eleventy-plugin-ids@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@orchidjs/eleventy-plugin-ids/-/eleventy-plugin-ids-0.1.1.tgz#311091923aa221526e39fe35206fd1b210969b98"
+  integrity sha512-QXpL50TRa9bwS6gk2OHRK0qhMgrn3RdYf5ut1vX1C60vLAnsYal9Spq4u+dlI9zeOy33hFW3MgBk1qfPujXnNA==
+  dependencies:
+    jsdom "^18.0.1"
+
 "@organicss/scss@^1.1.2":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@organicss/scss/-/scss-1.2.0.tgz#6b3d6f27a4fb6d5da401a2ace2662054903c8610"
@@ -4373,6 +4380,39 @@ js-yaml@^4.1.0:
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
   dependencies:
     argparse "^2.0.1"
+
+jsdom@^18.0.1:
+  version "18.1.1"
+  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-18.1.1.tgz#15ec896f5ab7df9669a62375606f47c8c09551aa"
+  integrity sha512-NmJQbjQ/gpS/1at/ce3nCx89HbXL/f5OcenBe8wU1Eik0ROhyUc3LtmG3567dEHAGXkN8rmILW/qtCOPxPHQJw==
+  dependencies:
+    abab "^2.0.5"
+    acorn "^8.5.0"
+    acorn-globals "^6.0.0"
+    cssom "^0.5.0"
+    cssstyle "^2.3.0"
+    data-urls "^3.0.1"
+    decimal.js "^10.3.1"
+    domexception "^4.0.0"
+    escodegen "^2.0.0"
+    form-data "^4.0.0"
+    html-encoding-sniffer "^3.0.0"
+    http-proxy-agent "^5.0.0"
+    https-proxy-agent "^5.0.0"
+    is-potential-custom-element-name "^1.0.1"
+    nwsapi "^2.2.0"
+    parse5 "6.0.1"
+    saxes "^5.0.1"
+    symbol-tree "^3.2.4"
+    tough-cookie "^4.0.0"
+    w3c-hr-time "^1.0.2"
+    w3c-xmlserializer "^3.0.0"
+    webidl-conversions "^7.0.0"
+    whatwg-encoding "^2.0.0"
+    whatwg-mimetype "^3.0.0"
+    whatwg-url "^10.0.0"
+    ws "^8.2.3"
+    xml-name-validator "^4.0.0"
 
 jsdom@^19.0.0:
   version "19.0.0"
