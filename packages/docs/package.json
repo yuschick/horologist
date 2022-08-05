@@ -4,6 +4,7 @@
     "description": "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
     "scripts": {
         "clean": "rimraf _site",
+        "prebuild": "cd ../horologist && yarn build",
         "build": "npm-run-all clean build:ts build:11ty",
         "build:11ty": "eleventy --quiet",
         "build:ts": "node esbuild.config.js && tsc",
