@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/assets/logo-horologist.svg" alt="Horologist Logo - Making digital time mechanical" width="500" />
+  <img src="/assets/horologist-repo-image.jpg" alt="Horologist Logo - Making digital time mechanical" />
 </p>
 
 Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as
