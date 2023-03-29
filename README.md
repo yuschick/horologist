@@ -9,15 +9,14 @@ time zones, perpetual calendars and more.
 
 ![Horologist License](https://img.shields.io/github/license/yuschick/horologist?style=for-the-badge)
 ![NPM Version](https://img.shields.io/npm/v/horologist?style=for-the-badge)
-![Github Build Status](https://img.shields.io/github/workflow/status/yuschick/Horologist/horologist-ci?style=for-the-badge)
 
 ## Demos
 
 See the Horologist library in action.
 
 -   [A. Lange & Söhne - Datograph Perpetual Tourbillon](https://codepen.io/DanielYuschick/pen/gOemjmY)
--   [A. Lange & Söhne - Zeitwerk](https://codepen.io/DanielYuschick/pen/QyoPoq)
--   [F.P. Journe - Tourbillon](https://codepen.io/DanielYuschick/pen/yYeRPm)
+-   [A. Lange & Söhne - Zeitwerk](https://codepen.io/DanielYuschick/pen/yYeRPm)
+-   [F.P. Journe - Tourbillon](https://codepen.io/DanielYuschick/pen/QyoPoq)
 -   [Kari Voutilainen - GMR](https://codepen.io/DanielYuschick/pen/wvmJMEX)
 -   [Speake-Marin - Velsheda](https://codepen.io/DanielYuschick/pen/ZYLdmQ)
 
