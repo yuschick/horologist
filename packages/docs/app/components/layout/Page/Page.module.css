@@ -1,45 +1,45 @@
 .page-wrapper {
-  display: grid;
-  grid-template-areas: "header header header" "nav main subNav";
-  grid-template-columns: max-content minmax(0, 1fr) max-content;
-  gap: var(--h-space-base-4);
-  align-items: start;
-  min-block-size: 100%;
-  max-inline-size: 1400px;
-  margin-inline: auto;
+    display: grid;
+    grid-template-areas: 'header header header' 'nav main subNav';
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    gap: var(--h-space-base-4);
+    align-items: start;
+    min-block-size: 100%;
+    max-inline-size: 1400px;
+    margin-inline: auto;
 }
 
 .page-header {
-  position: sticky;
-  display: flex;
-  flex-wrap: wrap;
-  grid-area: header;
-  gap: var(--h-space-base-4);
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--h-space-base-4) 0;
-  inset-block-start: 0;
-  backdrop-filter: blur(10px);
+    position: sticky;
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: header;
+    gap: var(--h-space-base-4);
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--h-space-base-4) 0;
+    inset-block-start: 0;
+    backdrop-filter: blur(10px);
 }
 
 .page-header-logo {
-  inline-size: min(348px, 100%);
-  contain: layout;
+    inline-size: min(300px, 100%);
+    contain: layout;
 }
 
 .page-navigation {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--h-space-base-4);
-  align-items: center;
-  font-weight: var(--h-font-weight-300);
-  font-size: var(--h-font-size-0);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--h-space-base-4);
+    align-items: center;
+    font-weight: var(--h-font-weight-300);
+    font-size: var(--h-font-size-0);
 
-  a[aria-current="page"] {
-    font-weight: var(--h-font-weight-500);
-    text-decoration: underline;
-    text-decoration-color: var(--h-color-brand-primary);
-    text-decoration-thickness: 3px;
-    text-underline-offset: 8px;
-  }
+    a[aria-current='page'] {
+        font-weight: var(--h-font-weight-500);
+        text-decoration: underline;
+        text-decoration-color: var(--h-color-brand-primary);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 8px;
+    }
 }
