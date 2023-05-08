@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    padding: min(var(--h-space-base-4), 4vw);
+    padding: 0 min(var(--h-space-base-4), 4vw);
     overflow-x: hidden;
     color: var(--h-color-aux-950);
     font-size: var(--h-font-size-base-unit);

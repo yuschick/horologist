@@ -1,16 +1,19 @@
 .page-wrapper {
+    --page-header-size: 69px;
+
     display: grid;
+    grid-template: var(--page-header-size, max-content) 1fr / max-content minmax(0, 1fr) max-content;
     grid-template-areas: 'header header header' 'nav main subNav';
-    grid-template-columns: max-content minmax(0, 1fr) max-content;
     gap: var(--h-space-base-4);
     align-items: start;
-    min-block-size: 100%;
+    min-block-size: 100vb;
     max-inline-size: 1400px;
     margin-inline: auto;
 }
 
 .page-header {
     position: sticky;
+    z-index: 1;
     display: flex;
     flex-wrap: wrap;
     grid-area: header;
@@ -18,8 +21,8 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--h-space-base-4) 0;
+    backdrop-filter: blur(20px);
     inset-block-start: 0;
-    backdrop-filter: blur(10px);
 }
 
 .page-header-logo {
