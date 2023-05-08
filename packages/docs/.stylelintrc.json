@@ -22,6 +22,7 @@
             true,
             { "ignore": ["overflow-x", "overflow-y"] }
         ],
-        "plugin/use-logical-units": [true]
+        "plugin/use-logical-units": [true],
+        "property-no-unknown": [true, { "ignoreProperties": ["text-stroke"] }]
     }
 }

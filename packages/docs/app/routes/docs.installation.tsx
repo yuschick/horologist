@@ -1,10 +1,9 @@
 import type { V2_MetaFunction } from '@remix-run/node';
-import { Page } from '~/components/layout/Page';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = () => {
     return [
-        { title: 'Horologist' },
+        { title: 'Installation - Docs - Horologist' },
         {
             description:
                 "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
@@ -12,12 +11,6 @@ export const meta: V2_MetaFunction = () => {
     ];
 };
 
-export default function Index() {
-    return (
-        <Page>
-            <div />
-            <p>Home page</p>
-            <div />
-        </Page>
-    );
+export default function DocsInstallation() {
+    return <p>Installing Horologist</p>;
 }

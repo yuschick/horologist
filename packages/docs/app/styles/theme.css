@@ -11,6 +11,7 @@
     --h-color-aux-900: rgb(223 223 226);
     --h-color-aux-950: rgb(242 239 233);
     --h-color-brand-primary: rgb(242 81 36);
+    --h-color-brand-primary-50: rgba(242 81 36 / 50%);
     --h-color-brand-secondary: rgb(18 18 18);
 
     @supports (color: lch(0% 100 240)) {
@@ -26,6 +27,7 @@
         --h-color-aux-900: lch(88.889% 1.527 285.353deg);
         --h-color-aux-950: lch(94.557% 3.294 85.372deg);
         --h-color-brand-primary: lch(57.81% 84.999 43.861deg);
+        --h-color-brand-primary-50: lch(57.81% 84.999 43.861deg / 50%);
         --h-color-brand-secondary: lch(5.464% 0 139.088deg);
     }
 

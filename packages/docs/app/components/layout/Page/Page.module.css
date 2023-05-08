@@ -1,10 +1,11 @@
 .page-wrapper {
     --page-header-size: 69px;
+    --page-wrapper-gap: var(--h-space-base-4);
 
     display: grid;
     grid-template: var(--page-header-size, max-content) 1fr / max-content minmax(0, 1fr) max-content;
     grid-template-areas: 'header header header' 'nav main subNav';
-    gap: var(--h-space-base-4);
+    gap: var(--page-wrapper-gap, var(--h-space-base-4));
     align-items: start;
     min-block-size: 100vb;
     max-inline-size: 1400px;
@@ -44,5 +45,10 @@
         text-decoration-color: var(--h-color-brand-primary);
         text-decoration-thickness: 3px;
         text-underline-offset: 8px;
+    }
+
+    a:not([aria-current='page']):hover {
+        -webkit-text-stroke: 0.5px currentcolor;
+        text-stroke: 0.5px currentcolor;
     }
 }

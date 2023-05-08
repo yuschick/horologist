@@ -1,6 +1,8 @@
 .navigation-sidebar {
     position: sticky;
-    block-size: calc(100vb - var(--page-header-size, 0));
+    block-size: calc(
+        100vb - var(--page-header-size, 0) - var(--page-wrapper-gap, var(--h-space-base-4))
+    );
     border-inline-end: 2px solid var(--h-color-brand-primary);
     inline-size: clamp(250px, 30vi, 300px);
     grid-area: nav;

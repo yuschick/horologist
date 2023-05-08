@@ -1,0 +1,22 @@
+.navigation-heading {
+    text-transform: uppercase;
+}
+
+.navigation-list li {
+    padding-inline-start: var(--h-space-base-4);
+    padding-block: var(--h-space-base-half);
+    font-weight: var(--h-font-weight-300);
+
+    &:has([aria-current='page']) {
+        font-weight: var(--h-font-weight-500);
+        background-color: var(--h-color-brand-primary-50);
+    }
+
+    &:not(:has([aria-current='page'])):hover {
+        background-color: var(--h-color-aux-100);
+    }
+}
+
+.navigation-list a {
+    display: block;
+}
