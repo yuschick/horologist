@@ -1,0 +1,25 @@
+@font-face {
+  font-weight: 300 700;
+  font-family: "Horologist Primary";
+  font-style: normal;
+  src: url("/fonts/montserrat-variable.woff2") format("woff2"),
+    url("/fonts/montserrat-variable.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 300 700;
+  font-family: "Horologist Secondary";
+  font-style: normal;
+  src: url("/fonts/baloo-da-variable.woff2") format("woff2"),
+    url("/fonts/baloo-da-variable.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: "Fira Mono";
+  font-style: normal;
+  src: url("/fonts/fira-mono-regular.woff") format("woff");
+  font-display: swap;
+}
