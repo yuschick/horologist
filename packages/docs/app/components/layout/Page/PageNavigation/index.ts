@@ -1,1 +1,1 @@
-export { PageNavigation } from "./PageNavigation";
+export { PageNavigation } from './PageNavigation';

@@ -1,16 +1,16 @@
 .with-lines-limit {
-  display: -webkit-box;
-  -webkit-line-clamp: var(--lines, "inherit");
-  -webkit-box-orient: block-axis;
-  overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--lines, 'inherit');
+    -webkit-box-orient: block-axis;
+    overflow: hidden;
 }
 
 .is-truncated {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-inline-size: 100%;
-  inline-size: var(--truncate, var(--h-max-content-length));
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-inline-size: 100%;
+    inline-size: var(--truncate, var(--h-max-content-length));
 }
 
 /*
@@ -18,5 +18,5 @@ Only block-level elements can be truncated.
 Force this display mode on inline elements to allow truncation.
 */
 .with-display {
-  display: inline-block;
+    display: inline-block;
 }

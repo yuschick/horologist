@@ -1,0 +1,9 @@
+.navigation-sidebar {
+    position: sticky;
+    block-size: calc(100vb - var(--page-header-size, 0));
+    border-inline-end: 2px solid var(--h-color-brand-primary);
+    inline-size: clamp(250px, 30vi, 300px);
+    grid-area: nav;
+    align-self: start;
+    inset-block-start: var(--page-header-size, 0);
+}
