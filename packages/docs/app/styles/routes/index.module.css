@@ -1,3 +1,9 @@
+.navigation-section {
+    & + & {
+        margin-block-start: var(--h-space-base-6);
+    }
+}
+
 .navigation-heading {
     text-transform: uppercase;
 }
@@ -14,6 +20,22 @@
 
     &:not(:has([aria-current='page'])):hover {
         background-color: var(--h-color-aux-100);
+    }
+
+    @supports not selector(:has(*)) {
+        a {
+            margin-inline-start: calc(var(--h-space-base-4) * -1);
+            padding-inline-start: var(--h-space-base-4);
+        }
+
+        a[aria-current='page'] {
+            font-weight: var(--h-font-weight-500);
+            background-color: var(--h-color-brand-primary-50);
+        }
+
+        &:not(a[aria-current='page']):hover {
+            background-color: var(--h-color-aux-100);
+        }
     }
 }
 

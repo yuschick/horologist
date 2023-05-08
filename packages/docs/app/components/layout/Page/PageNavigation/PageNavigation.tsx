@@ -4,8 +4,8 @@ import { Link } from '~/components/navigation/Link';
 
 export function PageNavigation() {
     return (
-        <nav title="Main navigation">
-            <ul className={styles['page-navigation']} title="Introduction navigation">
+        <nav title="Main">
+            <ul className={styles['page-navigation']}>
                 <li>
                     <NavLink to="/docs" data-text="Docs">
                         Docs
