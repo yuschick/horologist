@@ -7,7 +7,7 @@ import globalStylesUrl from '~/styles/global.css';
 
 export const links: LinksFunction = () => {
     return [
-        { rel: 'icon', href: 'images/icon-horologist-100.svg' },
+        { rel: 'icon', href: '/images/icon-horologist-100.svg' },
         { rel: 'stylesheet', href: globalResetsUrl },
         { rel: 'stylesheet', href: globalStylesUrl },
         ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
