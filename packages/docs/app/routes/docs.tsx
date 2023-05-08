@@ -13,7 +13,7 @@ export default function Docs() {
                 <nav className={styles['navigation-section']} title="Introduction">
                     <Text
                         className={styles['navigation-heading']}
-                        tx={{ color: 'brand-primary', family: 'secondary', weight: '700' }}
+                        tx={{ color: 'brand-primary', family: 'secondary', weight: '500' }}
                     >
                         Introduction
                     </Text>
@@ -35,7 +35,7 @@ export default function Docs() {
                 <nav className={styles['navigation-section']} title="Complications">
                     <Text
                         className={styles['navigation-heading']}
-                        tx={{ color: 'brand-primary', family: 'secondary', weight: '700' }}
+                        tx={{ color: 'brand-primary', family: 'secondary', weight: '500' }}
                     >
                         Complications
                     </Text>

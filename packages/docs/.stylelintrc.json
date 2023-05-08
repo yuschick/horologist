@@ -23,6 +23,7 @@
             { "ignore": ["overflow-x", "overflow-y"] }
         ],
         "plugin/use-logical-units": [true],
-        "property-no-unknown": [true, { "ignoreProperties": ["text-stroke"] }]
+        "property-no-unknown": [true, { "ignoreProperties": ["text-stroke"] }],
+        "value-keyword-case": ["lower", { "ignoreKeywords": ["currentColor"] }]
     }
 }
