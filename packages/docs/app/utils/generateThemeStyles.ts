@@ -36,7 +36,7 @@ function generateSpacingStyles(spacing: SpaceOptions, type: 'margin' | 'padding'
 export function generateThemeStyles({ tx }: TX): CSSProperties {
     return {
         color: tx?.color ? `var(--h-color-${tx.color})` : undefined,
-        fontFamily: tx?.family ? `var(--h-color-${tx.family})` : undefined,
+        fontFamily: tx?.family ? `var(--h-font-family-${tx.family})` : undefined,
         fontSize: tx?.size ? `var(--h-font-size-${tx.size})` : undefined,
         fontWeight: tx?.weight ? `var(--h-font-weight-${tx.weight})` : undefined,
         ...(tx?.margin && generateSpacingStyles(tx.margin, 'margin')),

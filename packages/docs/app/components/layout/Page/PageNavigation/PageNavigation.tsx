@@ -5,15 +5,21 @@ import { Link } from '~/components/navigation/Link';
 export function PageNavigation() {
     return (
         <nav title="Main navigation">
-            <ul className={styles['page-navigation']}>
+            <ul className={styles['page-navigation']} title="Introduction navigation">
                 <li>
-                    <NavLink to="/">Docs</NavLink>
+                    <NavLink to="/docs" data-text="Docs">
+                        Docs
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/showcase">Showcase</NavLink>
+                    <NavLink to="/showcase" data-text="Showcase">
+                        Showcase
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="https://github.com/yuschick/horologist">GitHub</Link>
+                    <Link to="https://github.com/yuschick/horologist" data-text="GitHub">
+                        GitHub
+                    </Link>
                 </li>
             </ul>
         </nav>
