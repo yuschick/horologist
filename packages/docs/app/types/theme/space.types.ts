@@ -1,21 +1,21 @@
-import type { Space } from "./theme.types";
+import type { Space } from './theme.types';
 
 export type Spacing = Padding & Margin;
 
 export type Padding = {
-  padding?: SpaceOptions;
+    padding?: SpaceOptions;
 };
 
 export type Margin = {
-  margin?: SpaceOptions;
+    margin?: SpaceOptions;
 };
 
 export type SpaceOptions = {
-  block?: Space | [Space, Space];
-  blockEnd?: Space;
-  blockStart?: Space;
-  inline?: Space | [Space, Space];
-  inlineEnd?: Space;
-  inlineStart?: Space;
-  all?: Space | [Space, Space?, Space?, Space?];
+    block?: Space | [Space, Space];
+    blockEnd?: Space;
+    blockStart?: Space;
+    inline?: Space | [Space, Space];
+    inlineEnd?: Space;
+    inlineStart?: Space;
+    all?: Space | [Space, Space?, Space?, Space?];
 };
