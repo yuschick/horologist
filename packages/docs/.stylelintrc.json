@@ -1,0 +1,27 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-rational-order"],
+  "plugins": ["stylelint-plugin-logical-css", "stylelint-plugin-defensive-css"],
+
+  "rules": {
+    "plugin/use-defensive-css": [
+      true,
+      {
+        "background-repeat": true,
+        "custom-property-fallbacks": [
+          true,
+          {
+            "ignore": ["h-"]
+          }
+        ],
+        "flex-wrapping": true,
+        "vendor-prefix-grouping": true
+      }
+    ],
+
+    "plugin/use-logical-properties-and-values": [
+      true,
+      { "ignore": ["overflow-x", "overflow-y"] }
+    ],
+    "plugin/use-logical-units": [true]
+  }
+}
