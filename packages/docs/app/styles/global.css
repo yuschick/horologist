@@ -72,8 +72,7 @@ body {
 }
 
 *:focus-visible {
-    outline-width: 0.15em;
-    outline-color: currentcolor;
+    outline: 0.15em solid currentcolor;
     outline-offset: 0.15em;
 }
 
