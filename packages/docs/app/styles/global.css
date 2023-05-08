@@ -46,7 +46,7 @@ body {
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
-    font-weight: 500;
+    font-weight: 400;
     font-family: var(--h-font-family-secondary);
     line-height: 1.25;
 }
@@ -69,6 +69,10 @@ body {
 
 :where(ul, ol) {
     list-style-position: inside;
+}
+
+:where(main) {
+    padding-inline: var(--h-space-base-8);
 }
 
 *:focus-visible {

@@ -1,4 +1,5 @@
 import type { V2_MetaFunction } from '@remix-run/node';
+import { Heading } from '~/components/typography/Heading/Heading';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = () => {
@@ -6,5 +7,5 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export default function DocsAboutHorologist() {
-    return <p>About Horologist</p>;
+    return <Heading>What is Horologist?</Heading>;
 }
