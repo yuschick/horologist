@@ -3,13 +3,7 @@ import { Page } from '~/components/layout/Page';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = () => {
-    return [
-        { title: 'Horologist' },
-        {
-            description:
-                "Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as many of the world's greatest haute horologist watchmakers",
-        },
-    ];
+    return [{ title: 'Horologist' }];
 };
 
 export default function Index() {
