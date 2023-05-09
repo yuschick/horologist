@@ -51,19 +51,25 @@ body {
     line-height: 1.25;
 }
 
-:where(h1) {
+:where(h1),
+.as-h1 {
     font-size: var(--h-font-size-5);
 }
 
-:where(h2) {
+:where(h2),
+.as-h2 {
     font-size: var(--h-font-size-3);
 }
 
-:where(h3) {
+:where(h3),
+.as-h3 {
     font-size: var(--h-font-size-2);
 }
 
-:where(h4, h5, h6) {
+:where(h4, h5, h6),
+.as-h4,
+.as-h5,
+.as-h6 {
     font-size: var(--h-font-size-1);
 }
 
