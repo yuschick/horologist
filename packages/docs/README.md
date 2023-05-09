@@ -80,4 +80,3 @@ netlify deploy --build --prod
 
 -   add import sorting
 -   look into css nano or class name minimizing
--   skip to main content link

@@ -49,7 +49,6 @@ body {
     font-weight: 400;
     font-family: var(--h-font-family-secondary);
     line-height: 1.25;
-    scroll-margin-block-start: var(--h-space-base-2);
 }
 
 :where(h1),

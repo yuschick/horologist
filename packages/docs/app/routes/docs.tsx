@@ -89,7 +89,7 @@ export default function Docs() {
                     </ul>
                 </nav>
             </NavigationSidebar>
-            <main>
+            <main id="main-content">
                 <Outlet />
             </main>
             <aside>sub nav</aside>
