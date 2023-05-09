@@ -1,5 +1,6 @@
 import type { V2_MetaFunction } from '@remix-run/node';
 import { useParams } from '@remix-run/react';
+import { CodeBlock } from '~/components/content/CodeBlock';
 import { Callout } from '~/components/feedback/Callout';
 import { Heading } from '~/components/typography/Heading';
 import { Text } from '~/components/typography/Text';
@@ -89,9 +90,8 @@ export default function DocsComplications() {
             <Heading as="h2" id="settings" isJumpToHeading>
                 Settings
             </Heading>
-            <code>
-                <pre>
-                    {`date: {
+            <CodeBlock>
+                {`date: {
     id: string;
     retrograde?: {
         max: number;
@@ -102,8 +102,7 @@ export default function DocsComplications() {
         tenths: string;
     };
 }`}
-                </pre>
-            </code>
+            </CodeBlock>
 
             <Heading as="h3" id="settings-id" isJumpToHeading>
                 <code>id</code>

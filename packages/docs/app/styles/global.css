@@ -17,12 +17,18 @@ body {
     font-size: var(--h-font-size-base-unit);
     font-family: var(--h-font-family-primary);
     line-height: 1.65;
-    background: var(--h-color-aux-50);
-    background: radial-gradient(circle, var(--h-color-aux-100) 0%, var(--h-color-aux-50) 100%);
+    background: var(--h-color-aux-75);
+    background: radial-gradient(circle, var(--h-color-aux-75) 0%, var(--h-color-aux-50) 100%);
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     accent-color: var(--h-color-brand-primary);
     min-block-size: 100vb;
+}
+
+:where(code) {
+    display: inline-block;
+    padding: var(--h-space-base-2) var(--h-space-base-4);
+    background-color: var(--h-color-aux-100);
 }
 
 :where(img, picture, video, canvas) {
