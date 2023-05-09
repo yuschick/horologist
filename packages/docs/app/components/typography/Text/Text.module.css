@@ -20,23 +20,3 @@ Force this display mode on inline elements to allow truncation.
 .with-display {
     display: inline-block;
 }
-
-.is-jump-to-heading {
-    position: relative;
-}
-
-.can-be-copied-link {
-    position: absolute;
-    inline-size: 100%;
-    block-size: 1em;
-    inset-inline-start: 0;
-    inset-block-start: 0;
-
-    &:hover > span::before {
-        position: absolute;
-        color: currentColor;
-        font-size: 0.75em;
-        content: '#';
-        inset-inline-start: -0.7em;
-    }
-}

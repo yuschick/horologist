@@ -1,7 +1,8 @@
 import { generateThemeStyles } from '~/utils/generateThemeStyles';
 import classNames from 'classnames';
 
-import styles from '../Text/Text.module.css';
+import headingStyles from './Heading.module.css';
+import textStyles from '../Text/Text.module.css';
 import type { HeadingProps } from './Heading.types';
 import { Link } from '~/components/navigation/Link';
 import { Text } from '../Text';
@@ -23,9 +24,9 @@ export function Heading({
     return (
         <Element
             className={classNames(className, {
-                [styles['is-jump-to-heading']]: isJumpToHeading,
-                [styles['is-truncated']]: truncate,
-                [styles['with-lines-limit']]: lines,
+                [headingStyles['is-jump-to-heading']]: isJumpToHeading,
+                [textStyles['is-truncated']]: truncate,
+                [textStyles['with-lines-limit']]: lines,
             })}
             style={{
                 ...style,
@@ -38,7 +39,7 @@ export function Heading({
             {isJumpToHeading && (
                 <Link
                     aria-hidden="true"
-                    className={styles['can-be-copied-link']}
+                    className={headingStyles['can-be-copied-link']}
                     tabIndex={-1}
                     to={`./#${id}`}
                 >
