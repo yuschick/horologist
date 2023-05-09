@@ -5,7 +5,6 @@ import styles from '../Text/Text.module.css';
 import type { HeadingProps } from './Heading.types';
 import { Link } from '~/components/navigation/Link';
 import { Text } from '../Text';
-import { stringToKebab } from '~/utils/stringToKebab';
 
 export function Heading({
     appearAs,
@@ -13,13 +12,13 @@ export function Heading({
     isJumpToHeading,
     children,
     className,
+    id,
     lines,
     truncate,
     tx,
     ...htmlAttributes
 }: HeadingProps) {
     const style = tx && generateThemeStyles({ tx });
-    const headingSlug = children && stringToKebab(children.toString());
 
     return (
         <Element
@@ -28,7 +27,6 @@ export function Heading({
                 [styles['is-truncated']]: truncate,
                 [styles['with-lines-limit']]: lines,
             })}
-            {...(headingSlug ? { id: headingSlug } : {})}
             style={{
                 ...style,
                 ...(lines ? { '--lines': lines } : {}),
@@ -42,7 +40,7 @@ export function Heading({
                     aria-hidden="true"
                     className={styles['can-be-copied-link']}
                     tabIndex={-1}
-                    to={`./#${headingSlug}`}
+                    to={`./#${id}`}
                 >
                     <Text />
                 </Link>

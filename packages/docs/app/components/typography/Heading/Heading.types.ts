@@ -10,7 +10,6 @@ interface HeadingPropsBase
         As<HeadingElement>,
         TX {
     appearAs?: HeadingElement;
-    isJumpToHeading?: boolean;
 }
 
 /* Styles for `truncate` and `lines` conflict, so the features cannot be used simultaneously.  */
@@ -24,4 +23,17 @@ interface HeadingPropsWithLines extends HeadingPropsBase {
     truncate?: never;
 }
 
-export type HeadingProps = HeadingPropsWithTruncate | HeadingPropsWithLines;
+/* Jump Headings require an id */
+interface JumpToHeadingProps extends HeadingPropsBase {
+    isJumpToHeading: boolean;
+    id: string;
+}
+
+interface NoJumpToHeadingProps extends HeadingPropsBase {
+    isJumpToHeading?: never;
+    id?: string;
+}
+
+export type HeadingProps =
+    | (HeadingPropsWithTruncate | HeadingPropsWithLines) &
+          (JumpToHeadingProps | NoJumpToHeadingProps);
