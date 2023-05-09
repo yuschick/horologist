@@ -1,0 +1,12 @@
+.callout-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: var(--h-space-base-4);
+    background-color: var(--h-color-aux-50);
+    border-inline-start: 12px solid var(--callout-type-color, var(--h-color-status-neutral));
+
+    em {
+        font-style: italic;
+    }
+}

@@ -28,6 +28,7 @@ export function Heading({
                 [textStyles['is-truncated']]: truncate,
                 [textStyles['with-lines-limit']]: lines,
             })}
+            id={id}
             style={{
                 ...style,
                 ...(lines ? { '--lines': lines } : {}),

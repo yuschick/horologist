@@ -1,0 +1,11 @@
+.codeblock {
+    margin: 0;
+
+    > code {
+        display: block;
+    }
+
+    @media speech {
+        speak: literal-punctuation;
+    }
+}

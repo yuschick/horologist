@@ -4,6 +4,7 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@re
 
 import globalResetsUrl from 'the-new-css-reset/css/reset.css';
 import globalStylesUrl from '~/styles/global.css';
+import { SkipLink } from './components/navigation/SkipLink';
 
 export const links: LinksFunction = () => {
     return [
@@ -28,6 +29,7 @@ export default function App() {
                 <Links />
             </head>
             <body>
+                <SkipLink />
                 <Outlet />
                 <ScrollRestoration />
                 <Scripts />
