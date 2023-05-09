@@ -1,6 +1,6 @@
 import type { V2_MetaFunction } from '@remix-run/node';
 import { Params, useParams } from '@remix-run/react';
-import { Heading } from '~/components/typography/Heading/Heading';
+import { Heading } from '~/components/typography/Heading';
 import { Text } from '~/components/typography/Text';
 import { kebabToTitle } from '~/utils/stringUtils';
 
