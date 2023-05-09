@@ -12,7 +12,10 @@
     --h-color-aux-950: rgb(242 239 233);
     --h-color-brand-primary: rgb(242 81 36);
     --h-color-brand-primary-50: rgba(242 81 36 / 50%);
-    --h-color-brand-secondary: rgb(255 174 3);
+    --h-color-status-alert: rgb(255 174 3);
+    --h-color-status-neutral: rgb(161 190 207);
+    --h-color-status-success: rgb(104 148 76);
+    --h-color-status-warning: rgb(163 22 33);
 
     @supports (color: lch(0% 100 240)) {
         --h-color-aux-100: lch(10.862% 2.147 285.827deg);
@@ -28,7 +31,10 @@
         --h-color-aux-950: lch(94.557% 3.294 85.372deg);
         --h-color-brand-primary: lch(57.81% 84.999 43.861deg);
         --h-color-brand-primary-50: lch(57.81% 84.999 43.861deg / 50%);
-        --h-color-brand-secondary: lch(77.637% 83.282 73.923deg);
+        --h-color-status-alert: lch(77.637% 83.282 73.923deg);
+        --h-color-status-neutral: lch(75.218% 14.111 238.501deg);
+        --h-color-status-success: lch(56.829% 41.664 128.027deg);
+        --h-color-status-warning: lch(35.628% 64.938 32.057deg);
     }
 
     --h-font-family-mono: 'Fira Mono', monospace;
