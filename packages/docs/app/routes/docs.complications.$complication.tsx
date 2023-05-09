@@ -111,7 +111,7 @@ export default function DocsComplications() {
             <Callout message="* An id prop is not compatible with split displays." type="alert" />
             <Text as="p">The id of the date indicator DOM element.</Text>
 
-            <Heading as="h3" id="settings-id" isJumpToHeading>
+            <Heading as="h3" id="settings-retrograde" isJumpToHeading>
                 <code>retrograde</code>
             </Heading>
             <Callout
@@ -120,7 +120,7 @@ export default function DocsComplications() {
             />
             <Text as="p">The id of the retrograde indicator DOM element.</Text>
 
-            <Heading as="h3" id="settings-id" isJumpToHeading>
+            <Heading as="h3" id="settings-reverse" isJumpToHeading>
                 <code>reverse</code>
             </Heading>
             <Text as="p">
@@ -128,7 +128,7 @@ export default function DocsComplications() {
                 reverse prop to rotate the elements counter-clockwise.
             </Text>
 
-            <Heading as="h3" id="settings-id" isJumpToHeading>
+            <Heading as="h3" id="settings-split" isJumpToHeading>
                 <code>split</code>
             </Heading>
             <Callout
