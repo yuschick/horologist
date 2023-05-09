@@ -5,6 +5,7 @@ import { NavigationSidebar } from '~/components/layout/NavigationSidebar';
 import { Text } from '~/components/typography/Text';
 
 import styles from '~/styles/routes/index.module.css';
+import { Main } from '~/components/layout/Main';
 
 export default function Docs() {
     return (
@@ -89,9 +90,9 @@ export default function Docs() {
                     </ul>
                 </nav>
             </NavigationSidebar>
-            <main id="main-content">
+            <Main>
                 <Outlet />
-            </main>
+            </Main>
             <aside>sub nav</aside>
         </Page>
     );

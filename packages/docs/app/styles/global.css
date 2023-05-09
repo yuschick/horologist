@@ -85,6 +85,10 @@ body {
 
 :where(main) {
     padding-inline: var(--h-space-base-8);
+    padding-block-end: var(--h-space-base-16);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--h-space-base-12);
 }
 
 *:focus-visible {
