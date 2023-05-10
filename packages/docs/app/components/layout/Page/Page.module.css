@@ -1,6 +1,6 @@
 .page-wrapper {
     --page-header-size: 69px;
-    --page-wrapper-gap: var(--h-space-base-16);
+    --page-wrapper-gap: var(--h-space-base-8) var(--h-space-base-12);
 
     display: grid;
     grid-template: var(--page-header-size, max-content) 1fr / max-content minmax(0, 1fr) max-content;

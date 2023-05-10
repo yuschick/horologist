@@ -2,6 +2,7 @@
     overflow-x: auto;
     scroll-snap-type: both mandatory;
     max-inline-size: 100%;
+    scrollbar-width: thin;
 }
 
 .table {

@@ -7,6 +7,8 @@ import { Heading } from '~/components/typography/Heading';
 import { Text } from '~/components/typography/Text';
 import { kebabToTitle } from '~/utils/stringUtils';
 
+import styles from '~/styles/routes/docs.module.css';
+
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = ({ params }) => {
     const prettyTitle = kebabToTitle(params.complication || '');
@@ -19,7 +21,7 @@ export default function DocsComplications() {
 
     return (
         <>
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading>{prettyHeading}</Heading>
                 <Text as="p">
                     A date complication is common in the world of watchmaking, but comes in several
@@ -28,14 +30,14 @@ export default function DocsComplications() {
                 </Text>
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h2" id="demo" isJumpToHeading>
                     Demo
                 </Heading>
                 <Text>Demo code sandbox</Text>
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h2" id="how-it-works" isJumpToHeading>
                     How It Works
                 </Heading>
@@ -63,7 +65,7 @@ export default function DocsComplications() {
                 </dl>
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h2" id="design-considerations" isJumpToHeading>
                     Design Considerations
                 </Heading>
@@ -94,7 +96,7 @@ export default function DocsComplications() {
                 </ol>
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h2" id="settings" isJumpToHeading>
                     Settings
                 </Heading>
@@ -113,7 +115,7 @@ export default function DocsComplications() {
                 </CodeBlock>
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h3" id="settings-id" isJumpToHeading>
                     <code>id</code>
                 </Heading>
@@ -144,7 +146,7 @@ export default function DocsComplications() {
                 />
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h3" id="settings-retrograde" isJumpToHeading>
                     <code>retrograde</code>
                 </Heading>
@@ -182,7 +184,7 @@ export default function DocsComplications() {
                 />
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h3" id="settings-reverse" isJumpToHeading>
                     <code>reverse</code>
                 </Heading>
@@ -212,7 +214,7 @@ export default function DocsComplications() {
                 />
             </section>
 
-            <section className="content-section">
+            <section className={styles['content-section']}>
                 <Heading as="h3" id="settings-split" isJumpToHeading>
                     <code>split</code>
                 </Heading>

@@ -79,10 +79,6 @@ body {
     font-size: var(--h-font-size-1);
 }
 
-:where(ul, ol) {
-    list-style-position: inside;
-}
-
 :where(main) {
     padding-block-end: var(--h-space-base-16);
     display: flex;

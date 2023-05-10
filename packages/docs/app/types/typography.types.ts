@@ -10,7 +10,6 @@ export type TextElement =
     | 'dd'
     | 'del'
     | 'dfn'
-    | 'dl'
     | 'dt'
     | 'em'
     | 'figcaption'
@@ -38,13 +37,6 @@ export type TextElement =
     | 'var'
     | 'wbr';
 
-export const blockLevelTextElements: TextElement[] = [
-    'blockquote',
-    'dd',
-    'dl',
-    'dt',
-    'figcaption',
-    'p',
-];
+export const blockLevelTextElements: TextElement[] = ['blockquote', 'dd', 'dt', 'figcaption', 'p'];
 
 export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
