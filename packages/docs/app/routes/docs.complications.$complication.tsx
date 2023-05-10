@@ -126,7 +126,7 @@ export default function DocsComplications() {
                 <Table
                     caption="Details for the id setting"
                     columns={[
-                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'prop', heading: 'Prop', tx: { family: 'mono' } },
                         { dataKey: 'required', heading: 'Required' },
                         { dataKey: 'type', heading: 'Type' },
                         { dataKey: 'default', heading: 'Default' },
@@ -157,7 +157,7 @@ export default function DocsComplications() {
                 <Table
                     caption="Details for the retrograde setting"
                     columns={[
-                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'prop', heading: 'Prop', tx: { family: 'mono' } },
                         { dataKey: 'required', heading: 'Required' },
                         { dataKey: 'type', heading: 'Type' },
                         { dataKey: 'default', heading: 'Default' },
@@ -194,7 +194,7 @@ export default function DocsComplications() {
                 <Table
                     caption="Details for the reverse setting"
                     columns={[
-                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'prop', heading: 'Prop', tx: { family: 'mono' } },
                         { dataKey: 'required', heading: 'Required' },
                         { dataKey: 'type', heading: 'Type' },
                         { dataKey: 'default', heading: 'Default' },
