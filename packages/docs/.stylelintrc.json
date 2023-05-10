@@ -20,7 +20,7 @@
 
         "plugin/use-logical-properties-and-values": [
             true,
-            { "ignore": ["overflow-x", "overflow-y"] }
+            { "ignore": ["overflow-x", "overflow-y", "caption-side"] }
         ],
         "plugin/use-logical-units": [true],
         "property-no-unknown": [true, { "ignoreProperties": ["text-stroke"] }],
