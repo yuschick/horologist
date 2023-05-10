@@ -9,6 +9,7 @@ import { kebabToTitle } from '~/utils/stringUtils';
 
 import styles from '~/styles/routes/docs.module.css';
 import { List } from '~/components/content/List';
+import { DescriptionList } from '~/components/content/DescriptionList';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = ({ params }) => {
@@ -46,31 +47,27 @@ export default function DocsComplications() {
                     There are three display types when creating a Date Indicator complication. Each
                     type functions differently.
                 </Text>
-                <dl>
-                    <Text as="dt">Standard Displays</Text>
-                    <Text as="dd">
-                        When dates 1-31 are shown on a single disc or with a single hand.
-                    </Text>
-
-                    <Text as="dt">Retrograde Displays</Text>
-                    <Text as="dd">
-                        When dates 1-31 are shown in a single semi-circle, often 180 or 90 degrees
-                        and indicated with a single hand or disc.
-                    </Text>
-
-                    <Text as="dt">Split Displays</Text>
-                    <Text as="dd">
-                        When the date is displayed in two pieces, a ones (0-9) indicator and tenths
-                        (0-3) indicator, both rotated independently to form the full date value.
-                    </Text>
-                </dl>
+                <DescriptionList>
+                    <DescriptionList.Item
+                        description="When dates 1-31 are shown on a single disc or with a single hand."
+                        term="Standard Displays"
+                    />
+                    <DescriptionList.Item
+                        description="When dates 1-31 are shown in a single semi-circle, often 180 or 90 degrees and indicated with a single hand or disc."
+                        term="Retrograde Displays"
+                    />
+                    <DescriptionList.Item
+                        description="When the date is displayed in two pieces, a ones (0-9) indicator and tenths (0-3) indicator, both rotated independently to form the full date value."
+                        term="Split Displays"
+                    />
+                </DescriptionList>
             </section>
 
             <section className={styles['content-section']}>
                 <Heading as="h2" id="design-considerations" isJumpToHeading>
                     Design Considerations
                 </Heading>
-                <Text>
+                <Text as="p">
                     When designing a Date Indicator display to work with Horologist, there are a few
                     considerations to keep in mind.
                 </Text>
