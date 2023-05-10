@@ -8,6 +8,7 @@ import { Text } from '~/components/typography/Text';
 import { kebabToTitle } from '~/utils/stringUtils';
 
 import styles from '~/styles/routes/docs.module.css';
+import { List } from '~/components/content/List';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = ({ params }) => {
@@ -74,26 +75,26 @@ export default function DocsComplications() {
                     considerations to keep in mind.
                 </Text>
 
-                <ol>
-                    <li>
+                <List as="ol">
+                    <List.Item>
                         When dealing with a 360 display, whether a hand or a disc, the indicator
                         must be positioned at 1, the first date of the month.
-                    </li>
-                    <li>
+                    </List.Item>
+                    <List.Item>
                         When working with retrograde displays, the indicator must be positioned at
                         1, the first day of the month. The max retrograde rotation is the rotation
                         value needed to move the indicator to 31, the last date of the month.
-                    </li>
-                    <li>
+                    </List.Item>
+                    <List.Item>
                         When designing a split display, the starting position for both discs must be
                         00. The ones disc must contain values 0-9 and the tenths disc must contain
                         values 0-3 evenly spaced around 360 degrees.
-                    </li>
-                    <li>
+                    </List.Item>
+                    <List.Item>
                         Horologist does not assign any transition-origin properties. These must be
                         defined manually.
-                    </li>
-                </ol>
+                    </List.Item>
+                </List>
             </section>
 
             <section className={styles['content-section']}>

@@ -2,11 +2,11 @@ import { HTMLAttributes } from 'react';
 
 import { TX } from '~/types/theme/tx.types';
 
-export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+export interface TableProps extends Omit<HTMLAttributes<HTMLTableElement>, 'style'> {
     caption: string;
     columns: TableHeading[];
     data: TableKeys[];
-    isStriped?: true | 'odd';
+    isStriped?: boolean | 'odd';
 }
 
 type TableKeys = {
