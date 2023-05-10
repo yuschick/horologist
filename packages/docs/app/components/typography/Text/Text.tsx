@@ -18,11 +18,16 @@ export function Text({
 
     return (
         <Element
-            className={classNames(className, {
-                [styles['with-lines-limit']]: lines,
-                [styles['is-truncated']]: truncate,
-                [styles['with-display']]: truncate && !blockLevelTextElements.includes(Element),
-            })}
+            {...(className || lines || truncate
+                ? {
+                      className: classNames(className, {
+                          [styles['with-lines-limit']]: lines,
+                          [styles['is-truncated']]: truncate,
+                          [styles['with-display']]:
+                              truncate && !blockLevelTextElements.includes(Element),
+                      }),
+                  }
+                : undefined)}
             style={{
                 ...style,
                 ...(lines ? { '--lines': lines } : {}),
