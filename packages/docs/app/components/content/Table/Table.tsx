@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import classNames from 'classnames';
 import { generateThemeStyles } from '~/utils/generateThemeStyles';
 
-export function Table({ caption, columns, data, isStriped = true }: TableProps) {
+export function Table({ caption, columns, data, isStriped = true, ...htmlAttributes }: TableProps) {
     const keyedColumns = useMemo(
         () => columns.map((col) => ({ ...col, key: uuidv4() })),
         [columns],
@@ -21,6 +21,7 @@ export function Table({ caption, columns, data, isStriped = true }: TableProps) 
                     [styles['is-striped']]: isStriped === true,
                     [styles['is-striped-odd']]: isStriped === 'odd',
                 })}
+                {...htmlAttributes}
             >
                 <TableCaption caption={caption} />
                 <thead>
