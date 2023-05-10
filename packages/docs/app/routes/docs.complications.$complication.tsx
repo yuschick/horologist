@@ -1,6 +1,7 @@
 import type { V2_MetaFunction } from '@remix-run/node';
 import { useParams } from '@remix-run/react';
 import { CodeBlock } from '~/components/content/CodeBlock';
+import { Table } from '~/components/content/Table';
 import { Callout } from '~/components/feedback/Callout';
 import { Heading } from '~/components/typography/Heading';
 import { Text } from '~/components/typography/Text';
@@ -42,29 +43,24 @@ export default function DocsComplications() {
                     There are three display types when creating a Date Indicator complication. Each
                     type functions differently.
                 </Text>
-                <ul>
-                    <li>
-                        <Heading as="h3">Standard Displays</Heading>
-                        <Text>
-                            When dates 1-31 are shown on a single disc or with a single hand.
-                        </Text>
-                    </li>
-                    <li>
-                        <Heading as="h3">Retrograde Displays</Heading>
-                        <Text>
-                            When dates 1-31 are shown in a single semi-circle, often 180 or 90
-                            degrees and indicated with a single hand or disc.
-                        </Text>
-                    </li>
-                    <li>
-                        <Heading as="h3">Split Displays</Heading>
-                        <Text>
-                            When the date is displayed in two pieces, a ones (0-9) indicator and
-                            tenths (0-3) indicator, both rotated independently to form the full date
-                            value.
-                        </Text>
-                    </li>
-                </ul>
+                <dl>
+                    <Text as="dt">Standard Displays</Text>
+                    <Text as="dd">
+                        When dates 1-31 are shown on a single disc or with a single hand.
+                    </Text>
+
+                    <Text as="dt">Retrograde Displays</Text>
+                    <Text as="dd">
+                        When dates 1-31 are shown in a single semi-circle, often 180 or 90 degrees
+                        and indicated with a single hand or disc.
+                    </Text>
+
+                    <Text as="dt">Split Displays</Text>
+                    <Text as="dd">
+                        When the date is displayed in two pieces, a ones (0-9) indicator and tenths
+                        (0-3) indicator, both rotated independently to form the full date value.
+                    </Text>
+                </dl>
             </section>
 
             <section className="content-section">
@@ -126,6 +122,26 @@ export default function DocsComplications() {
                     type="alert"
                 />
                 <Text as="p">The id of the date indicator DOM element.</Text>
+
+                <Table
+                    caption="Details for the id setting"
+                    columns={[
+                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'required', heading: 'Required' },
+                        { dataKey: 'type', heading: 'Type' },
+                        { dataKey: 'default', heading: 'Default' },
+                        { dataKey: 'values', heading: 'Value(s)' },
+                    ]}
+                    data={[
+                        {
+                            prop: 'id',
+                            required: 'True *',
+                            type: 'String',
+                            default: '-',
+                            values: 'DOM element ID',
+                        },
+                    ]}
+                />
             </section>
 
             <section className="content-section">
@@ -137,6 +153,33 @@ export default function DocsComplications() {
                     type="alert"
                 />
                 <Text as="p">The id of the retrograde indicator DOM element.</Text>
+
+                <Table
+                    caption="Details for the retrograde setting"
+                    columns={[
+                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'required', heading: 'Required' },
+                        { dataKey: 'type', heading: 'Type' },
+                        { dataKey: 'default', heading: 'Default' },
+                        { dataKey: 'values', heading: 'Value(s)' },
+                    ]}
+                    data={[
+                        {
+                            prop: 'retrograde',
+                            required: 'True *',
+                            type: 'Object',
+                            default: '-',
+                            values: '-',
+                        },
+                        {
+                            prop: 'retrograde.max',
+                            required: 'True',
+                            type: 'Number',
+                            default: '-',
+                            values: 'The maximum rotation in degrees to reach the final date of the display. Often 90 or 180.',
+                        },
+                    ]}
+                />
             </section>
 
             <section className="content-section">
@@ -147,6 +190,26 @@ export default function DocsComplications() {
                     By default, Horologist will rotate elements in a clockwise direction. Use the
                     reverse prop to rotate the elements counter-clockwise.
                 </Text>
+
+                <Table
+                    caption="Details for the reverse setting"
+                    columns={[
+                        { dataKey: 'prop', heading: 'Prop' },
+                        { dataKey: 'required', heading: 'Required' },
+                        { dataKey: 'type', heading: 'Type' },
+                        { dataKey: 'default', heading: 'Default' },
+                        { dataKey: 'values', heading: 'Value(s)' },
+                    ]}
+                    data={[
+                        {
+                            prop: 'reverse',
+                            required: 'False',
+                            type: 'Boolean',
+                            default: '-',
+                            values: 'True / False',
+                        },
+                    ]}
+                />
             </section>
 
             <section className="content-section">
@@ -162,6 +225,40 @@ export default function DocsComplications() {
                     to display the date. Often seen as a big date display. The ones disc will
                     contain values 0-9 while the tenths disc would display 0-3.
                 </Text>
+
+                <Table
+                    caption="Details for the split setting"
+                    columns={[
+                        { dataKey: 'prop', heading: 'Prop', tx: { family: 'mono' } },
+                        { dataKey: 'required', heading: 'Required' },
+                        { dataKey: 'type', heading: 'Type' },
+                        { dataKey: 'default', heading: 'Default' },
+                        { dataKey: 'values', heading: 'Value(s)' },
+                    ]}
+                    data={[
+                        {
+                            prop: 'split',
+                            required: 'True *',
+                            type: 'Object',
+                            default: '-',
+                            values: '-',
+                        },
+                        {
+                            prop: 'split.ones',
+                            required: 'True',
+                            type: 'String',
+                            default: '-',
+                            values: 'DOM element ID',
+                        },
+                        {
+                            prop: 'split.tenths',
+                            required: 'True',
+                            type: 'String',
+                            default: '-',
+                            values: 'DOM element ID',
+                        },
+                    ]}
+                />
             </section>
         </>
     );

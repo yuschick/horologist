@@ -1,19 +1,22 @@
 .is-jump-to-heading {
     position: relative;
+    inline-size: fit-content;
 }
 
 .can-be-copied-link {
     position: absolute;
     inline-size: 100%;
-    block-size: 1em;
+    block-size: 100%;
     inset-inline-start: 0;
     inset-block-start: 0;
 
     &:hover > span::before {
         position: absolute;
         color: currentColor;
-        font-size: 0.75em;
+        font-size: 1em;
         content: '#';
         inset-inline-start: -0.7em;
+        inset-block-start: 50%;
+        translate: 0 -50%;
     }
 }
