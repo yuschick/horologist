@@ -4,8 +4,10 @@ import { Page } from '~/components/layout/Page';
 import { NavigationSidebar } from '~/components/layout/NavigationSidebar';
 import { Text } from '~/components/typography/Text';
 
-import styles from '~/styles/routes/index.module.css';
+import styles from '~/styles/routes/docs.module.css';
 import { Main } from '~/components/layout/Main';
+import { SubNavigationSidebar } from '~/components/layout/SubNavigationSidebar';
+import { Link } from '~/components/navigation/Link';
 
 export default function Docs() {
     return (
@@ -93,7 +95,50 @@ export default function Docs() {
             <Main>
                 <Outlet />
             </Main>
-            <aside>sub nav</aside>
+            <SubNavigationSidebar>
+                <nav className={styles['navigation-section']} title="On This Page">
+                    <Text
+                        className={styles['navigation-heading']}
+                        tx={{ color: 'brand-primary', family: 'secondary', weight: '500' }}
+                    >
+                        On This Page
+                    </Text>
+                    <ul className={styles['sub-navigation-list']}>
+                        <li>
+                            <Link to="#main-content" aria-current="location">
+                                Overview
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="#demo">Demo</Link>
+                        </li>
+                        <li>
+                            <Link to="#how-it-works">How It Works</Link>
+                        </li>
+                        <li>
+                            <Link to="#design-considerations">Design Considerations</Link>
+                        </li>
+                        <li>
+                            <Link to="#settings">Settings</Link>
+
+                            <ul className={styles['sub-navigation-list-sub']}>
+                                <li>
+                                    <Link to="#settings-id">id</Link>
+                                </li>
+                                <li>
+                                    <Link to="#settings-retrograde">retrograde</Link>
+                                </li>
+                                <li>
+                                    <Link to="#settings-reverse">reverse</Link>
+                                </li>
+                                <li>
+                                    <Link to="#settings-split">split</Link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </SubNavigationSidebar>
         </Page>
     );
 }

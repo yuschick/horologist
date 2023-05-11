@@ -26,9 +26,10 @@ export default function DocsComplications() {
             <section className={styles['content-section']}>
                 <Heading>{prettyHeading}</Heading>
                 <Text as="p">
-                    A date complication is common in the world of watchmaking, but comes in several
-                    different variations, such as single displays, split displays, and retrograde
-                    indicators.
+                    A date indicator is a watch function that displays the current date of the
+                    month. It can come in various forms, such as a small window or a sub-dial. The
+                    most common is a simple aperture located at the 3 o'clock or 6 o'clock position.
+                    Other forms include retrograde displays or perpetual calendars.
                 </Text>
             </section>
 
