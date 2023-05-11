@@ -10,6 +10,7 @@ import { kebabToTitle } from '~/utils/stringUtils';
 import styles from '~/styles/routes/docs.module.css';
 import { List } from '~/components/content/List';
 import { DescriptionList } from '~/components/content/DescriptionList';
+import { SandboxDemo } from '~/components/content/SandboxDemo';
 
 // TODO: Add og tags to meta function
 export const meta: V2_MetaFunction = ({ params }) => {
@@ -37,7 +38,7 @@ export default function DocsComplications() {
                 <Heading as="h2" id="demo" isJumpToHeading>
                     Demo
                 </Heading>
-                <Text>Demo code sandbox</Text>
+                <SandboxDemo />
             </section>
 
             <section className={styles['content-section']}>
