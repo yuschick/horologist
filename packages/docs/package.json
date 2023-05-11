@@ -38,6 +38,7 @@
         "typecheck": "tsc"
     },
     "dependencies": {
+        "@codesandbox/sandpack-react": "^2.6.3",
         "@netlify/functions": "^1.4.0",
         "@remix-run/css-bundle": "^1.16.0",
         "@remix-run/netlify": "^1.16.0",
