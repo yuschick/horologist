@@ -1,0 +1,7 @@
+.sub-navigation-sidebar {
+    position: sticky;
+    inline-size: clamp(200px, 30vi, 250px);
+    grid-area: subNav;
+    align-self: start;
+    inset-block-start: var(--page-header-size, 0);
+}
