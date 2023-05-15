@@ -68,7 +68,7 @@
         "stylelint": "^15.6.1",
         "stylelint-config-rational-order": "^0.1.2",
         "stylelint-config-standard": "^33.0.0",
-        "stylelint-plugin-defensive-css": "^0.2.0",
+        "stylelint-plugin-defensive-css": "^0.5.0",
         "stylelint-plugin-logical-css": "^0.9.1",
         "typescript": "^5.0.4"
     },

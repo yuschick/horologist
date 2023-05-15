@@ -3,11 +3,15 @@
     --page-wrapper-gap: var(--h-space-base-8) var(--h-space-base-12);
 
     display: grid;
-    grid-template: var(--page-header-size, max-content) 1fr / max-content minmax(0, 1fr) max-content;
-    grid-template-areas: 'header header header' 'nav main subNav';
+    grid-template: var(--page-header-size, max-content) 1fr / min-content minmax(
+            0,
+            var(--h-max-content-length)
+        );
+    grid-template-areas: 'header header header' 'nav main main';
     gap: var(--page-wrapper-gap, var(--h-space-base-4));
     align-items: start;
     min-block-size: 100vb;
+    justify-content: start;
     max-inline-size: 1400px;
     margin-inline: auto;
 }

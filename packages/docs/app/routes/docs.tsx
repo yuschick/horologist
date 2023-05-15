@@ -95,50 +95,6 @@ export default function Docs() {
             <Main>
                 <Outlet />
             </Main>
-            <SubNavigationSidebar>
-                <nav className={styles['navigation-section']} title="On This Page">
-                    <Text
-                        className={styles['navigation-heading']}
-                        tx={{ color: 'brand-primary', family: 'secondary', weight: '500' }}
-                    >
-                        On This Page
-                    </Text>
-                    <ul className={styles['sub-navigation-list']}>
-                        <li>
-                            <Link to="#main-content" aria-current="location">
-                                Overview
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="#demo">Demo</Link>
-                        </li>
-                        <li>
-                            <Link to="#how-it-works">How It Works</Link>
-                        </li>
-                        <li>
-                            <Link to="#design-considerations">Design Considerations</Link>
-                        </li>
-                        <li>
-                            <Link to="#settings">Settings</Link>
-
-                            <ul className={styles['sub-navigation-list-sub']}>
-                                <li>
-                                    <Link to="#settings-id">id</Link>
-                                </li>
-                                <li>
-                                    <Link to="#settings-retrograde">retrograde</Link>
-                                </li>
-                                <li>
-                                    <Link to="#settings-reverse">reverse</Link>
-                                </li>
-                                <li>
-                                    <Link to="#settings-split">split</Link>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </SubNavigationSidebar>
         </Page>
     );
 }
