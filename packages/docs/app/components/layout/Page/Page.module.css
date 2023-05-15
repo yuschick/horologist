@@ -14,7 +14,7 @@
 
 .page-header {
     position: sticky;
-    z-index: 1;
+    z-index: 3; /* Use 3 to stay above sandpack widget */
     display: flex;
     flex-wrap: wrap;
     grid-area: header;
