@@ -1,83 +1,84 @@
-# Welcome to Remix!
+<p align="center">
+  <img src="assets/horologist-repo-image.jpg" alt="Horologist Logo - Making digital time mechanical" />
+</p>
 
--   [Remix Docs](https://remix.run/docs)
--   [Netlify Functions](https://www.netlify.com/products/functions/)
+Horologist is a JavaScript library for animating DOM elements to represent time in the same ways as
+many of the world's greatest haute horologist watchmakers. It supports and enables many of the
+different watchmaking complications and variations such as chronographs, minute repeaters, multiple
+time zones, perpetual calendars and more.
 
-## Netlify Setup
+![Horologist License](https://img.shields.io/github/license/yuschick/horologist?style=for-the-badge)
+![NPM Version](https://img.shields.io/npm/v/horologist?style=for-the-badge)
 
-1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
+## Demos
 
-```sh
-npm i -g netlify-cli
+See the Horologist library in action.
+
+-   [A. Lange & Söhne - Datograph Perpetual Tourbillon](https://codepen.io/DanielYuschick/pen/gOemjmY)
+-   [A. Lange & Söhne - Zeitwerk](https://codepen.io/DanielYuschick/pen/yYeRPm)
+-   [F.P. Journe - Tourbillon](https://codepen.io/DanielYuschick/pen/QyoPoq)
+-   [Kari Voutilainen - GMR](https://codepen.io/DanielYuschick/pen/wvmJMEX)
+-   [Speake-Marin - Velsheda](https://codepen.io/DanielYuschick/pen/ZYLdmQ)
+
+## Getting Started
+
+To get started, first install `horologist` into your project.
+
+```bash
+npm i horologist
 ```
 
-If you have previously installed the Netlify CLI, you should update it to the latest version:
-
-```sh
-npm i -g netlify-cli@latest
+```
+yarn add horologist
 ```
 
-2. Sign up and log in to Netlify:
+With the package installed, import the main `Watch` class, instantiate it with its settings, and
+call the `start()` method.
 
-```sh
-netlify login
+```jsx
+import { Watch } from 'horologist';
+
+const settings = {
+    id: "k0-seasons",
+    dials: [{ ... }],
+    moonphase: { ... },
+};
+
+const Sarpaneva = new Watch(settings);
+Sarpaneva.start();
 ```
 
-3. Create a new site:
+## Complications
 
-```sh
-netlify init
-```
+Horologist aims to recreate the work of haute horology watchmaking in a digital format by emulating
+many of the handmade complications and variations. View each complication to learn more about it,
+its features and settings API.
 
-## Development
+| Complication          | Documentation                                           | Description                                                                                                                       |
+| --------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Chronograph           | [Docs](../horologist/src/components/Chronograph/)       | Also referred to as a “stopwatch” function, a chronograph typically uses subdials to keep track of seconds, minutes, and hours.   |
+| Date Indicator        | [Docs](../horologist/src/components/DateIndicator/)     | A date calendar shows the date of the month.                                                                                      |
+| Day Indicator         | [Docs](../horologist/src/components/DayIndicator/)      | A day calendar shows the day of the week.                                                                                         |
+| Day / Night Indicator | [Docs](../horologist/src/components/DayNightIndicator/) | A day/night indicator can be a two-color disc showing day or night through either light and dark coloured segments.               |
+| Dial                  | [Docs](../horologist/src/components/Dial/)              | A dial serves to indicate hours, minutes and seconds.                                                                             |
+| Equation of Time      | [Docs](../horologist/src/components/EquationOfTime/)    | The equation of time is the difference between true solar time and mean time.                                                     |
+| Foudroyante           | [Docs](../horologist/src/components/Foudroyante/)       | A hand that makes one rotation every second, pausing two thru ten times to indicate fractions of a second.                        |
+| Leap Year Indicator   | [Docs](../horologist/src/components/LeapYearIndicator/) | A mechanism to indicate the current year's relationships to the next leap year.                                                   |
+| Minute Repeater       | [Docs](../horologist/src/components/MinuteRepeater/)    | A highly complicated watch function that audibly strikes the time in hours, quarter hours, and/or minutes.                        |
+| Month Indicator       | [Docs](../horologist/src/components/MonthIndicator/)    | A month indicator displays the current month of the year.                                                                         |
+| Moonphase             | [Docs](../horologist/src/components/Moonphase/)         | Displays new moon, first quarter moon, full moon, and last quarter moon by means of a disk that rotates beneath a small aperture. |
+| Power Reserve         | [Docs](../horologist/src/components/PowerReserve/)      | A subdial or gauge used to display how much power remains before the watch stops.                                                 |
+| Watch                 | [Docs](../horologist/src/components/Watch/)             | The root class which controls all complications.                                                                                  |
+| Week Indicator        | [Docs](../horologist/src/components/WeekIndicator/)     | A week calendar displays the current week of the year in either standard or ISO formats.                                          |
 
-The Remix dev server starts your app in development mode, rebuilding assets on file changes. To
-start the Remix dev server:
+## Mentions
 
-```sh
-npm run dev
-```
+There are a few libraries that allow Horologist to be its best, and they should be acknowledged.
 
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
+-   [date-fns](https://date-fns.org/)
+-   [lunarphase-js](https://github.com/jasonsturges/lunarphase-js)
+-   [suntimes](https://github.com/doniseferi/suntimes)
 
-The Netlify CLI builds a production version of your Remix App Server and splits it into Netlify
-Functions that run locally. This includes any custom Netlify functions you've developed. The Netlify
-CLI runs all of this in its development mode.
+## Contact
 
-```sh
-netlify dev
-```
-
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
-
-Note: When running the Netlify CLI, file changes will rebuild assets, but you will not see the
-changes to the page you are on unless you do a browser refresh of the page. Due to how the Netlify
-CLI builds the Remix App Server, it does not support hot module reloading.
-
-## Deployment
-
-There are two ways to deploy your app to Netlify, you can either link your app to your git repo and
-have it auto deploy changes to Netlify, or you can deploy your app manually. If you've followed the
-setup instructions already, all you need to do is run this:
-
-```sh
-# preview deployment
-netlify deploy --build
-
-# production deployment
-netlify deploy --build --prod
-```
-
-# Horologist
-
-## Prop Conventions
-
--   Theme-related properties are styled using the theme extension (`tx`) prop
--   Non-theme-related styling properties are applied using a `className`
--   All functional component props live on the component root level
-
-## TODO
-
--   add import sorting
--   look into css nano or class name minimizing
--   add TX props to each of the component
+[@danielyuschick on Twitter](http://www.twitter.com/danielyuschick)
