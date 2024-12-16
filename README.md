@@ -81,4 +81,4 @@ There are a few libraries that allow Horologist to be its best, and they should 
 
 ## Contact
 
-[@danielyuschick on Bluesky]([http://www.twitter.com/danielyuschick](https://bsky.app/profile/daniel-yuschick.bsky.social))
+[@danielyuschick on Bluesky](http://www.twitter.com/danielyuschick](https://bsky.app/profile/daniel-yuschick.bsky.social)
