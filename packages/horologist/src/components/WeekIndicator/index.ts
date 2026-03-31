@@ -1,2 +1,2 @@
-export * from './WeekIndictor';
+export * from './WeekIndicator';
 export * from './WeekIndicator.types';

@@ -42,7 +42,7 @@ export class Foudroyante implements FoudroyanteClass {
      */
     init() {
         if (this.hasError) return;
-        this.startInterview();
+        this.startInterval();
     }
 
     /*
@@ -71,7 +71,7 @@ export class Foudroyante implements FoudroyanteClass {
     /*
      * Start the interval, effectively running the complication
      */
-    startInterview() {
+    startInterval() {
         this.interval = setInterval(() => {
             this.rotate();
         }, this.stepDuration);

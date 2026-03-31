@@ -8,7 +8,7 @@ export default {
             hours_hand_not_found: 'The Chronograph Hours Hand element could not be found.',
             minutes_hand_not_found: 'The Chronograph Minutes Hand element could not be found.',
             mono_pusher_cannot_support_rattrapante:
-                'A Mono Pusher chronograph cannot support Rattrapante functionality. The watch much be either a Dual or Tri Pusher."',
+                'A Mono Pusher chronograph cannot support Rattrapante functionality. The watch must be either a Dual or Tri Pusher.',
             seconds_hand_not_found: 'The Chronograph Seconds Hand element could not be found.',
             split_hours_hand_not_found:
                 'The Chronograph Rattrapante Hours Hand element could not be found.',

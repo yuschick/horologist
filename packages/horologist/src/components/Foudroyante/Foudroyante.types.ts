@@ -3,7 +3,7 @@ export interface FoudroyanteClass {
     readonly init: () => void;
     readonly clearInterval: () => void;
     readonly rotate: () => void;
-    readonly startInterview: () => void;
+    readonly startInterval: () => void;
 }
 
 export interface FoudroyanteOptions {
